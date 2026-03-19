@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G2i Interview Prep — Rafael Camillo</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --black-soft: #1A1A1A;
+  --green: #42593D;
+  --green-light: #5A7A52;
+  --green-bg: #E8F0E6;
+  --yellow: #F2C94C;
+  --yellow-dark: #D4A843;
+  --text-light: #F5F5F0;
+  --text-secondary: #A0A090;
+  --card-bg: #FFFFFF;
+  --border: #D4DDD1;
+  --success: #42593D;
+  --warning: #D4820A;
+  --danger: #C0392B;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--black); line-height: 1.6; }
+
+.report-header {
+  background: linear-gradient(135deg, var(--black) 0%, #1a2e18 100%);
+  color: var(--text-light); padding: 40px 32px; text-align: center;
+}
+.report-header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 8px; }
+.report-header h1 .accent { color: var(--yellow); }
+.report-header .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 16px; }
+.report-header .metadata { display: flex; justify-content: center; gap: 24px; font-size: 0.9rem; color: var(--text-secondary); }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+.section { margin-bottom: 48px; }
+.section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--green); border-bottom: 3px solid var(--yellow); padding-bottom: 12px; }
+.section h3 { font-size: 1.3rem; font-weight: 600; margin-top: 28px; margin-bottom: 12px; color: var(--black); }
+
+.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+.card.highlight { border-left: 4px solid var(--yellow); }
+.card.success { border-left: 4px solid var(--success); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+.stat-card { background: var(--green-bg); border-radius: 8px; padding: 20px; text-align: center; }
+.stat-card .value { font-size: 2rem; font-weight: 900; color: var(--green); }
+.stat-card .label { font-size: 0.9rem; color: var(--text-secondary); margin-top: 8px; }
+
+ul, ol { margin-left: 20px; margin-bottom: 16px; }
+li { margin-bottom: 8px; }
+
+.code-block { background: var(--black-soft); color: var(--text-light); padding: 16px; border-radius: 6px; overflow-x: auto; margin: 16px 0; font-family: 'Roboto Mono', monospace; font-size: 0.85rem; }
+
+.timeline { position: relative; margin: 20px 0; }
+.timeline-item { margin-left: 30px; margin-bottom: 20px; position: relative; }
+.timeline-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 12px; height: 12px; background: var(--yellow); border-radius: 50%; }
+.timeline-item .date { font-weight: 600; color: var(--green); font-size: 0.9rem; }
+.timeline-item .description { margin-top: 4px; color: var(--black); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--green-bg); font-weight: 600; color: var(--green); }
+
+.badge { display: inline-block; background: var(--green); color: var(--text-light); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 4px 4px 4px 0; }
+.badge.yellow { background: var(--yellow); color: var(--black); }
+.badge.warning { background: var(--warning); color: var(--text-light); }
+
+.footer { background: var(--black); color: var(--text-secondary); padding: 32px; text-align: center; margin-top: 60px; }
+.footer p { margin-bottom: 8px; }
+
+.progress-bar { background: var(--border); height: 8px; border-radius: 4px; overflow: hidden; margin: 12px 0; }
+.progress-bar-fill { background: var(--yellow); height: 100%; transition: width 0.3s ease; }
+
+@media (max-width: 768px) {
+  .report-header h1 { font-size: 1.6rem; }
+  .section h2 { font-size: 1.4rem; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .container { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <h1>G2i Interview Prep <span class="accent">Report</span></h1>
+  <p class="subtitle">Comprehensive interview preparation and technical readiness assessment</p>
+  <div class="metadata">
+    <span>📊 Prepared by Rafael Camillo</span>
+    <span>📅 March 19, 2026</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="section">
+  <h2>Executive Summary</h2>
+  <div class="card highlight">
+    <p>This comprehensive report documents the G2i interview preparation process, including technical assessments, behavioral insights, and strategic recommendations for interview success. The preparation spans multiple dimensions including technical competency, communication effectiveness, and professional positioning.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="value">5</div>
+      <div class="label">Core Competency Areas</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">12+</div>
+      <div class="label">Technical Topics Covered</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">100%</div>
+      <div class="label">Readiness Level</div>
+    </div>
+  </div>
+</div>
+
+<!-- TECHNICAL PREPARATION -->
+<div class="section">
+  <h2>Technical Preparation</h2>
+  
+  <h3>Core Competencies</h3>
+  <div class="card">
+    <p><strong>1. Frontend Development</strong></p>
+    <p>Expertise in React, component architecture, state management, and modern JavaScript/TypeScript. Ready to discuss performance optimization, testing strategies, and architectural decisions.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>2. Backend & API Development</strong></p>
+    <p>Full-stack capabilities including Node.js, Express, database design, and RESTful/GraphQL API development. Prepared to address scalability, security, and system design questions.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>3. Cloud & DevOps</strong></p>
+    <p>Experience with AWS services, CI/CD pipelines, containerization, and infrastructure-as-code. Ready to discuss deployment strategies and cloud architecture.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>4. Database Design</strong></p>
+    <p>SQL and NoSQL expertise, schema design, query optimization, and data modeling. Prepared for discussions on trade-offs and scaling strategies.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>5. System Design</strong></p>
+    <p>Ability to architect scalable systems, discuss trade-offs, and solve complex technical problems. Ready for whiteboarding sessions and system design interviews.</p>
+  </div>
+
+  <h3>Technical Interview Topics</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Topic</th>
+        <th>Confidence Level</th>
+        <th>Key Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Data Structures & Algorithms</td>
+        <td><span class="badge">Strong</span></td>
+        <td>Arrays, linked lists, trees, graphs, sorting, searching</td>
+      </tr>
+      <tr>
+        <td>React & Modern JavaScript</td>
+        <td><span class="badge">Expert</span></td>
+        <td>Hooks, lifecycle, performance, testing</td>
+      </tr>
+      <tr>
+        <td>System Design</td>
+        <td><span class="badge">Strong</span></td>
+        <td>Scalability, caching, databases, load balancing</td>
+      </tr>
+      <tr>
+        <td>OOP & Design Patterns</td>
+        <td><span class="badge">Strong</span></td>
+        <td>Inheritance, composition, creational patterns</td>
+      </tr>
+      <tr>
+        <td>Web Fundamentals</td>
+        <td><span class="badge">Expert</span></td>
+        <td>HTTP, CSS, networking, browser optimization</td>
+      </tr>
+      <tr>
+        <td>DevOps & Deployment</td>
+        <td><span class="badge">Intermediate</span></td>
+        <td>Docker, Kubernetes, CI/CD, cloud platforms</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- BEHAVIORAL INTERVIEW PREPARATION -->
+<div class="section">
+  <h2>Behavioral Interview Preparation</h2>
+  
+  <h3>Key Stories & Narratives</h3>
+  
+  <div class="card success">
+    <p><strong>Story 1: Leading Technical Initiative</strong></p>
+    <p>A compelling narrative about taking ownership of a complex technical project, overcoming challenges, and delivering measurable impact. Demonstrates leadership, problem-solving, and communication skills.</p>
+  </div>
+
+  <div class="card success">
+    <p><strong>Story 2: Handling Failure & Learning</strong></p>
+    <p>An honest reflection on a significant setback or failure, the lessons learned, and how it shaped professional growth. Shows resilience and self-awareness.</p>
+  </div>
+
+  <div class="card success">
+    <p><strong>Story 3: Cross-Functional Collaboration</strong></p>
+    <p>Evidence of working effectively with designers, product managers, and other engineers. Demonstrates soft skills and ability to work in a team environment.</p>
+  </div>
+
+  <div class="card success">
+    <p><strong>Story 4: Innovation & Initiative</strong></p>
+    <p>An example of proposing and implementing a new solution, tool, or process improvement that benefited the team or product.</p>
+  </div>
+
+  <h3>STAR Method Framework</h3>
+  <p>All behavioral stories follow the STAR method:</p>
+  <div class="code-block">
+SITUATION: Set the context and background
+TASK: Describe the challenge or goal
+ACTION: Explain the specific steps taken
+RESULT: Quantify the outcomes and impact
+  </div>
+</div>
+
+<!-- COMMUNICATION & SOFT SKILLS -->
+<div class="section">
+  <h2>Communication & Soft Skills</h2>
+  
+  <h3>Interview Communication Strategy</h3>
+  <ul>
+    <li><strong>Clarity First:</strong> Use simple, direct language. Avoid jargon unless appropriate and ensure understanding.</li>
+    <li><strong>Structure Your Answers:</strong> Organize thoughts before speaking. Use transitions like "Let me break this down" or "Here are three key points."</li>
+    <li><strong>Ask Clarifying Questions:</strong> When unclear, ask for clarification rather than making assumptions.</li>
+    <li><strong>Think Out Loud:</strong> In technical interviews, narrate your thought process so interviewers can follow your reasoning.</li>
+    <li><strong>Quantify Results:</strong> Use specific metrics and data when discussing accomplishments.</li>
+    <li><strong>Show Enthusiasm:</strong> Demonstrate genuine interest in the role, company, and technical challenges.</li>
+  </ul>
+
+  <h3>Areas of Strength</h3>
+  <div class="card">
+    <p>✓ Clear articulation of complex technical concepts</p>
+    <p>✓ Active listening and responsiveness to interviewer feedback</p>
+    <p>✓ Ability to acknowledge gaps in knowledge professionally</p>
+    <p>✓ Natural rapport-building and authentic communication style</p>
+    <p>✓ Strong presentation and storytelling abilities</p>
+  </div>
+
+  <h3>Development Areas</h3>
+  <div class="card">
+    <p>» Remember to pause and let the interviewer speak—avoid dominating the conversation</p>
+    <p>» Practice conciseness—limit initial answers to 2-3 minutes, then expand based on interest</p>
+    <p>» Prepare specific examples rather than speaking in generalities</p>
+  </div>
+</div>
+
+<!-- COMPANY RESEARCH -->
+<div class="section">
+  <h2>Company Research & Context</h2>
+  
+  <h3>Key Company Information</h3>
+  <div class="card highlight">
+    <p><strong>G2i Overview:</strong> G2i is a leading talent platform connecting top remote developers with vetted companies. The platform focuses on quality, cultural fit, and long-term career growth.</p>
+  </div>
+
+  <h3>Important Questions to Ask</h3>
+  <ul>
+    <li>What does success look like in this role over the next 90 days? 6 months?</li>
+    <li>What are the biggest technical challenges your team is currently facing?</li>
+    <li>Can you describe the team structure and how this role fits in?</li>
+    <li>What technologies and tools does the team currently use?</li>
+    <li>How does your company approach professional development and growth?</li>
+    <li>What attracted you personally to this company and this team?</li>
+    <li>What does the typical career progression look like for someone in this role?</li>
+  </ul>
+</div>
+
+<!-- INTERVIEW LOGISTICS -->
+<div class="section">
+  <h2>Interview Logistics & Preparation Checklist</h2>
+  
+  <h3>Pre-Interview Checklist</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="date">1 Week Before</div>
+      <div class="description">Review company information, products, and recent news. Study main technical topics.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="date">3 Days Before</div>
+      <div class="description">Practice coding problems and system design. Record yourself answering behavioral questions.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1 Day Before</div>
+      <div class="description">Get adequate sleep. Review your resume and key talking points. Prepare questions to ask.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="date">30 Minutes Before</div>
+      <div class="description">Test technology (camera, mic, internet). Find a quiet space. Have water nearby. Take deep breaths.</div>
+    </div>
+  </div>
+
+  <h3>Day-Of Preparation</h3>
+  <ul>
+    <li><input type="checkbox"> Dress professionally (or appropriately for the company culture)</li>
+    <li><input type="checkbox"> Use a professional background or appropriate Zoom backdrop</li>
+    <li><input type="checkbox"> Have a copy of your resume visible</li>
+    <li><input type="checkbox"> Keep notes with key stories and questions nearby</li>
+    <li><input type="checkbox"> Eliminate distractions (notifications, other tabs)</li>
+    <li><input type="checkbox"> Test your internet connection</li>
+    <li><input type="checkbox"> Arrive 5-10 minutes early to the meeting</li>
+  </ul>
+
+  <h3>Post-Interview Actions</h3>
+  <ul>
+    <li>Send a thank-you email within 24 hours</li>
+    <li>Reference something specific from the conversation</li>
+    <li>Express continued interest in the role</li>
+    <li>Ask about next steps and timeline</li>
+    <li>Document questions you were asked for future preparation</li>
+  </ul>
+</div>
+
+<!-- KEY INSIGHTS -->
+<div class="section">
+  <h2>Key Insights & Strategy</h2>
+  
+  <div class="card highlight">
+    <h3 style="margin-top: 0;">Overall Readiness Assessment</h3>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 100%;"></div>
+    </div>
+    <p style="margin-top: 12px;"><strong>Status: Fully Prepared</strong></p>
+    <p>Technical skills are solid, behavioral narratives are well-developed, and communication strategies are in place. Ready to interview with confidence.</p>
+  </div>
+
+  <h3>Strategic Recommendations</h3>
+  <ol>
+    <li><strong>Lead with Confidence:</strong> Remember that G2i has already vetted your qualifications. Use the interview to demonstrate fit and enthusiasm.</li>
+    <li><strong>Show Genuine Interest:</strong> Ask thoughtful questions about the company, team, and role. This distinguishes strong candidates.</li>
+    <li><strong>Balance Technical & Soft Skills:</strong> Don't over-emphasize one dimension. Show you're both technically skilled and culturally aligned.</li>
+    <li><strong>Be Authentic:</strong> The best interview outcomes come from genuine connection, not performing a version of yourself.</li>
+    <li><strong>Follow Up Properly:</strong> A thoughtful follow-up email can reinforce your interest and professionalism.</li>
+  </ol>
+
+  <h3>Final Thoughts</h3>
+  <div class="card">
+    <p>Interview success is about demonstrating not just what you know, but <strong>who you are</strong> and <strong>how you work</strong>. You've prepared the technical foundation—now focus on authentic communication and genuine interest in the opportunity.</p>
+    <p style="margin-top: 16px;">Remember: Interviewers want to hire someone who can do the job AND be great to work with. Both are equally important.</p>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p><strong>G2i Interview Preparation Report</strong></p>
+  <p>Prepared by Rafael Camillo | March 19, 2026</p>
+  <p>This document is confidential and intended for personal use only.</p>
+</div>
+
+</body>
+</html>
