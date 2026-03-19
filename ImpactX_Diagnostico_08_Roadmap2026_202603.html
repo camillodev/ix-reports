@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Roadmap 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-dark:#5A1E9A;--purple-light:#F3EAFF;--purple-x:#9B59D4;--text:#1A1A2E;--text-sec:#555577;--bg:#FAFAFA;--card:#FFFFFF;--border:#E0D4F5;--green:#1A7A4A;--green-bg:#E8F5EE;--orange:#D4820A;--orange-bg:#FEF3E2;--red:#C0392B;--red-bg:#FDECEA;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
+.hdr{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:white;padding:48px 64px 40px;}
+.hdr-brand{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:16px;}.hdr-brand span{color:#C9A3F5;}
+.hdr-title{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:12px;}
+.hdr-sub{font-size:16px;opacity:.85;font-weight:300;}
+.hdr-meta{display:flex;gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;opacity:.8;flex-wrap:wrap;}
+.content{padding:8px 64px 48px;max-width:1000px;}
+section{margin-bottom:48px;}
+h1{font-size:26px;font-weight:800;color:var(--purple-dark);padding-bottom:10px;border-bottom:3px solid var(--purple);margin-bottom:20px;margin-top:40px;}
+h2{font-size:19px;font-weight:700;color:var(--purple);margin:28px 0 12px;}
+h3{font-size:15px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;margin:20px 0 8px;}
+p{margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(123,47,190,.08);}
+thead tr{background:var(--purple);color:white;}
+thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:13px;letter-spacing:.5px;}
+tbody tr:nth-child(even){background:var(--purple-light);}
+tbody tr:nth-child(odd){background:var(--card);}
+tbody td{padding:10px 16px;border-bottom:1px solid var(--border);}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}.callout-body{}.callout-title{font-weight:700;font-size:14px;margin-bottom:4px;}.callout-text{font-size:14px;line-height:1.6;}
+.callout.info{background:var(--purple-light);border-left:4px solid var(--purple);}.callout.info .callout-title{color:var(--purple-dark);}
+.callout.success{background:var(--green-bg);border-left:4px solid var(--green);}.callout.success .callout-title{color:var(--green);}
+.callout.warning{background:var(--orange-bg);border-left:4px solid var(--orange);}.callout.warning .callout-title{color:var(--orange);}
+.callout.danger{background:var(--red-bg);border-left:4px solid var(--red);}.callout.danger .callout-title{color:var(--red);}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0;}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(123,47,190,.06);}
+.metric-value{font-size:30px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
+.metric-label{font-size:12px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:500;}
+ul,ol{padding-left:22px;margin-bottom:12px;}li{margin:5px 0;}
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:20px 0;}
+.flow-step{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;min-width:140px;}
+.flow-step strong{display:block;font-size:14px;color:var(--purple);margin-bottom:4px;}
+.flow-step span{font-size:12px;color:var(--text-sec);}
+.flow-arrow{font-size:24px;color:var(--purple);padding:0 8px;}
+.tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.tag-confirmed{background:var(--green-bg);color:var(--green);}
+.tag-inferred{background:var(--orange-bg);color:var(--orange);}
+.tag-benchmark{background:var(--purple-light);color:var(--purple);}
+.phase{background:var(--card);border-left:6px solid var(--purple);border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(123,47,190,.06);}
+.phase h2{margin-top:0;}
+footer{background:var(--text);color:rgba(255,255,255,.6);text-align:center;padding:24px;font-size:13px;margin-top:48px;}
+footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}footer .brand .x{color:var(--purple-x);}
+@media print{body{background:white;font-size:12px;}.hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}thead tr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}section{page-break-inside:avoid;}footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-brand">IMPACT <span>X</span> — DIAGNÓSTICO EXECUTIVO 2026</div>
+  <div class="hdr-title">08 · Roadmap 2026</div>
+  <div class="hdr-sub">Q2, Q3 e Q4 de 2026 — objetivos, entregas, dependências, validações, riscos e critérios de sucesso</div>
+  <div class="hdr-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo · CEO & Founder</span>
+    <span>🔒 Confidencial</span>
+    <span>📄 Arquivo 8 de 9</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>1. Visão Geral do Roadmap</h1>
+
+<p>O roadmap 2026 é estruturado em três quarters com sprints mensais. Cada quarter possui objetivos, entregas, dependências, riscos e critérios de Go/No-Go. A execução é sequencial: se um critério não for atingido, o quarter seguinte será ajustado ou a operação será pausada.</p>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">Q2</div><div class="metric-label">Abr-Jun: Fundação + Primeiros Devs</div></div>
+  <div class="metric-card"><div class="metric-value">Q3</div><div class="metric-label">Jul-Set: Escala + Diversificação</div></div>
+  <div class="metric-card"><div class="metric-value">Q4</div><div class="metric-label">Out-Dez: Consolidação + Crescimento</div></div>
+  <div class="metric-card"><div class="metric-value">2027+</div><div class="metric-label">Café/Coworking: Fora do Roadmap</div></div>
+</div>
+
+<div class="callout info">
+  <div class="callout-icon">ℹ️</div>
+  <div class="callout-body">
+    <div class="callout-title">Estrutura Go/No-Go</div>
+    <div class="callout-text">O roadmap é dividido por quarter com sprints mensais. Cada quarter tem critérios de Go/No-Go claros. Se um critério não for atingido, o quarter seguinte deve ser ajustado.</div>
+  </div>
+</div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<div class="phase">
+<h2>Q2 — Abril a Junho 2026: Fundação</h2>
+
+<h3>Objetivos Q2</h3>
+<ul>
+  <li>Estruturar Impact X juridicamente (CNPJ, contratos, contas)</li>
+  <li>Fechar parceria G2i e alocar primeiros devs</li>
+  <li>Transicionar Kumon para Wy</li>
+  <li>Implementar automações financeiras Kumon</li>
+  <li>Atingir break-even Impact X</li>
+</ul>
+
+<h3>Entregas Q2</h3>
+<table>
+  <thead><tr><th>Sprint</th><th>Entrega</th><th>Responsável</th><th>Prazo</th></tr></thead>
+  <tbody>
+    <tr><td>Abr S1-S2</td><td>Abrir CNPJ Noir Labs</td><td>Rafa C. + Contador</td><td>Semana 2</td></tr>
+    <tr><td>Abr S1-S2</td><td>Assinar contratos PJ (Pimenta, Nicole)</td><td>Rafa C. + Advogado</td><td>Semana 2</td></tr>
+    <tr><td>Abr S1-S2</td><td>Assinar contrato MEI Wy (Kumon)</td><td>Pimenta + Wy</td><td>Semana 2</td></tr>
+    <tr><td>Abr S1-S2</td><td>Wise Business (conta USD)</td><td>Rafa C.</td><td>Semana 1</td></tr>
+    <tr><td>Abr S1-S2</td><td>Landing page Impact X ao ar</td><td>Nicole</td><td>Semana 2</td></tr>
+    <tr><td>Abr S2-S3</td><td>Email/LinkedIn para G2i (Gabe + Gabriela)</td><td>Pimenta</td><td>Semana 2</td></tr>
+    <tr><td>Abr S3</td><td>Call com G2i — validar parceria</td><td>Pimenta</td><td>Semana 3</td></tr>
+    <tr><td>Abr S3</td><td>Material de prep técnico async (5 devs)</td><td>Rafa C.</td><td>Semana 3</td></tr>
+    <tr><td>Abr S3-S4</td><td>Turma piloto: 5 devs em prep async</td><td>Rafa C. + Recruiter</td><td>Semana 3-4</td></tr>
+    <tr><td>Abr S4</td><td>Submissão primeiros candidatos ao G2i</td><td>Pimenta</td><td>Semana 4</td></tr>
+    <tr><td>Abr S4</td><td>Contratar Tech Recruiter freelance</td><td>Nicole</td><td>Semana 4</td></tr>
+    <tr><td>Abr S4</td><td>Kumon F1: Asaas + régua WhatsApp</td><td>Rafa C.</td><td>Semana 4</td></tr>
+    <tr><td>Mai</td><td>Primeiras alocações confirmadas</td><td>Pimenta + Nicole</td><td>Maio</td></tr>
+    <tr><td>Mai</td><td>Pipeline contínuo de submissões ativo</td><td>Recruiter + Nicole</td><td>Maio</td></tr>
+    <tr><td>Mai</td><td>Kumon F2: Google Meu Negócio + captação digital</td><td>Rafa C.</td><td>Maio</td></tr>
+    <tr><td>Jun</td><td>Break-even Impact X atingido (≥3 devs)</td><td>—</td><td>Junho</td></tr>
+    <tr><td>Jun</td><td>Kumon F3: Dashboard financeiro automático</td><td>Rafa C.</td><td>Junho</td></tr>
+    <tr><td>Jun</td><td>Nicole assume R$5k/mês</td><td>Rafa C.</td><td>Junho</td></tr>
+  </tbody>
+</table>
+
+<h3>Dependências Q2</h3>
+<table>
+  <thead><tr><th>Dependência</th><th>Bloqueada por</th><th>Risco</th></tr></thead>
+  <tbody>
+    <tr><td>Submissão G2i</td><td>Call de alinhamento com Gabe</td><td>Médio — se G2i não responder, atrasa 2-4 semanas</td></tr>
+    <tr><td>Alocação de devs</td><td>Aprovação no onboarding G2i</td><td>Alto — taxa de aprovação desconhecida</td></tr>
+    <tr><td>Automação Kumon</td><td>Asaas configurado + alunos cadastrados</td><td>Baixo — implementação técnica simples</td></tr>
+    <tr><td>Contrato Wy</td><td>Validação jurídica (franquia permite?)</td><td>Médio — consultar advogado</td></tr>
+  </tbody>
+</table>
+
+<h3>Riscos Q2</h3>
+<table>
+  <thead><tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigação</th></tr></thead>
+  <tbody>
+    <tr><td>G2i não responde em abril</td><td>Média</td><td>Alto</td><td>Follow-up semanal. LinkedIn + email simultâneo.</td></tr>
+    <tr><td>Taxa aprovação <50%</td><td>Média</td><td>Alto</td><td>Ajustar prep. Filtrar devs com inglês B2+.</td></tr>
+    <tr><td>Wy não funciona</td><td>Baixa</td><td>Médio</td><td>Pimenta backup. Nicole 2x/semana.</td></tr>
+    <tr><td>Burnout Rafa (3 frentes)</td><td>Alta</td><td>Alto</td><td>6h/dia max. Delegar tudo operacional.</td></tr>
+  </tbody>
+</table>
+
+<h3>Critérios de Sucesso Q2</h3>
+<table>
+  <thead><tr><th>KPI</th><th>Meta</th><th>Go/No-Go</th></tr></thead>
+  <tbody>
+    <tr><td>Devs alocados</td><td>≥3</td><td>GO se ≥2 · PAUSE se 0</td></tr>
+    <tr><td>G2i parceria ativa</td><td>Sim</td><td>BLOQUEANTE</td></tr>
+    <tr><td>Kumon operando com Wy</td><td>Sim</td><td>GO</td></tr>
+    <tr><td>Kumon inadimplência</td><td>≤4%</td><td>Meta, não bloqueante</td></tr>
+    <tr><td>Queima de caixa</td><td>≤R$50k acumulado</td><td>ABORT se >R$70k</td></tr>
+  </tbody>
+</table>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<div class="phase">
+<h2>Q3 — Julho a Setembro 2026: Escala</h2>
+
+<h3>Objetivos Q3</h3>
+<ul>
+  <li>Escalar para 10-15 devs alocados</li>
+  <li>Iniciar diversificação de canais (LinkedIn, Toptal)</li>
+  <li>Promover Tech Recruiter para PJ fixo</li>
+  <li>Avaliar critérios de saída do emprego CLT (se ainda tiver)</li>
+  <li>Kumon estável com 87+ alunos</li>
+</ul>
+
+<h3>Entregas Q3</h3>
+<table>
+  <thead><tr><th>Sprint</th><th>Entrega</th><th>Responsável</th></tr></thead>
+  <tbody>
+    <tr><td>Jul</td><td>8+ devs alocados</td><td>Pimenta + Recruiter</td></tr>
+    <tr><td>Jul</td><td>Tech Recruiter evolui para PJ R$4k/mês</td><td>Nicole</td></tr>
+    <tr><td>Jul</td><td>Apollo.io ativo: mapear 100 leads</td><td>Pimenta</td></tr>
+    <tr><td>Ago</td><td>10+ devs alocados</td><td>—</td></tr>
+    <tr><td>Ago</td><td>Aplicar Toptal/Turing como supplier</td><td>Nicole</td></tr>
+    <tr><td>Ago</td><td>Primeiro cliente fora G2i (meta)</td><td>Pimenta</td></tr>
+    <tr><td>Set</td><td>14+ devs alocados</td><td>—</td></tr>
+    <tr><td>Set</td><td>LinkedIn content plan ativo (3 posts/semana)</td><td>Pimenta</td></tr>
+    <tr><td>Set</td><td>Kumon: 87+ alunos, Wy 100% autônoma</td><td>Wy</td></tr>
+    <tr><td>Set</td><td>Avaliar Go/No-Go saída emprego CLT</td><td>Rafa C.</td></tr>
+  </tbody>
+</table>
+
+<h3>Critérios de Sucesso Q3</h3>
+<table>
+  <thead><tr><th>KPI</th><th>Meta</th><th>Go/No-Go</th></tr></thead>
+  <tbody>
+    <tr><td>Devs alocados</td><td>≥10</td><td>GO para Q4 se ≥8</td></tr>
+    <tr><td>Canais ativos</td><td>≥2</td><td>Diversificação iniciada</td></tr>
+    <tr><td>Resultado mensal Impact X</td><td>≥R$100k</td><td>Sustentável</td></tr>
+    <tr><td>Kumon resultado</td><td>≥R$5.800/mês</td><td>Kumon autônomo</td></tr>
+    <tr><td>Churn devs (trimestral)</td><td><20%</td><td>Saudável</td></tr>
+  </tbody>
+</table>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<div class="phase">
+<h2>Q4 — Outubro a Dezembro 2026: Consolidação</h2>
+
+<h3>Objetivos Q4</h3>
+<ul>
+  <li>Consolidar 15-20+ devs alocados</li>
+  <li>30-50% receita de canais diversificados (não-G2i)</li>
+  <li>Contratar SDR se volume justificar</li>
+  <li>Kumon: 93+ alunos, resultado >R$7k/mês</li>
+  <li>Reserva de caixa Impact X ≥6 meses OPEX</li>
+  <li>Planejamento 2027 (Café/Coworking?)</li>
+</ul>
+
+<h3>Entregas Q4</h3>
+<table>
+  <thead><tr><th>Sprint</th><th>Entrega</th><th>Responsável</th></tr></thead>
+  <tbody>
+    <tr><td>Out</td><td>16+ devs alocados</td><td>—</td></tr>
+    <tr><td>Out</td><td>SDR freelance contratado (se necessário)</td><td>Pimenta</td></tr>
+    <tr><td>Out</td><td>Pró-labore Rafa → R$15k (se critérios atingidos)</td><td>Rafa C.</td></tr>
+    <tr><td>Nov</td><td>18+ devs alocados</td><td>—</td></tr>
+    <tr><td>Nov</td><td>Primeiro distribuição de dividendos (se critérios)</td><td>Rafa C.</td></tr>
+    <tr><td>Nov</td><td>Content marketing gerando inbound leads</td><td>Pimenta</td></tr>
+    <tr><td>Dez</td><td>20+ devs alocados (cenário base)</td><td>—</td></tr>
+    <tr><td>Dez</td><td>Reserva caixa ≥6 meses OPEX</td><td>—</td></tr>
+    <tr><td>Dez</td><td>Review anual: P&L, NPS devs, NPS clientes</td><td>Todo time</td></tr>
+    <tr><td>Dez</td><td>Planejamento 2027 definido</td><td>Rafa C.</td></tr>
+  </tbody>
+</table>
+
+<h3>Critérios de Sucesso Q4</h3>
+<table>
+  <thead><tr><th>KPI</th><th>Meta</th></tr></thead>
+  <tbody>
+    <tr><td>Devs alocados</td><td>≥20 (base)</td></tr>
+    <tr><td>Resultado mensal</td><td>≥R$200k</td></tr>
+    <tr><td>Canais diversificados</td><td>≥30% receita não-G2i</td></tr>
+    <tr><td>Churn devs anual</td><td><30%</td></tr>
+    <tr><td>Reserva caixa</td><td>≥R$200k (6 meses OPEX)</td></tr>
+    <tr><td>Kumon alunos</td><td>≥93</td></tr>
+    <tr><td>Kumon resultado</td><td>≥R$7k/mês</td></tr>
+  </tbody>
+</table>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>5. Marcos de Decisão (Go/No-Go)</h1>
+
+<table>
+  <thead><tr><th>Marco</th><th>Quando</th><th>Critério GO</th><th>Critério PAUSE</th><th>Critério ABORT</th></tr></thead>
+  <tbody>
+    <tr><td>Parceria G2i</td><td>Abr S3</td><td>Call realizada, stacks alinhados</td><td>G2i em negociação, mas sem confirmação</td><td>G2i rejeita ou ignora</td></tr>
+    <tr><td>Turma piloto</td><td>Mai S1</td><td>≥60% aprovação onboarding G2i</td><td>40-60% aprovação (ajustar prep)</td><td><40% (pivotar canal)</td></tr>
+    <tr><td>Break-even Impact X</td><td>Jun</td><td>≥3 devs alocados</td><td>1-2 devs (escala mais lenta)</td><td>0 devs após 2 meses de operação</td></tr>
+    <tr><td>Saída emprego CLT</td><td>Set-Out</td><td>5+ devs × 3 meses + caixa 6 meses pessoal</td><td>Quase lá — esperar mais 1-2 meses</td><td>Não atingiu — manter CLT</td></tr>
+    <tr><td>Diversificação canais</td><td>Set</td><td>≥1 cliente não-G2i</td><td>Pipeline ativo, mas sem conversão</td><td>Zero pipeline B alternativo</td></tr>
+  </tbody>
+</table>
+
+<div class="callout danger">
+  <div class="callout-icon">🚨</div>
+  <div class="callout-body">
+    <div class="callout-title">Cenário PAUSE: Zero devs até Junho</div>
+    <div class="callout-text">Se até junho/2026 houver ZERO devs alocados, a recomendação é PAUSE: congelar OPEX (suspender salário Pimenta), reavaliar canal, e operar com time mínimo (Rafa + Nicole) até encontrar tração.</div>
+  </div>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Março 2026 · Confidencial</div>
+</footer>
+</body>
+</html>

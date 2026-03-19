@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Action Items</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-dark:#5A1E9A;--purple-light:#F3EAFF;--purple-x:#9B59D4;--text:#1A1A2E;--text-sec:#555577;--bg:#FAFAFA;--card:#FFFFFF;--border:#E0D4F5;--green:#1A7A4A;--green-bg:#E8F5EE;--orange:#D4820A;--orange-bg:#FEF3E2;--red:#C0392B;--red-bg:#FDECEA;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
+.hdr{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:white;padding:48px 64px 40px;}
+.hdr-brand{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:16px;}.hdr-brand span{color:#C9A3F5;}
+.hdr-title{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:12px;}
+.hdr-sub{font-size:16px;opacity:.85;font-weight:300;}
+.hdr-meta{display:flex;gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;opacity:.8;flex-wrap:wrap;}
+.content{padding:8px 64px 48px;max-width:1000px;}
+section{margin-bottom:48px;}
+h1{font-size:26px;font-weight:800;color:var(--purple-dark);padding-bottom:10px;border-bottom:3px solid var(--purple);margin-bottom:20px;margin-top:40px;}
+h2{font-size:19px;font-weight:700;color:var(--purple);margin:28px 0 12px;}
+h3{font-size:15px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;margin:20px 0 8px;}
+p{margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(123,47,190,.08);}
+thead tr{background:var(--purple);color:white;}
+thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:13px;letter-spacing:.5px;}
+tbody tr:nth-child(even){background:var(--purple-light);}
+tbody tr:nth-child(odd){background:var(--card);}
+tbody td{padding:10px 16px;border-bottom:1px solid var(--border);}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}.callout-body{}.callout-title{font-weight:700;font-size:14px;margin-bottom:4px;}.callout-text{font-size:14px;line-height:1.6;}
+.callout.info{background:var(--purple-light);border-left:4px solid var(--purple);}.callout.info .callout-title{color:var(--purple-dark);}
+.callout.success{background:var(--green-bg);border-left:4px solid var(--green);}.callout.success .callout-title{color:var(--green);}
+.callout.warning{background:var(--orange-bg);border-left:4px solid var(--orange);}.callout.warning .callout-title{color:var(--orange);}
+.callout.danger{background:var(--red-bg);border-left:4px solid var(--red);}.callout.danger .callout-title{color:var(--red);}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0;}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(123,47,190,.06);}
+.metric-value{font-size:30px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
+.metric-label{font-size:12px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:500;}
+ul,ol{padding-left:22px;margin-bottom:12px;}li{margin:5px 0;}
+.tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.tag-confirmed{background:var(--green-bg);color:var(--green);}
+.tag-inferred{background:var(--orange-bg);color:var(--orange);}
+.tag-benchmark{background:var(--purple-light);color:var(--purple);}
+.tag-action{background:#E8E0FF;color:var(--purple-dark);}
+.tag-resolved{background:var(--green-bg);color:var(--green);}
+.tag-monitor{background:#FFF8E1;color:#E65100;}
+.tag-future{background:#E3F2FD;color:#1565C0;}
+footer{background:var(--text);color:rgba(255,255,255,.6);text-align:center;padding:24px;font-size:13px;margin-top:48px;}
+footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}footer .brand .x{color:var(--purple-x);}
+@media print{body{background:white;font-size:12px;}.hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}thead tr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}section{page-break-inside:avoid;}footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-brand">IMPACT <span>X</span> — DIAGNÓSTICO EXECUTIVO 2026</div>
+  <div class="hdr-title">09 · Action Items</div>
+  <div class="hdr-sub">Decisões tomadas, ações pendentes, itens a monitorar e backlog futuro</div>
+  <div class="hdr-meta">
+    <span>Março 2026</span>
+    <span>Rafael Camillo · CEO & Founder</span>
+    <span>Confidencial</span>
+    <span>Arquivo 9 de 9</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>1. Decisões Já Tomadas</h1>
+
+<p>Itens que eram dúvidas e já foram resolvidos com definições do CEO:</p>
+
+<table>
+  <thead>
+    <tr><th>Item</th><th>Decisão</th><th>Impacto nos Relatórios</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Taxa de aprovação G2i</strong></td>
+      <td><span class="tag tag-resolved">RESOLVIDO</span> Usar benchmark de mercado. Empresas como X-Team e G2i têm taxa de aprovação de ~70–80% para devs pré-qualificados. Turma piloto validará a taxa real.</td>
+      <td>Projeções financeiras mantidas com cenário conservador</td>
+    </tr>
+    <tr>
+      <td><strong>Contrato franquia Kumon</strong></td>
+      <td><span class="tag tag-resolved">RESOLVIDO</span> Considerar que o contrato <strong>não permite</strong> delegação formal. Solução: Rafa é o rosto do Kumon, Wy gerencia operacionalmente. Kumon nunca visita as unidades e é comum franqueados não serem 100% presentes. Pode ter escritório ao lado se necessário.</td>
+      <td>Relatório 03 mantém estratégia de transição operacional</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>2. Action Items — Urgente (Esta Semana)</h1>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Action Item</th><th>Responsável</th><th>Prazo</th><th>Dependência</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>A1</strong></td>
+      <td><strong>Preparar estratégia de abordagem G2i</strong> — entrevista de quinta (20/mar). Transformar entrevista de candidato em porta de entrada comercial.</td>
+      <td>Rafa</td>
+      <td>19/mar (quarta)</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><strong>A2</strong></td>
+      <td><strong>Na entrevista G2i, descobrir:</strong> (1) aceitam supplier model? (2) quais stacks contratando agora? (3) processo de billing? (4) volume real de vagas abertas?</td>
+      <td>Rafa</td>
+      <td>20/mar (quinta)</td>
+      <td>A1</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>3. Action Items — Curto Prazo (Próximas 2-4 Semanas)</h1>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Action Item</th><th>Responsável</th><th>Prazo</th><th>Dependência</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>A3</strong></td>
+      <td><strong>Confirmar modelo G2i</strong> — supplier ou marketplace? Se supplier, negociar termos informais (bill rate, SLA, volume).</td>
+      <td>Rafa + Pimenta</td>
+      <td>Abril S1</td>
+      <td>A2</td>
+    </tr>
+    <tr>
+      <td><strong>A4</strong></td>
+      <td><strong>Triar primeiros 5–10 devs</strong> do nagringa.dev. Assessment técnico + inglês. Piloto para medir taxa de aprovação real.</td>
+      <td>Rafa</td>
+      <td>Abril S2</td>
+      <td>A3</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Março 2026 · Confidencial</div>
+</footer>
+</body>
+</html>

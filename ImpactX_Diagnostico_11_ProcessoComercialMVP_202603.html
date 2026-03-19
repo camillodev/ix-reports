@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Processo Comercial MVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-dark:#5A1E9A;--purple-light:#F3EAFF;--purple-x:#9B59D4;--text:#1A1A2E;--text-sec:#555577;--bg:#FAFAFA;--card:#FFFFFF;--border:#E0D4F5;--green:#1A7A4A;--green-bg:#E8F5EE;--orange:#D4820A;--orange-bg:#FEF3E2;--red:#C0392B;--red-bg:#FDECEA;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
+.hdr{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:white;padding:48px 64px 40px;}
+.hdr-brand{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:16px;}.hdr-brand span{color:#C9A3F5;}
+.hdr-title{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:12px;}
+.hdr-sub{font-size:16px;opacity:.85;font-weight:300;}
+.hdr-meta{display:flex;gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;opacity:.8;flex-wrap:wrap;}
+.content{padding:8px 64px 48px;max-width:1000px;}
+section{margin-bottom:48px;}
+h1{font-size:26px;font-weight:800;color:var(--purple-dark);padding-bottom:10px;border-bottom:3px solid var(--purple);margin-bottom:20px;margin-top:40px;}
+h2{font-size:19px;font-weight:700;color:var(--purple);margin:28px 0 12px;}
+h3{font-size:15px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;margin:20px 0 8px;}
+p{margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(123,47,190,.08);}
+thead tr{background:var(--purple);color:white;}
+thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:13px;letter-spacing:.5px;}
+tbody tr:nth-child(even){background:var(--purple-light);}
+tbody tr:nth-child(odd){background:var(--card);}
+tbody td{padding:10px 16px;border-bottom:1px solid var(--border);}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}.callout-body{}.callout-title{font-weight:700;font-size:14px;margin-bottom:4px;}.callout-text{font-size:14px;line-height:1.6;}
+.callout.info{background:var(--purple-light);border-left:4px solid var(--purple);}.callout.info .callout-title{color:var(--purple-dark);}
+.callout.success{background:var(--green-bg);border-left:4px solid var(--green);}.callout.success .callout-title{color:var(--green);}
+.callout.warning{background:var(--orange-bg);border-left:4px solid var(--orange);}.callout.warning .callout-title{color:var(--orange);}
+.callout.danger{background:var(--red-bg);border-left:4px solid var(--red);}.callout.danger .callout-title{color:var(--red);}
+footer{background:var(--text);color:rgba(255,255,255,.6);text-align:center;padding:24px;font-size:13px;margin-top:48px;}
+footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}footer .brand .x{color:var(--purple-x);}
+@media print{body{background:white;font-size:12px;}.hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}thead tr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}section{page-break-inside:avoid;}footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-brand">IMPACT <span>X</span> — DIAGNÓSTICO EXECUTIVO 2026</div>
+  <div class="hdr-title">11 · Processo Comercial MVP</div>
+  <div class="hdr-sub">Fluxo operacional mínimo viável: funil, promessas, métricas diárias e critérios de decisão</div>
+  <div class="hdr-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo · CEO & Founder</span>
+    <span>🔒 Confidencial</span>
+    <span>📄 Arquivo 11 de 9 (Bônus)</span>
+  </div>
+</div>
+
+<div class="content">
+
+<section>
+<h1>Processo Comercial MVP: De Zero para Primeiro Dev Alocado</h1>
+
+<p>Este documento detalha o fluxo operacional mínimo viável de Impact X. O foco é simplicidade, velocidade e execução com Rafa e Pimenta como donos 100% do processo.</p>
+
+<h2>Funil de Conversão Simplificado</h2>
+
+<table>
+  <thead><tr><th>Etapa</th><th>Ação</th><th>Owner</th><th>Tempo</th><th>Critério de Sucesso</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1. Prospecção</strong></td><td>LinkedIn/Apollo outreach. G2i call + nagringa.dev pool</td><td>Pimenta</td><td>1-2 sem</td><td>≥3 contatos responder. 1 reunião agendada.</td></tr>
+    <tr><td><strong>2. Entendimento</strong></td><td>Discovery call. Entender demanda (stacks, volume, timeline)</td><td>Pimenta</td><td>1 reunião</td><td>Saber EXATAMENTE qual perfil precisam e QUANDO</td></tr>
+    <tr><td><strong>3. Busca de Candidatos</strong></td><td>Filtrar nagringa.dev. Técnico + inglês + disponibilidade</td><td>Rafa + Recruiter</td><td>3-5 dias</td><td>3-5 candidatos bons para próxima etapa</td></tr>
+    <tr><td><strong>4. Prep Técnico</strong></td><td>Sessões 1-on-1 ou grupo. Material async. Stack review.</td><td>Rafa (lead)</td><td>3-7 dias</td><td>Dev pronto para entrevista de verdade (cliente)</td></tr>
+    <tr><td><strong>5. Submissão</strong></td><td>CV + perfil para cliente (G2i, etc)</td><td>Pimenta</td><td>1 dia</td><td>CV que o cliente olha</td></tr>
+    <tr><td><strong>6. Entrevista Cliente</strong></td><td>Dev passa por entrevista técnica do cliente</td><td>Dev</td><td>3-10 dias</td><td>Dev aprovado OU feedback pra ajustar</td></tr>
+    <tr><td><strong>7. Negociação & Contrato</strong></td><td>Rate, início, duração, SLA com cliente</td><td>Pimenta + Rafa</td><td>3-5 dias</td><td>Contrato assinado. Início confirmado.</td></tr>
+    <tr><td><strong>8. Alocação & Onboarding</strong></td><td>Dev entra no projeto do cliente</td><td>Nicole</td><td>1 dia</td><td>Dev primeiro dia de trabalho. Receita begins.</td></tr>
+  </tbody>
+</table>
+
+<h2>Timeline Estimado: De Dia 1 a Primeiro Dev Alocado</h2>
+
+<table>
+  <thead><tr><th>Semana</th><th>Milestone</th><th>Ação</th></tr></thead>
+  <tbody>
+    <tr><td><strong>S1 (Mar 19-23)</strong></td><td>First conversation</td><td>Rafa entrevista G2i. Pimenta ativa LinkedIn outreach 2-3 contatos. Recruiter contato confirmado.</td></tr>
+    <tr><td><strong>S2 (Mar 26-30)</strong></td><td>Discovery realizada</td><td>Pimenta agendou reunião com 1-2 potenciais clientes. Entendimento de demanda.</td></tr>
+    <tr><td><strong>S3 (Abr 2-6)</strong></td><td>Primeiro pool em prep</td><td>3-5 devs começam prep técnico. Material async + sessões Rafa.</td></tr>
+    <tr><td><strong>S4 (Abr 9-13)</strong></td><td>Submissão</td><td>Primeiros devs submetidos para cliente. Entrevista agendada.</td></tr>
+    <tr><td><strong>S5-S6 (Abr 16-27)</strong></td><td>Aprovação + Negociação</td><td>Dev aprovado na entrevista cliente. Rate e contrato negociado.</td></tr>
+    <tr><td><strong>S7 (Abr 30+)</strong></td><td>🎯 PRIMEIRO DEV ALOCADO</td><td>Dev inicia projeto. Receita começa a rodar.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout success">
+  <div class="callout-icon">✅</div>
+  <div class="callout-body">
+    <div class="callout-title">Timeline esperado: 30-45 dias do primeiro contato ao primeiro dev alocado</div>
+    <div class="callout-text">Se G2i responder rápido (o que é provável), podemos bater esse prazo em 30 dias. Se der um atraso, máximo 45 dias.</div>
+  </div>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Março 2026 · Confidencial</div>
+</footer>
+</body>
+</html>
