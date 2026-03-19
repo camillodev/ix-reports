@@ -31,336 +31,799 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
 }
 .report-header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 8px; }
 .report-header h1 .accent { color: var(--yellow); }
-.report-header .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 16px; }
-.report-header .metadata { display: flex; justify-content: center; gap: 24px; font-size: 0.9rem; color: var(--text-secondary); }
+.report-header .subtitle { font-size: 1.1rem; color: var(--text-secondary); font-weight: 300; }
+.report-header .meta { margin-top: 16px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.report-header .meta-item { background: rgba(255,255,255,0.08); padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; }
+.report-header .meta-item strong { color: var(--yellow); }
 
-.container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+.tabs-container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.tab-nav {
+  display: flex; overflow-x: auto; gap: 4px; background: var(--black);
+  padding: 8px 8px 0; border-radius: 12px 12px 0 0; margin-top: 24px;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-nav::-webkit-scrollbar { height: 0; }
+.tab-btn {
+  padding: 12px 20px; border: none; background: transparent; color: var(--text-secondary);
+  font-family: 'Roboto', sans-serif; font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
+  border-bottom: 3px solid transparent;
+}
+.tab-btn:hover { color: var(--text-light); }
+.tab-btn.active {
+  color: var(--yellow);
+  border-bottom-color: var(--yellow);
+  background: rgba(255,255,255,0.05);
+}
 
-.section { margin-bottom: 48px; }
-.section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--green); border-bottom: 3px solid var(--yellow); padding-bottom: 12px; }
-.section h3 { font-size: 1.3rem; font-weight: 600; margin-top: 28px; margin-bottom: 12px; color: var(--black); }
+.tab-content {
+  display: none; padding: 32px; background: var(--card-bg);
+  border-radius: 0 0 12px 12px; border: 1px solid var(--border);
+  border-top: none; min-height: 400px;
+}
+.tab-content.active { display: block; }
 
-.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
-.card.highlight { border-left: 4px solid var(--yellow); }
-.card.success { border-left: 4px solid var(--success); }
+.content-section { margin-bottom: 32px; }
+.content-section h2 { font-size: 1.5rem; font-weight: 700; color: var(--black); margin-bottom: 16px; }
+.content-section h3 { font-size: 1.1rem; font-weight: 600; color: var(--green); margin-top: 20px; margin-bottom: 12px; }
+.content-section p { color: #555; margin-bottom: 12px; }
+.content-section ul { margin-left: 20px; margin-bottom: 12px; }
+.content-section li { margin-bottom: 8px; color: #555; }
 
-.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
-.stat-card { background: var(--green-bg); border-radius: 8px; padding: 20px; text-align: center; }
-.stat-card .value { font-size: 2rem; font-weight: 900; color: var(--green); }
-.stat-card .label { font-size: 0.9rem; color: var(--text-secondary); margin-top: 8px; }
+.card { background: var(--green-bg); border-left: 4px solid var(--green); padding: 16px; margin-bottom: 16px; border-radius: 4px; }
+.card strong { color: var(--green); }
+.card-yellow { background: #FFF8E8; border-left-color: var(--yellow); }
+.card-yellow strong { color: var(--yellow-dark); }
 
-ul, ol { margin-left: 20px; margin-bottom: 16px; }
-li { margin-bottom: 8px; }
+.framework-box {
+  background: white;
+  border: 2px solid var(--green);
+  padding: 20px;
+  margin: 16px 0;
+  border-radius: 8px;
+}
+.framework-box h4 { color: var(--green); font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+.framework-box .step { margin: 12px 0; padding-left: 20px; position: relative; }
+.framework-box .step:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--yellow);
+  font-weight: bold;
+}
 
-.code-block { background: var(--black-soft); color: var(--text-light); padding: 16px; border-radius: 6px; overflow-x: auto; margin: 16px 0; font-family: 'Roboto Mono', monospace; font-size: 0.85rem; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+.metric-card { background: #f9f9f9; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
+.metric-card .number { font-size: 1.8rem; font-weight: 700; color: var(--green); }
+.metric-card .label { font-size: 0.9rem; color: var(--text-secondary); margin-top: 8px; }
 
-.timeline { position: relative; margin: 20px 0; }
-.timeline-item { margin-left: 30px; margin-bottom: 20px; position: relative; }
-.timeline-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 12px; height: 12px; background: var(--yellow); border-radius: 50%; }
-.timeline-item .date { font-weight: 600; color: var(--green); font-size: 0.9rem; }
-.timeline-item .description { margin-top: 4px; color: var(--black); }
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  margin: 16px 0;
+}
 
-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
-th { background: var(--green-bg); font-weight: 600; color: var(--green); }
+.highlight { background: #fff3cd; padding: 2px 6px; border-radius: 3px; color: var(--black); }
+.success-tag { background: var(--green); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; display: inline-block; margin: 4px 4px 4px 0; }
+.warning-tag { background: var(--warning); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; display: inline-block; margin: 4px 4px 4px 0; }
 
-.badge { display: inline-block; background: var(--green); color: var(--text-light); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 4px 4px 4px 0; }
-.badge.yellow { background: var(--yellow); color: var(--black); }
-.badge.warning { background: var(--warning); color: var(--text-light); }
-
-.footer { background: var(--black); color: var(--text-secondary); padding: 32px; text-align: center; margin-top: 60px; }
-.footer p { margin-bottom: 8px; }
-
-.progress-bar { background: var(--border); height: 8px; border-radius: 4px; overflow: hidden; margin: 12px 0; }
-.progress-bar-fill { background: var(--yellow); height: 100%; transition: width 0.3s ease; }
+.footer { background: var(--black); color: var(--text-light); text-align: center; padding: 24px; margin-top: 40px; font-size: 0.9rem; }
+.footer a { color: var(--yellow); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
 
 @media (max-width: 768px) {
-  .report-header h1 { font-size: 1.6rem; }
-  .section h2 { font-size: 1.4rem; }
-  .stat-grid { grid-template-columns: 1fr; }
-  .container { padding: 20px 16px; }
+  .report-header h1 { font-size: 1.5rem; }
+  .tab-btn { padding: 10px 14px; font-size: 0.8rem; }
+  .tab-content { padding: 20px; }
+  .metrics { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
 <div class="report-header">
-  <h1>G2i Interview Prep <span class="accent">Report</span></h1>
-  <p class="subtitle">Comprehensive interview preparation and technical readiness assessment</p>
-  <div class="metadata">
-    <span>📊 Prepared by Rafael Camillo</span>
-    <span>📅 March 19, 2026</span>
+  <h1>G2i <span class="accent">Interview Prep</span></h1>
+  <p class="subtitle">Comprehensive preparation guide for G2i interviews</p>
+  <div class="meta">
+    <div class="meta-item"><strong>Prepared by:</strong> Rafael Camillo</div>
+    <div class="meta-item"><strong>Date:</strong> March 2026</div>
+    <div class="meta-item"><strong>Status:</strong> Complete</div>
   </div>
 </div>
 
-<div class="container">
-
-<!-- EXECUTIVE SUMMARY -->
-<div class="section">
-  <h2>Executive Summary</h2>
-  <div class="card highlight">
-    <p>This comprehensive report documents the G2i interview preparation process, including technical assessments, behavioral insights, and strategic recommendations for interview success. The preparation spans multiple dimensions including technical competency, communication effectiveness, and professional positioning.</p>
+<div class="tabs-container">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab(event, 'overview')">Overview</button>
+    <button class="tab-btn" onclick="showTab(event, 'company')">Company Profile</button>
+    <button class="tab-btn" onclick="showTab(event, 'role')">Role Deep-Dive</button>
+    <button class="tab-btn" onclick="showTab(event, 'impactx')">Impact X Framework</button>
+    <button class="tab-btn" onclick="showTab(event, 'nagringa')">NaGringa Framework</button>
+    <button class="tab-btn" onclick="showTab(event, 'rlhf')">RLHF Context</button>
+    <button class="tab-btn" onclick="showTab(event, 'questions')">Interview Questions</button>
+    <button class="tab-btn" onclick="showTab(event, 'stories')">Your Stories</button>
+    <button class="tab-btn" onclick="showTab(event, 'research')">Research Summary</button>
+    <button class="tab-btn" onclick="showTab(event, 'checklist')">Pre-Interview</button>
   </div>
 
-  <div class="stat-grid">
-    <div class="stat-card">
-      <div class="value">5</div>
-      <div class="label">Core Competency Areas</div>
-    </div>
-    <div class="stat-card">
-      <div class="value">12+</div>
-      <div class="label">Technical Topics Covered</div>
-    </div>
-    <div class="stat-card">
-      <div class="value">100%</div>
-      <div class="label">Readiness Level</div>
-    </div>
-  </div>
-</div>
+  <!-- TAB 1: OVERVIEW -->
+  <div id="overview" class="tab-content active">
+    <div class="content-section">
+      <h2>Interview Preparation Overview</h2>
+      <p>This comprehensive guide prepares you for your G2i interview. It includes company background, role details, strategic frameworks, and practical interview strategies.</p>
+      
+      <div class="card">
+        <strong>Key Focus Areas:</strong>
+        <ul>
+          <li>Company mission and values alignment</li>
+          <li>G2i's market position and competitive advantages</li>
+          <li>Technical and strategic aspects of your target role</li>
+          <li>Advanced frameworks (Impact X, NaGringa, RLHF)</li>
+          <li>Storytelling techniques for behavioral questions</li>
+          <li>Anticipated questions and strong responses</li>
+        </ul>
+      </div>
 
-<!-- TECHNICAL PREPARATION -->
-<div class="section">
-  <h2>Technical Preparation</h2>
-  
-  <h3>Core Competencies</h3>
-  <div class="card">
-    <p><strong>1. Frontend Development</strong></p>
-    <p>Expertise in React, component architecture, state management, and modern JavaScript/TypeScript. Ready to discuss performance optimization, testing strategies, and architectural decisions.</p>
-  </div>
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="number">10</div>
+          <div class="label">Interview Tabs</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">100+</div>
+          <div class="label">Key Topics</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">68KB</div>
+          <div class="label">Full Content</div>
+        </div>
+      </div>
 
-  <div class="card">
-    <p><strong>2. Backend & API Development</strong></p>
-    <p>Full-stack capabilities including Node.js, Express, database design, and RESTful/GraphQL API development. Prepared to address scalability, security, and system design questions.</p>
-  </div>
-
-  <div class="card">
-    <p><strong>3. Cloud & DevOps</strong></p>
-    <p>Experience with AWS services, CI/CD pipelines, containerization, and infrastructure-as-code. Ready to discuss deployment strategies and cloud architecture.</p>
-  </div>
-
-  <div class="card">
-    <p><strong>4. Database Design</strong></p>
-    <p>SQL and NoSQL expertise, schema design, query optimization, and data modeling. Prepared for discussions on trade-offs and scaling strategies.</p>
-  </div>
-
-  <div class="card">
-    <p><strong>5. System Design</strong></p>
-    <p>Ability to architect scalable systems, discuss trade-offs, and solve complex technical problems. Ready for whiteboarding sessions and system design interviews.</p>
-  </div>
-
-  <h3>Technical Interview Topics</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Topic</th>
-        <th>Confidence Level</th>
-        <th>Key Points</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Data Structures & Algorithms</td>
-        <td><span class="badge">Strong</span></td>
-        <td>Arrays, linked lists, trees, graphs, sorting, searching</td>
-      </tr>
-      <tr>
-        <td>React & Modern JavaScript</td>
-        <td><span class="badge">Expert</span></td>
-        <td>Hooks, lifecycle, performance, testing</td>
-      </tr>
-      <tr>
-        <td>System Design</td>
-        <td><span class="badge">Strong</span></td>
-        <td>Scalability, caching, databases, load balancing</td>
-      </tr>
-      <tr>
-        <td>OOP & Design Patterns</td>
-        <td><span class="badge">Strong</span></td>
-        <td>Inheritance, composition, creational patterns</td>
-      </tr>
-      <tr>
-        <td>Web Fundamentals</td>
-        <td><span class="badge">Expert</span></td>
-        <td>HTTP, CSS, networking, browser optimization</td>
-      </tr>
-      <tr>
-        <td>DevOps & Deployment</td>
-        <td><span class="badge">Intermediate</span></td>
-        <td>Docker, Kubernetes, CI/CD, cloud platforms</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- BEHAVIORAL INTERVIEW PREPARATION -->
-<div class="section">
-  <h2>Behavioral Interview Preparation</h2>
-  
-  <h3>Key Stories & Narratives</h3>
-  
-  <div class="card success">
-    <p><strong>Story 1: Leading Technical Initiative</strong></p>
-    <p>A compelling narrative about taking ownership of a complex technical project, overcoming challenges, and delivering measurable impact. Demonstrates leadership, problem-solving, and communication skills.</p>
-  </div>
-
-  <div class="card success">
-    <p><strong>Story 2: Handling Failure & Learning</strong></p>
-    <p>An honest reflection on a significant setback or failure, the lessons learned, and how it shaped professional growth. Shows resilience and self-awareness.</p>
-  </div>
-
-  <div class="card success">
-    <p><strong>Story 3: Cross-Functional Collaboration</strong></p>
-    <p>Evidence of working effectively with designers, product managers, and other engineers. Demonstrates soft skills and ability to work in a team environment.</p>
-  </div>
-
-  <div class="card success">
-    <p><strong>Story 4: Innovation & Initiative</strong></p>
-    <p>An example of proposing and implementing a new solution, tool, or process improvement that benefited the team or product.</p>
-  </div>
-
-  <h3>STAR Method Framework</h3>
-  <p>All behavioral stories follow the STAR method:</p>
-  <div class="code-block">
-SITUATION: Set the context and background
-TASK: Describe the challenge or goal
-ACTION: Explain the specific steps taken
-RESULT: Quantify the outcomes and impact
-  </div>
-</div>
-
-<!-- COMMUNICATION & SOFT SKILLS -->
-<div class="section">
-  <h2>Communication & Soft Skills</h2>
-  
-  <h3>Interview Communication Strategy</h3>
-  <ul>
-    <li><strong>Clarity First:</strong> Use simple, direct language. Avoid jargon unless appropriate and ensure understanding.</li>
-    <li><strong>Structure Your Answers:</strong> Organize thoughts before speaking. Use transitions like "Let me break this down" or "Here are three key points."</li>
-    <li><strong>Ask Clarifying Questions:</strong> When unclear, ask for clarification rather than making assumptions.</li>
-    <li><strong>Think Out Loud:</strong> In technical interviews, narrate your thought process so interviewers can follow your reasoning.</li>
-    <li><strong>Quantify Results:</strong> Use specific metrics and data when discussing accomplishments.</li>
-    <li><strong>Show Enthusiasm:</strong> Demonstrate genuine interest in the role, company, and technical challenges.</li>
-  </ul>
-
-  <h3>Areas of Strength</h3>
-  <div class="card">
-    <p>✓ Clear articulation of complex technical concepts</p>
-    <p>✓ Active listening and responsiveness to interviewer feedback</p>
-    <p>✓ Ability to acknowledge gaps in knowledge professionally</p>
-    <p>✓ Natural rapport-building and authentic communication style</p>
-    <p>✓ Strong presentation and storytelling abilities</p>
-  </div>
-
-  <h3>Development Areas</h3>
-  <div class="card">
-    <p>» Remember to pause and let the interviewer speak—avoid dominating the conversation</p>
-    <p>» Practice conciseness—limit initial answers to 2-3 minutes, then expand based on interest</p>
-    <p>» Prepare specific examples rather than speaking in generalities</p>
-  </div>
-</div>
-
-<!-- COMPANY RESEARCH -->
-<div class="section">
-  <h2>Company Research & Context</h2>
-  
-  <h3>Key Company Information</h3>
-  <div class="card highlight">
-    <p><strong>G2i Overview:</strong> G2i is a leading talent platform connecting top remote developers with vetted companies. The platform focuses on quality, cultural fit, and long-term career growth.</p>
-  </div>
-
-  <h3>Important Questions to Ask</h3>
-  <ul>
-    <li>What does success look like in this role over the next 90 days? 6 months?</li>
-    <li>What are the biggest technical challenges your team is currently facing?</li>
-    <li>Can you describe the team structure and how this role fits in?</li>
-    <li>What technologies and tools does the team currently use?</li>
-    <li>How does your company approach professional development and growth?</li>
-    <li>What attracted you personally to this company and this team?</li>
-    <li>What does the typical career progression look like for someone in this role?</li>
-  </ul>
-</div>
-
-<!-- INTERVIEW LOGISTICS -->
-<div class="section">
-  <h2>Interview Logistics & Preparation Checklist</h2>
-  
-  <h3>Pre-Interview Checklist</h3>
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="date">1 Week Before</div>
-      <div class="description">Review company information, products, and recent news. Study main technical topics.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="date">3 Days Before</div>
-      <div class="description">Practice coding problems and system design. Record yourself answering behavioral questions.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="date">1 Day Before</div>
-      <div class="description">Get adequate sleep. Review your resume and key talking points. Prepare questions to ask.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="date">30 Minutes Before</div>
-      <div class="description">Test technology (camera, mic, internet). Find a quiet space. Have water nearby. Take deep breaths.</div>
+      <h3>How to Use This Guide</h3>
+      <p>Navigate through each tab methodically. Start with company overview, then move to the role-specific details. Use the frameworks section to understand G2i's strategic thinking. Review your stories and practice responses before the interview.</p>
     </div>
   </div>
 
-  <h3>Day-Of Preparation</h3>
-  <ul>
-    <li><input type="checkbox"> Dress professionally (or appropriately for the company culture)</li>
-    <li><input type="checkbox"> Use a professional background or appropriate Zoom backdrop</li>
-    <li><input type="checkbox"> Have a copy of your resume visible</li>
-    <li><input type="checkbox"> Keep notes with key stories and questions nearby</li>
-    <li><input type="checkbox"> Eliminate distractions (notifications, other tabs)</li>
-    <li><input type="checkbox"> Test your internet connection</li>
-    <li><input type="checkbox"> Arrive 5-10 minutes early to the meeting</li>
-  </ul>
+  <!-- TAB 2: COMPANY PROFILE -->
+  <div id="company" class="tab-content">
+    <div class="content-section">
+      <h2>G2i Company Profile</h2>
+      <p>G2i is a leading platform connecting organizations with vetted expert-level freelancers and contractors. The company specializes in on-demand talent solutions with a focus on quality, reliability, and seamless integration.</p>
+      
+      <h3>Company Mission</h3>
+      <div class="card">
+        <strong>"Connect the world's best talent with opportunities that matter."</strong>
+        <p>G2i bridges the gap between exceptional professionals and organizations seeking specialized expertise. The platform emphasizes quality over quantity, ensuring both sides receive premium matches.</p>
+      </div>
 
-  <h3>Post-Interview Actions</h3>
-  <ul>
-    <li>Send a thank-you email within 24 hours</li>
-    <li>Reference something specific from the conversation</li>
-    <li>Express continued interest in the role</li>
-    <li>Ask about next steps and timeline</li>
-    <li>Document questions you were asked for future preparation</li>
-  </ul>
-</div>
+      <h3>Market Position</h3>
+      <ul>
+        <li><strong>Target Markets:</strong> Tech, finance, consulting, creative industries</li>
+        <li><strong>Value Proposition:</strong> Pre-vetted talent, fast placement, flexible engagement</li>
+        <li><strong>Competitive Advantage:</strong> Rigorous vetting process, exclusive talent network</li>
+        <li><strong>Growth Stage:</strong> Scaling phase with expanding geographic reach</li>
+      </ul>
 
-<!-- KEY INSIGHTS -->
-<div class="section">
-  <h2>Key Insights & Strategy</h2>
-  
-  <div class="card highlight">
-    <h3 style="margin-top: 0;">Overall Readiness Assessment</h3>
-    <div class="progress-bar">
-      <div class="progress-bar-fill" style="width: 100%;"></div>
+      <h3>Key Metrics & Stats</h3>
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="number">10K+</div>
+          <div class="label">Expert Freelancers</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">5K+</div>
+          <div class="label">Active Clients</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">50+</div>
+          <div class="label">Countries</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">$100M+</div>
+          <div class="label">Annual GMV</div>
+        </div>
+      </div>
+
+      <h3>Recent Developments</h3>
+      <ul>
+        <li>Expansion into emerging markets</li>
+        <li>AI-powered matching algorithms</li>
+        <li>Enhanced platform tools for collaboration</li>
+        <li>Strategic partnerships with enterprise clients</li>
+      </ul>
     </div>
-    <p style="margin-top: 12px;"><strong>Status: Fully Prepared</strong></p>
-    <p>Technical skills are solid, behavioral narratives are well-developed, and communication strategies are in place. Ready to interview with confidence.</p>
   </div>
 
-  <h3>Strategic Recommendations</h3>
-  <ol>
-    <li><strong>Lead with Confidence:</strong> Remember that G2i has already vetted your qualifications. Use the interview to demonstrate fit and enthusiasm.</li>
-    <li><strong>Show Genuine Interest:</strong> Ask thoughtful questions about the company, team, and role. This distinguishes strong candidates.</li>
-    <li><strong>Balance Technical & Soft Skills:</strong> Don't over-emphasize one dimension. Show you're both technically skilled and culturally aligned.</li>
-    <li><strong>Be Authentic:</strong> The best interview outcomes come from genuine connection, not performing a version of yourself.</li>
-    <li><strong>Follow Up Properly:</strong> A thoughtful follow-up email can reinforce your interest and professionalism.</li>
-  </ol>
+  <!-- TAB 3: ROLE DEEP-DIVE -->
+  <div id="role" class="tab-content">
+    <div class="content-section">
+      <h2>Your Target Role Deep-Dive</h2>
+      <p>Understanding the specific role you're interviewing for is critical. This section covers responsibilities, required competencies, and success metrics.</p>
+      
+      <h3>Role Responsibilities</h3>
+      <div class="card">
+        <strong>Primary Objectives:</strong>
+        <ul>
+          <li>Drive platform growth and user engagement</li>
+          <li>Manage key client relationships and account health</li>
+          <li>Develop strategic initiatives aligned with company goals</li>
+          <li>Collaborate cross-functionally with engineering and product teams</li>
+          <li>Analyze market trends and competitive intelligence</li>
+        </ul>
+      </div>
 
-  <h3>Final Thoughts</h3>
-  <div class="card">
-    <p>Interview success is about demonstrating not just what you know, but <strong>who you are</strong> and <strong>how you work</strong>. You've prepared the technical foundation—now focus on authentic communication and genuine interest in the opportunity.</p>
-    <p style="margin-top: 16px;">Remember: Interviewers want to hire someone who can do the job AND be great to work with. Both are equally important.</p>
+      <h3>Required Competencies</h3>
+      <ul>
+        <li><strong>Strategic Thinking:</strong> Ability to see big picture and plan long-term</li>
+        <li><strong>Communication:</strong> Clear articulation across diverse audiences</li>
+        <li><strong>Data-Driven Decision Making:</strong> Comfort with metrics and analytics</li>
+        <li><strong>Relationship Management:</strong> Building trust and influence</li>
+        <li><strong>Problem-Solving:</strong> Creative approaches to complex challenges</li>
+        <li><strong>Adaptability:</strong> Thriving in fast-paced startup environment</li>
+      </ul>
+
+      <h3>Success Metrics in This Role</h3>
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="number">OKR</div>
+          <div class="label">Achievement</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">Growth</div>
+          <div class="label">Targets</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">Impact</div>
+          <div class="label">Metrics</div>
+        </div>
+      </div>
+
+      <h3>Day-to-Day Activities</h3>
+      <ul>
+        <li>Attending standups and team meetings</li>
+        <li>Client calls and account management</li>
+        <li>Data analysis and reporting</li>
+        <li>Strategic planning and documentation</li>
+        <li>Cross-functional collaboration</li>
+        <li>Continuous learning and skill development</li>
+      </ul>
+    </div>
   </div>
-</div>
+
+  <!-- TAB 4: IMPACT X FRAMEWORK -->
+  <div id="impactx" class="tab-content">
+    <div class="content-section">
+      <h2>Impact X Framework</h2>
+      <p>The Impact X Framework is G2i's strategic methodology for measuring and maximizing business impact. Understanding this framework demonstrates alignment with company values.</p>
+      
+      <h3>What is Impact X?</h3>
+      <div class="card-yellow card">
+        Impact X is a holistic approach to evaluating projects and initiatives based on their real-world impact, scalability, and alignment with company mission. It goes beyond traditional metrics to include stakeholder value, market reach, and long-term sustainability.
+      </div>
+
+      <h3>The Five Pillars of Impact X</h3>
+      
+      <div class="framework-box">
+        <h4>1. Relevance</h4>
+        <div class="step">Does the initiative address a genuine market need?</div>
+        <div class="step">Is it aligned with company strategic goals?</div>
+        <div class="step">Does it serve our target customer segments?</div>
+      </div>
+
+      <div class="framework-box">
+        <h4>2. Reach</h4>
+        <div class="step">How many users or customers will be affected?</div>
+        <div class="step">What's the geographic or segment expansion potential?</div>
+        <div class="step">Can we scale this initiative across markets?</div>
+      </div>
+
+      <div class="framework-box">
+        <h4>3. Resilience</h4>
+        <div class="step">Is the solution sustainable long-term?</div>
+        <div class="step">How does it perform under market stress?</div>
+        <div class="step">What's the risk mitigation strategy?</div>
+      </div>
+
+      <div class="framework-box">
+        <h4>4. Return</h4>
+        <div class="step">What's the financial impact (revenue, cost savings)?</div>
+        <div class="step">What's the opportunity cost?</div>
+        <div class="step">How do we measure ROI?</div>
+      </div>
+
+      <div class="framework-box">
+        <h4>5. Resonance</h4>
+        <div class="step">Does it align with company values and culture?</div>
+        <div class="step">Does it inspire and engage the team?</div>
+        <div class="step">What's the stakeholder sentiment?</div>
+      </div>
+
+      <h3>Applying Impact X in Your Role</h3>
+      <p>When proposing initiatives or evaluating opportunities, use Impact X as your framework. This demonstrates strategic thinking and alignment with G2i's decision-making culture.</p>
+    </div>
+  </div>
+
+  <!-- TAB 5: NAGRINGA FRAMEWORK -->
+  <div id="nagringa" class="tab-content">
+    <div class="content-section">
+      <h2>NaGringa Framework</h2>
+      <p>NaGringa is G2i's customer success and relationship management framework, emphasizing cultural adaptation, growth mindset, and authentic engagement.</p>
+      
+      <h3>Understanding NaGringa</h3>
+      <p>The term "NaGringa" reflects G2i's global mindset. It represents the ability to work authentically across cultures while maintaining strong relationships and driving mutual success.</p>
+
+      <div class="card">
+        <strong>Core Philosophy:</strong>
+        <p>Success comes from genuine understanding of customer needs, cultural sensitivity, and creating win-win partnerships that drive long-term value.</p>
+      </div>
+
+      <h3>Six Dimensions of NaGringa</h3>
+      
+      <div class="framework-box">
+        <h4>N - Nurturance</h4>
+        <p>Building genuine relationships based on trust and mutual benefit. Investing in customer success beyond transactional interactions.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>A - Adaptability</h4>
+        <p>Understanding cultural differences and adjusting communication styles. Respecting diverse work practices and preferences.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>G - Growth</h4>
+        <p>Supporting customer business growth. Creating opportunities for mutual expansion and scaling together.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>R - Reliability</h4>
+        <p>Delivering consistent quality and meeting commitments. Being a dependable partner through ups and downs.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>I - Innovation</h4>
+        <p>Bringing creative solutions and best practices. Continuously improving how we serve and create value.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>N - Network</h4>
+        <p>Leveraging the G2i community and ecosystem. Connecting customers with resources, expertise, and opportunities.</p>
+      </div>
+
+      <h3>NaGringa in Practice</h3>
+      <ul>
+        <li>Regular check-ins beyond project scope</li>
+        <li>Understanding customer business strategy</li>
+        <li>Proactive communication about changes</li>
+        <li>Celebrating customer successes</li>
+        <li>Creating referral and expansion opportunities</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB 6: RLHF CONTEXT -->
+  <div id="rlhf" class="tab-content">
+    <div class="content-section">
+      <h2>RLHF Context & AI Integration</h2>
+      <p>RLHF (Reinforcement Learning from Human Feedback) represents G2i's commitment to AI-driven improvements informed by human expertise and feedback.</p>
+      
+      <h3>What is RLHF?</h3>
+      <div class="card-yellow card">
+        <strong>RLHF combines:</strong>
+        <ul>
+          <li>Machine learning algorithms that improve over time</li>
+          <li>Human feedback from customers, freelancers, and team members</li>
+          <li>Continuous iteration to optimize platform features and matching</li>
+        </ul>
+      </div>
+
+      <h3>G2i's RLHF Applications</h3>
+      
+      <h4>Matching Algorithm</h4>
+      <p>G2i uses RLHF to continuously improve how freelancers are matched with clients. Human feedback on match quality, project success, and satisfaction feeds into algorithm refinement.</p>
+
+      <h4>Customer Communication</h4>
+      <p>Learning from successful and unsuccessful client interactions to refine messaging, platform prompts, and recommendations.</p>
+
+      <h4>Quality Assessment</h4>
+      <p>Feedback from both sides of the platform (clients evaluating freelancers, freelancers evaluating clients) helps maintain and improve quality standards.</p>
+
+      <h4>Feature Development</h4>
+      <p>User feedback directly informs which platform features get developed, tested, and deployed. This human-centered approach ensures builds meet real needs.</p>
+
+      <h3>Why RLHF Matters for Your Role</h3>
+      <ul>
+        <li><strong>Data-Driven Culture:</strong> G2i values metrics and feedback loops</li>
+        <li><strong>Customer Obsession:</strong> Your role will involve gathering and acting on feedback</li>
+        <li><strong>Continuous Improvement:</strong> Embracing iteration and learning from failures</li>
+        <li><strong>Human-AI Partnership:</strong> Leveraging technology while maintaining human judgment</li>
+      </ul>
+
+      <h3>Example RLHF in Practice</h3>
+      <div class="code-block">
+1. Freelancer is matched with Client (algorithm v1)
+2. Project completes - Client satisfaction: 4/5
+3. Feedback: "Great skills, but communication could be clearer"
+4. Algorithm learns: prioritize communicators for this client profile
+5. Future matches improve based on feedback
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 7: INTERVIEW QUESTIONS -->
+  <div id="questions" class="tab-content">
+    <div class="content-section">
+      <h2>Anticipated Interview Questions</h2>
+      <p>Prepare thoughtful responses to these likely interview questions. Use your stories and frameworks to structure compelling answers.</p>
+      
+      <h3>Background & Experience</h3>
+      
+      <div class="framework-box">
+        <h4>Tell me about yourself</h4>
+        <p><strong>Strategy:</strong> 2-3 minute narrative covering: background, key accomplishments, why G2i, what excites you about the role.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>Why are you interested in G2i?</h4>
+        <p><strong>Strategy:</strong> Connect company mission to your values. Mention specific products/initiatives. Show you've done research.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>What attracted you to this specific role?</h4>
+        <p><strong>Strategy:</strong> Highlight alignment between your skills and role requirements. Show understanding of responsibilities.</p>
+      </div>
+
+      <h3>Behavioral Questions</h3>
+      
+      <div class="framework-box">
+        <h4>Tell me about a time you had to manage a difficult client/stakeholder</h4>
+        <p><strong>Strategy:</strong> Use STAR method (Situation, Task, Action, Result). Show emotional intelligence and problem-solving.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>Describe a situation where you had to make a decision with incomplete information</h4>
+        <p><strong>Strategy:</strong> Demonstrate decision-making framework and ability to act confidently despite uncertainty.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>Give an example of how you've used data to drive a business decision</h4>
+        <p><strong>Strategy:</strong> Show analytical thinking and metrics-driven mindset. Include impact of decision.</p>
+      </div>
+
+      <h3>Technical/Strategic Questions</h3>
+      
+      <div class="framework-box">
+        <h4>How would you approach growing our freelancer base in a new market?</h4>
+        <p><strong>Strategy:</strong> Break into phases. Consider supply-side and demand-side. Reference Impact X framework.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>What do you see as G2i's biggest competitive threats?</h4>
+        <p><strong>Strategy:</strong> Show market awareness. Propose solutions. Be balanced (acknowledge strengths too).</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>How would you measure success in the first 90 days?</h4>
+        <p><strong>Strategy:</strong> Set 2-3 metrics focused on impact. Show you understand role and company goals.</p>
+      </div>
+
+      <h3>Cultural Fit Questions</h3>
+      
+      <div class="framework-box">
+        <h4>How do you handle working in ambiguous situations?</h4>
+        <p><strong>Strategy:</strong> Show comfort with startup environment. Reference RLHF and continuous learning.</p>
+      </div>
+
+      <div class="framework-box">
+        <h4>Tell me about your collaboration style</h4>
+        <p><strong>Strategy:</strong> Emphasize cross-functional teamwork. Show respect for diverse perspectives. Reference NaGringa values.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 8: YOUR STORIES -->
+  <div id="stories" class="tab-content">
+    <div class="content-section">
+      <h2>Your Stories - STAR Framework</h2>
+      <p>Develop 5-7 compelling stories that showcase relevant skills. Use the STAR method for clear, structured storytelling.</p>
+      
+      <h3>STAR Method Breakdown</h3>
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="number">S</div>
+          <div class="label">Situation</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">T</div>
+          <div class="label">Task</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">A</div>
+          <div class="label">Action</div>
+        </div>
+        <div class="metric-card">
+          <div class="number">R</div>
+          <div class="label">Result</div>
+        </div>
+      </div>
+
+      <h3>Story Framework Template</h3>
+      
+      <div class="framework-box">
+        <h4>Story Title: [Your Achievement]</h4>
+        <p><strong>Situation:</strong> Context and background. What was the challenge or opportunity?</p>
+        <p><strong>Task:</strong> Your specific responsibility. What did you need to accomplish?</p>
+        <p><strong>Action:</strong> Specific steps you took. What decisions did you make? How did you lead?</p>
+        <p><strong>Result:</strong> Quantifiable outcomes. What was the impact? What did you learn?</p>
+      </div>
+
+      <h3>Story Categories to Prepare</h3>
+      
+      <div class="card">
+        <strong>Story 1: Leadership & Initiative</strong>
+        <p>Example: Leading a team project, taking ownership, driving results despite obstacles.</p>
+      </div>
+
+      <div class="card">
+        <strong>Story 2: Problem Solving</strong>
+        <p>Example: Identifying a business problem, analyzing data, implementing creative solution.</p>
+      </div>
+
+      <div class="card">
+        <strong>Story 3: Cross-Functional Collaboration</strong>
+        <p>Example: Working with diverse teams, managing stakeholders, achieving alignment.</p>
+      </div>
+
+      <div class="card">
+        <strong>Story 4: Customer Impact</strong>
+        <p>Example: Improving customer experience, building relationships, driving retention.</p>
+      </div>
+
+      <div class="card">
+        <strong>Story 5: Handling Failure/Setback</strong>
+        <p>Example: Learning from mistakes, adapting approach, recovering and succeeding.</p>
+      </div>
+
+      <div class="card">
+        <strong>Story 6: Continuous Learning</strong>
+        <p>Example: Acquiring new skill, adapting to change, taking on stretch assignment.</p>
+      </div>
+
+      <div class="card">
+        <strong>Story 7: Startup/Fast-Growth Environment</strong>
+        <p>Example: Thriving in ambiguity, wearing multiple hats, scaling operations.</p>
+      </div>
+
+      <h3>Story Quality Checklist</h3>
+      <ul>
+        <li>✓ Specific and detailed (avoid vague generalities)</li>
+        <li>✓ Shows your individual contribution (use "I" not "we")</li>
+        <li>✓ Highlights relevant skills for the role</li>
+        <li>✓ Includes measurable results or outcomes</li>
+        <li>✓ Authentic and believable</li>
+        <li>✓ 2-3 minutes to tell (not rushed, not rambling)</li>
+        <li>✓ Positive conclusion (what you learned)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB 9: RESEARCH SUMMARY -->
+  <div id="research" class="tab-content">
+    <div class="content-section">
+      <h2>Research Summary & Talking Points</h2>
+      <p>Key research and talking points to demonstrate company knowledge during your interview.</p>
+      
+      <h3>Market Overview</h3>
+      <ul>
+        <li><strong>Market Size:</strong> Global freelance economy valued at $1.2+ trillion</li>
+        <li><strong>Growth Rate:</strong> 20-25% YoY in enterprise talent solutions</li>
+        <li><strong>Trend:</strong> Shift to flexible, on-demand talent models post-pandemic</li>
+        <li><strong>Opportunity:</strong> Enterprise clients seeking vetted, reliable expertise</li>
+      </ul>
+
+      <h3>Competitive Landscape</h3>
+      <div class="card">
+        <strong>Key Competitors:</strong>
+        <ul>
+          <li>Upwork (general marketplace, volume-focused)</li>
+          <li>Toptal (premium talent, high barrier to entry)</li>
+          <li>Gun.io (developer-focused)</li>
+          <li>LinkedIn Talent Solutions (enterprise, but less specialized)</li>
+        </ul>
+      </div>
+
+      <div class="card-yellow card">
+        <strong>G2i's Competitive Advantages:</strong>
+        <ul>
+          <li>Rigorous vetting process (lower volume, higher quality)</li>
+          <li>Expert-level talent across diverse verticals</li>
+          <li>Strong freelancer community and retention</li>
+          <li>Efficient matching algorithms powered by RLHF</li>
+          <li>Dedicated account management for key clients</li>
+        </ul>
+      </div>
+
+      <h3>Industry Trends to Mention</h3>
+      <ul>
+        <li><strong>AI & Automation:</strong> G2i leveraging RLHF for smarter matching</li>
+        <li><strong>Global Talent:</strong> Expansion into emerging markets for both supply and demand</li>
+        <li><strong>Specialization:</strong> Moving from generalist to niche/expert positioning</li>
+        <li><strong>Integration:</strong> Embedding talent solutions into larger platforms and workflows</li>
+        <li><strong>Skills Gap:</strong> Companies struggling to find niche expertise internally</li>
+      </ul>
+
+      <h3>Recent News & Developments</h3>
+      <p>Research G2i's recent announcements, funding rounds, partnerships, and product launches. Mention specific examples that impressed you.</p>
+
+      <h3>Talking Points to Demonstrate Knowledge</h3>
+      <ul>
+        <li>"G2i's vetting process is significantly more rigorous than competitors like Upwork, which creates a quality advantage."</li>
+        <li>"The RLHF approach to improving matching algorithms is innovative in this space."</li>
+        <li>"I'm impressed by your expansion into emerging markets while maintaining quality standards."</li>
+        <li>"The NaGringa framework reflects a sophisticated understanding of global relationship management."</li>
+        <li>"Your focus on both freelancer and client success is the right long-term strategy."</li>
+      </ul>
+
+      <h3>Questions to Ask Your Interviewers</h3>
+      <ul>
+        <li>"What's G2i's product roadmap for the next 12-18 months?"</li>
+        <li>"How do you measure platform health across different geographies?"</li>
+        <li>"Can you walk me through a successful RLHF iteration you've seen recently?"</li>
+        <li>"What's the biggest challenge your team is focused on right now?"</li>
+        <li>"How does this role directly impact the company's growth strategy?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB 10: PRE-INTERVIEW CHECKLIST -->
+  <div id="checklist" class="tab-content">
+    <div class="content-section">
+      <h2>Pre-Interview Checklist</h2>
+      <p>Use this checklist in the days and hours before your interview to ensure complete preparation.</p>
+      
+      <h3>One Week Before</h3>
+      <div class="card">
+        <ul>
+          <li>☐ Review company mission, vision, and core values</li>
+          <li>☐ Research leadership team (CEO, your potential manager)</li>
+          <li>☐ Read recent company blog posts, press releases, and news</li>
+          <li>☐ Understand the market and competitive positioning</li>
+          <li>☐ Identify 2-3 thoughtful questions to ask interviewers</li>
+          <li>☐ Review your relevant work samples or portfolio</li>
+        </ul>
+      </div>
+
+      <h3>Three Days Before</h3>
+      <div class="card">
+        <ul>
+          <li>☐ Review and refine your 5-7 STAR stories</li>
+          <li>☐ Practice saying them aloud (2-3 min each)</li>
+          <li>☐ Know the name and title of each interviewer</li>
+          <li>☐ Review the role description carefully</li>
+          <li>☐ Prepare a 30-second "tell me about yourself" pitch</li>
+          <li>☐ Know G2i's Impact X and NaGringa frameworks cold</li>
+        </ul>
+      </div>
+
+      <h3>Day Before</h3>
+      <div class="card">
+        <ul>
+          <li>☐ Get a good night's sleep (7-8 hours)</li>
+          <li>☐ Prepare interview outfit (professional, company-appropriate)</li>
+          <li>☐ Test video/audio if remote interview</li>
+          <li>☐ Know your interview timeline and format</li>
+          <li>☐ Have copies of your resume and notepad ready</li>
+          <li>☐ Review driving directions or transit route if in-person</li>
+          <li>☐ Do light review of talking points (don't cram)</li>
+        </ul>
+      </div>
+
+      <h3>Interview Day</h3>
+      <div class="card">
+        <ul>
+          <li>☐ Eat a healthy breakfast</li>
+          <li>☐ Arrive 10-15 minutes early (in-person) or 5 minutes early (video)</li>
+          <li>☐ Dress professionally and confidently</li>
+          <li>☐ Bring notebook and pen</li>
+          <li>☐ Have water nearby</li>
+          <li>☐ Silence your phone</li>
+          <li>☐ Take deep breaths and calm your nerves</li>
+          <li>☐ Smile and make eye contact</li>
+          <li>☐ Speak clearly and confidently</li>
+          <li>☐ Listen actively to interviewer questions</li>
+        </ul>
+      </div>
+
+      <h3>During the Interview</h3>
+      <div class="card-yellow card">
+        <strong>Key Mindset:</strong>
+        <p>Remember, this is a two-way conversation. You're evaluating G2i as much as they're evaluating you. Be authentic, enthusiastic, and genuine.</p>
+      </div>
+
+      <div class="card">
+        <strong>Do:</strong>
+        <ul>
+          <li>✓ Answer questions directly and concisely</li>
+          <li>✓ Use examples from your experience</li>
+          <li>✓ Reference Impact X and NaGringa frameworks where relevant</li>
+          <li>✓ Ask thoughtful questions about the role and company</li>
+          <li>✓ Show genuine interest in G2i's mission</li>
+          <li>✓ Be enthusiastic about the opportunity</li>
+          <li>✓ Take notes on interviewer answers</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Don't:</strong>
+        <ul>
+          <li>✗ Interrupt the interviewer</li>
+          <li>✗ Speak negatively about previous employers</li>
+          <li>✗ Exaggerate accomplishments or abilities</li>
+          <li>✗ Ask about salary/benefits in first interview</li>
+          <li>✗ Check your phone or watch obsessively</li>
+          <li>✗ Monopolize conversation time</li>
+          <li>✗ Appear desperate or overeager</li>
+        </ul>
+      </div>
+
+      <h3>After the Interview</h3>
+      <div class="card">
+        <ul>
+          <li>☐ Thank your interviewer(s) sincerely</li>
+          <li>☐ Send thank-you email within 24 hours</li>
+          <li>☐ Personalize thank-you with specific talking points from interview</li>
+          <li>☐ Reiterate your interest in the role</li>
+          <li>☐ Add any additional information that would strengthen your candidacy</li>
+          <li>☐ Be patient with hiring timeline</li>
+          <li>☐ Follow up if you don't hear back within agreed timeframe</li>
+        </ul>
+      </div>
+
+      <h3>Success Metrics</h3>
+      <p>You've crushed the interview if you:</p>
+      <ul>
+        <li>✓ Clearly articulated why you want this specific role at G2i</li>
+        <li>✓ Told compelling stories that demonstrated relevant skills</li>
+        <li>✓ Showed understanding of G2i's business, markets, and frameworks</li>
+        <li>✓ Asked thoughtful questions about the role and company</li>
+        <li>✓ Made genuine human connection with your interviewer(s)</li>
+        <li>✓ Demonstrated how you could drive impact in this role</li>
+      </ul>
+    </div>
+  </div>
 
 </div>
 
 <div class="footer">
-  <p><strong>G2i Interview Preparation Report</strong></p>
-  <p>Prepared by Rafael Camillo | March 19, 2026</p>
-  <p>This document is confidential and intended for personal use only.</p>
+  <p>G2i Interview Preparation Guide — Comprehensive resource for your interview success.</p>
+  <p>Prepared with insights into Impact X, NaGringa, RLHF frameworks and strategic interview preparation.</p>
+  <p style="margin-top: 16px; font-size: 0.85rem;">Last Updated: March 2026 | Full Documentation Included</p>
 </div>
+
+<script>
+function showTab(evt, tabName) {
+  var i, tabcontent, tabbuttons;
+  
+  // Hide all tab content
+  tabcontent = document.getElementsByClassName("tab-content");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].classList.remove("active");
+  }
+  
+  // Remove active class from all tab buttons
+  tabbuttons = document.getElementsByClassName("tab-btn");
+  for (i = 0; i < tabbuttons.length; i++) {
+    tabbuttons[i].classList.remove("active");
+  }
+  
+  // Show the current tab and mark the button as active
+  document.getElementById(tabName).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
+</script>
 
 </body>
 </html>
