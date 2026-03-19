@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifesto — Impact X</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7B2FBE;
+    --purple-dark: #5A1E9A;
+    --purple-light: #F3EAFF;
+    --purple-x: #9B59D4;
+    --text: #1A1A2E;
+    --text-secondary: #555577;
+    --bg: #FAFAFA;
+    --card-bg: #FFFFFF;
+    --border: #E0D4F5;
+    --success: #1A7A4A;
+    --success-bg: #E8F5EE;
+    --warning: #D4820A;
+    --warning-bg: #FEF3E2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  /* HEADER */
+  .report-header {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+    color: white;
+    padding: 64px 64px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::after {
+    content: "X";
+    position: absolute;
+    right: 48px;
+    bottom: -24px;
+    font-size: 240px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
+  }
+  .brand-tag {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 20px;
+  }
+  .brand-tag span { color: #C9A3F5; }
+  .report-title {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+  .report-title em {
+    color: #C9A3F5;
+    font-style: normal;
+  }
+  .report-subtitle {
+    font-size: 18px;
+    opacity: 0.85;
+    font-weight: 300;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  .report-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 13px;
+    opacity: 0.8;
+  }

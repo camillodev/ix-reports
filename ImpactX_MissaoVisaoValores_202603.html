@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missão, Visão e Valores — Impact X</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7B2FBE;
+    --purple-dark: #5A1E9A;
+    --purple-light: #F3EAFF;
+    --purple-x: #9B59D4;
+    --text: #1A1A2E;
+    --text-secondary: #555577;
+    --bg: #FAFAFA;
+    --card-bg: #FFFFFF;
+    --border: #E0D4F5;
+    --success: #1A7A4A;
+    --success-bg: #E8F5EE;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  /* HEADER */
+  .report-header {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+    color: white;
+    padding: 48px 64px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::after {
+    content: "X";
+    position: absolute;
+    right: 48px;
+    bottom: -24px;
+    font-size: 200px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
+  }
+  .brand-tag {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 16px;
+  }
+  .brand-tag span { color: #C9A3F5; }
+  .report-title {
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .report-subtitle {
+    font-size: 16px;
+    opacity: 0.85;
+    font-weight: 300;
+    max-width: 580px;
+  }
+  .report-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--purple-light);
+    border-left: 4px solid var(--purple);
+    padding: 28px 36px;
+    margin: 40px 64px;
+    border-radius: 0 8px 8px 0;
+  }
+  .toc h2 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple-dark);
+    margin-bottom: 14px;
+  }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 6px 0; }
+  .toc a { color: var(--purple); text-decoration: none; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }

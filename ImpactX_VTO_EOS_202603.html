@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — VTO · Vision/Traction Organizer (EOS)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --black-soft: #1A1A1A;
+  --green: #42593D;
+  --green-light: #5A7A52;
+  --green-bg: #E8F0E6;
+  --yellow: #F2C94C;
+  --yellow-dark: #D4A843;
+  --text-light: #F5F5F0;
+  --text-sec: #A0A090;
+  --card-bg: #FFFFFF;
+  --border: #D4DDD1;
+  --success: #42593D;
+  --warning: #D4820A;
+  --danger: #C0392B;
+  --bg: #F7F8F6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--black); font-size: 15px; line-height: 1.7; }
+
+/* HEADER */
+.report-header {
+  background: linear-gradient(135deg, var(--black), #1a2e1a, var(--green));
+  color: var(--text-light);
+  padding: 56px 64px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.report-header::after {
+  content: 'VTO';
+  position: absolute;
+  right: 60px;
+  bottom: -20px;
+  font-size: 180px;
+  font-weight: 900;
+  opacity: 0.04;
+  color: var(--yellow);
+  letter-spacing: -8px;
+}
+.hdr-brand { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; margin-bottom: 16px; }
+.hdr-brand .x { color: var(--yellow); }
+.hdr-title { font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
+.hdr-title em { color: var(--yellow); font-style: normal; }
+.hdr-sub { font-size: 16px; opacity: .85; font-weight: 300; max-width: 620px; }
+.hdr-meta { display: flex; gap: 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.15); font-size: 13px; opacity: .8; flex-wrap: wrap; }
+
+/* TOC */
