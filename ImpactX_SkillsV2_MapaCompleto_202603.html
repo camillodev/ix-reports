@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Skills v2: Mapa Completo do Sistema</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #42593D; --green-dark: #2E3F2A; --green-light: #E8F0E6;
+    --yellow: #F2C94C; --text: #1A1A2E; --text-secondary: #555577;
+    --bg: #FAFAFA; --card-bg: #FFFFFF; --border: #D4DDD1;
+    --success: #42593D; --success-bg: #E8F0E6; --warning: #D4820A;
+    --warning-bg: #FEF3E2; --danger: #C0392B; --danger-bg: #FDECEA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
+  .report-header { background: linear-gradient(135deg, #0A0A0A, var(--green-dark)); color: white; padding: 48px 64px 40px; }
+  .brand-tag { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; margin-bottom: 16px; }
+  .brand-tag span { color: var(--yellow); }
+  .report-title { font-size: 36px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
+  .report-subtitle { font-size: 16px; opacity: .85; font-weight: 300; }
+  .report-meta { display: flex; gap: 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.2); font-size: 13px; opacity: .8; }
+  .content { padding: 8px 64px 48px; max-width: 1000px; }
+  h1 { font-size: 26px; font-weight: 800; color: var(--green-dark); padding-bottom: 10px; border-bottom: 3px solid var(--green); margin: 40px 0 20px; }
+  h2 { font-size: 19px; font-weight: 700; color: var(--green); margin: 28px 0 12px; }
+  p { margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(66,89,61,.08); }
+  thead tr { background: var(--green); color: white; }
+  thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; }
+  tbody tr:nth-child(even) { background: var(--green-light); }
+  tbody tr:nth-child(odd) { background: var(--card-bg); }
+  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  .callout { border-radius: 8px; padding: 16px 20px; margin: 16px 0; display: flex; gap: 14px; align-items: flex-start; }
+  .callout-icon { font-size: 20px; flex-shrink: 0; }
+  .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .callout-text { font-size: 14px; line-height: 1.6; }
+  .callout.info { background: var(--green-light); border-left: 4px solid var(--green); }
+  .callout.info .callout-title { color: var(--green-dark); }
+  .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
+  .callout.success .callout-title { color: var(--success); }
+  .callout.warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
+  .callout.warning .callout-title { color: var(--warning); }
+  .callout.danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
+  .callout.danger .callout-title { color: var(--danger); }
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 20px 0; }
+  .metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+  .metric-value { font-size: 30px; font-weight: 900; color: var(--green); margin-bottom: 6px; }
+  .metric-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .badge-new { background: var(--green-light); color: var(--green); }
+  .badge-kill { background: var(--danger-bg); color: var(--danger); }
+  .badge-keep { background: var(--success-bg); color: var(--success); }
+  .flow-box { background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; }
+  .flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .flow-step { background: var(--green-light); border: 1px solid var(--green); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--green-dark); }
+  .flow-arrow { color: var(--green); font-weight: 900; font-size: 18px; }
+  .flow-output { background: #FFF8E1; border: 1px solid var(--yellow); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: #8B6914; }
+  .phase { display: flex; gap: 0; border-radius: 10px; overflow: hidden; margin: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .phase-label { background: var(--green); color: white; padding: 20px 24px; min-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .phase-label .phase-num { font-size: 22px; font-weight: 900; }
+  .phase-label .phase-period { font-size: 11px; opacity: .8; margin-top: 4px; }
+  .phase-content { background: var(--card-bg); padding: 20px 24px; flex: 1; border: 1px solid var(--border); border-left: none; }
+  .phase-content h3 { font-size: 15px; font-weight: 700; color: var(--green); margin: 0 0 10px; }
+  .phase-content ul { padding-left: 18px; }
+  .phase-content li { font-size: 14px; margin: 4px 0; }
+  ul, ol { padding-left: 22px; margin-bottom: 12px; }
+  li { margin: 5px 0; }
+  code { background: var(--green-light); padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 13px; color: var(--green-dark); }
+  footer { background: #0A0A0A; color: rgba(255,255,255,.6); text-align: center; padding: 24px; font-size: 13px; margin-top: 48px; }
+  footer .brand { color: white; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  footer .brand .x { color: var(--yellow); }
+  @media print {
+    body { background: white; font-size: 12px; }
+    .report-header, thead tr, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="brand-tag">IMPACT <span>X</span> — SKILLS V2</div>
+  <div class="report-title">Sistema de Skills v2 — Mapa Completo</div>
+  <div class="report-subtitle">8 skills encadeadas · 6 automações · 1 sistema integrado</div>
+  <div class="report-meta">
+    <span>📅 18 de Março de 2026</span>
+    <span>👤 Rafael Camillo</span>
+    <span>🔧 Refundação completa</span>
+  </div>
+</div>
+
+<div class="content">
+  <section>
+    <h1>Overview</h1>
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">Skills novas</div></div>
+      <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Reference docs</div></div>
+      <div class="metric-card"><div class="metric-value">6</div><div class="metric-label">Automações</div></div>
+      <div class="metric-card"><div class="metric-value">4</div><div class="metric-label">Fluxos encadeados</div></div>
+      <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">Shortcuts</div></div>
+    </div>
+    <div class="callout success">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body">
+        <div class="callout-title">O que muda</div>
+        <div class="callout-text">
+          <strong>Antes</strong>: 20 skills isoladas, sem padrão, sem encadeamento, sem automação.<br>
+          <strong>Depois</strong>: 8 skills encadeadas que formam sistema, automações rodando sozinhas, padrões de código/commit/PR, assistente TDAH/TEA, brand voice garantido em toda saída.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h1>As 8 Skills Novas</h1>
+    <table>
+      <thead><tr><th>Skill</th><th>Função</th><th>Encadeia com</th></tr></thead>
+      <tbody>
+        <tr><td><code>ix-core</code></td><td>Kernel: brand voice, pipeline, stack, atalhos, estado</td><td>TODAS herdam daqui</td></tr>
+        <tr><td><code>ix-adhd-copilot</code></td><td>Assistente TDAH/TEA: priorização, briefing, desbloqueio</td><td>→ todas (prioriza o dia)</td></tr>
+        <tr><td><code>ix-sales-pipeline</code></td><td>Pipeline comercial end-to-end</td><td>→ ix-reports, ix-product-ops</td></tr>
+        <tr><td><code>ix-content-engine</code></td><td>Presença digital: pesquisa → copy → visual</td><td>→ ix-reports, canvas-design</td></tr>
+        <tr><td><code>ix-product-ops</code></td><td>PM lean: tickets concisos, backlog limpo</td><td>→ ix-engineering, Linear MCP</td></tr>
+        <tr><td><code>ix-engineering</code></td><td>Problema → PRD → system design → frontend → backend</td><td>← ix-product-ops, → deploy</td></tr>
+        <tr><td><code>ix-knowledge-hub</code></td><td>Organizador: Notion + Drive, naming, busca</td><td>→ enterprise-search</td></tr>
+        <tr><td><code>ix-reports</code></td><td>Relatórios branded + deploy GitHub Pages</td><td>← todas que precisam de output</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h1>Deploy de Reports — Novo Fluxo</h1>
+    <div class="flow-box">
+      <div class="flow-row">
+        <div class="flow-step">Rafa pede report</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">ix-reports gera HTML</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Push via GitHub MCP</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-output">camillodev.github.io/ix-reports/[nome].html</div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-icon">ℹ️</div>
+      <div class="callout-body">
+        <div class="callout-title">Zero build, zero manutenção</div>
+        <div class="callout-text">GitHub Pages serve HTML estático direto do repo. Sem Next.js, sem Clerk, sem build step. Push → link público em segundos.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#F2C94C;font-weight:700">X</span> — Rafael Camillo · Março 2026</div>
+</footer>
+
+</body>
+</html>
