@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G2i Interview Prep — Rafael Camillo</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --black-soft: #1A1A1A;
+  --green: #42593D;
+  --green-light: #5A7A52;
+  --green-bg: #E8F0E6;
+  --yellow: #F2C94C;
+  --yellow-dark: #D4A843;
+  --text-light: #F5F5F0;
+  --text-secondary: #A0A090;
+  --card-bg: #FFFFFF;
+  --border: #D4DDD1;
+  --success: #42593D;
+  --warning: #D4820A;
+  --danger: #C0392B;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--black); line-height: 1.6; }
+
+.report-header {
+  background: linear-gradient(135deg, var(--black) 0%, #1a2e18 100%);
+  color: var(--text-light); padding: 40px 32px; text-align: center;
+}
+.report-header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 8px; }
+.report-header h1 .accent { color: var(--yellow); }
+.report-header .subtitle { font-size: 1.1rem; color: var(--text-secondary); font-weight: 300; }
+.report-header .meta { margin-top: 16px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.report-header .meta-item { background: rgba(255,255,255,0.08); padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; }
+.report-header .meta-item strong { color: var(--yellow); }
+
+.tabs-container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.tab-nav {
+  display: flex; overflow-x: auto; gap: 4px; background: var(--black);
+  padding: 8px 8px 0; border-radius: 12px 12px 0 0; margin-top: 24px;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-nav::-webkit-scrollbar { height: 0; }
+.tab-btn {
+  padding: 12px 20px; border: none; background: transparent; color: var(--text-secondary);
+  font-family: 'Roboto', sans-serif; font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; border-radius: 12px 12px 0 0; transition: all 0.3s ease; white-space: nowrap;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.08); color: var(--text-light); }
+.tab-btn.active { background: var(--black-soft); color: var(--yellow); border-bottom: 3px solid var(--yellow); }
+.tab-content { display: none; background: var(--black-soft); color: var(--text-light); padding: 32px; border-radius: 0 12px 12px 12px; }
+.tab-content.active { display: block; }
+.tab-content h2 { color: var(--yellow); margin-bottom: 16px; font-size: 1.8rem; }
+.tab-content h3 { color: var(--green-light); margin-top: 20px; margin-bottom: 12px; font-size: 1.2rem; }
+.tab-content p { margin-bottom: 12px; line-height: 1.8; color: #D0D0CC; }
+.tab-content ul, .tab-content ol { margin-left: 24px; margin-bottom: 12px; }
+.tab-content li { margin-bottom: 8px; }
+.tab-content strong { color: var(--yellow); }
+.tab-content em { color: var(--green-light); }
+.highlight { background: rgba(242,201,76,0.15); padding: 2px 6px; border-left: 3px solid var(--yellow); padding-left: 8px; margin-left: -3px; }
+.section { margin-bottom: 24px; background: rgba(255,255,255,0.03); padding: 16px; border-radius: 8px; border-left: 3px solid var(--green-light); }
+.key-point { background: rgba(66,89,61,0.2); border-left: 4px solid var(--success); padding: 12px; margin: 12px 0; border-radius: 4px; }
+.example { background: rgba(0,0,0,0.3); padding: 12px; margin: 8px 0; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 0.9rem; overflow-x: auto; }
+footer { background: var(--black); color: var(--text-secondary); text-align: center; padding: 24px; margin-top: 40px; border-top: 1px solid var(--border); font-size: 0.85rem; }
+.section-divider { height: 2px; background: linear-gradient(90deg, var(--green) 0%, transparent 100%); margin: 24px 0; }
+
+@media (max-width: 768px) {
+  .report-header { padding: 24px 16px; }
+  .report-header h1 { font-size: 1.6rem; }
+  .tab-nav { padding: 4px 4px 0; }
+  .tab-btn { padding: 10px 16px; font-size: 0.8rem; }
+  .tab-content { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <h1>G2i Interview <span class="accent">Prep</span></h1>
+  <p class="subtitle">RLHF Intelligence, High Agency Framework & STAR Stories</p>
+  <div class="meta">
+    <div class="meta-item"><strong>Version:</strong> EN 2026.3</div>
+    <div class="meta-item"><strong>Focus:</strong> Structured Interview Excellence</div>
+    <div class="meta-item"><strong>Framework:</strong> High Agency + STAR + RLHF</div>
+  </div>
+</div>
+
+<div class="tabs-container">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(event, 'overview')">Overview</button>
+    <button class="tab-btn" onclick="switchTab(event, 'rlhf')">RLHF Intelligence</button>
+    <button class="tab-btn" onclick="switchTab(event, 'high-agency')">High Agency Framework</button>
+    <button class="tab-btn" onclick="switchTab(event, 'star')">STAR Method</button>
+    <button class="tab-btn" onclick="switchTab(event, 'execution')">Execution Checklist</button>
+  </div>
+
+  <!-- TAB: OVERVIEW -->
+  <div id="overview" class="tab-content active">
+    <h2>Interview Preparation Overview</h2>
+    
+    <p>This guide provides a comprehensive approach to G2i technical interviews, combining three key methodologies: RLHF (Reinforcement Learning from Human Feedback) intelligence, the High Agency Framework, and STAR storytelling. Together, these create a powerful system for demonstrating technical expertise, ownership mentality, and proven results.</p>
+    
+    <div class="section">
+      <h3>Why This Framework Works</h3>
+      <p><strong>RLHF Intelligence</strong> ensures you understand what interviewers value and reward. By studying feedback patterns, you align your responses with expectations.</p>
+      <p><strong>High Agency Framework</strong> positions you as someone who takes ownership, drives solutions, and delivers impact—the exact mindset G2i teams seek.</p>
+      <p><strong>STAR Method</strong> provides the narrative structure to communicate accomplishments with clarity, context, and credibility.</p>
+    </div>
+
+    <div class="key-point">
+      <strong>Core Principle:</strong> Great interviews aren't about perfection; they're about demonstrating agency, learning, and impact. This framework helps you do exactly that.
+    </div>
+
+    <h3>The Three Pillars</h3>
+    
+    <div class="section">
+      <h4>1. RLHF Intelligence</h4>
+      <p>Study what interviewers reward in successful candidates. Common patterns:</p>
+      <ul>
+        <li><strong>Clarity over jargon:</strong> Explain complex ideas simply</li>
+        <li><strong>Ownership mentality:</strong> "I led," "I decided," "I shipped"</li>
+        <li><strong>Impact focus:</strong> Numbers, metrics, user outcomes</li>
+        <li><strong>Learning from failures:</strong> Resilience and growth</li>
+        <li><strong>Curiosity and drive:</strong> Self-directed learning</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h4>2. High Agency Framework</h4>
+      <p>Demonstrate that you identify problems, propose solutions, and drive results. This is the opposite of passive problem-solving.</p>
+      <ul>
+        <li><strong>Identify:</strong> What was the real problem?</li>
+        <li><strong>Propose:</strong> What solution did you imagine?</li>
+        <li><strong>Drive:</strong> How did you execute and overcome obstacles?</li>
+        <li><strong>Impact:</strong> What was the measurable outcome?</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h4>3. STAR Method</h4>
+      <p><strong>S</strong>ituation, <strong>T</strong>ask, <strong>A</strong>ction, <strong>R</strong>esult—the most effective way to tell stories that stick.</p>
+      <ul>
+        <li><strong>Situation:</strong> Context and constraints</li>
+        <li><strong>Task:</strong> Your responsibility</li>
+        <li><strong>Action:</strong> What YOU did (focus on agency)</li>
+        <li><strong>Result:</strong> Measurable outcome and learning</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- TAB: RLHF -->
+  <div id="rlhf" class="tab-content">
+    <h2>RLHF Intelligence: What Interviewers Reward</h2>
+    
+    <p>RLHF (Reinforcement Learning from Human Feedback) is how AI systems learn what humans prefer. Apply the same principle to interviews: what do hiring managers and team leads reward?</p>
+
+    <div class="section">
+      <h3>The RLHF Framework for Interviews</h3>
+      <p><strong>Positive Signals (What Gets Rewarded):</strong></p>
+      <ul>
+        <li>🎯 <strong>Ownership language:</strong> "I identified," "I drove," "I shipped"</li>
+        <li>📊 <strong>Metrics and impact:</strong> "Reduced latency by 40%," "Grew user base to 50k"</li>
+        <li>🔍 <strong>Root cause thinking:</strong> "We dug deeper and discovered..."</li>
+        <li>🚀 <strong>Initiative and speed:</strong> "I shipped it in 2 weeks"</li>
+        <li>💡 <strong>Learning from failure:</strong> "We failed first, but learned..."</li>
+        <li>🤝 <strong>Collaboration and influence:</strong> "I aligned the team around..."</li>
+        <li>⚙️ <strong>Technical depth with clarity:</strong> Explain hard things simply</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Negative Signals (What Gets Filtered):</h3>
+      <ul>
+        <li>❌ Passive language: "The project," "The team decided"</li>
+        <li>❌ Vague outcomes: "It went well" (no metrics)</li>
+        <li>❌ Victim mentality: "We didn't have resources," "The project failed"</li>
+        <li>❌ Overthinking: "Let me think about that" (too many pauses)</li>
+        <li>❌ Unclear technical explanations: Losing the interviewer</li>
+        <li>❌ No learning moments: Coming across as arrogant or stuck</li>
+      </ul>
+    </div>
+
+    <div class="key-point">
+      <strong>RLHF Hack:</strong> Before every interview, identify 5-7 stories where YOU took agency, drove results, and learned. These are your "high-reward" responses.
+    </div>
+
+    <h3>RLHF in Practice: Question Mapping</h3>
+    
+    <div class="section">
+      <h4>Common Interview Questions → RLHF-Optimized Responses</h4>
+      
+      <p><strong>"Tell me about yourself."</strong></p>
+      <div class="highlight">Focus on: I've built X, shipped Y, learned Z. Use ownership language. Lead with impact.</div>
+      
+      <p><strong>"Tell me about a challenge you overcame."</strong></p>
+      <div class="highlight">Focus on: YOUR agency in solving it. What did YOU do differently? Metrics of success.</div>
+      
+      <p><strong>"What's your biggest failure?"</strong></p>
+      <div class="highlight">Focus on: What you learned. How you grew. How you'd approach it differently. Resilience signal.</div>
+      
+      <p><strong>"How do you approach a new problem?"</strong></p>
+      <div class="highlight">Focus on: Your systematic thinking. Your curiosity. How you validate assumptions. High agency in exploration.</div>
+      
+      <p><strong>"Why should we hire you?"</strong></p>
+      <div class="highlight">Focus on: Specific impact you'll deliver. How your past experience directly applies. Your unique contribution.</div>
+    </div>
+
+  </div>
+
+  <!-- TAB: HIGH AGENCY -->
+  <div id="high-agency" class="tab-content">
+    <h2>High Agency Framework: Taking Ownership</h2>
+    
+    <p>High agency means you don't wait for permission to solve problems. You identify gaps, propose solutions, and drive execution. This is what separates good hires from great ones.</p>
+
+    <div class="section">
+      <h3>The High Agency Mindset</h3>
+      <ul>
+        <li><strong>🔍 Observation:</strong> What isn't being done? What could be better?</li>
+        <li><strong>💭 Imagination:</strong> What if we tried...? How could we...?</li>
+        <li><strong>🚀 Action:</strong> I'll take the first step. I'll build a prototype. I'll learn.</li>
+        <li><strong>📈 Iteration:</strong> I'll measure, learn, and improve based on feedback.</li>
+        <li><strong>🎯 Impact:</strong> I shipped X, which resulted in Y.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>High Agency in Action: The Framework</h3>
+      
+      <p><strong>1. Identify the Gap</strong></p>
+      <p>Examples:</p>
+      <ul>
+        <li>"Our deployment process took 30 minutes. I noticed we could parallelize three steps."</li>
+        <li>"Our analytics dashboard was outdated. The team wasn't tracking the right metrics."</li>
+        <li>"New engineers were spending 2 days onboarding. The docs were scattered."</li>
+      </ul>
+      
+      <p><strong>2. Propose a Solution (Without Waiting for Permission)</strong></p>
+      <p>Examples:</p>
+      <ul>
+        <li>"I proposed parallelizing the deployment steps and drafted an implementation plan."</li>
+        <li>"I redesigned our analytics dashboard with input from three stakeholders."</li>
+        <li>"I consolidated our onboarding docs and created a checklist."</li>
+      </ul>
+      
+      <p><strong>3. Execute and Drive to Completion</strong></p>
+      <p>Examples:</p>
+      <ul>
+        <li>"I owned the implementation end-to-end, working with DevOps to test the changes."</li>
+        <li>"I built the new dashboard, trained the team, and iterated based on feedback."</li>
+        <li>"I led the onboarding process redesign with the whole team."</li>
+      </ul>
+      
+      <p><strong>4. Measure the Impact</strong></p>
+      <p>Examples:</p>
+      <ul>
+        <li>"We reduced deployment time from 30 to 8 minutes—a 73% improvement."</li>
+        <li>"Adoption of the new dashboard reached 95% in the first month."</li>
+        <li>"New engineer onboarding time dropped from 2 days to 4 hours."</li>
+      </ul>
+    </div>
+
+    <div class="key-point">
+      <strong>High Agency Principle:</strong> Move from "What should I do?" to "What COULD we do?" and then "Here's what I'm doing."
+    </div>
+
+    <h3>High Agency Stories: Framework Examples</h3>
+    
+    <div class="section">
+      <h4>Example 1: Process Improvement</h4>
+      <p><strong>Gap:</strong> "Our PR review cycle was slow; developers were blocked waiting for feedback."</p>
+      <p><strong>Proposal:</strong> "I proposed a code review SLA—reviews within 24 hours—and built a Slack bot to track it."</p>
+      <p><strong>Execution:</strong> "I coded the bot, got team buy-in, and monitored metrics for 2 weeks."</p>
+      <p><strong>Impact:</strong> "PR review time dropped from 3 days to 18 hours. Developer satisfaction scores improved by 35%."</p>
+    </div>
+
+    <div class="section">
+      <h4>Example 2: Technical Innovation</h4>
+      <p><strong>Gap:</strong> "Our GraphQL schema validation was causing issues in production."</p>
+      <p><strong>Proposal:</strong> "I proposed a pre-commit validation hook and schema versioning system."</p>
+      <p><strong>Execution:</strong> "I led the design, implemented it with two teammates, and handled rollout across 40+ services."</p>
+      <p><strong>Impact:</strong> "Caught 100% of schema breaking changes before production. Reduced incidents by 40%."</p>
+    </div>
+
+    <div class="section">
+      <h4>Example 3: Customer Impact</h4>
+      <p><strong>Gap:</strong> "Customers were complaining about slow search. The team hadn't prioritized it."</p>
+      <p><strong>Proposal:</strong> "I analyzed the issue, proposed an ElasticSearch migration, and created a business case."</p>
+      <p><strong>Execution:</strong> "I led the migration (3 months), coordinated with product and DevOps, and ran performance tests."</p>
+      <p><strong>Impact:</strong> "Search latency dropped from 2s to 200ms. Customer satisfaction increased. Won a major contract partly because of this."</p>
+    </div>
+
+  </div>
+
+  <!-- TAB: STAR -->
+  <div id="star" class="tab-content">
+    <h2>STAR Method: Telling Stories That Stick</h2>
+    
+    <p>STAR is the backbone of behavioral interviews. It's a simple but powerful structure that keeps your stories clear, compelling, and credible.</p>
+
+    <div class="section">
+      <h3>The STAR Framework Breakdown</h3>
+      
+      <p><strong>S – Situation (Set the context)</strong></p>
+      <p>Establish where you were, what the challenge was, and why it mattered.</p>
+      <div class="example">
+"I was a backend engineer at [Company] working on the payments team. We processed $100M+ annually, but our reconciliation process was manual and error-prone. This was causing accounting delays and customer trust issues."
+      </div>
+      
+      <p><strong>T – Task (Define your role)</strong></p>
+      <p>Make clear what YOUR responsibility was—not the team's.</p>
+      <div class="example">
+"I was tasked with building an automated reconciliation system. This was critical because our accounting team was spending 2 days each week on manual reconciliation."
+      </div>
+      
+      <p><strong>A – Action (Show your agency)</strong></p>
+      <p>Detail the specific steps YOU took. Use "I" language. This is where high agency shines.</p>
+      <div class="example">
+"I took ownership of the project end-to-end. First, I spent a week analyzing the reconciliation process with the accounting team to understand failure modes. I identified that 80% of mismatches came from three sources: timing issues, currency conversions, and fee calculations.
+
+Then I designed a system that automatically matched transactions using these three rules. I built an API that consumed transaction logs from our payment processor, applied the matching logic, and flagged discrepancies for manual review.
+
+I also built a dashboard so the accounting team could see real-time reconciliation status. I iterated on the design based on their feedback—they wanted to see which transactions were flagged and why.
+
+Finally, I wrote comprehensive tests, documented the system, and trained the team on how to use it."
+      </div>
+      
+      <p><strong>R – Result (Quantify the impact)</strong></p>
+      <p>Give numbers. Metrics make impact real.</p>
+      <div class="example">
+"The system worked. We automated 95% of reconciliation, reducing manual effort from 2 days to 2 hours per week. The accounting team could now reconcile daily instead of weekly, improving our financial controls. This also improved customer trust—we could respond to reconciliation questions in hours instead of days.
+
+As a bonus, during the process I learned a lot about payment processing and accounting systems. I became the go-to person on the team for anything payments-related."
+      </div>
+    </div>
+
+    <div class="key-point">
+      <strong>STAR Rule:</strong> Each section should be 30-45 seconds. If any section takes longer, you're overcomplicating it. The interviewer should understand clearly what you did and why it mattered.
+    </strong>
+    </div>
+
+    <h3>STAR Template for Your Stories</h3>
+    
+    <div class="section">
+      <h4>Template: Problem-Solving Story</h4>
+      <p><strong>Situation:</strong> "I was working at [Company] as a [Role]. We faced [Problem]. This mattered because [Business Impact]."</p>
+      <p><strong>Task:</strong> "I was responsible for [Your specific ownership]."</p>
+      <p><strong>Action:</strong> "I took these steps: [1], [2], [3]. I also [unexpected challenge + how you overcame it]."</p>
+      <p><strong>Result:</strong> "The outcome was [Metric 1] improvement in [area], [Metric 2] improvement in [area], and I learned [key learning]."</p>
+    </div>
+
+    <div class="section">
+      <h4>Template: Initiative Story</h4>
+      <p><strong>Situation:</strong> "At [Company], I noticed [Gap]. This was affecting [Team/Business]."</p>
+      <p><strong>Task:</strong> "Without waiting for permission, I took it upon myself to [High Agency Action]."</p>
+      <p><strong>Action:</strong> "Here's what I did: [Action 1], [Action 2], [Action 3]. I coordinated with [Team] to ensure alignment."</p>
+      <p><strong>Result:</strong> "We saw [Metric] improvement. It also set a precedent for [Team Culture Shift]."</p>
+    </div>
+
+    <div class="section">
+      <h4>Template: Failure Story</h4>
+      <p><strong>Situation:</strong> "I was working on [Project]. I believed [Approach] was the right way forward."</p>
+      <p><strong>Task:</strong> "I led [Initiative]."</p>
+      <p><strong>Action:</strong> "Halfway through, [What went wrong]. Instead of giving up, I [Pivot/Recovery]. I also [Learning from failure]."</p>
+      <p><strong>Result:</strong> "The project ultimately [Outcome]. More importantly, I learned [Key insight]. Now I always [How you apply the learning]."</p>
+    </div>
+
+    <h3>STAR + High Agency = Unstoppable Stories</h3>
+    
+    <div class="section">
+      <p>The magic happens when you combine STAR with high agency language:</p>
+      <ul>
+        <li>Use "I" and "me" liberally (without sounding arrogant)</li>
+        <li>Emphasize decision-making: "I decided to..." "I chose to..."</li>
+        <li>Show initiative: "Without waiting for approval, I..." "I took ownership of..."</li>
+        <li>Own the outcome: "I delivered..." "I shipped..." "I drove..."</li>
+        <li>Connect to impact: "Which resulted in..." "This enabled..."</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- TAB: EXECUTION -->
+  <div id="execution" class="tab-content">
+    <h2>Interview Execution Checklist</h2>
+    
+    <p>This checklist helps you prepare, execute, and follow up effectively.</p>
+
+    <h3>Pre-Interview Preparation (1-2 weeks before)</h3>
+    
+    <div class="section">
+      <ul>
+        <li>☑️ <strong>Identify 5-7 STAR stories</strong> covering: technical challenge, failure/learning, initiative, collaboration, and impact</li>
+        <li>☑️ <strong>Map stories to likely questions:</strong> Tell me about yourself, biggest challenge, failure, teamwork, etc.</li>
+        <li>☑️ <strong>Practice each story:</strong> Time yourself. Aim for 2 minutes per story (S 30s, T 15s, A 45s, R 30s)</li>
+        <li>☑️ <strong>Prepare metrics:</strong> Have numbers ready. "Reduced latency by 40%" beats "Made it faster"</li>
+        <li>☑️ <strong>Research the company:</strong> Product, culture, recent news, team structure</li>
+        <li>☑️ <strong>Prepare questions for them:</strong> Show genuine interest. Ask about technical challenges they're solving</li>
+        <li>☑️ <strong>Mock interview:</strong> Do a dry run with a friend or mentor. Get feedback on delivery</li>
+      </ul>
+    </div>
+
+    <h3>During the Interview (Strategy & Delivery)</h3>
+    
+    <div class="section">
+      <h4>Opening (First 2 Minutes)</h4>
+      <ul>
+        <li>☑️ <strong>Start strong:</strong> "Thanks for taking the time. I'm excited to discuss [specific thing about the role/company]."</li>
+        <li>☑️ <strong>Brief intro:</strong> "I'm a [Role] with [X years] experience. I've focused on [Your specialty]." Keep it 30 seconds.</li>
+        <li>☑️ <strong>Lead with impact:</strong> "Most recently, I [High-impact achievement]."</li>
+      </ul>
+      
+      <h4>During Questions</h4>
+      <ul>
+        <li>☑️ <strong>Listen first:</strong> Understand the question before answering. Ask for clarification if needed.</li>
+        <li>☑️ <strong>Use STAR for behavioral questions:</strong> Never just answer "yes" or "no." Always tell a story.</li>
+        <li>☑️ <strong>Bridge to your strength:</strong> "That reminds me of a time when I..." [Launch into STAR story]</li>
+        <li>☑️ <strong>Use high agency language:</strong> "I identified," "I decided," "I drove," "I shipped"</li>
+        <li>☑️ <strong>Quantify outcomes:</strong> "Which improved [metric] by [percentage]."</li>
+        <li>☑️ <strong>Show learning:</strong> End stories with "I learned..." or "This taught me..."</li>
+        <li>☑️ <strong>Pause for questions:</strong> After each story, "Does that answer your question? Do you want to dive deeper?"</li>
+      </ul>
+
+      <h4>Technical Questions</h4>
+      <ul>
+        <li>☑️ <strong>Think out loud:</strong> "Let me think through this..." Show your reasoning process.</li>
+        <li>☑️ <strong>Ask clarifying questions:</strong> "What's the scale?" "Are there constraints I should know about?"</li>
+        <li>☑️ <strong>Start simple, build complexity:</strong> "A basic approach would be... But given [constraint], I'd optimize by..."</li>
+        <li>☑️ <strong>Trade-offs matter:</strong> "Here's the tradeoff: [Option A] is faster but [downside]. [Option B] is more reliable but [downside]. I'd choose [Option] because..."</li>
+        <li>☑️ <strong>Show past experience:</strong> "I built something similar at [Company]. We used [Technology/Approach]."</li>
+      </ul>
+
+      <h4>When You Don't Know the Answer</h4>
+      <ul>
+        <li>☑️ <strong>Don't panic:</strong> Confidence in uncertainty is attractive.</li>
+        <li>☑️ <strong>Acknowledge:</strong> "I haven't worked with [Technology], but here's how I'd approach learning it..."</li>
+        <li>☑️ <strong>Show reasoning:</strong> "I'd start by [Step 1], then [Step 2]."</li>
+        <li>☑️ <strong>Connect to relevant experience:</strong> "I've learned other [similar] technologies like this..."</li>
+      </ul>
+
+      <h4>Closing (Last 5 Minutes)</h4>
+      <ul>
+        <li>☑️ <strong>Ask your questions:</strong> "I'm curious about [challenge] the team is working on. How does the team approach [technical decision]?"</li>
+        <li>☑️ <strong>Express enthusiasm:</strong> "I'm really excited about this opportunity because [Specific reason]."</li>
+        <li>☑️ <strong>End strong:</strong> "Thanks again. I'm confident I can make a real impact here."</li>
+      </ul>
+    </div>
+
+    <h3>Post-Interview (Follow-Up)</h3>
+    
+    <div class="section">
+      <ul>
+        <li>☑️ <strong>Send within 24 hours:</strong> Email thank you note to your interviewer</li>
+        <li>☑️ <strong>Personalize it:</strong> Reference something specific from the conversation: "When you mentioned [Topic], it reminded me of [Experience]."</li>
+        <li>☑️ <strong>Reiterate interest:</strong> "I'm genuinely excited about this role because..."</li>
+        <li>☑️ <strong>Offer more info:</strong> "Feel free to reach out if you have follow-up questions."</li>
+        <li>☑️ <strong>Keep it brief:</strong> One short paragraph. Respect their time.</li>
+      </ul>
+    </div>
+
+    <h3>Interview Anti-Patterns (What to Avoid)</h3>
+    
+    <div class="section">
+      <ul>
+        <li>❌ <strong>Passive language:</strong> "The team decided..." → Use "I decided..."</li>
+        <li>❌ <strong>No metrics:</strong> "It went well" → Say "We improved X by Y%"</li>
+        <li>❌ <strong>Rambling stories:</strong> Time yourself. 2 minutes max per story.</li>
+        <li>❌ <strong>No learning moments:</strong> Always end with what you learned or how you grew</li>
+        <li>❌ <strong>Dishonesty:</strong> Don't fake experience. Confidence in admitting gaps is better.</li>
+        <li>❌ <strong>Overthinking:</strong> If asked "What's your weakness?" don't panic. "I tend to over-optimize. I've learned to ship early and iterate."</li>
+        <li>❌ <strong>Forgetting them:</strong> Make it a conversation. Ask questions. Show genuine interest.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>G2i Interview Prep Guide — Powered by RLHF Intelligence, High Agency Framework, and STAR Method</p>
+  <p>Version 2026.3 | English | Rafael Camillo</p>
+  <p><small>This guide is designed to help you interview at your best. Remember: authenticity + preparation = confidence.</small></p>
+</footer>
+
+<script>
+function switchTab(evt, tabName) {
+  // Hide all tab contents
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabContents.forEach(tab => tab.classList.remove('active'));
+  
+  // Remove active class from all buttons
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  tabButtons.forEach(btn => btn.classList.remove('active'));
+  
+  // Show the current tab and mark button as active
+  document.getElementById(tabName).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>
