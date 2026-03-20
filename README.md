@@ -63,7 +63,69 @@ path: ImpactX_NomeDoReport_AAAAMM.html
 branch: master
 ```
 
-Depois, atualizar `index.html` adicionando o link do novo report.
+Depois, atualizar `index.html` adicionando o link do novo report **com tags obrigatórias**.
+
+### Tags obrigatórias
+
+Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtro de busca funcione corretamente.
+
+#### Como adicionar tags a um novo report
+
+1. Adicione o atributo `data-tags` no `<a class="report-link">` com tags separadas por vírgula:
+
+```html
+<a class="report-link" href="ImpactX_NomeDoReport_AAAAMM.html"
+   data-tags="impact-x,diagnostico-2026,financeiro">
+```
+
+2. Adicione tags visuais dentro de uma `<div class="tags-row">`:
+
+```html
+<div class="tags-row">
+  <span class="tag tag-empresa">IMPACT X</span>
+  <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
+  <span class="tag tag-area">FINANCEIRO</span>
+</div>
+```
+
+3. Cada report deve ter no mínimo: **1 empresa**, **1 projeto** e **1 área**.
+
+#### Tags disponíveis
+
+**Empresa** (`tag-empresa` · amarelo):
+
+| Slug | Label |
+|------|-------|
+| `impact-x` | Impact X |
+| `kumon` | Kumon |
+| `g2i` | G2i |
+| `wy` | Wy |
+
+**Projeto** (`tag-projeto` · roxo):
+
+| Slug | Label |
+|------|-------|
+| `diagnostico-2026` | Diagnóstico 2026 |
+| `vto-eos` | VTO/EOS |
+| `institucional` | Institucional |
+| `ingles-kumon` | Inglês Kumon |
+| `g2i-interview` | G2i Interview |
+| `skills-v2` | Skills v2 |
+
+**Área** (`tag-area` · verde):
+
+| Slug | Label |
+|------|-------|
+| `estrategia` | Estratégia |
+| `financeiro` | Financeiro |
+| `people` | People |
+| `operacoes` | Operações |
+| `comercial` | Comercial |
+| `cultura` | Cultura |
+| `legal` | Legal |
+| `tech` | Tech |
+
+Novas tags podem ser criadas — basta adicionar um novo `<button class="chip">` na seção `.filter-bar` do `index.html`.
 
 ---
 
