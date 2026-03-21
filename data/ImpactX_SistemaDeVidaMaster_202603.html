@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Vida — Rafael Camillo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple:#7B2FBE; --purple-dark:#5A1E9A; --purple-light:#F3EAFF; --purple-x:#9B59D4;
+  --teal:#0D7377; --teal-bg:#E0F5F5; --teal-dark:#0A5C60;
+  --text:#1A1A2E; --text-sec:#555577; --bg:#F2F2F7; --card:#FFFFFF; --border:#E0D4F5;
+  --green:#1A7A4A; --green-bg:#E8F5EE; --orange:#D4820A; --orange-bg:#FEF3E2;
+  --red:#C0392B; --red-bg:#FDECEA;
+  --fact:#1A4A7A; --fact-bg:#E8F0FF; --hypo:#7A4A1A; --hypo-bg:#FFF3E0; --test:#1A7A6A; --test-bg:#E8FFF8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0A1628 0%,#1A2A4A 40%,#0D4A4A 100%);color:white;padding:52px 56px 40px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;border-radius:50%;background:rgba(123,47,190,0.15)}
+.hero::after{content:'';position:absolute;left:-50px;bottom:-80px;width:300px;height:300px;border-radius:50%;background:rgba(13,115,119,0.12)}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:0.6;margin-bottom:14px;position:relative}
+.hero-title{font-size:34px;font-weight:900;line-height:1.15;margin-bottom:10px;position:relative}
+.hero-title .accent{color:#7FFFD4}
+.hero-sub{font-size:15px;opacity:0.75;font-weight:300;max-width:600px;position:relative;margin-bottom:24px}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.hero-chip{padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2)}
+.hero-chip.green{background:rgba(26,122,74,0.3);border-color:rgba(26,122,74,0.5)}
+.hero-chip.orange{background:rgba(212,130,10,0.3);border-color:rgba(212,130,10,0.5)}
+
+/* LEGEND */
+.legend{display:flex;gap:16px;padding:12px 56px;background:white;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.ld{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+/* TABS */
+.tab-nav{display:flex;background:white;border-bottom:2px solid var(--border);overflow-x:auto;padding:0 56px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.tb{padding:13px 16px;font-size:12px;font-weight:600;color:var(--text-sec);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all 0.15s}
+.tb:hover{color:var(--purple)}
+.tb.active{color:var(--purple);border-bottom-color:var(--purple)}
+
+/* CONTENT */
+.tc{display:none;padding:28px 56px 56px;max-width:1140px}
+.tc.active{display:block}
+
+/* TYPOGRAPHY */
+h1{font-size:21px;font-weight:800;color:var(--purple-dark);padding-bottom:8px;border-bottom:3px solid var(--purple);margin-bottom:16px;margin-top:28px}
+h1:first-child{margin-top:0}
+h2{font-size:16px;font-weight:700;color:var(--purple);margin:20px 0 9px}
+h3{font-size:12px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;margin:14px 0 7px}
+p{margin-bottom:9px;font-size:13px}
+ul,ol{padding-left:18px;margin-bottom:9px}
+li{margin:3px 0;font-size:13px}
+
+/* TAGS */
+.tf{display:inline-block;background:var(--fact-bg);color:var(--fact);font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;border:1px solid var(--fact);vertical-align:middle}
+.th{display:inline-block;background:var(--hypo-bg);color:var(--hypo);font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;border:1px solid var(--hypo);vertical-align:middle}
+.tt{display:inline-block;background:var(--test-bg);color:var(--test);font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;border:1px solid var(--test);vertical-align:middle}
+.tu{display:inline-block;background:#F0F0F0;color:var(--text-sec);font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;border:1px solid #CCC;vertical-align:middle}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+thead tr{background:var(--purple);color:white}
+thead th{padding:9px 13px;text-align:left;font-weight:600;font-size:11px}
+tbody tr:nth-child(even){background:var(--purple-light)}
+tbody tr:nth-child(odd){background:var(--card)}
+tbody td{padding:8px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+.tr-total td{font-weight:700;background:#EDE0FF !important}
+
+/* CALLOUTS */
+.cl{border-radius:8px;padding:12px 15px;margin:10px 0;display:flex;gap:11px;align-items:flex-start}
+.ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.ct{font-weight:700;font-size:12px;margin-bottom:2px}
+.cx{font-size:12px;line-height:1.6}
+.cl.info{background:var(--purple-light);border-left:4px solid var(--purple)}
+.cl.info .ct{color:var(--purple-dark)}
+.cl.success{background:var(--green-bg);border-left:4px solid var(--green)}
+.cl.success .ct{color:var(--green)}
+.cl.warn{background:var(--orange-bg);border-left:4px solid var(--orange)}
+.cl.warn .ct{color:var(--orange)}
+.cl.danger{background:var(--red-bg);border-left:4px solid var(--red)}
+.cl.danger .ct{color:var(--red)}
+.cl.fact{background:var(--fact-bg);border-left:4px solid var(--fact)}
+.cl.fact .ct{color:var(--fact)}
+.cl.hypo{background:var(--hypo-bg);border-left:4px solid var(--hypo)}
+.cl.hypo .ct{color:var(--hypo)}
+.cl.teal{background:var(--teal-bg);border-left:4px solid var(--teal)}
+.cl.teal .ct{color:var(--teal-dark)}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:10px 0}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin:10px 0}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:11px;margin:10px 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px}
+.card.hl{border-color:var(--purple);border-width:2px}
+.card.teal-b{border-color:var(--teal);border-width:2px}
+.card.green-b{border-color:var(--green);border-width:2px}
+.card.red-b{border-color:var(--red);border-width:2px}
+.card h3{margin-top:0;text-transform:none;letter-spacing:0;font-size:13px;color:var(--purple);margin-bottom:7px}
+
+/* METRICS */
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:11px;margin:13px 0}
+.mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.mv{font-size:24px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:4px}
+.mv.red{color:var(--red)} .mv.orange{color:var(--orange)} .mv.green{color:var(--green)}
+.ml{font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:500}
+.ms{font-size:10px;color:var(--text-sec);margin-top:3px;font-style:italic}
+
+/* PHASE */
+.phase{display:flex;border-radius:9px;overflow:hidden;margin:8px 0;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.pl{background:var(--purple);color:white;padding:14px 16px;min-width:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.pl .pn{font-size:17px;font-weight:900}
+.pl .pp{font-size:10px;opacity:0.8;margin-top:2px}
+.pl.green{background:var(--green)}.pl.orange{background:var(--orange)}.pl.red{background:var(--red)}.pl.dark{background:var(--text)}.pl.teal{background:var(--teal)}
+.pc{background:var(--card);padding:14px 17px;flex:1;border:1px solid var(--border);border-left:none}
+.pc h3{font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;margin:0 0 6px;color:var(--purple)}
+.pc ul{padding-left:15px}
+.pc li{font-size:12px;margin:3px 0}
+
+/* CODE */
+.code{background:#0F1729;border-radius:10px;padding:15px 18px;margin:10px 0;color:#E0D4F5;font-family:'Roboto Mono',monospace;font-size:12px;line-height:1.8;overflow-x:auto}
+.code .cmd{color:#C9A3F5;font-weight:700}
+.code .cmt{color:#444D6A}
+.code .hi{color:#7FFFD4}
+.code .key{color:#FFD700}
+.code .val{color:#98FB98}
+.code .str{color:#FFA07A}
+
+/* STACK LAYERS */
+.sl{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 15px;margin:5px 0;display:flex;align-items:center;gap:11px}
+.sl-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-sec);min-width:90px}
+.sl-tools{display:flex;gap:7px;flex-wrap:wrap}
+.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--purple-light);color:var(--purple-dark);border:1px solid var(--border)}
+.chip.new{background:var(--green-bg);color:var(--green);border-color:var(--green)}
+.chip.ext{background:var(--teal-bg);color:var(--teal);border-color:var(--teal)}
+
+/* SCHEDULE */
+.sb{background:var(--card);border-radius:9px;margin:8px 0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.sh{display:flex;align-items:center;gap:11px;padding:10px 15px;background:var(--teal);color:white}
+.sh .st{font-size:14px;font-weight:900;min-width:75px}
+.sh .stt{font-size:12px;font-weight:700}
+.sh .sb2{margin-left:auto;background:rgba(255,255,255,0.2);padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600}
+.sbody{padding:10px 15px}
+.sbody ul{padding-left:14px}
+.sbody li{font-size:12px;margin:2px 0}
+
+/* ACTION */
+.ai{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:13px 16px;margin:8px 0;display:flex;gap:12px;align-items:flex-start}
+.an{background:var(--purple);color:white;font-weight:900;font-size:13px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.an.green{background:var(--green)}.an.orange{background:var(--orange)}.an.red{background:var(--red)}
+.at{font-weight:700;font-size:13px;margin-bottom:2px}
+.aw{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-sec);margin-bottom:3px}
+.ad{font-size:12px;color:var(--text-sec)}
+.adl{display:inline-block;margin-top:5px;padding:2px 8px;background:var(--purple-light);color:var(--purple-dark);border-radius:4px;font-size:10px;font-weight:600}
+
+/* BURNOUT */
+.bl{display:flex;border-radius:9px;overflow:hidden;margin:7px 0}
+.bll{padding:10px 14px;min-width:90px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:11px;color:white;line-height:1.3}
+.blc{padding:10px 15px;flex:1;border:1px solid var(--border);border-left:none;background:var(--card);font-size:12px}
+.b-verde{background:var(--green)}.b-amarelo{background:var(--orange)}.b-laranja{background:#C0501A}.b-vermelho{background:var(--red)}
+
+/* SKILL CARDS */
+.skgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px;margin:12px 0}
+.skc{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:13px}
+.ski{font-size:22px;margin-bottom:6px}
+.skn{font-weight:700;font-size:12px;color:var(--teal);margin-bottom:3px}
+.skd{font-size:11px;color:var(--text-sec);line-height:1.5}
+.skb{font-size:10px;color:var(--text-sec);margin-top:5px;font-style:italic}
+
+/* NOT DO */
+.nd{background:var(--red-bg);border-left:4px solid var(--red);border-radius:0 7px 7px 0;padding:8px 13px;margin:5px 0;font-size:12px;display:flex;gap:7px}
+.nd::before{content:'✕';color:var(--red);font-weight:900;flex-shrink:0}
+
+/* WATCH CARD */
+.wc{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin:12px 0;box-shadow:0 2px 6px rgba(0,0,0,0.04)}
+.wh{padding:14px 18px;display:flex;align-items:center;gap:12px}
+.wh.rec{background:linear-gradient(135deg,var(--green-bg),#f0fff4);border-bottom:2px solid var(--green)}
+.wh.ok{background:var(--purple-light);border-bottom:2px solid var(--purple)}
+.wh.avoid{background:var(--orange-bg);border-bottom:2px solid var(--orange)}
+.wname{font-size:16px;font-weight:900}
+.wtag{font-size:11px;color:var(--text-sec);margin-top:2px}
+.wv{display:inline-block;padding:3px 11px;border-radius:20px;font-size:10px;font-weight:700;margin-left:auto}
+.vr{background:var(--green-bg);color:var(--green);border:1px solid var(--green)}
+.vo{background:var(--purple-light);color:var(--purple-dark);border:1px solid var(--purple)}
+.va{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange)}
+.wb{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wb ul{padding-left:14px}
+.wb li{font-size:12px;margin:2px 0}
+.wsec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-sec);margin-bottom:5px}
+.wp{padding:10px 18px;background:var(--bg);border-top:1px solid var(--border);font-size:12px;display:flex;gap:20px;flex-wrap:wrap}
+
+/* EXP */
+.ec{background:var(--card);border:2px solid var(--test);border-radius:10px;padding:15px;margin:10px 0}
+.eh{display:flex;align-items:center;gap:9px;margin-bottom:11px;flex-wrap:wrap}
+.etitle{font-size:14px;font-weight:700}
+.es{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.s-active{background:var(--test-bg);color:var(--test);border:1px solid var(--test)}
+.s-planned{background:var(--hypo-bg);color:var(--hypo);border:1px solid var(--hypo)}
+.egrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ef{font-size:12px}
+.elabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-sec);margin-bottom:2px}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0}
+.team-card{background:var(--card);border-radius:11px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+.team-header{padding:14px 16px;color:white}
+.team-header.purple{background:linear-gradient(135deg,var(--purple-dark),var(--purple))}
+.team-header.teal{background:linear-gradient(135deg,var(--teal-dark),var(--teal))}
+.team-header.green{background:linear-gradient(135deg,#0D5A2E,var(--green))}
+.team-header.dark{background:linear-gradient(135deg,#1A1A2E,#2A2A4E)}
+.team-role{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:0.75;margin-bottom:4px}
+.team-name{font-size:16px;font-weight:900}
+.team-desc{font-size:11px;opacity:0.8;margin-top:3px}
+.team-body{padding:13px 16px}
+.team-body ul{padding-left:14px}
+.team-body li{font-size:12px;margin:2px 0}
+
+/* TECHNIQUE */
+.tc-card{background:var(--card);border-left:4px solid var(--teal);border-radius:0 8px 8px 0;padding:11px 14px;margin:7px 0}
+.tc-name{font-weight:700;font-size:13px;color:var(--teal);margin-bottom:3px}
+.tc-origin{font-size:10px;color:var(--text-sec);font-style:italic;margin-bottom:5px}
+.tc-apply{font-size:12px}
+
+/* CONTRACT */
+.cs{background:var(--card);border:2px solid var(--teal);border-radius:11px;padding:18px 22px;margin:12px 0}
+.ctitle{font-size:15px;font-weight:700;color:var(--teal);margin-bottom:11px}
+
+footer{background:var(--text);color:rgba(255,255,255,0.55);text-align:center;padding:20px;font-size:12px}
+footer .brand{color:white;font-weight:700;font-size:13px;margin-bottom:3px}
+footer .x{color:var(--purple-x)}
+
+@media print{
+  .tab-nav{display:none}
+  .tc{display:block !important;page-break-before:always}
+  .tc:first-child{page-break-before:avoid}
+}
+</style>
+
+<link rel="stylesheet" href="../assets/css/report.css">
+</head>
+<body class="ix-report sistema-vida-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Sistema de Vida</span>
+</header>
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Rafael Camillo — Documento Mestre · Março 2026</div>
+  <div class="hero-title">Sistema de Vida — <span class="accent">Autonomia Total</span></div>
+  <div class="hero-sub">TEA Nível 1 + Ansiedade Generalizada + Traços Borderline · Sistema desenhado para o seu cérebro, não para o cérebro médio. Fatos, hipóteses, time de suporte, bots, construção técnica e próximos passos em um documento único.</div>
+  <div class="hero-chips">
+    <span class="hero-chip">🧠 Laudo CRP 13/10873</span>
+    <span class="hero-chip">📅 Março 2026</span>
+    <span class="hero-chip green">✅ 5 documentos consolidados</span>
+    <span class="hero-chip orange">🔬 9 experimentos ativos</span>
+    <span class="hero-chip">🔒 Pessoal e confidencial</span>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="li"><div class="ld" style="background:var(--fact)"></div><span style="color:var(--fact)">FATO — laudo ou evidência sólida</span></div>
+  <div class="li"><div class="ld" style="background:var(--hypo)"></div><span style="color:var(--hypo)">HIPÓTESE — observação não confirmada</span></div>
+  <div class="li"><div class="ld" style="background:var(--test)"></div><span style="color:var(--test)">TESTE ATIVO — experimento com métricas</span></div>
+  <div class="li"><div class="ld" style="background:var(--text-sec)"></div><span style="color:var(--text-sec)">DESCONHECIDO — sem dados ainda</span></div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button type="button" class="tb tab-btn active" data-tab="tab-home">🏠 Home</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-fatos">🔵 Fatos & Hipóteses</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-experimentos">🔬 Experimentos</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-time">👥 Time de Suporte</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-bot">🤖 Bot & Canal</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-build">🛠️ Como Construir</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-hardware">📦 Hardware & Compras</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-to">🧠 TO Residente</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-action">✅ Action Items</button>
+</div>
+
+<!-- ═══ HOME ═══ -->
+<div class="tc tab-panel active" id="tab-home" data-tab="tab-home" role="tabpanel" aria-hidden="false">
+  <h1>O problema — e por que este sistema existe</h1>
+
+  <div class="cl info">
+    <div class="ci">🎯</div>
+    <div>
+      <div class="ct">Uma frase</div>
+      <div class="cx">Rafael tem capacidade cognitiva acima da média (P80), visão de produto e fundador, stack técnico sólido de 10+ anos — e um sistema nervoso que saboriga tudo isso sem suporte externo estruturado. Este documento é o mapa para fechar essa lacuna.</div>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="card red-b">
+      <h3 style="color:var(--red)">🔴 O problema central</h3>
+      <ul>
+        <li>TEA N1 + TAG + borderline = regulação interna comprometida</li>
+        <li>Autodisciplina P21 = não inicia, não termina, não para</li>
+        <li>Alta inteligência P80 = argumenta qualquer desvio em segundos</li>
+        <li>50 projetos começados, nenhum validado</li>
+        <li>Suporte concentrado em parceiros românticos = instável</li>
+        <li>Nicole sem estrutura de horários = ociosa e ineficiente</li>
+      </ul>
+    </div>
+    <div class="card hl">
+      <h3>🟡 O que já funciona</h3>
+      <ul>
+        <li>Stack técnico completo: n8n, Supabase, Claude API, Vercel</li>
+        <li>Nicole como assistente executiva remota/híbrida</li>
+        <li>Impact X com lead quente (G2I) já existente</li>
+        <li>Laudo neuropsicológico — autoconhecimento real</li>
+        <li>TO amigo que vai morar junto — oportunidade única</li>
+        <li>Surf em Cabo Frio — regulação sensorial em teste</li>
+      </ul>
+    </div>
+    <div class="card green-b">
+      <h3 style="color:var(--green)">🟢 O que este sistema resolve</h3>
+      <ul>
+        <li>Suporte executivo: Nicole com horários e playbook fixos</li>
+        <li>Suporte clínico diário: TO residente presencial</li>
+        <li>Co-regulação 24h: bot WhatsApp com memória persistente</li>
+        <li>Dados reais: smartwatch + bot → insights para equipe de saúde</li>
+        <li>Foco no G2I: 1 produto por vez com accountability externo</li>
+        <li>Infraestrutura de vida que não depende de parceiro afetivo</li>
+      </ul>
+    </div>
+  </div>
+
+  <h1>Fatos do laudo — o que você é de verdade</h1>
+  <div class="mg">
+    <div class="mc"><div class="mv red">P1</div><div class="ml">Atenção Alternada</div><div class="ms">Trocar tarefa = custo alto</div></div>
+    <div class="mc"><div class="mv orange">P10</div><div class="ml">Atenção Concentrada</div><div class="ms">Foco sem pressão é difícil</div></div>
+    <div class="mc"><div class="mv green">P70</div><div class="ml">Atenção Difusa</div><div class="ms">Múltiplos estímulos: forte</div></div>
+    <div class="mc"><div class="mv green">P80</div><div class="ml">Inteligência Geral</div><div class="ms">Médio-superior</div></div>
+    <div class="mc"><div class="mv red">P21</div><div class="ml">Autodisciplina</div><div class="ms">Execução interna comprometida</div></div>
+    <div class="mc"><div class="mv red">P85</div><div class="ml">Ansiedade Geral</div><div class="ms">P95 em pensamentos preocupantes</div></div>
+  </div>
+
+  <h1>O time de suporte completo</h1>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-header teal">
+        <div class="team-role">Clínico Residente</div>
+        <div class="team-name">TO Residente</div>
+        <div class="team-desc">Horário comercial · suporte noturno ~1h</div>
+      </div>
+      <div class="team-body">
+        <ul>
+          <li>Manhã leve antes de sair pro trabalho</li>
+          <li>Suporte noturno: encerramento + bloco de pico (~1h)</li>
+          <li>Sessão clínica semanal 1h</li>
+          <li>Técnicas a descobrir juntos — território novo para adultos autistas</li>
+          <li>Observação cotidiana → dados para equipe de saúde</li>
+          <li><strong>NÃO</strong> é babá nem responsável por logística</li>
+        </ul>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-header purple">
+        <div class="team-role">Assistente Executiva</div>
+        <div class="team-name">Nicole</div>
+        <div class="team-desc">Objetivo: te manter trabalhando de forma regular</div>
+      </div>
+      <div class="team-body">
+        <ul>
+          <li>Prospecção G2I e Impact X — foco principal</li>
+          <li>Filtro de emails e comunicação profissional</li>
+          <li>Gestão de quarentena de ideias</li>
+          <li>CRM, Linear, agenda de trabalho</li>
+          <li>Body double no coworking 3x/semana</li>
+          <li>Check-in 09h (MIT) e 17h (status)</li>
+          <li><strong>NÃO:</strong> tarefas pessoais exceto agenda e pesquisas pontuais</li>
+        </ul>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-header dark">
+        <div class="team-role">Sistema Autônomo</div>
+        <div class="team-name">Bot WhatsApp</div>
+        <div class="team-desc">24h · memória persistente</div>
+      </div>
+      <div class="team-body">
+        <ul>
+          <li>Check-ins 09h, 13h, 18h45, 22h30</li>
+          <li>Rastreamento de humor, sono, remédio</li>
+          <li>Técnicas de regulação sob demanda</li>
+          <li>Relatório semanal automático</li>
+          <li>Dados para terapeuta e psiquiatra</li>
+          <li>Memória de longo prazo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-header green">
+        <div class="team-role">Suporte Clínico</div>
+        <div class="team-name">Terapeuta + Psiquiatra</div>
+        <div class="team-desc">Objetivo: funcionalidade autônoma</div>
+      </div>
+      <div class="team-body">
+        <ul>
+          <li>Psicoterapia (TCC + DBT) — te ensina ferramentas, não carrega você</li>
+          <li>Objetivo: Rafael funcional e independente, não dependente de terapia</li>
+          <li>Manejo farmacológico com dados reais do bot</li>
+          <li>Recebem relatórios do bot e observações do TO</li>
+          <li>Trabalho com padrões, não só com crises</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h1>Produtos e foco — hierarquia de prioridade</h1>
+  <table>
+    <thead><tr><th>#</th><th>Produto / Objetivo</th><th>Status</th><th>Por que agora</th><th>Critério de avanço</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Impact X — G2I (devs pra startups US)</td><td><span class="tf">FOCO AGORA</span></td><td>Lead quente existente. Não precisa construir nada. Gera caixa real.</td><td>Contrato assinado ou 90 dias sem resultado</td></tr>
+      <tr><td><strong>2</strong></td><td>Oracle Agent — atendente AI white-label</td><td><span class="th">AGUARDANDO</span></td><td>MVP em 6–8 semanas. Validar com restaurantes locais primeiro.</td><td>G2I resolvido + 5 entrevistas com restauranteiros</td></tr>
+      <tr><td><strong>3</strong></td><td>Silva — AI Coworker SaaS</td><td><span class="tu">QUARENTENA</span></td><td>Produto maior. Após Oracle Agent ter clientes pagando.</td><td>Oracle Agent com MRR &gt; R$5k</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cl danger">
+    <div class="ci">🚨</div>
+    <div>
+      <div class="ct">Regra anti-TDAH — inegociável</div>
+      <div class="cx">Você não abre o produto #2 antes do #1 ter resultado. Toda ideia nova vai para a quarentena da Nicole. O bot registra e devolve na sexta. Você é o melhor argumentador da sala — o sistema não debate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FATOS & HIPÓTESES ═══ -->
+<div class="tc tab-panel" id="tab-fatos" data-tab="tab-fatos" role="tabpanel" aria-hidden="true">
+  <h1>Fatos confirmados <span class="tf">FATO</span></h1>
+
+  <div class="cl fact">
+    <div class="ci">🔵</div>
+    <div>
+      <div class="ct">Epistemologia deste documento</div>
+      <div class="cx">Fato = confirmado por instrumento psicométrico validado (laudo CRP 13/10873) ou consenso científico com metanálises. Tudo mais é hipótese até ter seus dados reais. Misturar os dois é perigoso — você age como se soubesse quando está chutando.</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Fato</th><th>Fonte</th><th>Implicação prática</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Atenção Alternada — P1</strong></td><td>BDA / laudo</td><td>Trocar tarefa tem custo neurológico maior que 99% das pessoas. Blocos longos &gt; sprints curtos.</td></tr>
+      <tr><td><strong>Atenção Concentrada — P10</strong></td><td>BDA / laudo</td><td>Foco contínuo sem pressão externa é difícil — não é preguiça.</td></tr>
+      <tr><td><strong>Atenção Difusa — P70</strong></td><td>BDA / laudo</td><td>Múltiplos estímulos simultâneos é ponto forte. Ideias novas entram fácil demais.</td></tr>
+      <tr><td><strong>Funciona melhor sob pressão real e tempo restrito</strong></td><td>BDA + clínica</td><td>Deadline artificial não funciona. Pressão precisa ser real e com consequência.</td></tr>
+      <tr><td><strong>Ansiedade Generalizada P85 / Pensamentos preocupantes P95</strong></td><td>EAG-A / laudo</td><td>Alto custo cognitivo constante. Qualquer sistema precisa reduzir carga, não adicionar.</td></tr>
+      <tr><td><strong>Autodisciplina P21</strong></td><td>NEO PI-R / laudo</td><td>Mecanismo interno de execução comprometido. Sistema externo não é opcional — é necessário.</td></tr>
+      <tr><td><strong>TEA Nível 1 — confirmado</strong></td><td>SRS-2 / laudo</td><td>Custo de masking, rigidez cognitiva, dificuldade com mudanças inesperadas.</td></tr>
+      <tr><td><strong>Traços borderline — confirmado</strong></td><td>NEO PI-R + clínica</td><td>Desregulação emocional intensa, oscilação, autocrítica, autossabotagem sob pressão.</td></tr>
+      <tr><td><strong>Inteligência P80 + alta capacidade de argumentação</strong></td><td>TRI / laudo</td><td>Você vence qualquer debate humano de accountability. Sistema precisa ser automação.</td></tr>
+      <tr><td><strong>Sono &lt;7h amplifica TAG e desregulação</strong></td><td>Walker 2017; APA metanálises</td><td>Fisiologia. Sono é prioridade não negociável.</td></tr>
+      <tr><td><strong>Exercício aeróbico reduz TAG e melhora função executiva</strong></td><td>Cochrane; Pontifex 2013</td><td>Qual tipo funciona pra você especificamente — ainda é hipótese.</td></tr>
+      <tr><td><strong>DBT é tratamento padrão ouro para traços borderline</strong></td><td>Linehan 1993; metanálises 2020</td><td>TIPP, DEAR MAN, Mindfulness têm base sólida para o seu perfil.</td></tr>
+      <tr><td><strong>Suporte social estável reduz desregulação em TEA</strong></td><td>Mazurek 2014; Camm-Crosbie 2019</td><td>Amigos estáveis &gt; parceiro único como regulação. Distribuir.</td></tr>
+      <tr><td><strong>Body doubling melhora foco em TEA/TDAH</strong></td><td>Aron 2004; evidência crescente</td><td>Presença de outra pessoa — mesmo silenciosa — melhora execução.</td></tr>
+    </tbody>
+  </table>
+
+  <h1>Hipóteses — a validar com seus dados <span class="th">HIPÓTESE</span></h1>
+
+  <div class="cl hypo">
+    <div class="ci">🟠</div>
+    <div>
+      <div class="ct">Estas afirmações NÃO são verdades ainda</div>
+      <div class="cx">Baseadas em autopercepção ou extrapolação de literatura. O bot coleta dados reais. Em 60–90 dias algumas viram fatos, outras são descartadas. Até lá: tratar como hipóteses, não como certezas.</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Hipótese</th><th>Origem</th><th>Status</th><th>Como validar</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Pico de foco é 19h–22h</strong></td><td>Autopercepção</td><td><span class="tt">TESTANDO</span></td><td>Bot registra horário + duração de cada sessão. 30 dias / 20+ sessões.</td></tr>
+      <tr><td><strong>Blocos 90min &gt; Pomodoro 25min</strong></td><td>Literatura + P1</td><td><span class="tt">TESTANDO</span></td><td>Comparar MITs concluídos por tipo de bloco. 60 dias.</td></tr>
+      <tr><td><strong>Musculação não funciona — causa desconhecida</strong></td><td>Observação sua</td><td><span class="th">HIPÓTESE</span></td><td>Isolar a causa: ambiente? social? monotonia? intensidade? horário?</td></tr>
+      <tr><td><strong>Exercício coletivo regula melhor que solo</strong></td><td>Hipótese sua</td><td><span class="tu">PLANEJADO</span></td><td>4 semanas de esporte coletivo com registro de humor antes/depois.</td></tr>
+      <tr><td><strong>Surf / natureza regula humor</strong></td><td>Hipótese sua</td><td><span class="tt">TESTANDO</span></td><td>Já em Cabo Frio. Bot registra humor 2h antes e depois.</td></tr>
+      <tr><td><strong>Sono &lt;6h → humor ≤2 no dia seguinte</strong></td><td>Literatura + suspeita</td><td><span class="tt">TESTANDO</span></td><td>Bot cruza dados de sono do smartwatch com humor automático.</td></tr>
+      <tr><td><strong>Brain dump reduz ruminação pré-bloco</strong></td><td>TCC + senso comum</td><td><span class="tt">TESTANDO</span></td><td>Comparar duração de bloco em dias com vs sem brain dump.</td></tr>
+      <tr><td><strong>Amigos estáveis &gt; parceiro como regulação</strong></td><td>Observação + literatura TEA</td><td><span class="th">HIPÓTESE</span></td><td>Bot registra se episódios correlacionam com dinâmica afetiva. Longo prazo.</td></tr>
+      <tr><td><strong>Pico real pode ser 19h45–21h30, não 19h</strong></td><td>Extrapolação</td><td><span class="tu">DESCONHECIDO</span></td><td>30 dias de dados revelarão o horário exato.</td></tr>
+    </tbody>
+  </table>
+
+  <h1>Remédios — acompanhamento <span class="tt">RASTREAR</span></h1>
+  <div class="cl danger"><div class="ci">🚨</div><div><div class="ct">Nunca mudar sem psiquiatra</div><div class="cx">O bot rastreia dados para levar ao psiquiatra com qualidade. Decisão de medicação é sempre do psiquiatra com dados reais — não da sua percepção no dia ruim.</div></div></div>
+  <table>
+    <thead><tr><th>Campo</th><th>Valor</th><th>Observação</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Remédio atual</strong></td><td>⬜ Preencher</td><td>Nome + dose</td></tr>
+      <tr><td><strong>Data de início / último ajuste</strong></td><td>⬜ Preencher</td><td>Referência para comparar antes/depois</td></tr>
+      <tr><td><strong>Objetivo terapêutico</strong></td><td>⬜ Definir com psiquiatra</td><td>O que melhora? Ansiedade? Humor? Foco?</td></tr>
+      <tr><td><strong>Efeitos a monitorar</strong></td><td>⬜ Definir com psiquiatra</td><td>Bot registra via /efeito [descrição]</td></tr>
+      <tr><td><strong>Critério de sucesso 60 dias</strong></td><td>⬜ Definir com psiquiatra</td><td>Ex: humor médio ≥3.5, episódios ≤2/semana</td></tr>
+      <tr><td><strong>Próxima consulta</strong></td><td>⬜ Preencher</td><td>Bot gera relatório /psiquiatria antes</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ EXPERIMENTOS ═══ -->
+<div class="tc tab-panel" id="tab-experimentos" data-tab="tab-experimentos" role="tabpanel" aria-hidden="true">
+  <h1>Protocolo de experimentos <span class="tt">ATIVO</span></h1>
+
+  <div class="cl info"><div class="ci">🔬</div><div><div class="ct">Regra — 1 variável por vez</div><div class="cx">Mudar exercício + remédio + horário ao mesmo tempo = impossível saber o que causou o quê. Nenhuma mudança em dia de humor ≤2. Decisões só na review semanal com dados.</div></div></div>
+
+  <div class="ec">
+    <div class="eh"><div class="etitle">🕐 Exp 1 — Horário de pico real</div><span class="es s-active">ATIVO — Março 2026</span></div>
+    <div class="egrid">
+      <div class="ef"><div class="elabel">Hipótese</div>Pico de foco é 19h–22h</div>
+      <div class="ef"><div class="elabel">Duração mínima</div>30 dias / 20+ sessões registradas</div>
+      <div class="ef"><div class="elabel">Métrica</div>Horário início + duração + MIT concluído</div>
+      <div class="ef"><div class="elabel">Confirmação</div>70%+ sessões longas entre 19h–22h</div>
+      <div class="ef"><div class="elabel">Refutação</div>Distribuição uniforme sem pico claro</div>
+      <div class="ef"><div class="elabel">Coleta</div>Automática via /foco no bot</div>
+    </div>
+  </div>
+
+  <div class="ec">
+    <div class="eh"><div class="etitle">💊 Exp 2 — Efeito do remédio</div><span class="es s-active">ATIVO — data de início a preencher</span></div>
+    <div class="egrid">
+      <div class="ef"><div class="elabel">Hipótese</div>Remédio atual melhora [definir com psiquiatra]</div>
+      <div class="ef"><div class="elabel">Duração mínima</div>60 dias de dados consistentes</div>
+      <div class="ef"><div class="elabel">Métrica</div>Humor diário, episódios/semana, sono, foco, efeitos colaterais</div>
+      <div class="ef"><div class="elabel">Confirmação</div>Humor médio ≥3.5, episódios ≤2/semana, sono ≥6.5h</div>
+      <div class="ef"><div class="elabel">Output</div>Relatório /psiquiatria com 30/60 dias de dados reais</div>
+      <div class="ef"><div class="elabel">Coleta</div>Check-ins diários + /remedio + smartwatch</div>
+    </div>
+  </div>
+
+  <div class="ec">
+    <div class="eh"><div class="etitle">🏄 Exp 3 — Natureza (surf) como regulação</div><span class="es s-active">ATIVO — Cabo Frio</span></div>
+    <div class="egrid">
+      <div class="ef"><div class="elabel">Hipótese</div>Surf/natureza regula humor melhor que exercício indoor</div>
+      <div class="ef"><div class="elabel">Duração mínima</div>8+ sessões com registro</div>
+      <div class="ef"><div class="elabel">Métrica</div>Humor 2h antes vs 2h depois de cada sessão</div>
+      <div class="ef"><div class="elabel">Confirmação</div>Aumento ≥1 ponto em 70%+ das sessões</div>
+      <div class="ef"><div class="elabel">Coleta</div>/exercicio surf 60min → bot pergunta humor 2h depois</div>
+      <div class="ef"><div class="elabel">Já iniciado</div>Você está em Cabo Frio — só registrar</div>
+    </div>
+  </div>
+
+  <div class="ec">
+    <div class="eh"><div class="etitle">⚽ Exp 4 — Exercício coletivo</div><span class="es s-planned">PLANEJADO — após 30 dias de baseline</span></div>
+    <div class="egrid">
+      <div class="ef"><div class="elabel">Hipótese</div>Coletivo (futebol, vôlei, BJJ) regula melhor que musculação solo</div>
+      <div class="ef"><div class="elabel">Fase A</div>30 dias sem exercício sistemático → baseline de humor</div>
+      <div class="ef"><div class="elabel">Fase B</div>30 dias de esporte coletivo 2–3x/semana</div>
+      <div class="ef"><div class="elabel">Métrica</div>Humor antes/depois + frequência espontânea</div>
+      <div class="ef"><div class="elabel">Investigar musculação</div>Causa do fracasso: ambiente? solidão? monotonia? intensidade?</div>
+      <div class="ef"><div class="elabel">Confirmação</div>Humor pós &gt; pré em 70%+ + frequência ≥2x/semana espontânea</div>
+    </div>
+  </div>
+
+  <div class="ec">
+    <div class="eh"><div class="etitle">🧠 Exp 5 — Quais técnicas TCC funcionam (passivo)</div><span class="es s-active">ATIVO — coleta automática</span></div>
+    <div class="egrid">
+      <div class="ef"><div class="elabel">Como funciona</div>Cada /regula e /desabafei registra situação + técnica + resultado</div>
+      <div class="ef"><div class="elabel">Sem intervenção</div>Você não faz nada diferente — bot coleta naturalmente</div>
+      <div class="ef"><div class="elabel">Output (30 dias)</div>Top 3 técnicas por tipo de situação com taxa de sucesso real</div>
+      <div class="ef"><div class="elabel">Valor</div>Informação para terapeuta que nenhuma consulta geraria sozinha</div>
+    </div>
+  </div>
+
+  <h2>Critérios de quando mudar algo</h2>
+  <div class="cl danger"><div class="ci">🚨</div><div><div class="ct">Regra anti-impulsividade</div><div class="cx">Com TEA + borderline + P85 ansiedade, você vai querer mudar tudo após 1 semana ruim. Não é dado — é estado emocional. <strong>Nenhuma mudança de sistema em dia de humor ≤2.</strong> Decisões de ajuste só na review semanal com dados na mão.</div></div></div>
+
+  <table>
+    <thead><tr><th>O que mudar</th><th>Critério mínimo de dados</th><th>Quem decide</th></tr></thead>
+    <tbody>
+      <tr><td>Horário do bloco de foco</td><td>14+ dias mostrando padrão diferente</td><td>Rafa + dados do bot na review</td></tr>
+      <tr><td>Duração dos blocos</td><td>4+ semanas de MITs com durações diferentes</td><td>Rafa + dados</td></tr>
+      <tr><td>Tipo de exercício</td><td>8+ sessões com humor antes/depois</td><td>Rafa com dados</td></tr>
+      <tr><td>Remédio / dose</td><td>NUNCA sem psiquiatra. Mínimo 30 dias de dados.</td><td>Psiquiatra + dados do bot</td></tr>
+      <tr><td>Técnica de regulação</td><td>10+ ocorrências registradas no bot</td><td>Rafa + terapeuta com dados</td></tr>
+      <tr style="background:var(--red-bg)!important"><td colspan="3" style="text-align:center;font-weight:700;color:var(--red)">🚫 Qualquer mudança em dia de humor ≤2 — BLOQUEADO</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ TIME ═══ -->
+<div class="tc tab-panel" id="tab-time" data-tab="tab-time" role="tabpanel" aria-hidden="true">
+  <h1>Time de suporte completo — quem faz o quê</h1>
+
+  <div class="cl teal"><div class="ci">💡</div><div><div class="ct">Princípio de distribuição</div><div class="cx">Suporte concentrado em 1 pessoa (geralmente parceiro romântico) é instável — quando a pessoa oscila, tudo oscila junto. Este sistema distribui papéis diferentes entre pessoas diferentes. Se 1 sai, o sistema não colapsa.</div></div></div>
+
+  <h2>Mapa de papéis</h2>
+  <table>
+    <thead><tr><th>Função</th><th>Quem</th><th>Formato</th><th>Frequência</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Manhã leve antes de sair</strong></td><td>TO Residente</td><td>Presencial</td><td>Dias úteis (~15–20 min)</td></tr>
+      <tr><td><strong>Suporte noturno: encerramento + bloco pico</strong></td><td>TO Residente</td><td>Presencial</td><td>Diário (~1h no total)</td></tr>
+      <tr><td><strong>Body doubling em casa (eventuais)</strong></td><td>TO Residente</td><td>Presencial</td><td>Orgânico — quando disponível</td></tr>
+      <tr><td><strong>Protocolo de colapso/burnout</strong></td><td>TO Residente</td><td>Presencial</td><td>Quando necessário</td></tr>
+      <tr><td><strong>Sessão clínica semanal + observação</strong></td><td>TO Residente</td><td>Sessão formal 1h/semana</td><td>Sexta ou combinado</td></tr>
+      <tr><td><strong>Logística doméstica (limpeza, compras)</strong></td><td>Diarista + Rafa</td><td>—</td><td>Conforme necessidade</td></tr>
+      <tr><td><strong>Manter Rafael trabalhando de forma regular</strong></td><td>Nicole</td><td>Remoto + coworking</td><td>Diário</td></tr>
+      <tr><td><strong>Operacional Impact X: emails, clientes, CRM</strong></td><td>Nicole</td><td>Remoto</td><td>Diário</td></tr>
+      <tr><td><strong>Body doubling no coworking</strong></td><td>Nicole</td><td>Presencial coworking</td><td>3x/semana fixo</td></tr>
+      <tr><td><strong>Quarentena de ideias</strong></td><td>Nicole</td><td>Remoto + review semanal</td><td>Contínuo</td></tr>
+      <tr><td><strong>Check-ins e rastreamento de saúde</strong></td><td>Bot WhatsApp</td><td>Automático</td><td>09h, 13h, 18h45, 22h30</td></tr>
+      <tr><td><strong>Memória persistente e insights</strong></td><td>Bot WhatsApp</td><td>Automático</td><td>Contínuo</td></tr>
+      <tr><td><strong>Relatório para terapia e psiquiatria</strong></td><td>Bot WhatsApp</td><td>Sob demanda</td><td>/terapia e /psiquiatria</td></tr>
+      <tr><td><strong>Psicoterapia e trabalho de trauma</strong></td><td>Terapeuta</td><td>Sessão</td><td>Semanal</td></tr>
+      <tr><td><strong>Manejo farmacológico</strong></td><td>Psiquiatra</td><td>Consulta</td><td>Mensal</td></tr>
+      <tr><td><strong>Suporte social e regulação de pares</strong></td><td>2–3 amigos próximos</td><td>Orgânico</td><td>Regular</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Nicole — horários e playbook</h2>
+  <div class="g2">
+    <div>
+      <h3>Remoto — todos os dias úteis</h3>
+      <table>
+        <thead><tr><th>Horário</th><th>O que Nicole faz</th></tr></thead>
+        <tbody>
+          <tr><td><strong>09h</strong></td><td>Envia MIT do dia + 3 tarefas dela pra executar. Você confirma com "ok".</td></tr>
+          <tr><td><strong>17h</strong></td><td>Status do dia: o que fez, o que ficou, MIT de amanhã sugerido.</td></tr>
+          <tr><td><strong>Sex 17h</strong></td><td>Review 15 min: quarentena de ideias, prioridades da semana seguinte.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Presencial — 3x/semana fixo (ex: seg, qua, qui)</h3>
+      <table>
+        <thead><tr><th>Função</th><th>Como</th></tr></thead>
+        <tbody>
+          <tr><td>Body doubling</td><td>Trabalha no mesmo espaço, silenciosa</td></tr>
+          <tr><td>Operacional</td><td>Emails, clientes, CRM enquanto você foca</td></tr>
+          <tr><td>Filtro</td><td>Quem pode interromper, quem não pode</td></tr>
+          <tr><td>Alarme de bloco</td><td>Avisa fim do bloco se necessário</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Logística doméstica</h2>
+  <div class="cl info"><div class="ci">🏠</div><div><div class="ct">Simples e direto</div><div class="cx">Diarista para limpeza conforme necessidade. Compras, contas e logística pessoal são responsabilidade de Rafael. Nicole não entra aqui — exceto agenda pessoal e pesquisas pontuais quando necessário. TO não entra aqui de forma alguma.</div></div></div>
+</div>
+
+<!-- ═══ BOT ═══ -->
+<div class="tc tab-panel" id="tab-bot" data-tab="tab-bot" role="tabpanel" aria-hidden="true">
+  <h1>Canal — decisão <span class="tf">DECIDIDO</span></h1>
+
+  <div class="cl success"><div class="ci">✅</div><div><div class="ct">WhatsApp para tudo agora</div><div class="cx">Bot pessoal no WhatsApp. Comunicação com Nicole no WhatsApp. Você usa Android Redmi, já tem o app, zero fricção de adoção. Slack só entra se Nicole precisar coordenar com terceiros em projetos — e mesmo assim só ela usa, Rafa não. Uma interface para Rafa. Sempre.</div></div></div>
+
+  <h1>Check-ins proativos — horários fixos</h1>
+  <div class="sb">
+    <div class="sh"><div class="st">09h</div><div class="stt">Check-in matinal</div><div class="sb2">diário</div></div>
+    <div class="sbody"><ul><li>"Bom dia Rafael 🌅 Como você acordou? (1–5) | Tomou o remédio? | MIT de hoje: [Linear]. Confirma?"</li><li>3 respostas curtas. Bot define protocolo do dia inteiro baseado no humor.</li></ul></div>
+  </div>
+  <div class="sb">
+    <div class="sh"><div class="st">13h</div><div class="stt">Check-in do meio-dia</div><div class="sb2">diário</div></div>
+    <div class="sbody"><ul><li>"Meio-dia 🌤️ Comeu? | Humor agora (1–5)? | Alguma ideia nova? (quarentena automática)"</li></ul></div>
+  </div>
+  <div class="sb">
+    <div class="sh" style="background:var(--green)"><div class="st">18h45</div><div class="stt">Preparação para o bloco de pico</div><div class="sb2">diário</div></div>
+    <div class="sbody"><ul><li>"⚡ 15 min pro seu pico. MIT: [tarefa]. Bloco de [X]min. /foco quando pronto."</li><li>Duração do bloco baseada no humor do dia (90min se ≥4, 50min se 3, 25min se ≤2)</li></ul></div>
+  </div>
+  <div class="sb">
+    <div class="sh" style="background:var(--orange)"><div class="st">22h30</div><div class="stt">Alarme de encerramento</div><div class="sb2">diário</div></div>
+    <div class="sbody"><ul><li>"🔔 Hora de parar Rafael. Salva, fecha. MIT feito? (sim/parcial/não) | Dia: (1–5)"</li><li>Este alarme não negocia. Não é sugestão.</li></ul></div>
+  </div>
+  <div class="sb">
+    <div class="sh" style="background:var(--text)"><div class="st">Sex 17h</div><div class="stt">Relatório semanal automático</div><div class="sb2">semanal</div></div>
+    <div class="sbody"><ul><li>MITs cumpridos, horas de foco, humor médio, sono, episódios, técnica mais eficaz, insight da semana gerado por Claude</li></ul></div>
+  </div>
+
+  <h1>Comandos disponíveis — qualquer hora</h1>
+  <table>
+    <thead><tr><th>Comando</th><th>Bot responde</th><th>Salva em</th></tr></thead>
+    <tbody>
+      <tr><td><strong>/foco [tarefa]</strong></td><td>Bloco iniciado. Duração pelo humor. Agenda alarme.</td><td>foco_sessoes</td></tr>
+      <tr><td><strong>/pausa</strong></td><td>Pausa correta. Agenda retorno. "Sem tela — vai se mover."</td><td>foco_sessoes</td></tr>
+      <tr><td><strong>/ideia [texto]</strong></td><td>"Quarentena anotada. Revisão sexta. Volta pro MIT."</td><td>ideias_quarentena + Nicole</td></tr>
+      <tr><td><strong>/travei</strong></td><td>Pede 1 frase do bloqueio → devolve 1 micro-ação</td><td>episodios</td></tr>
+      <tr><td><strong>/desabafei</strong></td><td>Reconhece → intensidade → técnica de regulação</td><td>episodios</td></tr>
+      <tr><td><strong>/regula</strong></td><td>"O que está acontecendo?" → técnica com passo a passo</td><td>episodios + técnica</td></tr>
+      <tr><td><strong>/humor [1-5]</strong></td><td>"Registrado. Protocolo ajustado."</td><td>humor_log</td></tr>
+      <tr><td><strong>/remedio</strong></td><td>"✅ Registrado às [hora]."</td><td>remedios_log</td></tr>
+      <tr><td><strong>/exercicio [tipo] [min]</strong></td><td>"Registrado. Pergunto como você está em 2h."</td><td>exercicio_log</td></tr>
+      <tr><td><strong>/efeito [desc]</strong></td><td>"Anotado para o relatório do psiquiatra."</td><td>efeitos_log</td></tr>
+      <tr><td><strong>/terapia</strong></td><td>Resumo estruturado dos últimos 7 dias para a sessão</td><td>—</td></tr>
+      <tr><td><strong>/psiquiatria</strong></td><td>Relatório: adesão, humor, sono, efeitos para a consulta</td><td>—</td></tr>
+      <tr><td><strong>/semana</strong></td><td>Relatório completo da semana</td><td>—</td></tr>
+      <tr><td><strong>/como fui</strong></td><td>Resumo do dia</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h1>Protocolos por nível de humor</h1>
+  <table>
+    <thead><tr><th>Nível</th><th>Protocolo de trabalho</th><th>Bot</th><th>TO</th><th>Nicole</th></tr></thead>
+    <tbody>
+      <tr><td>🌑 <strong>1 — Crise</strong></td><td>Zero trabalho. Sobrevivência básica.</td><td>Técnica de regulação. Não cobra MIT. CVV se necessário.</td><td>Protocolo de emergência. Presença total.</td><td>Assume todo operacional. Não contata Rafa.</td></tr>
+      <tr><td>🌘 <strong>2 — Difícil</strong></td><td>Bloco Mínimo 25min. MIT reduzido.</td><td>Técnica leve. Check-in 2h. Valida qualquer progresso.</td><td>Reduz demandas. Dieta sensorial intensificada.</td><td>Filtra tudo. Cancela calls.</td></tr>
+      <tr><td>🌗 <strong>3 — Médio</strong></td><td>Bloco Médio 50min. MIT normal.</td><td>Protocolo padrão.</td><td>Body double. Sessão normal.</td><td>Operação normal.</td></tr>
+      <tr><td>🌕 <strong>4 — Bem</strong></td><td>Bloco Longo 90min. MIT + bônus.</td><td>Lembra pausas — risco de esquecer.</td><td>Passivo. Disponível.</td><td>Pode trazer itens não urgentes.</td></tr>
+      <tr><td>⚡ <strong>5 — Hiperfoco</strong></td><td>90min+. Monitorar esgotamento.</td><td>Alarme obrigatório 90min. Após 3h: alerta de parada.</td><td>Protege bloco. Sinaliza encerramento.</td><td>Zero interrupção.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ BUILD ═══ -->
+<div class="tc tab-panel" id="tab-build" data-tab="tab-build" role="tabpanel" aria-hidden="true">
+  <h1>System Design — Stack Completa</h1>
+
+  <div class="sl"><div class="sl-label">📱 Entrada</div><div class="sl-tools"><span class="chip">WhatsApp (Redmi)</span><span class="chip">Mensagem de voz → Whisper</span><span class="chip ext">Smartwatch → Health Connect</span><span class="chip new">Fitbit API (mês 2)</span></div></div>
+  <div style="text-align:center;color:var(--text-sec);font-size:16px;margin:3px 0">↓</div>
+  <div class="sl"><div class="sl-label">🔌 Ingestão</div><div class="sl-tools"><span class="chip">Evolution API (webhook WA)</span><span class="chip">n8n (orquestração)</span><span class="chip">Whisper API (áudio → texto)</span></div></div>
+  <div style="text-align:center;color:var(--text-sec);font-size:16px;margin:3px 0">↓</div>
+  <div class="sl"><div class="sl-label">🧠 LLM Router</div><div class="sl-tools"><span class="chip">Groq Llama 3.1 8B (simples — free)</span><span class="chip">Groq Llama 3.3 70B (médio — free)</span><span class="chip new">Gemini 2.5 Flash (fallback — free)</span><span class="chip new">Cerebras Llama 70B (fallback — free)</span><span class="chip new">Mistral free (fallback — free)</span><span class="chip">Claude Sonnet 4.6 (clínico — pago)</span><span class="chip">Claude Haiku 4.5 (emergency)</span></div></div>
+  <div style="text-align:center;color:var(--text-sec);font-size:16px;margin:3px 0">↓</div>
+  <div class="sl"><div class="sl-label">💾 Dados</div><div class="sl-tools"><span class="chip">Supabase PostgreSQL</span><span class="chip">Supabase Vector (embeddings)</span></div></div>
+  <div style="text-align:center;color:var(--text-sec);font-size:16px;margin:3px 0">↓</div>
+  <div class="sl"><div class="sl-label">🔗 MCPs</div><div class="sl-tools"><span class="chip ext">Linear MCP (MIT do dia)</span><span class="chip ext">Notion MCP (quarentena)</span><span class="chip ext">GCal MCP (agenda)</span></div></div>
+  <div style="text-align:center;color:var(--text-sec);font-size:16px;margin:3px 0">↓</div>
+  <div class="sl"><div class="sl-label">☁️ Infra</div><div class="sl-tools"><span class="chip">Oracle Free Tier VPS</span><span class="chip">Cloudflare (DNS + WAF + Tunnel)</span><span class="chip ext">Vercel (relatórios)</span></div></div>
+
+  <h2>Schema Supabase</h2>
+  <div class="code">
+    <div class="cmd">-- TABELAS PRINCIPAIS</div><br>
+    <div class="key">humor_log</div>
+    <div>  id, user_id, data, hora, <span class="val">nivel INT(1-5)</span>, tipo TEXT (matinal/tarde/noite), contexto TEXT</div><br>
+    <div class="key">foco_sessoes</div>
+    <div>  id, user_id, <span class="val">inicio TIMESTAMPTZ</span>, fim TIMESTAMPTZ, duracao_min INT, tarefa TEXT, <span class="val">concluiu BOOL</span>, interrupcoes INT</div><br>
+    <div class="key">episodios</div>
+    <div>  id, user_id, data, hora, <span class="val">tipo TEXT</span> (desregulacao/desabafo/travei), intensidade INT,</div>
+    <div>  contexto TEXT, tecnica_usada TEXT, resultado TEXT, <span class="val">embedding VECTOR(1536)</span></div><br>
+    <div class="key">sono_log</div>
+    <div>  id, user_id, data, <span class="val">hora_dormir TIME</span>, hora_acordar TIME, duracao_min INT, qualidade INT, fonte TEXT</div><br>
+    <div class="key">remedios_log</div>
+    <div>  id, user_id, data, <span class="val">tomou BOOL</span>, hora_tomou TIME, remedio TEXT, efeitos TEXT</div><br>
+    <div class="key">exercicio_log</div>
+    <div>  id, user_id, data, tipo TEXT, duracao_min INT, <span class="val">humor_antes INT</span>, humor_depois INT, fonte TEXT</div><br>
+    <div class="key">ideias_quarentena</div>
+    <div>  id, user_id, data, ideia TEXT, <span class="val">status TEXT</span> (quarentena/aprovada/descartada), revisao_em DATE</div>
+  </div>
+
+  <h2>System Prompt — estrutura base</h2>
+  <div class="code">
+    <div class="cmd">SYSTEM PROMPT — BOT SEGUNDO CÉREBRO — RAFAEL CAMILLO</div><br>
+    <div class="cmt"># IDENTIDADE</div>
+    <div>Co-regulador externo com memória persistente. Não é app. Não argumenta. Age.</div><br>
+    <div class="cmt"># FATOS DO LAUDO — NUNCA APAGAR</div>
+    <div>TEA N1 + TAG P85 + borderline. Atenção Alternada P1: troca de tarefa é cara.</div>
+    <div>Funciona sob pressão real. Inteligência P80: vence qualquer debate — não entrar.</div>
+    <div>Autodisciplina P21: sistema externo é necessário, não opcional.</div><br>
+    <div class="cmt"># REGRAS</div>
+    <div>- Respostas diretas, curtas, sem rodeios</div>
+    <div>- Nunca julgar. Nunca cobrar com intensidade.</div>
+    <div>- Humor ≤2: reduzir perguntas, aumentar acolhimento</div>
+    <div>- Crise: mencionar CVV (188) se necessário — hardcoded</div>
+    <div>- Ideia nova: registrar + redirecionar pro MIT. Sem debater.</div><br>
+    <div class="cmt"># CONTEXTO DINÂMICO (injetado pelo n8n em cada mensagem)</div>
+    <div>humor_hoje: <span class="hi">{humor_hoje}</span></div>
+    <div>mit_dia: <span class="hi">{mit_linear}</span></div>
+    <div>sono_ontem: <span class="hi">{sono_horas}</span>h</div>
+    <div>remedio_hoje: <span class="hi">{remedio_tomou}</span></div>
+    <div>episodios_recentes: <span class="hi">{ultimos_3_episodios}</span></div>
+    <div>sessao_ativa: <span class="hi">{sessao_em_andamento}</span></div>
+  </div>
+
+  <h2>Roteamento de LLMs — decisão por task</h2>
+
+  <div class="cl danger"><div class="ci">🔐</div><div><div class="ct">Regra de privacidade — inegociável</div><div class="cx">Dados clínicos (humor, remédio, laudo, episódios, desabafos) <strong>nunca vão para free tier de nenhum provedor</strong>. Free tiers podem usar prompts para treinar modelos. Apenas Claude (API paga com zero retention) recebe contexto clínico completo.</div></div></div>
+
+  <table>
+    <thead><tr><th>Task</th><th>Provider primário</th><th>Fallback 1</th><th>Fallback 2</th><th>Emergency</th><th>Custo</th></tr></thead>
+    <tbody>
+      <tr><td>/remedio, /exercicio, /humor, /pausa</td><td>Groq Llama 3.1 8B</td><td>Gemini Flash-Lite free</td><td>Cerebras Llama 8B</td><td>Claude Haiku</td><td>R$0</td></tr>
+      <tr><td>Check-ins 09h, 13h, 18h45, 22h30</td><td>Groq Llama 3.3 70B</td><td>Gemini 2.5 Flash free</td><td>Cerebras 70B</td><td>Claude Haiku</td><td>R$0</td></tr>
+      <tr><td>/ideia, /foco, /como fui</td><td>Groq Llama 3.3 70B</td><td>Gemini 2.5 Flash free</td><td>Mistral free</td><td>Claude Haiku</td><td>R$0</td></tr>
+      <tr><td>/travei, /desabafei, /regula</td><td><strong>Claude Sonnet 4.6</strong></td><td>Claude Haiku</td><td>—</td><td>—</td><td>~R$0,02/req</td></tr>
+      <tr><td>/terapia, /psiquiatria, /semana</td><td><strong>Claude Sonnet 4.6</strong></td><td>Claude Haiku</td><td>—</td><td>—</td><td>~R$0,05/req</td></tr>
+    </tbody>
+  </table>
+
+  <div class="code">
+    <div class="cmd">// n8n — LLM Router com fallback automático</div><br>
+    <div class="cmt">// Todos os providers usam formato OpenAI-compatible</div>
+    <div class="cmt">// Trocar provider = mudar baseURL + apiKey. 2 linhas.</div><br>
+    <div class="key">const providers = {</div>
+    <div>  <span class="str">'groq-8b'</span>:    { base: <span class="str">'https://api.groq.com/openai/v1'</span>,                model: <span class="str">'llama-3.1-8b-instant'</span> },</div>
+    <div>  <span class="str">'groq-70b'</span>:   { base: <span class="str">'https://api.groq.com/openai/v1'</span>,                model: <span class="str">'llama-3.3-70b-versatile'</span> },</div>
+    <div>  <span class="str">'gemini'</span>:     { base: <span class="str">'https://generativelanguage.googleapis.com/v1beta'</span>, model: <span class="str">'gemini-2.5-flash'</span> },</div>
+    <div>  <span class="str">'cerebras'</span>:   { base: <span class="str">'https://api.cerebras.ai/v1'</span>,                    model: <span class="str">'llama3.3-70b'</span> },</div>
+    <div>  <span class="str">'mistral'</span>:    { base: <span class="str">'https://api.mistral.ai/v1'</span>,                     model: <span class="str">'mistral-small-latest'</span> },</div>
+    <div>  <span class="str">'claude'</span>:     { base: <span class="str">'https://api.anthropic.com'</span>,                     model: <span class="str">'claude-sonnet-4-6'</span> },</div>
+    <div>  <span class="str">'haiku'</span>:      { base: <span class="str">'https://api.anthropic.com'</span>,                     model: <span class="str">'claude-haiku-4-5'</span> },</div>
+    <div><span class="key">}</span></div><br>
+    <div class="cmt">// Error handler: 429 ou 503 → tenta próximo automaticamente</div>
+    <div class="cmt">// Erro real (400, 500) → lança exceção</div>
+  </div>
+
+  <div class="cl info"><div class="ci">💰</div><div><div class="ct">Custo mensal estimado</div><div class="cx">Free tiers cobrem ~90% das interações. Claude cobre apenas as 10% clínicas. Custo total estimado: <strong>R$3–8/mês</strong>. Menos que um café.</div></div></div>
+
+  <h2>Segurança — práticas obrigatórias</h2>
+  <table>
+    <thead><tr><th>Área</th><th>Prática</th><th>Implementação</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Credenciais</strong></td><td>Nunca no código — sempre .env</td><td>n8n env vars + Oracle Vault</td></tr>
+      <tr><td><strong>Dados em trânsito</strong></td><td>HTTPS obrigatório</td><td>Cloudflare proxy + SSL</td></tr>
+      <tr><td><strong>Dados em repouso</strong></td><td>Criptografia AES-256</td><td>Supabase nativo + RLS por user_id</td></tr>
+      <tr><td><strong>Claude API</strong></td><td>Zero retention por padrão via API</td><td>Não usar claude.ai — usar API diretamente</td></tr>
+      <tr><td><strong>Backups</strong></td><td>Exportar Supabase semanalmente</td><td>n8n scheduled → Google Drive pessoal</td></tr>
+      <tr><td><strong>Retenção</strong></td><td>Logs de conversa: máximo 180 dias</td><td>Supabase function de purge mensal</td></tr>
+      <tr><td><strong>VPS</strong></td><td>n8n e Evolution não expostos publicamente</td><td>Oracle Free Tier + Cloudflare Tunnel</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Ordem de construção</h2>
+  <div class="phase"><div class="pl green"><div class="pn">S1</div><div class="pp">Dias 1–7</div></div><div class="pc"><h3>MVP do bot — mínimo que muda tudo</h3><ul><li>Evolution API + n8n recebendo WhatsApp</li><li>Claude API respondendo com system prompt base</li><li>/foco, /ideia, /humor funcionando</li><li>Supabase com humor_log e foco_sessoes</li><li>Check-in matinal 09h</li></ul></div></div>
+  <div class="phase"><div class="pl"><div class="pn">S2</div><div class="pp">Dias 8–14</div></div><div class="pc"><h3>Saúde + remédio + alarmes</h3><ul><li>/remedio, /exercicio, /desabafei, /regula</li><li>Alarme 22h30 automatizado</li><li>Check-ins 13h e 18h45</li><li>Tabelas sono_log e remedios_log</li></ul></div></div>
+  <div class="phase"><div class="pl"><div class="pn">S3–4</div><div class="pp">Dias 15–30</div></div><div class="pc"><h3>Memória persistente + relatórios</h3><ul><li>Contexto dinâmico injetado em cada mensagem</li><li>/semana, /terapia, /psiquiatria</li><li>Relatório automático sexta 17h</li><li>Linear MCP para buscar MIT</li></ul></div></div>
+  <div class="phase"><div class="pl teal"><div class="pn">M2</div><div class="pp">Dias 31–60</div></div><div class="pc"><h3>Insights + smartwatch + Fitbit</h3><ul><li>Fitbit API ou Health Connect integrado</li><li>Correlações automáticas: sono vs humor, exercício vs humor</li><li>Embeddings de episódios no Supabase Vector</li><li>Refinamento do system prompt com dados reais</li></ul></div></div>
+
+  <h2>Saúde do sistema — monitoramento</h2>
+  <table>
+    <thead><tr><th>Risco</th><th>Sinal</th><th>Mitigação</th></tr></thead>
+    <tbody>
+      <tr><td>Evolution API quebra</td><td>Mensagens param</td><td>Meta Business API como fallback</td></tr>
+      <tr><td>n8n cai no Oracle</td><td>Sem check-ins</td><td>UptimeRobot — alerta 5 min</td></tr>
+      <tr><td>Claude API custo explode</td><td>Fatura &gt;R$100</td><td>Rate limit por usuário + cache de respostas frequentes</td></tr>
+      <tr><td>Smartwatch sem sincronizar</td><td>0 registros de sono</td><td>Check diário n8n → alerta no WhatsApp</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ HARDWARE & COMPRAS ═══ -->
+<div class="tc tab-panel" id="tab-hardware" data-tab="tab-hardware" role="tabpanel" aria-hidden="true">
+
+  <h1>Hardware — o que comprar e por quê</h1>
+
+  <div class="cl info">
+    <div class="ci">🎯</div>
+    <div>
+      <div class="ct">Princípio de seleção</div>
+      <div class="cx">Android only. Custo-benefício real — sem desperdiçar dinheiro. Sem LLM local. Cada item tem justificativa clara baseada no laudo (TEA N1 + TAG + hipersensibilidade ao frio) ou no sistema técnico.</div>
+    </div>
+  </div>
+
+  <h1>📱 Celular — Redmi 14C</h1>
+
+  <div class="cl success"><div class="ci">✅</div><div><div class="ct">Mantém — não troca</div><div class="cx">Android 14 no lançamento, já atualizado para Android 15 e HyperOS 3 com Android 16 no Brasil. Health Connect integrado nativo (Android 14+). Suporte a Bluetooth 5.4, NFC. Serve para tudo que o sistema precisa. Sem motivo para gastar.</div></div></div>
+
+  <h1>🎧 Fone de ouvido — decisão</h1>
+
+  <div class="cl fact"><div class="ci">🧠</div><div><div class="ct">Por que condução óssea é ideal para TEA</div><div class="cx">Você precisa ouvir música enquanto conversa com pessoas — sem isolar o ambiente. Condução óssea transmite som via osso da face, deixando os tímpanos 100% abertos. Você ouve música + conversa + sons ao redor simultaneamente. Para autismo com hipersensibilidade sensorial, não bloquear o ambiente é mais seguro e menos estressante do que earbuds tradicionais.</div></div></div>
+
+  <table>
+    <thead><tr><th>Opção</th><th>Preço BR</th><th>Veredito</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Shokz OpenRun</strong></td><td>R$550–650</td><td>✅ Compra</td><td>IP67, 8h bateria, carga rápida 10min, 26g. Exatamente o que pediu. Serve no surf.</td></tr>
+      <tr><td><strong>Shokz OpenRun Pro 2</strong></td><td>R$900+</td><td>⚠️ Não vale</td><td>Som melhor mas diferença não justifica pra uso cotidiano. Economiza R$300.</td></tr>
+      <tr><td><strong>Ray-Ban Meta Gen 2</strong></td><td>R$3.299</td><td>🔜 Futuro</td><td>Disponível no BR. Camera 3K + Meta AI em PT + open-ear. Caro para agora. Considerar em 6 meses se câmera for prioridade.</td></tr>
+      <tr><td><strong>Clone condução óssea Shopee</strong></td><td>R$80–150</td><td>🚫 Evitar</td><td>Vibração excessiva no crânio = desconforto em uso prolongado. Contra-indicado para hipersensibilidade sensorial.</td></tr>
+    </tbody>
+  </table>
+
+  <h1>⌚ Smartwatch — decisão</h1>
+
+  <table>
+    <thead><tr><th>Opção</th><th>Preço BR</th><th>Veredito</th><th>Integração</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Redmi Watch atual</strong></td><td>Já tem</td><td>⚠️ Temporário</td><td>API não documentada. Usar Gadgetbridge como ponte temporária.</td></tr>
+      <tr><td><strong>Fitbit Inspire 3</strong></td><td>~R$550</td><td>✅ Mês 2</td><td>Fitbit Web API documentada + nó n8n nativo + Health Connect. Dados de sono com estágios. 10 dias bateria. 5ATM surf.</td></tr>
+      <tr><td><strong>Garmin Vivosmart 5</strong></td><td>~R$900</td><td>⚡ Alternativa</td><td>API mais robusta, mas requer aprovação de developer. Sem nó nativo no n8n. Não justifica custo extra.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cl warn"><div class="ci">⚠️</div><div><div class="ct">Regra do smartwatch</div><div class="cx">Não compra antes do bot estar funcionando. Em 30 dias de dados manuais via check-in você já vê o valor. Aí a decisão de compra é fácil.</div></div></div>
+
+  <h1>🏠 Alexa — você já tem, use mais</h1>
+
+  <p>Você tem Alexa em todos os cômodos. Infraestrutura paga que o sistema ignora. Custo de configuração: zero.</p>
+
+  <table>
+    <thead><tr><th>Rotina</th><th>Comando</th><th>O que faz</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Início do bloco de foco</strong></td><td>"Alexa, foco"</td><td>Toca Brain.fm/playlist de foco, dimma luzes, DND no celular via rotina</td></tr>
+      <tr><td><strong>Alarme de encerramento</strong></td><td>Automático 22h30</td><td>Mais difícil de ignorar que celular — está no ambiente físico</td></tr>
+      <tr><td><strong>Manhã</strong></td><td>"Alexa, bom dia"</td><td>Liga luz gradual, toca música leve, pode disparar webhook pro bot</td></tr>
+      <tr><td><strong>Encerramento</strong></td><td>"Alexa, boa noite"</td><td>Dimma todas as luzes, modo DND, ambiente de sono</td></tr>
+    </tbody>
+  </table>
+
+  <h1>👂 Kit sensorial — autismo adulto</h1>
+
+  <div class="cl fact"><div class="ci">🔵</div><div><div class="ct">Base clínica — por que esses itens</div><div class="cx">TEA N1 com hipersensibilidade sensorial confirmada no laudo (processamento sensorial comprometido). Itens sensoriais são parte da dieta sensorial — não conforto opcional. São ferramentas de regulação do sistema nervoso.</div></div></div>
+
+  <table>
+    <thead><tr><th>Item</th><th>Uso</th><th>Tipo recomendado</th><th>Preço est.</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Tampão de ouvido silicone</strong></td><td>Ambientes ruidosos, foco, dormir</td><td>Silicone reutilizável 33–35dB com 4 tamanhos. Não espuma — espuma irrita o canal auditivo em uso prolongado.</td><td>R$20–40</td></tr>
+      <tr><td><strong>Abafador tipo concha</strong></td><td>Ambientes muito ruidosos (shows, festas, cidade)</td><td>3M Peltor ou similar. 21–27dB. Discreto, adulto. Diferente do abafador infantil — não precisa ser colorido.</td><td>R$80–150</td></tr>
+      <tr><td><strong>Post-its / bloco de notas sempre à mão</strong></td><td>Externalizar pensamentos, dump de ideias, transições</td><td>Físico. Papel. Não digital. Escrever à mão para TEA tem efeito diferente no cérebro — externaliza o pensamento de forma mais definitiva.</td><td>R$15</td></tr>
+      <tr><td><strong>Fidget discreto</strong></td><td>Regulação durante calls, espera, ansiedade</td><td>Fidget ring (anel giratório) ou cube. Discreto para uso adulto profissional. Regulação proprioceptiva.</td><td>R$30–60</td></tr>
+      <tr><td><strong>Cobertor pesado (weighted blanket)</strong></td><td>Regulação pré-sono, após desregulação</td><td>5–7kg para peso corporal de ~70kg (regra: 10% do peso corporal). Compressão = regulação do SNA.</td><td>R$200–400</td></tr>
+      <tr><td><strong>Iluminação ajustável</strong></td><td>Reduzir estímulo visual no espaço de trabalho</td><td>Lâmpada RGB ou dimmer. Luz quente (2700K) para noite. Sem luz branca fria à noite — amplifica ansiedade.</td><td>R$50–100</td></tr>
+    </tbody>
+  </table>
+
+  <h1>🏄 Kit para o mar — hipersensibilidade ao frio</h1>
+
+  <div class="cl fact"><div class="ci">🌡️</div><div><div class="ct">Água de Cabo Frio no inverno — contexto</div><div class="cx">Temperatura da água em Cabo Frio/Arraial varia de ~18–22°C no verão a ~16–18°C no inverno. Com hipersensibilidade ao frio, você precisa de pelo menos 1 grau a mais de proteção do que a recomendação padrão. O guia: temperatura da água 16–20°C → wetsuit 3/2mm como mínimo.</div></div></div>
+
+  <table>
+    <thead><tr><th>Item</th><th>Especificação</th><th>Por que essa escolha</th><th>Preço est.</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Wetsuit full body 3/2mm</strong></td><td>Long john manga longa + pernas longas. Fechamento costas ou peito.</td><td>3mm tronco / 2mm braços = equilíbrio entre calor e mobilidade para remar. Para hipersensibilidade ao frio em Cabo Frio no inverno, 3/2mm é o mínimo. Marcas BR: Mormaii ou Rip Curl nacional.</td><td>R$400–800</td></tr>
+      <tr><td><strong>Sapatilha de neoprene 3mm</strong></td><td>Bootie de 3mm com sola antiderrapante</td><td>Pés são extremidades — perdem calor primeiro. Com hipersensibilidade ao frio, pés frios travam a sessão inteira. Fundamental, não opcional.</td><td>R$80–150</td></tr>
+      <tr><td><strong>Lycra térmica (rash guard térmico)</strong></td><td>Manga longa, material térmico, não neoprene</td><td>Usar por baixo do wetsuit nos dias mais frios adiciona ~2°C de sensação térmica. Também protege de arranhões e medusas.</td><td>R$80–150</td></tr>
+      <tr><td><strong>Poncho trocador</strong></td><td>Poncho toalha com capuz</td><td>Para trocar na praia sem expor ao vento frio pós-surf. Com hipersensibilidade, saída da água fria + vento = gatilho de desregulação. O poncho reduz drasticamente esse momento.</td><td>R$150–250</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cl hypo"><div class="ci">🟠</div><div><div class="ct">Ainda hipótese — validar antes de comprar tudo</div><div class="cx">Surf como regulação é uma hipótese em teste (Exp 3). Compra o wetsuit básico agora pra testar em Cabo Frio. Se confirmar que funciona como regulação nos dados do bot, aí completa o kit. Não investe R$1.200 antes de ter pelo menos 8 sessões registradas.</div></div></div>
+
+  <h1>🏔️ Kit trilha — iniciante na natureza</h1>
+
+  <div class="cl hypo"><div class="ci">🟠</div><div><div class="ct">Hipótese a validar — não compra tudo ainda</div><div class="cx">Trilha como regulação (natureza, propriocepção, movimento) é hipótese com boa base em TEA. Mas ainda não testada para você especificamente. Kit mínimo para testar primeiro. Se funcionar nos dados do bot → expande o kit.</div></div></div>
+
+  <table>
+    <thead><tr><th>Item</th><th>Especificação</th><th>Prioridade</th><th>Preço est.</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Tênis de trilha</strong></td><td>Sola Vibram ou similar, proteção lateral, impermeável opcional</td><td>🔴 Essencial</td><td>R$200–400</td></tr>
+      <tr><td><strong>Mochila 20–30L</strong></td><td>Com sistema de hidratação ou bolso para squeeze</td><td>🔴 Essencial</td><td>R$150–300</td></tr>
+      <tr><td><strong>Garrafa / squeeze de água</strong></td><td>Mínimo 1,5L para trilhas de meio período</td><td>🔴 Essencial</td><td>R$30–80</td></tr>
+      <tr><td><strong>Protetor solar FPS 50+</strong></td><td>Resistente à água e suor</td><td>🔴 Essencial</td><td>R$30–60</td></tr>
+      <tr><td><strong>Bastões de caminhada</strong></td><td>Alumínio dobráveis (não precisa ser carbono)</td><td>🟡 Útil</td><td>R$80–200</td></tr>
+      <tr><td><strong>Poncho impermeável leve</strong></td><td>Dobrável, cabe no bolso</td><td>🟡 Útil</td><td>R$40–80</td></tr>
+      <tr><td><strong>Kit primeiros socorros básico</strong></td><td>Curativo, band-aid, analgésico, repelente</td><td>🟡 Útil</td><td>R$50</td></tr>
+    </tbody>
+  </table>
+
+  <h1>📋 Lista de compras — por prioridade</h1>
+
+  <table>
+    <thead><tr><th>Prioridade</th><th>Item</th><th>Custo</th><th>Quando comprar</th></tr></thead>
+    <tbody>
+      <tr><td>🔴 <strong>Hoje</strong></td><td>Tampão silicone 33–35dB (4 tamanhos)</td><td>R$30</td><td>Amazon BR — chega rápido</td></tr>
+      <tr><td>🔴 <strong>Hoje</strong></td><td>Post-its / bloco de notas físico</td><td>R$15</td><td>Qualquer papelaria</td></tr>
+      <tr><td>🟠 <strong>Esta semana</strong></td><td>Shokz OpenRun (condução óssea)</td><td>R$550–650</td><td>Amazon BR ou Mercado Livre</td></tr>
+      <tr><td>🟠 <strong>Esta semana</strong></td><td>Wetsuit 3/2mm — Mormaii ou Rip Curl</td><td>R$400–600</td><td>Loja de surf em Cabo Frio ou online</td></tr>
+      <tr><td>🟠 <strong>Esta semana</strong></td><td>Sapatilha neoprene 3mm</td><td>R$80–120</td><td>Junto com wetsuit</td></tr>
+      <tr><td>🟡 <strong>Próximas 2 semanas</strong></td><td>Poncho trocador</td><td>R$150–200</td><td>Após confirmar que vai surfar regularmente</td></tr>
+      <tr><td>🟡 <strong>Próximas 2 semanas</strong></td><td>Cobertor pesado 5–7kg</td><td>R$200–350</td><td>Shopee ou Amazon — pesquisar avaliações</td></tr>
+      <tr><td>🟡 <strong>Próximas 2 semanas</strong></td><td>Fidget ring ou cube discreto</td><td>R$30–50</td><td>Shopee</td></tr>
+      <tr><td>🟡 <strong>Próximas 2 semanas</strong></td><td>Iluminação ajustável quarto/trabalho</td><td>R$50–100</td><td>Qualquer loja de eletrônicos</td></tr>
+      <tr><td>🟢 <strong>Mês 2</strong></td><td>Fitbit Inspire 3</td><td>~R$550</td><td>Só após bot em produção</td></tr>
+      <tr><td>🟢 <strong>Mês 2</strong></td><td>Kit trilha básico (tênis + mochila)</td><td>R$350–700</td><td>Após 8 sessões de surf registradas confirmarem natureza como regulação</td></tr>
+      <tr><td>🔵 <strong>6 meses</strong></td><td>Ray-Ban Meta Gen 2</td><td>R$3.299</td><td>Se câmera handsfree se mostrar útil no cotidiano</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- ═══ TO RESIDENTE ═══ -->
+<div class="tc tab-panel" id="tab-to" data-tab="tab-to" role="tabpanel" aria-hidden="true">
+  <h1>TO Residente — Job Description</h1>
+
+  <div class="cl danger"><div class="ci">🔬</div><div><div class="ct">Território novo — ser honesto sobre isso</div><div class="cx">Terapia Ocupacional para adultos autistas é uma área emergente no Brasil. A maioria dos recursos, protocolos e técnicas foi desenvolvida para crianças. Isso não invalida o papel — significa que o trabalho vai ser mais exploratório do que protocolar. O TO não vai chegar com respostas prontas. Vai chegar com ferramentas e descobrir junto com Rafael o que funciona no contexto adulto.</div></div></div>
+
+  <div class="cl teal"><div class="ci">🎯</div><div><div class="ct">Objetivo central — funcionalidade, não dependência</div><div class="cx">O TO existe para tornar Rafael mais autônomo ao longo do tempo, não para criar uma dependência de suporte. Cada técnica ensinada é uma ferramenta que Rafael internaliza. Quando ele consegue fazer sozinho, o TO recua. Sucesso = Rafael precisando cada vez menos do TO para as mesmas situações.</div></div></div>
+
+  <h2>Grade de funções e horários — respeitando o horário comercial dele</h2>
+
+  <div class="cl warn"><div class="ci">⚠️</div><div><div class="ct">Realidade: ele trabalha horário comercial</div><div class="cx">O TO tem vida profissional própria (8h–18h). Os blocos abaixo respeitam isso. Manhã = presença leve antes de sair. Noite = ~1h de suporte real. Fins de semana = descanso dele, exceto emergência combinada. Rafael se adapta acordando mais cedo quando fizer sentido.</div></div></div>
+
+  <div class="sb"><div class="sh" style="background:var(--teal)"><div class="st">07h–07h30</div><div class="stt">Manhã leve — antes de sair pro trabalho</div><div class="sb2">dias úteis</div></div><div class="sbody"><ul><li>Presença orgânica — café, lembrete de remédio se cruzar com Rafael</li><li>Check rápido de humor se Rafael estiver acordado: "como tá?" — sem pressão</li><li>Não é sessão clínica. É convivência matinal com intenção leve.</li><li>Se Rafael estiver mal (humor ≤2): aciona bot + comunica Nicole antes de sair</li></ul></div></div>
+
+  <div class="sb"><div class="sh" style="background:var(--teal)"><div class="st">18h30–19h15</div><div class="stt">Preparação para o bloco de pico</div><div class="sb2">diário (~45 min)</div></div><div class="sbody"><ul><li>Verifica estado ao chegar: humor, alimentação, se travou durante o dia</li><li>Suporte para iniciar o bloco de foco: confirma MIT, prepara ambiente</li><li>Se necessário: técnica de regulação antes do bloco (a definir nas 2 primeiras semanas)</li><li>Body doubling passivo durante o bloco se ele quiser trabalhar no mesmo espaço</li></ul></div></div>
+
+  <div class="sb"><div class="sh" style="background:var(--teal)"><div class="st">22h–22h30</div><div class="stt">Encerramento do dia</div><div class="sb2">diário (~30 min)</div></div><div class="sbody"><ul><li>Sinaliza encerramento — presença física que substitui força de vontade</li><li>Ritual de fechamento do trabalho junto (salvar, fechar notebook)</li><li>Regulação pré-sono se necessário: técnica a definir (ver cardápio abaixo)</li><li>Registra 3 observações do dia no log clínico (5 min)</li></ul></div></div>
+
+  <div class="sb"><div class="sh" style="background:#0A5C60"><div class="st">Sex ou Sáb</div><div class="stt">Sessão Clínica Semanal</div><div class="sb2">1h — horário combinado</div></div><div class="sbody"><ul><li>60 minutos estruturados — não é conversa de amigos, é atendimento</li><li>Revisão com dados do log + bot da semana</li><li>Testar/ajustar técnicas do cardápio abaixo</li><li>Preparar relatório para terapeuta/psiquiatra se necessário</li></ul></div></div>
+
+  <h2>Cardápio de técnicas — território a explorar juntos</h2>
+
+  <div class="cl danger"><div class="ci">🔬</div><div><div class="ct">Honestidade clínica importante</div><div class="cx">A maioria das técnicas TO para TEA foi desenvolvida e validada em crianças. Para adultos, a literatura é escassa. Isso não significa que não funcionam — significa que vão ser adaptadas juntos, de forma exploratória. O TO não chega com protocolo pronto. Chega com um cardápio de ferramentas e descobrem o que funciona para Rafael especificamente.</div></div></div>
+
+  <p style="font-size:13px;color:var(--text-sec);margin-bottom:14px">As técnicas abaixo existem com base em crianças autistas. O princípio neurológico é o mesmo em adultos. A linguagem e a autonomia mudam. Cada técnica é um experimento — registrada no bot, avaliada após 2–4 semanas.</p>
+
+  <div class="skgrid">
+    <div class="skc"><div class="ski">🧩</div><div class="skn">Integração Sensorial</div><div class="skd">Mapear o perfil sensorial real de Rafael: o que hipersensibiliza, o que regula. Criar estratégias para cada sentido.</div><div class="skb">Validada em crianças · adaptação para adulto: exploratória</div></div>
+    <div class="skc"><div class="ski">🍽️</div><div class="skn">Dieta Sensorial</div><div class="skd">Conjunto personalizado de atividades sensoriais ao longo do dia que mantém o SNA regulado. Qual atividade, em qual momento, com qual intensidade.</div><div class="skb">Wilbarger Protocol · adaptação para adulto: exploratória</div></div>
+    <div class="skc"><div class="ski">🔄</div><div class="skn">Ritual de Transição</div><div class="skd">Sequência fixa de 2–3 ações antes de trocar de tarefa. Reduz o custo de alternância (P1 do laudo). Pode funcionar muito bem.</div><div class="skb">Técnica infantil com alta chance de transferência para adultos</div></div>
+    <div class="skc"><div class="ski">⚡</div><div class="skn">Iniciação Assistida</div><div class="skd">TO fica presente nos primeiros 5 min de uma tarefa difícil. Depois sai. A iniciação é o obstáculo, não a execução.</div><div class="skb">Alta evidência em TEA · aplicável diretamente em adultos</div></div>
+    <div class="skc"><div class="ski">📋</div><div class="skn">Sistemas Visuais</div><div class="skd">Checklist físico na parede. Rotina visual do dia. Não porque Rafael não sabe — porque reduz carga cognitiva nos momentos difíceis.</div><div class="skb">TEACCH · adaptação para adulto: linguagem diferente, mesmo princípio</div></div>
+    <div class="skc"><div class="ski">🌡️</div><div class="skn">Zonas de Regulação</div><div class="skd">Sistema de 4 estados (azul/verde/amarelo/vermelho) para Rafael nomear e comunicar como está. Especialmente útil para quem tem dificuldade de verbalizar emoções.</div><div class="skb">Kuypers · adaptação para adultos: vocabulário diferente</div></div>
+    <div class="skc"><div class="ski">🤝</div><div class="skn">Co-regulação</div><div class="skd">Presença física regulada (voz baixa, movimentos lentos, sem demandas) que ajuda o SNA de Rafael a se acalmar. Funciona porque regulação é contagiante neurologicamente.</div><div class="skb">Polyvagal Theory · funciona em qualquer idade</div></div>
+    <div class="skc"><div class="ski">🏠</div><div class="skn">Adaptação Ambiental</div><div class="skd">Modificar o apartamento para reduzir gatilhos sensoriais: iluminação, sons, organização visual, texturas. Mapeado após perfil sensorial.</div><div class="skb">Universal Design · aplicável diretamente em adultos</div></div>
+    <div class="skc"><div class="ski">💬</div><div class="skn">Habilidades Sociais</div><div class="skd">Prática de situações difíceis recorrentes. Social stories adaptadas para adulto. Não ensina a fingir — ensina a navegar com mais segurança.</div><div class="skb">Carol Gray · videomodelagem · adaptação necessária para contexto adulto</div></div>
+    <div class="skc"><div class="ski">📊</div><div class="skn">Observação e Registro</div><div class="skd">Log diário de comportamentos, padrões, gatilhos. Alimenta o bot e a equipe de saúde com dados que nenhuma consulta isolada captura. Isso qualquer TO consegue fazer independente da especialidade em adultos.</div><div class="skb">OTPF Framework · funciona em qualquer contexto</div></div>
+  </div>
+
+  <div class="cl success"><div class="ci">🗓️</div><div><div class="ct">Protocolo das primeiras 2 semanas — avaliação inicial</div><div class="cx"><strong>Semana 1:</strong> TO observa sem intervir ativamente. Mapeia: horários difíceis, comportamentos de regulação espontâneos de Rafael, gatilhos visíveis, o que já funciona.<br><strong>Semana 2:</strong> Apresenta o cardápio acima. Os dois escolhem 2–3 técnicas para testar. Uma por semana.<br><strong>Mês 1:</strong> Cada técnica testada tem registro no bot: funcionou? em qual situação? com qual intensidade?<br><strong>Ongoing:</strong> Sessão semanal revisa os dados e ajusta o que é mantido, o que é descartado, o que é adaptado.</div></div></div>
+
+  <h2>Fases de burnout — o TO reconhece antes de Rafael</h2>
+  <div class="bl"><div class="bll b-verde">🟢<br>VERDE<br>Fluindo</div><div class="blc"><strong>Sinais:</strong> humor ≥4, iniciativa própria, foco presente.<br><strong>TO:</strong> Body doubling passivo. Sessão normal. Mantém dieta sensorial preventiva. Não sobrecarrega.</div></div>
+  <div class="bl"><div class="bll b-amarelo">🟡<br>AMARELO<br>Tenso</div><div class="blc"><strong>Sinais:</strong> humor 3, irritabilidade, sono irregular, mais tempo pra iniciar tarefas.<br><strong>TO:</strong> Aumenta atividades regulatórias. Reduz demandas sociais. Sessão clínica foca no acumulador de estresse.</div></div>
+  <div class="bl"><div class="bll b-laranja">🟠<br>LARANJA<br>Pré-colapso</div><div class="blc"><strong>Sinais:</strong> humor ≤2 por 2+ dias, isolamento, estímulos insuportáveis, comunicação reduzida.<br><strong>TO:</strong> Elimina demandas não essenciais. Ambiente mínimo. Só essencial: alimentação, sono, remédio. Comunica psiquiatra.</div></div>
+  <div class="bl"><div class="bll b-vermelho">🔴<br>VERMELHO<br>Burnout</div><div class="blc"><strong>Sinais:</strong> colapso instalado. Incapacidade funcional. Pode durar dias a semanas.<br><strong>TO:</strong> Protocolo de emergência. Presença física. Sem sessão clínica — suporte de sobrevivência. Psiquiatra avalia ajuste de medicação.</div></div>
+
+  <h2>O que o TO NÃO faz</h2>
+  <div class="nd">Toma decisões por Rafael — informa opções, Rafael decide sempre</div>
+  <div class="nd">Oculta informações clínicas observadas — tudo que observa é de Rafael, não do TO</div>
+  <div class="nd">Faz psicoterapia ou trabalho de trauma — fora da competência TO</div>
+  <div class="nd">Fica disponível 24h — tem vida própria fora dos blocos</div>
+  <div class="nd">Usa dados pessoais fora do contexto profissional — sigilo total</div>
+  <div class="nd">Mantém o acordo em silêncio se algo não funciona — comunicação direta obrigatória</div>
+
+  <h2>Remuneração e contrato</h2>
+  <div class="cs">
+    <div class="ctitle">💰 Estrutura</div>
+    <table>
+      <thead><tr><th>Componente</th><th>Valor</th><th>Equivalência de mercado</th></tr></thead>
+      <tbody>
+        <tr><td>Moradia gratuita</td><td>Quarto privativo + áreas comuns</td><td>R$1.200–1.800/mês</td></tr>
+        <tr><td>Contas proporcionais</td><td>Proporção a combinar</td><td>R$200–400/mês</td></tr>
+        <tr><td>Ajuda de custo</td><td>A negociar</td><td>R$0–800/mês</td></tr>
+        <tr class="tr-total"><td><strong>Pacote total</strong></td><td colspan="2"><strong>R$1.400–3.000/mês equivalente</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--text-sec);margin-top:8px">⚠️ Verificar com advogado trabalhista antes de formalizar — pode ser necessário estruturar como PJ.</p>
+  </div>
+
+  <div class="cl success"><div class="ci">💬</div><div><div class="ct">Script de proposta — direto e honesto</div><div class="cx"><em>"Tenho uma proposta profissional pra você. Quero te oferecer moradia gratuita em troca de um papel estruturado como TO residente — não como favor de amigo, como acordo profissional com funções claras. Tenho um laudo que explica o que preciso. Quer que eu te mande o documento antes de conversar?"</em></div></div></div>
+</div>
+
+<!-- ═══ ACTION ITEMS ═══ -->
+<div class="tc tab-panel" id="tab-action" data-tab="tab-action" role="tabpanel" aria-hidden="true">
+  <h1>Action Items — priorizados por impacto</h1>
+
+  <div class="cl warn"><div class="ci">⚠️</div><div><div class="ct">Regra anti-TDAH desta lista</div><div class="cx">Máximo 3 itens por semana. Um de cada vez. Não começar o próximo antes de terminar o anterior. Nicole acompanha o progresso sexta na review.</div></div></div>
+
+  <h2>🔴 Agora — hoje mesmo</h2>
+  <div class="ai"><div class="an red">1</div><div><div class="at">Mandar mensagem pro contato do G2I</div><div class="aw">👤 Rafa — 2 minutos</div><div class="ad">"Oi [nome], tudo bem? Ainda precisam de devs sênior?" É isso. A conversa já existe. Sem pitch, sem apresentação.</div><span class="adl">⏱️ Antes de fechar este documento</span></div></div>
+  <div class="ai"><div class="an red">2</div><div><div class="at">Configurar alarme de 22h30 no Redmi</div><div class="aw">👤 Rafa — 2 minutos</div><div class="ad">Alarme diário com label "Fecha o notebook." Som diferente do alarme de acordar. Não precisa esperar o bot.</div><span class="adl">⏱️ Agora</span></div></div>
+  <div class="ai"><div class="an red">3</div><div><div class="at">Preencher tabela de remédios</div><div class="aw">👤 Rafa + psiquiatra</div><div class="ad">Aba "Fatos & Hipóteses" deste doc. Nome, dose, data de início, objetivo terapêutico, efeitos a monitorar, próxima consulta. Sem esse dado o bot não gera relatório de psiquiatria.</div><span class="adl">⏱️ Hoje ou amanhã</span></div></div>
+  <div class="ai"><div class="an red">4</div><div><div class="at">Publicar os relatórios no reports.rafaelcamillo.com</div><div class="aw">👤 Rafa — 5 minutos no terminal</div><div class="ad">Baixar os HTMLs deste chat. cd ~/projects/reports → cp ~/Downloads/[arquivo].html public/ → git add + commit + push. Vercel deploya em 60s.</div><span class="adl">⏱️ Hoje</span></div></div>
+
+  <h2>🟠 Esta semana</h2>
+  <div class="ai"><div class="an orange">5</div><div><div class="at">Proposta formal para o TO amigo</div><div class="aw">👤 Rafa</div><div class="ad">Enviar este documento (aba TO Residente). Proposta verbal seguindo o script. 30 dias de experiência antes de formalizar. Incluir clareza sobre o que é esperado e o que não é.</div><span class="adl">⏱️ Esta semana</span></div></div>
+  <div class="ai"><div class="an orange">6</div><div><div class="at">Briefing completo da Nicole com novo playbook</div><div class="aw">👤 Rafa → Nicole · 30 min de call</div><div class="ad">Definir os 3 dias fixos de coworking. Confirmar check-in 09h e 17h diários. Apresentar a tabela de alocação 40h. Script de resposta para ideias em quarentena.</div><span class="adl">⏱️ Esta semana</span></div></div>
+  <div class="ai"><div class="an orange">7</div><div><div class="at">Registrar surf em Cabo Frio com o /exercicio (antes de ter o bot)</div><div class="aw">👤 Rafa — anotação manual por enquanto</div><div class="ad">Anotar no papel: data, duração, humor antes (1–5), humor depois (1–5). Quando o bot ficar pronto, passa para lá. Não perde os dados do Exp 3.</div><span class="adl">⏱️ Cada sessão de surf</span></div></div>
+
+  <h2>🟡 Próximas 2 semanas</h2>
+  <div class="ai"><div class="an">8</div><div><div class="at">Construir MVP do bot WhatsApp — Semana 1</div><div class="aw">👤 Rafa — dev</div><div class="ad">Evolution API + n8n + Claude API. /foco, /ideia, /humor. Check-in 09h. Supabase com humor_log e foco_sessoes. Ver aba "Como Construir".</div><span class="adl">⏱️ Dias 1–7</span></div></div>
+  <div class="ai"><div class="an">9</div><div><div class="at">Expandir bot — saúde + remédio + alarmes (Semana 2)</div><div class="aw">👤 Rafa — dev</div><div class="ad">/remedio, /exercicio, /desabafei, /regula. Alarme 22h30 automatizado. Check-ins 13h e 18h45. Tabelas sono_log e remedios_log.</div><span class="adl">⏱️ Dias 8–14</span></div></div>
+
+  <h2>🟢 Mês 2 — quando o bot estiver rodando</h2>
+  <div class="ai"><div class="an green">10</div><div><div class="at">Adicionar memória persistente + relatórios</div><div class="aw">👤 Rafa — dev</div><div class="ad">Contexto dinâmico injetado em cada mensagem. /semana, /terapia, /psiquiatria. Relatório automático sexta 17h. Linear MCP para MIT.</div><span class="adl">⏱️ Dias 15–30</span></div></div>
+  <div class="ai"><div class="an green">11</div><div><div class="at">Comprar Fitbit Inspire 3 e integrar</div><div class="aw">👤 Rafa</div><div class="ad">Só depois do bot funcionando e você ver o valor dos dados. Fitbit Web API → n8n nó nativo → Supabase. Dados de sono automáticos.</div><span class="adl">⏱️ Mês 2 (~R$550)</span></div></div>
+  <div class="ai"><div class="an green">12</div><div><div class="at">Primeira análise de correlações (30 dias de dados)</div><div class="aw">👤 Bot — automático</div><div class="ad">Horário real de pico confirmado ou refutado. Correlação sono/humor. Técnicas TCC eficazes. Levar resultado para terapeuta.</div><span class="adl">⏱️ Fim mês 1</span></div></div>
+
+  <div class="cl success">
+    <div class="ci">🎯</div>
+    <div>
+      <div class="ct">Critério de sucesso desta semana — só 3 coisas</div>
+      <div class="cx">
+        <strong>1.</strong> Mandar mensagem pro G2I (2 minutos)<br>
+        <strong>2.</strong> Configurar alarme 22h30 (2 minutos)<br>
+        <strong>3.</strong> Fazer proposta para o TO amigo<br><br>
+        Se essas 3 forem feitas, a semana foi um sucesso. O resto é bônus.
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="brand">Rafael Camillo — Sistema de Vida · Impact <span class="x">X</span></div>
+  <div>Documento Mestre v1 · Março 2026 · Gerado com Claude Sonnet 4.6 · Confidencial</div>
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

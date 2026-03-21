@@ -5,96 +5,373 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cultura & People — Impact X</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --purple: #7B2FBE;
-    --purple-dark: #5A1E9A;
-    --purple-light: #F3EAFF;
-    --purple-x: #9B59D4;
-    --text: #1A1A2E;
-    --text-secondary: #555577;
-    --bg: #FAFAFA;
-    --card-bg: #FFFFFF;
-    --border: #E0D4F5;
-    --success: #1A7A4A;
-    --success-bg: #E8F5EE;
-    --warning: #D4820A;
-    --warning-bg: #FEF3E2;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.8;
-  }
 
-  /* HEADER */
-  .report-header {
-    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
-    color: white;
-    padding: 48px 64px 40px;
-    position: relative;
-    overflow: hidden;
-  }
-  .report-header::after {
-    content: "X";
-    position: absolute;
-    right: 48px;
-    bottom: -24px;
-    font-size: 200px;
-    font-weight: 900;
-    color: rgba(255,255,255,0.05);
-    line-height: 1;
-  }
-  .brand-tag {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.75;
-    margin-bottom: 16px;
-  }
-  .brand-tag span { color: #C9A3F5; }
-  .report-title {
-    font-size: 40px;
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 12px;
-  }
-  .report-subtitle {
-    font-size: 16px;
-    opacity: 0.85;
-    font-weight: 300;
-    max-width: 580px;
-  }
-  .report-meta {
-    display: flex;
-    gap: 32px;
-    margin-top: 28px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    font-size: 13px;
-    opacity: 0.8;
-  }
 
-  /* TOC */
-  .toc {
-    background: var(--purple-light);
-    border-left: 4px solid var(--purple);
-    padding: 28px 36px;
-    margin: 40px 64px;
-    border-radius: 0 8px 8px 0;
-  }
-  .toc h2 {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--purple-dark);
-    margin-bottom: 14px;
-  }
-  .toc ol { padding-left: 20px; }
-  .toc li { margin: 6px 0; }
-  .toc a { color: var(--purple); text-decoration: none; font-weight: 500; }
+<link rel="stylesheet" href="../assets/css/report.css">
+</head>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Como vivemos</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="filosofia" role="tab">Nossa filosofia de trabalho</button>
+  <button type="button" class="tab-btn" data-tab="remote" role="tab">Remote-first</button>
+  <button type="button" class="tab-btn" data-tab="dengo" role="tab">Os Dengos — nossas casas</button>
+  <button type="button" class="tab-btn" data-tab="diversidade" role="tab">Diversidade & contratação intencional</button>
+  <button type="button" class="tab-btn" data-tab="beneficios" role="tab">Benefícios e qualidade de vida</button>
+  <button type="button" class="tab-btn" data-tab="posicionamento" role="tab">Posicionamento público</button>
+  <button type="button" class="tab-btn" data-tab="como-crescemos" role="tab">Como crescemos juntos</button>
+</nav>
+
+<div class="report-header">
+  <div class="brand-tag">IMPACT <span>X</span> — PESSOAS & CULTURA</div>
+  <div class="report-title">Como vivemos<br>por aqui</div>
+  <div class="report-subtitle">Nossa cultura, como trabalhamos, o que esperamos um do outro — e por que a vida vem antes do trabalho.</div>
+  <div class="report-meta">
+    <span>📅 Março 2026</span>
+    <span>✍️ Rafael Camillo</span>
+    <span>🔒 Interno</span>
+  </div>
+</div>
+<div class="tab-panel active" data-tab="filosofia" id="panel-filosofia" role="tabpanel" aria-hidden="false">
+<div class="content">
+<section id="filosofia">
+    <h1>1. Nossa filosofia de trabalho</h1>
+
+    <p>A Impact X é, antes de tudo, uma empresa construída por pessoas que acreditam que <strong>trabalho bom é trabalho sustentável</strong>. Não acreditamos em heroísmo. Não acreditamos em burnout como sinal de comprometimento. Não acreditamos que o número de horas trabalhadas diz algo sobre a qualidade do trabalho.</p>
+
+    <div class="callout info">
+      <div class="callout-icon">🕐</div>
+      <div class="callout-body">
+        <div class="callout-title">Princípio fundamental</div>
+        <div class="callout-text">A vida tem que vir antes do trabalho. Sempre. Quem trabalha bem descansado, com tempo para a família e para si mesmo, produz mais, pensa melhor e fica mais tempo. Esse é o modelo que queremos provar que funciona.</div>
+      </div>
+    </div>
+
+    <p>Somos inspirados pela metodologia da Basecamp — a ideia de que uma empresa pode ser pequeníssima, fazer produtos excelentes, ter lucro e cuidar das pessoas ao mesmo tempo. Que crescimento a qualquer custo é uma escolha, não uma lei.</p>
+
+    <p>Nosso ritmo de trabalho é saudável e deliberado. Não esperamos que as pessoas estejam disponíveis o tempo todo. Não romantizamos longas jornadas. Acreditamos em foco, em trabalho assíncrono e em entregas que falam por si.</p>
+
+    <div class="culture-grid">
+      <div class="culture-card">
+        <div class="culture-icon">🔇</div>
+        <div class="culture-title">Trabalho assíncrono</div>
+        <div class="culture-desc">A maioria do trabalho acontece de forma assíncrona. Reuniões são exceção, não padrão. Cada pessoa trabalha quando está em seu melhor estado.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-icon">📝</div>
+        <div class="culture-title">Comunicação escrita</div>
+        <div class="culture-desc">Escrevemos bem e com clareza. Uma mensagem bem escrita vale por cinco reuniões. Documentamos decisões para que ninguém precise perguntar o que ficou acordado.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-icon">🎯</div>
+        <div class="culture-title">Foco e entregas</div>
+        <div class="culture-desc">Priorizamos profundidade sobre urgência. Sabemos o que é importante, fazemos primeiro. Não ficamos ocupados — ficamos eficazes.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-icon">🚫</div>
+        <div class="culture-title">Sem heroísmo</div>
+        <div class="culture-desc">Quem trabalha depois das 22h toda semana não é dedicado — é mal organizado ou mal suportado. Liderança que exige isso está errando.</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="remote" id="panel-remote" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="remote">
+    <h1>2. Remote-first</h1>
+
+    <p>Somos uma empresa remote-first. Isso significa que o trabalho remoto é o padrão — não a exceção, não um benefício especial, não um teste. É como trabalhamos.</p>
+
+    <div class="callout info">
+      <div class="callout-icon">🌐</div>
+      <div class="callout-body">
+        <div class="callout-title">O que remote-first significa na prática</div>
+        <div class="callout-text">Todas as decisões, ferramentas, processos e comunicações são construídos para funcionar 100% de forma remota primeiro. Qualquer coisa presencial é opcional e adicional — nunca um requisito para participar ou crescer.</div>
+      </div>
+    </div>
+
+    <h2>Princípios do trabalho remoto na Impact X</h2>
+    <ul>
+      <li><strong>Documentação como cultura:</strong> se não está escrito, não existe. Decisões, acordos, processos — tudo documentado.</li>
+      <li><strong>Ferramentas assíncronas primeiro:</strong> usamos ferramentas que não exigem presença simultânea como padrão.</li>
+      <li><strong>Fuso horário respeitado:</strong> não agendamos reuniões que desconsideram o horário de trabalho de cada pessoa.</li>
+      <li><strong>Presença online não é sinal de trabalho:</strong> ninguém precisa "aparecer online" para provar que está trabalhando. O trabalho prova.</li>
+      <li><strong>Encontros opcionais mas valorizados:</strong> quando alguém quer se encontrar presencialmente, criamos condições para isso. Sem obrigação.</li>
+    </ul>
+  </section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="dengo" id="panel-dengo" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="dengo">
+    <h1>3. Os Dengos — nossas casas</h1>
+
+    <p>Não temos escritórios. Temos <strong>Dengos</strong>.</p>
+
+    <div class="dengo-card">
+      <div class="dengo-label">O que é um Dengo</div>
+      <div class="dengo-title">Um lugar para ser gente,<br>não só trabalhar.</div>
+      <div class="dengo-desc">
+        O Dengo é o espaço físico da Impact X. Não é obrigatório aparecer lá. Não é um escritório com horário de entrada.
+        É um lugar que existe para quem quiser — para trabalhar, se encontrar, dormir ao passar pela cidade,
+        fazer um happy hour, organizar um evento ou simplesmente existir junto.
+      </div>
+      <div class="dengo-features">
+        <span class="dengo-tag">🖥️ Mesas livres ou fixas</span>
+        <span class="dengo-tag">😴 Pernoite possível</span>
+        <span class="dengo-tag">🎉 Área de lazer</span>
+        <span class="dengo-tag">📡 Evento técnico ou comunitário</span>
+        <span class="dengo-tag">🍺 Happy hour</span>
+        <span class="dengo-tag">🔓 100% opcional</span>
+      </div>
+    </div>
+
+    <h2>Por que "Dengo"?</h2>
+    <p>"Dengo" é uma palavra brasileira linda — que carrega afeto, cuidado, mimo. É o tipo de carinho gostoso, demorado, aconchegante. É o nome certo para o tipo de lugar que queremos criar: um espaço com calor humano, que não é neutro, que tem identidade, que abraça quem chega.</p>
+
+    <p>Escolhemos palavras brasileiras, latinas e da diáspora africana para nomear nossas coisas — porque é quem somos.</p>
+
+    <h2>Visão de expansão dos Dengos</h2>
+
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">F1</div>
+        <div class="phase-period">Ano 1–2</div>
+      </div>
+      <div class="phase-content">
+        <h3>Primeiro Dengo</h3>
+        <ul>
+          <li>Um espaço piloto — provavelmente em São Paulo ou outra cidade com densidade de time</li>
+          <li>Mesas compartilhadas, área de descanso, cozinha</li>
+          <li>Espaço para eventos pequenos (20–50 pessoas)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">F2</div>
+        <div class="phase-period">Ano 3–5</div>
+      </div>
+      <div class="phase-content">
+        <h3>Rede de Dengos no Brasil</h3>
+        <ul>
+          <li>Dengos em cidades estratégicas com concentração de equipe ou comunidade</li>
+          <li>Modelo com quartos para pernoite</li>
+          <li>Espaço de eventos aberto para a comunidade negra e LGBT</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">F3</div>
+        <div class="phase-period">Ano 5+</div>
+      </div>
+      <div class="phase-content">
+        <h3>Dengos internacionais</h3>
+        <ul>
+          <li>Outposts em cidades-chave fora do Brasil</li>
+          <li>Parceria com comunidades locais de negros e LGBT pelo mundo</li>
+          <li>Espaço para intercâmbio de equipe entre cidades</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="diversidade" id="panel-diversidade" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="diversidade">
+    <h1>4. Diversidade & contratação intencional</h1>
+
+    <p>A Impact X tem uma política intencional de diversidade: <strong>priorizamos a contratação de pessoas negras e LGBT</strong>.</p>
+
+    <p>Isso não é politicamente correto. Não é estratégia de imagem. É uma convicção de que essas pessoas são sistematicamente preteridas no mercado de trabalho — e que nós podemos e devemos agir diferente.</p>
+
+    <div class="callout warning">
+      <div class="callout-icon">📢</div>
+      <div class="callout-body">
+        <div class="callout-title">Isso precisa estar claro para quem entra</div>
+        <div class="callout-text">Não é possível trabalhar na Impact X e discordar da nossa política de diversidade. Ela é parte da identidade da empresa — não uma agenda paralela. Quem não se identifica com isso, esse não é o lugar certo.</div>
+      </div>
+    </div>
+
+    <h2>O que "intencional" significa na prática</h2>
+    <ul>
+      <li>Vagas publicadas em canais voltados para comunidades negras e LGBT</li>
+      <li>Processos seletivos revisados para eliminar vieses sistêmicos</li>
+      <li>Nenhum critério de "fit cultural" que exclua trajetórias não-tradicionais</li>
+      <li>Salários iguais para funções iguais — sem negociação por "histórico salarial"</li>
+      <li>Planos de carreira claros e acessíveis para todos</li>
+    </ul>
+
+    <div class="callout success">
+      <div class="callout-icon">✊🏿</div>
+      <div class="callout-body">
+        <div class="callout-title">Nossa visão</div>
+        <div class="callout-text">Queremos provar que uma empresa predominantemente negra e LGBT pode ser excellente, rentável, inovadora e admirada. Não apesar da diversidade — por causa dela.</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="beneficios" id="panel-beneficios" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="beneficios">
+    <h1>5. Benefícios e qualidade de vida</h1>
+
+    <p>Queremos ser a empresa com os melhores benefícios do Brasil. Não hoje — isso é uma meta que se constrói com o crescimento. Mas é a direção que guia cada decisão.</p>
+
+    <h2>Benefícios atuais e em construção</h2>
+
+    <table>
+      <thead>
+        <tr><th>Benefício</th><th>Status</th><th>Descrição</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Remote-first</strong></td>
+          <td>✅ Ativo</td>
+          <td>Trabalho 100% remoto como padrão, com encontros opcionais</td>
+        </tr>
+        <tr>
+          <td><strong>Flexibilidade de horário</strong></td>
+          <td>✅ Ativo</td>
+          <td>Sem horário fixo rígido — entregas e qualidade contam</td>
+        </tr>
+        <tr>
+          <td><strong>Acesso ao Dengo</strong></td>
+          <td>🔜 Em construção</td>
+          <td>Espaço físico disponível para uso livre quando quiser</td>
+        </tr>
+        <tr>
+          <td><strong>Participação nos resultados (PLR)</strong></td>
+          <td>🔜 Em planejamento</td>
+          <td>Time participa dos resultados financeiros da empresa</td>
+        </tr>
+        <tr>
+          <td><strong>Previdência privada</strong></td>
+          <td>🔜 Meta de longo prazo</td>
+          <td>Plano de previdência para aposentadoria com contribuição da empresa</td>
+        </tr>
+        <tr>
+          <td><strong>Ações da empresa</strong></td>
+          <td>🔜 Meta de longo prazo</td>
+          <td>Programa de participação acionária para equipe sênior e fundadores</td>
+        </tr>
+        <tr>
+          <td><strong>Budget de desenvolvimento</strong></td>
+          <td>🔜 Em planejamento</td>
+          <td>Valor anual para cursos, eventos, livros e aprendizado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Contratação: CLT ou PJ?</h2>
+    <p>Usamos ambas as formas — com uma diferença fundamental: <strong>nunca usamos PJ para prejudicar o funcionário</strong>. PJ na Impact X significa autonomia com compensação justa. Nunca significa remover direitos para que a empresa economize.</p>
+
+    <div class="callout info">
+      <div class="callout-icon">⚖️</div>
+      <div class="callout-body">
+        <div class="callout-title">Nossa posição sobre CLT e PJ</div>
+        <div class="callout-text">Defendemos a CLT quando ela protege. Um contrato PJ honesto é aquele em que a pessoa ganha mais justamente porque não tem os benefícios trabalhistas — nunca aquele em que a empresa ganha mais porque o trabalhador perde. Essa linha é inegociável.</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="posicionamento" id="panel-posicionamento" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="posicionamento">
+    <h1>6. Posicionamento público</h1>
+
+    <p>A Impact X se posiciona publicamente sobre temas que afetam nossa comunidade e nossa equipe. Não fazemos isso por engajamento — fazemos porque acreditamos.</p>
+
+    <h2>O que defendemos ativamente</h2>
+
+    <div class="culture-grid">
+      <div class="culture-card">
+        <div class="culture-icon">❌</div>
+        <div class="culture-title">Contra o 6x1</div>
+        <div class="culture-desc">Somos contrários a qualquer modelo de trabalho que normalize 6 dias de trabalho por semana. Defendemos a campanha que proíbe essa prática no Brasil.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-icon">✅</div>
+        <div class="culture-title">Pela CLT</div>
+        <div class="culture-desc">Defendemos os direitos trabalhistas da CLT. Qualquer tentativa de flexibilizá-la para beneficiar empresas às custas dos trabalhadores tem nossa oposição explícita.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-icon">🌈</div>
+        <div class="culture-title">Pela diversidade real</div>
+        <div class="culture-desc">Nos posicionamos publicamente contra discriminação racial e de orientação sexual no trabalho — e colocamos em prática antes de falar.</div>
+      </div>
+      <div class="culture-card">
+        <div class="culture-icon">🤖</div>
+        <div class="culture-title">Por IA responsável</div>
+        <div class="culture-desc">Defendemos uso ético de inteligência artificial — que serve às pessoas e não as substitui indiscriminadamente. Tecnologia a serviço da vida, não do lucro a qualquer custo.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-icon">📢</div>
+      <div class="callout-body">
+        <div class="callout-title">Por que nos posicionamos</div>
+        <div class="callout-text">Empresas que ficam caladas em temas importantes não são neutras — são coniventes. A neutralidade diante da injustiça é uma escolha política. Preferimos ser explícitos sobre o que acreditamos e deixar que as pessoas decidam se querem trabalhar ou comprar de uma empresa com esses valores.</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="como-crescemos" id="panel-como-crescemos" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="como-crescemos">
+    <h1>7. Como crescemos juntos</h1>
+
+    <p>Crescimento na Impact X não é linear e não é baseado apenas em tempo de casa. É baseado em impacto, aprendizado e responsabilidade assumida.</p>
+
+    <h2>O que valorizamos em quem cresce aqui</h2>
+    <ul>
+      <li><strong>Autonomia com responsabilidade:</strong> quem cresce toma decisões sem precisar de permissão para tudo — e assume o resultado delas</li>
+      <li><strong>Comunicação clara e escrita:</strong> sabe explicar o que fez, por que fez e o que aprendeu</li>
+      <li><strong>Foco no que importa:</strong> sabe dizer não para o que não agrega, e sim para o que transforma</li>
+      <li><strong>Cuidado com as pessoas:</strong> não apenas com as entregas — mas com quem trabalha ao lado</li>
+      <li><strong>Identidade com os valores:</strong> vive os valores da empresa, não apenas os cita</li>
+    </ul>
+
+    <div class="callout success">
+      <div class="callout-icon">🏆</div>
+      <div class="callout-body">
+        <div class="callout-title">Nossa meta de retenção</div>
+        <div class="callout-text">Queremos ter o menor turnover voluntário do Brasil. Não porque prendemos pessoas — mas porque criamos um lugar onde elas genuinamente não querem ir embora.</div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Documento Interno</div>
+</footer>
+
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

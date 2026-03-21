@@ -5,51 +5,497 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — VTO · Vision/Traction Organizer (EOS)</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black: #0A0A0A;
-  --black-soft: #1A1A1A;
-  --green: #42593D;
-  --green-light: #5A7A52;
-  --green-bg: #E8F0E6;
-  --yellow: #F2C94C;
-  --yellow-dark: #D4A843;
-  --text-light: #F5F5F0;
-  --text-sec: #A0A090;
-  --card-bg: #FFFFFF;
-  --border: #D4DDD1;
-  --success: #42593D;
-  --warning: #D4820A;
-  --danger: #C0392B;
-  --bg: #F7F8F6;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--black); font-size: 15px; line-height: 1.7; }
+<link rel="stylesheet" href="../assets/css/report.css">
+</head>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">VTO · Vision/Traction Organizer</span>
+</header>
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="s1" role="tab">Visão — Core Values</button>
+  <button type="button" class="tab-btn" data-tab="s2" role="tab">Targets 1/3/10 anos</button>
+  <button type="button" class="tab-btn" data-tab="s3" role="tab">Marketing</button>
+  <button type="button" class="tab-btn" data-tab="s4" role="tab">Accountability</button>
+  <button type="button" class="tab-btn" data-tab="s5" role="tab">Rocks 90d</button>
+  <button type="button" class="tab-btn" data-tab="s6" role="tab">Scorecard</button>
+  <button type="button" class="tab-btn" data-tab="s7" role="tab">Issues (IDS)</button>
+</nav>
 
-/* HEADER */
-.report-header {
-  background: linear-gradient(135deg, var(--black), #1a2e1a, var(--green));
-  color: var(--text-light);
-  padding: 56px 64px 48px;
-  position: relative;
-  overflow: hidden;
-}
-.report-header::after {
-  content: 'VTO';
-  position: absolute;
-  right: 60px;
-  bottom: -20px;
-  font-size: 180px;
-  font-weight: 900;
-  opacity: 0.04;
-  color: var(--yellow);
-  letter-spacing: -8px;
-}
-.hdr-brand { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; margin-bottom: 16px; }
-.hdr-brand .x { color: var(--yellow); }
-.hdr-title { font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
-.hdr-title em { color: var(--yellow); font-style: normal; }
-.hdr-sub { font-size: 16px; opacity: .85; font-weight: 300; max-width: 620px; }
-.hdr-meta { display: flex; gap: 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.15); font-size: 13px; opacity: .8; flex-wrap: wrap; }
+<div class="tab-panel active" data-tab="s1" id="panel-s1" role="tabpanel" aria-hidden="false">
+<div class="report-header" data-ix-watermark="VTO">
+  <div class="hdr-brand">IMPACT <span class="x">X</span> — DOCUMENTO ESTRATÉGICO</div>
+  <div class="hdr-title">VTO · Vision/Traction <em>Organizer</em></div>
+  <div class="hdr-sub">Framework EOS (Entrepreneurial Operating System) aplicado à Impact X — diagnóstico completo de visão, metas, responsabilidades e execução.</div>
+  <div class="hdr-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo · CEO & Founder</span>
+    <span>🔒 Confidencial</span>
+    <span>📋 Baseado no livro "Tração" — Gino Wickman</span>
+  </div>
+</div>
+<div class="content">
+<section id="s1">
+<h1><span class="num">01</span> Visão — Core Values & Focus</h1>
 
-/* TOC */
+<h2>Core Purpose (Por que existimos)</h2>
+<div class="hero-statement">
+  <p>Usar <strong>tecnologia invisível</strong> para devolver tempo às pessoas — e ajudar pequenos e médios empreendedores a competirem com qualquer um.</p>
+</div>
+
+<p>A Impact X não é uma empresa de tecnologia. É uma <strong>empresa de tempo e liberdade</strong> que usa tecnologia para chegar lá. Construímos produtos que funcionam tão bem que os usuários esquecem que existem — sem fricção, sem instrução, sem interrupção da vida real.</p>
+
+<h2>Core Values (Valores Fundamentais)</h2>
+<div class="values-grid">
+  <div class="value-card">
+    <div class="value-icon">🫥</div>
+    <div class="value-name">Tecnologia Invisível</div>
+    <div class="value-tagline">Se você notou, ainda não está pronto</div>
+    <div class="value-desc">Sistemas que funcionam tão bem que os usuários esquecem que existem. Zero fricção, zero instrução necessária.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">🎯</div>
+    <div class="value-name">Foco Profundo</div>
+    <div class="value-tagline">Uma coisa, feita excepcionalmente</div>
+    <div class="value-desc">Cada produto faz uma coisa. Não adicionamos features para impressionar. Removemos o que atrapalha.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">❤️</div>
+    <div class="value-name">Obsessão pelo Cliente</div>
+    <div class="value-tagline">Cada cliente é o mais importante</div>
+    <div class="value-desc">Não queremos volume. Queremos profundidade. Cada cliente deve sentir que é o único.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">🌱</div>
+    <div class="value-name">Sustentabilidade Real</div>
+    <div class="value-tagline">Lucro é consequência, não objetivo</div>
+    <div class="value-desc">Bom trabalho → valor → receita → empresa que cuida de pessoas. Nessa ordem, sempre.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">🕐</div>
+    <div class="value-name">Vida em Primeiro Lugar</div>
+    <div class="value-tagline">O trabalho serve a vida, não o contrário</div>
+    <div class="value-desc">Para equipe e usuários: o tempo presente com quem amamos é o bem mais precioso. Nunca sacrificamos isso.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">✊🏿</div>
+    <div class="value-name">Equidade Ativa</div>
+    <div class="value-tagline">Intencionalmente includente</div>
+    <div class="value-desc">Construímos espaços onde pessoas negras e LGBT sejam maioria, não exceção. Não é cota — é convicção.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">🤖</div>
+    <div class="value-name">Automação com Propósito</div>
+    <div class="value-tagline">IA como ferramenta, nunca como centro</div>
+    <div class="value-desc">IA amplifica capacidade humana — não substitui julgamento. Tecnologia serve à decisão; a decisão segue os valores.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">🔓</div>
+    <div class="value-name">Transparência Ativa</div>
+    <div class="value-tagline">Dizemos o que pensamos, com cuidado</div>
+    <div class="value-desc">Nos posicionamos sobre trabalho justo, direitos, tecnologia ética — sem esconder por medo de repercussão.</div>
+  </div>
+</div>
+
+<h2>Niche/Focus</h2>
+<p><strong>Staffing técnico LATAM → US/EU</strong> via plataforma G2i como canal primário. Recruta, treina e aloca desenvolvedores brasileiros sêniores (JS/TS, 5–12 anos experiência) em projetos de AI/RLHF para labs internacionais. Receita em USD, operação em BRL.</p>
+
+<div class="callout info">
+  <div class="callout-icon">💡</div>
+  <div class="callout-body">
+    <div class="callout-title">Modelo Basecamp</div>
+    <div class="callout-text">A Impact X é inspirada pela Basecamp: empresa pequena, produtos excelentes, lucro e cuidado com pessoas simultaneamente. Crescimento a qualquer custo é uma escolha, não uma lei.</div>
+  </div>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="s2" id="panel-s2" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="s2">
+<h1><span class="num">02</span> Onde Estaremos — Targets</h1>
+
+<h2>10-Year Target (2036)</h2>
+<div class="callout success">
+  <div class="callout-icon">🏆</div>
+  <div class="callout-body">
+    <div class="callout-title">Referência em produto focado e tecnologia invisível</div>
+    <div class="callout-text">Hub de produtos com identidades independentes. Dengos (espaços físicos da IX) em múltiplas cidades e países. Ações e/ou previdência privada para colaboradores. <strong>Menor turnover do Brasil.</strong> Reconhecidos como a empresa que mais investe na qualidade de vida dos seus colaboradores.</div>
+  </div>
+</div>
+
+<h2>3-Year Target (2029)</h2>
+<table>
+  <thead><tr><th>Dimensão</th><th>Meta 3 Anos</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Produtos</strong></td><td>Hub de produtos com identidades independentes (Mercado Negro, Gueto pra Gueto ativos)</td></tr>
+    <tr><td><strong>Cultura</strong></td><td>Reconhecidos pela cultura e pelos benefícios ao time</td></tr>
+    <tr><td><strong>Espaços</strong></td><td>Rede de Dengos em cidades estratégicas do Brasil</td></tr>
+    <tr><td><strong>Equipe</strong></td><td>Time diverso, remote-first, com encontros opcionais nos Dengos</td></tr>
+    <tr><td><strong>Receita diversificada</strong></td><td>Múltiplos canais e produtos gerando receita recorrente</td></tr>
+  </tbody>
+</table>
+
+<h2>1-Year Target (Março 2027)</h2>
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">20+</div><div class="metric-label">Devs Alocados</div></div>
+  <div class="metric-card"><div class="metric-value">R$200k+</div><div class="metric-label">MRR Margem</div></div>
+  <div class="metric-card"><div class="metric-value">≥30%</div><div class="metric-label">Receita Não-G2i</div></div>
+  <div class="metric-card"><div class="metric-value">≥R$200k</div><div class="metric-label">Reserva Caixa</div></div>
+  <div class="metric-card"><div class="metric-value">93+</div><div class="metric-label">Alunos Kumon</div></div>
+</div>
+
+<table>
+  <thead><tr><th>KPI</th><th>Meta Q2 (Jun/26)</th><th>Meta Q3 (Set/26)</th><th>Meta Q4 (Dez/26)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Devs alocados</strong></td><td>5</td><td>15</td><td>20+</td></tr>
+    <tr><td><strong>MRR (margem líquida)</strong></td><td>R$50k</td><td>R$150k</td><td>R$200k+</td></tr>
+    <tr><td><strong>Canais ativos</strong></td><td>1 (G2i)</td><td>2+</td><td>3+</td></tr>
+    <tr><td><strong>OPEX/Margem bruta</strong></td><td>&lt;50%</td><td>&lt;30%</td><td>&lt;25%</td></tr>
+    <tr><td><strong>Runway meses</strong></td><td>≥3</td><td>≥6</td><td>≥6</td></tr>
+    <tr><td><strong>Churn devs (trimestral)</strong></td><td>&lt;20%</td><td>&lt;15%</td><td>&lt;10%</td></tr>
+    <tr><td><strong>Kumon alunos</strong></td><td>≥80</td><td>≥87</td><td>≥93</td></tr>
+    <tr><td><strong>Kumon resultado/mês</strong></td><td>≥R$4k</td><td>≥R$5.8k</td><td>≥R$7.2k</td></tr>
+  </tbody>
+</table>
+
+<h2>Cenários de Revenue (12 meses)</h2>
+<table>
+  <thead><tr><th>Cenário</th><th>Devs Max</th><th>Break-even</th><th>Receita Acum. 12m</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Conservador</strong></td><td>20</td><td>Junho</td><td>R$1.072M</td></tr>
+    <tr><td><strong>Moderado</strong></td><td>40</td><td>Maio</td><td>R$2.672M</td></tr>
+    <tr><td><strong>Otimista</strong></td><td>80</td><td>Maio</td><td>R$5.612M</td></tr>
+  </tbody>
+</table>
+</section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="s3" id="panel-s3" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="s3">
+<h1><span class="num">03</span> Marketing Strategy</h1>
+
+<h2>Target Market</h2>
+<table>
+  <thead><tr><th>Dimensão</th><th>Definição</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Cliente primário</strong></td><td>G2i (marketplace de hiring com 8.000+ engenheiros, 80–240 vagas abertas)</td></tr>
+    <tr><td><strong>Cliente futuro (Q3+)</strong></td><td>VPs of Engineering em empresas 50–500 funcionários US/EU</td></tr>
+    <tr><td><strong>Tipo de projeto</strong></td><td>AI training (RLHF) para labs como OpenAI, Anthropic</td></tr>
+    <tr><td><strong>Supply side</strong></td><td>300+ devs sêniores JS/TS (pool nagringa.dev + network)</td></tr>
+    <tr><td><strong>Geografia</strong></td><td>Supply: Brasil (LATAM) → Demand: US/EU</td></tr>
+  </tbody>
+</table>
+
+<h2>Diferencial Competitivo (Unique Selling Proposition)</h2>
+<div class="callout info">
+  <div class="callout-icon">⚡</div>
+  <div class="callout-body">
+    <div class="callout-title">3 diferenciais-chave</div>
+    <div class="callout-text">
+      <strong>1. Volume com qualidade:</strong> Acesso a 300+ devs pré-mapeados via nagringa.dev, com prep técnico proprietário de 3 dias async que maximiza taxa de aprovação.<br>
+      <strong>2. Velocidade:</strong> 5 candidatos na semana 3, 20+ em 60 dias. Garantia de substituição em 48h.<br>
+      <strong>3. Margem superior ao benchmark:</strong> Margem bruta ~46% (vs. 20-25% do setor) e líquida ~27% (vs. 14-21%) por operação enxuta e pool proprietário.
+    </div>
+  </div>
+</div>
+
+<h2>Estratégia de Canais (Go-to-Market)</h2>
+<table>
+  <thead><tr><th>Canal</th><th>Timing</th><th>CAC est.</th><th>Bill Rate</th><th>Prioridade</th></tr></thead>
+  <tbody>
+    <tr><td><strong>G2i (marketplace)</strong></td><td>Q2 2026</td><td>R$0</td><td>$40/h</td><td><span class="tag tag-critical">AGORA</span></td></tr>
+    <tr><td><strong>LinkedIn outbound (Apollo)</strong></td><td>Q3 2026</td><td>R$500-1k</td><td>$50-80/h</td><td><span class="tag tag-high">PRÓXIMO</span></td></tr>
+    <tr><td><strong>Toptal / Turing</strong></td><td>Q3 2026</td><td>R$0</td><td>$45-60/h</td><td><span class="tag tag-high">PRÓXIMO</span></td></tr>
+    <tr><td><strong>Referral network</strong></td><td>Q3-Q4</td><td>R$0</td><td>$50-70/h</td><td><span class="tag tag-medium">ORGÂNICO</span></td></tr>
+    <tr><td><strong>Content marketing</strong></td><td>Q3</td><td>R$0</td><td>Indireto</td><td><span class="tag tag-medium">LONGO PRAZO</span></td></tr>
+    <tr><td><strong>Clientes diretos</strong></td><td>Q4</td><td>R$1-3k</td><td>$60-100/h</td><td>Futuro</td></tr>
+  </tbody>
+</table>
+
+<h2>Unit Economics</h2>
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">R$10k</div><div class="metric-label">Margem/Dev/Mês</div></div>
+  <div class="metric-card"><div class="metric-value">~R$0</div><div class="metric-label">CAC via G2i</div></div>
+  <div class="metric-card"><div class="metric-value">R$60k</div><div class="metric-label">LTV/Dev (6m)</div></div>
+  <div class="metric-card"><div class="metric-value">∞</div><div class="metric-label">LTV/CAC (G2i)</div></div>
+  <div class="metric-card"><div class="metric-value">Mês 1</div><div class="metric-label">Payback</div></div>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="s4" id="panel-s4" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="s4">
+<h1><span class="num">04</span> The Accountability Chart</h1>
+
+<h2>EOS Roles — Visionário vs. Integrador</h2>
+<table>
+  <thead><tr><th>Role EOS</th><th>Pessoa</th><th>Evidência</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Visionário</strong></td><td>Rafael Camillo (CEO & Founder)</td><td>Define visão, valores, produto, estratégia de longo prazo, decisões de Go/No-Go, automação. Senior dev 11 anos + visão de produto.</td></tr>
+    <tr><td><strong>Integrador</strong></td><td>⚠️ Gap identificado — ninguém ocupa formalmente</td><td>Nicole tem potencial para evoluir para Integrador (Head Ops) conforme volume escalar. Hoje é Assistente Executiva Sênior. Pimenta executa comercial mas não integra operações.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning">
+  <div class="callout-icon">⚠️</div>
+  <div class="callout-body">
+    <div class="callout-title">Gap crítico no EOS: sem Integrador formal</div>
+    <div class="callout-text">No framework EOS, o Integrador é quem harmoniza as 3 funções principais (Vendas, Ops, Finanças). Hoje Rafa acumula Visionário + parte do Integrador, o que conflita com o limite de 6h/dia e o risco de burnout documentado como "probabilidade ALTA".</div>
+  </div>
+</div>
+
+<h2>Organograma Funcional</h2>
+<div class="org-chart">
+<strong class="role">RAFAEL CAMILLO</strong> <span class="tag">— CEO & Founder · Visionário · PJ R$10k</span><br>
+├── <span class="name">Rafael Pimenta</span> <span class="role">— Head Comercial</span> <span class="tag">· PJ R$10k · Vendas/G2i</span><br>
+│&nbsp;&nbsp;&nbsp;└── <span class="name">SDR (futuro Q3+)</span> <span class="tag">· Freelance ~R$2-3k</span><br>
+├── <span class="name">Nicole Fernandes</span> <span class="role">— Head Ops (em formação)</span> <span class="tag">· PJ R$3k→R$5k · Ops/Onboarding</span><br>
+│&nbsp;&nbsp;&nbsp;├── <span class="name">Tech Recruiter</span> <span class="tag">· Freelance R$500/placement → PJ R$4k Q3</span><br>
+│&nbsp;&nbsp;&nbsp;└── <span class="name">Onboarding Devs</span> <span class="tag">· Pipeline de candidatos</span><br>
+├── <span class="name">Wy</span> <span class="role">— Gestora Kumon</span> <span class="tag">· MEI R$4k · Operação diária</span><br>
+│&nbsp;&nbsp;&nbsp;├── <span class="name">Francine</span> <span class="tag">· Professora</span><br>
+│&nbsp;&nbsp;&nbsp;├── <span class="name">Beatriz</span> <span class="tag">· Auxiliar</span><br>
+│&nbsp;&nbsp;&nbsp;└── <span class="name">Poliane</span> <span class="tag">· Auxiliar</span><br>
+└── <span class="name">Externo</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="name">Advogado</span> <span class="tag">· Pontual R$2-3k one-time</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="name">Contador PJ</span> <span class="tag">· ~R$500-800/mês</span>
+</div>
+
+<h2>Funções EOS Mapeadas</h2>
+<table>
+  <thead><tr><th>Função EOS</th><th>Responsável</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Vendas/Marketing</strong></td><td>Rafael Pimenta (Head Comercial)</td><td>✅ Coberto — foco G2i, a provar execução</td></tr>
+    <tr><td><strong>Operações</strong></td><td>Nicole Fernandes (Assistente → Head Ops)</td><td>⚠️ Parcial — precisa crescer com volume</td></tr>
+    <tr><td><strong>Finanças</strong></td><td>Rafael Camillo (acumula) + Contador externo</td><td>⚠️ Parcial — Rafa acumula, contador a contratar</td></tr>
+    <tr><td><strong>Produto/Tech</strong></td><td>Rafael Camillo (acumula)</td><td>⚠️ Não escala — prep de devs é gargalo</td></tr>
+  </tbody>
+</table>
+
+<h2>OPEX Mensal do Time</h2>
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">R$24k</div><div class="metric-label">OPEX Base Atual</div></div>
+  <div class="metric-card"><div class="metric-value">R$28k</div><div class="metric-label">OPEX c/ Wy + Recruiter</div></div>
+  <div class="metric-card"><div class="metric-value">3 devs</div><div class="metric-label">Break-even</div></div>
+  <div class="metric-card"><div class="metric-value">5</div><div class="metric-label">Pessoas Total</div></div>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="s5" id="panel-s5" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="s5">
+<h1><span class="num">05</span> Rocks — Prioridades 90 Dias (Q2 · Abr–Jun 2026)</h1>
+
+<p>Rocks são as 3–7 prioridades mais importantes do trimestre. Se não forem concluídas, o negócio não avança. Baseado nos Action Items e Roadmap Q2.</p>
+
+<div class="rocks-grid">
+  <div class="rock-card critical">
+    <div class="rock-num">R1</div>
+    <div class="rock-body">
+      <div class="rock-title">Fechar parceria G2i e alocar primeiros devs</div>
+      <div class="rock-detail">Contato com Gabe + Gabriela → call de alinhamento → submeter 5 devs da turma piloto → validar taxa de aprovação → primeiras alocações confirmadas até maio.</div>
+      <div class="rock-owner">Owner: Pimenta (comercial) + Rafa (vetting técnico)</div>
+    </div>
+  </div>
+  <div class="rock-card critical">
+    <div class="rock-num">R2</div>
+    <div class="rock-body">
+      <div class="rock-title">Atingir break-even: ≥3 devs alocados até junho</div>
+      <div class="rock-detail">Break-even = 3 devs × R$10k margem = R$30k/mês ≥ OPEX R$28k. GO se ≥2 devs. PAUSE se 0 devs. ABORT se queima &gt;R$70k acumulados.</div>
+      <div class="rock-owner">Owner: Todo o time</div>
+    </div>
+  </div>
+  <div class="rock-card high">
+    <div class="rock-num">R3</div>
+    <div class="rock-body">
+      <div class="rock-title">Estruturar juridicamente a Impact X</div>
+      <div class="rock-detail">Abrir CNPJ Noir Labs. Assinar contratos PJ (Pimenta R$10k, Nicole R$3k). Contrato MEI Wy. Wise Business (conta USD). Advogado + Contador contratados.</div>
+      <div class="rock-owner">Owner: Rafa + Advogado externo</div>
+    </div>
+  </div>
+  <div class="rock-card high">
+    <div class="rock-num">R4</div>
+    <div class="rock-body">
+      <div class="rock-title">Contratar Tech Recruiter freelance e montar pipeline de devs</div>
+      <div class="rock-detail">Recruiter do próprio nagringa.dev (R$500/placement). Triar 5–10 devs piloto. Assessment técnico + inglês B2+. Parceria com Lucas Faria (nagringa.dev).</div>
+      <div class="rock-owner">Owner: Nicole + Rafa</div>
+    </div>
+  </div>
+  <div class="rock-card">
+    <div class="rock-num">R5</div>
+    <div class="rock-body">
+      <div class="rock-title">Transicionar Kumon para Wy + implementar automações</div>
+      <div class="rock-detail">F1: Asaas + régua WhatsApp (recuperar R$1.8-2k/mês). F2: Google Meu Negócio + captação digital. F3: Dashboard financeiro. Meta: reverter churn líquido de -3/mês.</div>
+      <div class="rock-owner">Owner: Rafa (automação) + Wy (operação)</div>
+    </div>
+  </div>
+  <div class="rock-card">
+    <div class="rock-num">R6</div>
+    <div class="rock-body">
+      <div class="rock-title">Mapear Pipeline B (contingência se G2i falhar)</div>
+      <div class="rock-detail">Toptal, Arc.dev, Gun.io, LinkedIn outbound direto para startups. Ter pelo menos 3 canais alternativos identificados com processo de entrada mapeado.</div>
+      <div class="rock-owner">Owner: Pimenta</div>
+    </div>
+  </div>
+  <div class="rock-card">
+    <div class="rock-num">R7</div>
+    <div class="rock-body">
+      <div class="rock-title">Landing page Impact X + material comercial pronto</div>
+      <div class="rock-detail">Website mínimo. Deck de apresentação. Script de abordagem G2i. Perfis de devs formatados em PDF. Material de prep técnico async.</div>
+      <div class="rock-owner">Owner: Nicole (site) + Pimenta (material)</div>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="s6" id="panel-s6" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="s6">
+<h1><span class="num">06</span> Scorecard — Métricas Semanais</h1>
+
+<p>O Scorecard EOS contém 5–15 métricas que devem ser revisadas <strong>toda semana</strong> numa reunião de 90 minutos (Level 10 Meeting). Baseado nos KPIs documentados nos relatórios de métricas.</p>
+
+<h2>Impact X — Scorecard Semanal</h2>
+<table>
+  <thead><tr><th>#</th><th>Métrica</th><th>Owner</th><th>Meta Semanal</th><th>Como Medir</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>Devs alocados (ativos)</td><td>Pimenta</td><td>+1/semana (rampa)</td><td>Contratos vigentes no Sheets</td></tr>
+    <tr><td><strong>2</strong></td><td>Devs em pipeline de prep</td><td>Nicole</td><td>≥5 em prep ativo</td><td>Notion ATS / Sheets "Pool Devs"</td></tr>
+    <tr><td><strong>3</strong></td><td>Perfis submetidos ao G2i</td><td>Pimenta</td><td>≥2/semana</td><td>Sheets "Pipeline" status=Perfil</td></tr>
+    <tr><td><strong>4</strong></td><td>Taxa de aprovação G2i</td><td>Rafa</td><td>≥60%</td><td>Aprovados / Submetidos</td></tr>
+    <tr><td><strong>5</strong></td><td>Leads novos (canais ativos)</td><td>Pimenta</td><td>≥3/semana</td><td>Sheets "Pipeline" novos</td></tr>
+    <tr><td><strong>6</strong></td><td>Tempo de resposta a leads</td><td>Pimenta</td><td>&lt;2h</td><td>Timestamp LinkedIn/WhatsApp</td></tr>
+    <tr><td><strong>7</strong></td><td>MRR (margem líquida)</td><td>Rafa</td><td>Crescente</td><td>Devs × R$10k</td></tr>
+    <tr><td><strong>8</strong></td><td>Queima de caixa semanal</td><td>Rafa</td><td>&lt;R$6k/semana</td><td>Sheets "Financeiro"</td></tr>
+    <tr><td><strong>9</strong></td><td>Runway restante (meses)</td><td>Rafa</td><td>≥3 meses</td><td>Caixa / OPEX mensal</td></tr>
+    <tr><td><strong>10</strong></td><td>Triagens realizadas (recruiter)</td><td>Nicole</td><td>≥10/semana</td><td>Report do Tech Recruiter</td></tr>
+    <tr><td><strong>11</strong></td><td>Churn devs (mensal, tracking)</td><td>Nicole</td><td>0 no mês</td><td>Saídas / ativos no Sheets</td></tr>
+  </tbody>
+</table>
+
+<h2>Kumon — Scorecard Mensal</h2>
+<table>
+  <thead><tr><th>#</th><th>Métrica</th><th>Owner</th><th>Meta</th><th>Como Medir</th></tr></thead>
+  <tbody>
+    <tr><td><strong>12</strong></td><td>Alunos ativos</td><td>Wy</td><td>Crescente (meta 80→93)</td><td>Asaas + controle interno</td></tr>
+    <tr><td><strong>13</strong></td><td>Inadimplência</td><td>Wy</td><td>≤3%</td><td>Asaas (atraso/total)</td></tr>
+    <tr><td><strong>14</strong></td><td>Churn alunos/mês</td><td>Wy</td><td>≤4% (reverter -3 líquido)</td><td>Cancelamentos/ativos</td></tr>
+    <tr><td><strong>15</strong></td><td>Resultado mensal Kumon</td><td>Wy</td><td>≥R$4k→R$7.2k</td><td>Dashboard n8n/Sheets</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <div class="callout-icon">📅</div>
+  <div class="callout-body">
+    <div class="callout-title">Level 10 Meeting — Recomendação EOS</div>
+    <div class="callout-text">Reunião semanal de 90 min, mesmo dia/horário toda semana. Estrutura: Scorecard (5min) → Rock review (5min) → To-Do review (5min) → IDS issues (60min) → Conclude (5min). Considerar terça ou quarta às 10h, respeitando o async-first.</div>
+  </div>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="s7" id="panel-s7" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="s7">
+<h1><span class="num">07</span> Issues List — Problemas para IDS</h1>
+
+<p>Issues são gargalos, desafios e problemas recorrentes que devem ser resolvidos no processo <strong>IDS</strong> (Identify → Discuss → Solve) do EOS. Extraídos dos documentos de diagnóstico, action items e riscos.</p>
+
+<h3>Críticos — Resolver Imediatamente</h3>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-critical">CRÍTICO</span> Concentração 100% em G2i como único canal de receita</div>
+  <div class="issue-impact">Se G2i não responder, reduzir demanda ou renegociar, a Impact X tem receita ZERO. Risco existencial. Mitigação: Pipeline B mapeado (R6) + diversificação mandatória em Q3.</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-critical">CRÍTICO</span> Gap de Integrador (EOS) — Rafa acumula funções demais</div>
+  <div class="issue-impact">Rafa é Visionário + Integrador + Tech Lead + Finanças + Automação Kumon. Limite de 6h/dia. Burnout listado como risco "probabilidade ALTA, impacto ALTO". Solução: Nicole evoluir para Head Ops / Integrador progressivamente.</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-critical">CRÍTICO</span> Taxa de aprovação G2i é desconhecida</div>
+  <div class="issue-impact">Toda a projeção financeira assume ~70-80% de aprovação (benchmark). Se taxa real for &lt;50%, a projeção de rampa atrasa 1-2 meses e break-even vai para julho+. Só saberemos com a turma piloto em abril.</div>
+</div>
+
+<h3>Altos — Resolver em 30 dias</h3>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-high">ALTO</span> Kumon com crescimento líquido negativo (-3 alunos/mês)</div>
+  <div class="issue-impact">Churn de 5/mês vs. crescimento de 2/mês = perda de 3 alunos líquidos. Em 6 meses sem intervenção: de 77 para ~59 alunos (abaixo do break-even de 66). Automação de dados e captação são urgentes.</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-high">ALTO</span> Nenhum contrato formal assinado (PJ, Kumon, G2i)</div>
+  <div class="issue-impact">Pimenta, Nicole e Wy operam sem contrato. Risco jurídico e trabalhista. G2i sem contrato = sem billing. Advogado precisa ser contratado em abril S1.</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-high">ALTO</span> Inadimplência Kumon em 6.5% (meta: 2-3%)</div>
+  <div class="issue-impact">Dobro do benchmark saudável. Representa R$1.8-2k/mês de receita não realizada. Solução: régua de cobrança automatizada via Asaas + WhatsApp (Rock R5, Fase 1).</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-high">ALTO</span> Tech Recruiter não contratado — pipeline de devs parado</div>
+  <div class="issue-impact">Sem recruiter = sem pipeline = sem devs submetidos = sem receita. Gargalo #1 de capacidade operacional. Meta: contratar freelance até abril S4.</div>
+</div>
+
+<h3>Médios — Monitorar e Resolver em Q2</h3>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-medium">MÉDIO</span> Prep de devs não escala (Rafa faz 1h/semana)</div>
+  <div class="issue-impact">Rafa é o único que faz vetting técnico e prep de devs. Máximo ~5 devs/semana. Solução futura (Q3): promover dev sênior do pool para "Prep Lead" com remuneração variável.</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-medium">MÉDIO</span> Risco cambial: receita USD, custo BRL fixo</div>
+  <div class="issue-impact">Margem de R$10k/dev assume câmbio ~R$5.80. Queda do dólar comprime margem diretamente. Impact X absorve risco cambial. Sem hedge planejado.</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-title"><span class="tag tag-medium">MÉDIO</span> Validação da Wy como gestora autônoma do Kumon</div>
+  <div class="issue-impact">Wy conhece a operação mas nunca geriu sozinha. Se não funcionar, Pimenta é backup + Nicole 2x/semana. Contrato franquia pode não permitir delegação formal.</div>
+</div>
+
+<div class="divider"></div>
+
+<h2>Resumo — Saúde do EOS</h2>
+<table>
+  <thead><tr><th>Pilar VTO</th><th>Status</th><th>Nota</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Core Values & Focus</strong></td><td>✅ Forte</td><td>8 valores documentados, missão/visão claras, manifesto bilíngue publicado</td></tr>
+    <tr><td><strong>Targets (1/3/10 anos)</strong></td><td>✅ Definidos</td><td>Metas por quarter com critérios Go/No-Go — muito sólido</td></tr>
+    <tr><td><strong>Marketing Strategy</strong></td><td>⚠️ Concentrado</td><td>Estratégia G2i é boa mas 100% em 1 canal é risco existencial</td></tr>
+    <tr><td><strong>Accountability Chart</strong></td><td>⚠️ Gap</td><td>Sem Integrador formal. Rafa acumula demais. Nicole precisa evoluir.</td></tr>
+    <tr><td><strong>Rocks (90 dias)</strong></td><td>✅ Claro</td><td>7 rocks bem definidos com owners e critérios de sucesso</td></tr>
+    <tr><td><strong>Scorecard</strong></td><td>⚠️ A implementar</td><td>Métricas definidas mas tracking ainda não operacional (pre-revenue)</td></tr>
+    <tr><td><strong>Issues List</strong></td><td>🔴 3 críticos</td><td>Concentração G2i, acúmulo de funções do Rafa, taxa aprovação desconhecida</td></tr>
+  </tbody>
+</table>
+
+</section>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo · Março 2026 · Confidencial<br>
+  Framework EOS · Vision/Traction Organizer · Baseado em "Tração" de Gino Wickman
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

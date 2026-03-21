@@ -1,0 +1,15 @@
+{
+  "name": "ix-reports",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Impact X — Relatórios e documentos publicados via Vercel",
+  "scripts": {
+    "dev": "npx serve . -l 3000 --no-clipboard",
+    "start": "npx serve . -l 3000 --no-clipboard",
+    "validate": "node scripts/validate.mjs",
+    "count": "node -e \"const g=require('fs').readdirSync('data').filter(f=>f.endsWith('.html'));console.log(g.length+' HTML reports in data/');\""
+  },
+  "keywords": ["impact-x", "reports", "static"],
+  "author": "Rafael Camillo",
+  "license": "UNLICENSED"
+}

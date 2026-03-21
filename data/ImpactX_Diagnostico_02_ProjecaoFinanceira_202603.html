@@ -4,9 +4,365 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Projeção Financeira 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
-<h1>Projeção Financeira 2026</h1>
-<p>Documento 02 com projeção financeira para abril-dezembro 2026 em 3 cenários (conservador, base, agressivo), incluindo P&L, cash flow e análise de sensibilidade.</p>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">02 · Projeção Financeira 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="sec-1" role="tab">Premissas Explícitas</button>
+  <button type="button" class="tab-btn" data-tab="sec-2" role="tab">Impact X — P&L Mensal (Abr–Dez 2026)</button>
+  <button type="button" class="tab-btn" data-tab="sec-3" role="tab">Kumon Caemargos — P&L Mensal (Abr–Dez …</button>
+  <button type="button" class="tab-btn" data-tab="sec-4" role="tab">Consolidado — Resumo Comparativo</button>
+  <button type="button" class="tab-btn" data-tab="sec-5" role="tab">Fluxo de Caixa Simplificado</button>
+  <button type="button" class="tab-btn" data-tab="sec-6" role="tab">Principais Alavancas de Crescimento</button>
+  <button type="button" class="tab-btn" data-tab="sec-7" role="tab">Principais Riscos Financeiros</button>
+  <button type="button" class="tab-btn" data-tab="sec-8" role="tab">Renda Pessoal — Rafael Camillo</button>
+</nav>
+
+<div class="hdr">
+  <div class="hdr-brand">IMPACT <span>X</span> — DIAGNÓSTICO EXECUTIVO 2026</div>
+  <div class="hdr-title">02 · Projeção Financeira 2026</div>
+  <div class="hdr-sub">Período: Abril–Dezembro 2026 · Impact X + Kumon Caemargos · 3 cenários</div>
+  <div class="hdr-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo</span>
+    <span>🔒 Confidencial</span>
+    <span>📄 Arquivo 2 de 9</span>
+  </div>
+</div>
+<div class="tab-panel active" data-tab="sec-1" id="panel-sec-1" role="tabpanel" aria-hidden="false">
+<div class="content">
+<section id="sec-1">
+<h1>1. Premissas Explícitas</h1>
+
+<h2>Impact X (Noir Labs)</h2>
+<table>
+  <thead><tr><th>Premissa</th><th>Valor</th><th>Fonte</th></tr></thead>
+  <tbody>
+    <tr><td>Bill rate G2i → Impact X</td><td>$40/h × 160h/mês = ~R$37.120/dev/mês</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Câmbio USD/BRL</td><td>R$5,80 (conservador: R$5,50 · agressivo: R$6,00)</td><td><span class="tag tag-inferred">Premissa</span></td></tr>
+    <tr><td>Pagamento ao dev (PJ BRL)</td><td>R$20.000/mês fixo</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Margem líquida por dev</td><td>~R$10.000/mês</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>OPEX time base (abr/26)</td><td>R$24.000/mês (Rafa R$10k + Nicole R$3k + Pimenta R$10k + SaaS R$1k)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>OPEX time com contratos</td><td>R$26.000/mês (Nicole sobe para R$5k)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Tech Recruiter</td><td>R$500/placement (freelance) → R$4k/mês PJ quando volume</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>CAPEX one-time</td><td>~R$3.600 (CNPJ + jurídico + landing page)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Capital disponível</td><td>R$100k (meta: evitar usar)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Fator de realismo</td><td>80% sobre teto teórico de devs</td><td><span class="tag tag-inferred">Premissa</span></td></tr>
+  </tbody>
+</table>
+
+<h2>Kumon Caemargos</h2>
+<table>
+  <thead><tr><th>Premissa</th><th>Valor</th><th>Fonte</th></tr></thead>
+  <tbody>
+    <tr><td>Alunos atuais (mar/2026)</td><td>77</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Receita por aluno</td><td>R$360/mês (média real)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Royalties Kumon</td><td>~36% efetivo (contratual 40%)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Wy (gestora operacional)</td><td>MEI R$4.000/mês fixo, sem bônus</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Custos fixos sem royalties</td><td>~R$14.164/mês (salários R$3.631 + Wy R$4k + opex R$5.220 + outros R$1.313)</td><td><span class="tag tag-confirmed">Calculado</span></td></tr>
+    <tr><td>Contribuição por aluno</td><td>R$360 × 0,64 = R$230/aluno/mês</td><td><span class="tag tag-confirmed">Calculado</span></td></tr>
+    <tr><td>Break-even operacional</td><td>62 alunos (R$14.164 ÷ R$230)</td><td><span class="tag tag-confirmed">Calculado</span></td></tr>
+    <tr><td>Break-even c/ lucro R$6k</td><td>88 alunos ((R$14.164 + R$6.000) ÷ R$230)</td><td><span class="tag tag-confirmed">Calculado</span></td></tr>
+    <tr><td>Churn mensal real</td><td>~5 alunos saem/mês · ~2 entram/mês = <strong>-3 líquido/mês</strong> (sem intervenção)</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+    <tr><td>Sem pró-labore do dono no Kumon</td><td>Pimenta recebe pela Impact X. Nunca conseguiu tirar mais que sobras em 1+ ano.</td><td><span class="tag tag-confirmed">Confirmado</span></td></tr>
+  </tbody>
+</table>
+
+<div class="callout danger">
+  <div class="callout-icon">🚨</div>
+  <div class="callout-body">
+    <div class="callout-title">Kumon: churn líquido negativo de -3 alunos/mês</div>
+    <div class="callout-text">Com churn de 5 e entrada de 2, o Kumon perde 3 alunos líquidos/mês sem intervenção. De 77 hoje, cruza o break-even operacional (62) em ~5 meses. O break-even para gerar R$6k de lucro esperado exige <strong>88 alunos</strong> — 11 acima do atual. <strong>Automação na Fase 1 é urgente</strong> para ter dados, reduzir churn e reverter a tendência.</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-2" id="panel-sec-2" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-2">
+<h1>2. Impact X — P&L Mensal (Abr–Dez 2026)</h1>
+
+<div class="scenario-header">
+  <h2>Cenário Conservador · 10 devs em Dez/26</h2>
+  <p>Rampa lenta: G2i demora para alinhar, aprovação parcial dos devs, 1–2 devs/mês de crescimento.</p>
+</div>
+
+<table>
+  <thead><tr><th>Mês</th><th>Devs</th><th>Receita Bruta</th><th>Custo Devs</th><th>Margem Bruta</th><th>OPEX Time</th><th>Resultado</th><th>Acumulado</th></tr></thead>
+  <tbody>
+    <tr><td>Abr/26</td><td>0</td><td>R$0</td><td>R$0</td><td>R$0</td><td>R$24.000</td><td class="neg">−R$24.000</td><td class="neg">−R$24.000</td></tr>
+    <tr><td>Mai/26</td><td>1</td><td>R$37.120</td><td>R$20.000</td><td>R$17.120</td><td>R$24.000</td><td class="neg">−R$6.880</td><td class="neg">−R$30.880</td></tr>
+    <tr><td>Jun/26</td><td>3</td><td>R$111.360</td><td>R$60.000</td><td>R$51.360</td><td>R$27.000</td><td class="pos">+R$24.360</td><td class="neg">−R$6.520</td></tr>
+    <tr><td>Jul/26</td><td>4</td><td>R$148.480</td><td>R$80.000</td><td>R$68.480</td><td>R$27.000</td><td class="pos">+R$41.480</td><td class="pos">+R$34.960</td></tr>
+    <tr><td>Ago/26</td><td>6</td><td>R$222.720</td><td>R$120.000</td><td>R$102.720</td><td>R$30.000</td><td class="pos">+R$72.720</td><td class="pos">+R$107.680</td></tr>
+    <tr><td>Set/26</td><td>7</td><td>R$259.840</td><td>R$140.000</td><td>R$119.840</td><td>R$30.000</td><td class="pos">+R$89.840</td><td class="pos">+R$197.520</td></tr>
+    <tr><td>Out/26</td><td>8</td><td>R$296.960</td><td>R$160.000</td><td>R$136.960</td><td>R$31.000</td><td class="pos">+R$105.960</td><td class="pos">+R$303.480</td></tr>
+    <tr><td>Nov/26</td><td>9</td><td>R$334.080</td><td>R$180.000</td><td>R$154.080</td><td>R$31.000</td><td class="pos">+R$123.080</td><td class="pos">+R$426.560</td></tr>
+    <tr class="highlight"><td>Dez/26</td><td>10</td><td>R$371.200</td><td>R$200.000</td><td>R$171.200</td><td>R$31.000</td><td class="pos">+R$140.200</td><td class="pos">+R$566.760</td></tr>
+  </tbody>
+</table>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">10</div><div class="metric-label">Devs Dez/26</div></div>
+  <div class="metric-card"><div class="metric-value">R$567k</div><div class="metric-label">Acumulado 9 meses</div></div>
+  <div class="metric-card"><div class="metric-value">Jun/26</div><div class="metric-label">Break-even (M3)</div></div>
+  <div class="metric-card"><div class="metric-value">R$31k</div><div class="metric-label">Queima máx (M1-M2)</div></div>
+</div>
+
+<!-- ─────────── Cenário Base ─────────── -->
+<div class="scenario-header">
+  <h2>Cenário Base · 20 devs em Dez/26</h2>
+  <p>G2i fecha em abril, primeiros devs em maio, rampa de 2–4 devs/mês. Fator 80% aplicado.</p>
+</div>
+
+<table>
+  <thead><tr><th>Mês</th><th>Devs</th><th>Receita Bruta</th><th>Custo Devs</th><th>Margem Bruta</th><th>OPEX Time</th><th>Resultado</th><th>Acumulado</th></tr></thead>
+  <tbody>
+    <tr><td>Abr/26</td><td>0</td><td>R$0</td><td>R$0</td><td>R$0</td><td>R$24.000</td><td class="neg">−R$24.000</td><td class="neg">−R$24.000</td></tr>
+    <tr><td>Mai/26</td><td>2</td><td>R$74.240</td><td>R$40.000</td><td>R$34.240</td><td>R$26.000</td><td class="pos">+R$8.240</td><td class="neg">−R$15.760</td></tr>
+    <tr><td>Jun/26</td><td>5</td><td>R$185.600</td><td>R$100.000</td><td>R$85.600</td><td>R$30.000</td><td class="pos">+R$55.600</td><td class="pos">+R$39.840</td></tr>
+    <tr><td>Jul/26</td><td>8</td><td>R$296.960</td><td>R$160.000</td><td>R$136.960</td><td>R$31.000</td><td class="pos">+R$105.960</td><td class="pos">+R$145.800</td></tr>
+    <tr><td>Ago/26</td><td>11</td><td>R$408.320</td><td>R$220.000</td><td>R$188.320</td><td>R$33.000</td><td class="pos">+R$155.320</td><td class="pos">+R$301.120</td></tr>
+    <tr><td>Set/26</td><td>14</td><td>R$519.680</td><td>R$280.000</td><td>R$239.680</td><td>R$35.000</td><td class="pos">+R$204.680</td><td class="pos">+R$505.800</td></tr>
+    <tr><td>Out/26</td><td>16</td><td>R$594.000</td><td>R$320.000</td><td>R$274.000</td><td>R$36.000</td><td class="pos">+R$238.000</td><td class="pos">+R$743.800</td></tr>
+    <tr><td>Nov/26</td><td>18</td><td>R$668.160</td><td>R$360.000</td><td>R$308.160</td><td>R$37.000</td><td class="pos">+R$271.160</td><td class="pos">+R$1.014.960</td></tr>
+    <tr class="highlight"><td>Dez/26</td><td>20</td><td>R$742.400</td><td>R$400.000</td><td>R$342.400</td><td>R$38.000</td><td class="pos">+R$304.400</td><td class="pos">+R$1.319.360</td></tr>
+  </tbody>
+</table>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">20</div><div class="metric-label">Devs Dez/26</div></div>
+  <div class="metric-card"><div class="metric-value">R$1,3M</div><div class="metric-label">Acumulado 9 meses</div></div>
+  <div class="metric-card"><div class="metric-value">Mai/26</div><div class="metric-label">Break-even (M2)</div></div>
+  <div class="metric-card"><div class="metric-value">R$304k</div><div class="metric-label">Resultado Dez/26</div></div>
+</div>
+
+<!-- ─────────── Cenário Agressivo ─────────── -->
+<div class="scenario-header">
+  <h2>Cenário Agressivo · 40 devs em Dez/26</h2>
+  <p>G2i absorve rápido, pipeline nagringa.dev funciona, 4–6 devs/mês de crescimento. Fator 80% sobre teto teórico 50.</p>
+</div>
+
+<table>
+  <thead><tr><th>Mês</th><th>Devs</th><th>Receita Bruta</th><th>Custo Devs</th><th>Margem Bruta</th><th>OPEX Time</th><th>Resultado</th><th>Acumulado</th></tr></thead>
+  <tbody>
+    <tr><td>Abr/26</td><td>0</td><td>R$0</td><td>R$0</td><td>R$0</td><td>R$24.000</td><td class="neg">−R$24.000</td><td class="neg">−R$24.000</td></tr>
+    <tr><td>Mai/26</td><td>4</td><td>R$148.480</td><td>R$80.000</td><td>R$68.480</td><td>R$27.000</td><td class="pos">+R$41.480</td><td class="pos">+R$17.480</td></tr>
+    <tr><td>Jun/26</td><td>10</td><td>R$371.200</td><td>R$200.000</td><td>R$171.200</td><td>R$33.000</td><td class="pos">+R$138.200</td><td class="pos">+R$155.680</td></tr>
+    <tr><td>Jul/26</td><td>16</td><td>R$594.000</td><td>R$320.000</td><td>R$274.000</td><td>R$37.000</td><td class="pos">+R$237.000</td><td class="pos">+R$392.680</td></tr>
+    <tr><td>Ago/26</td><td>22</td><td>R$816.640</td><td>R$440.000</td><td>R$376.640</td><td>R$40.000</td><td class="pos">+R$336.640</td><td class="pos">+R$729.320</td></tr>
+    <tr><td>Set/26</td><td>28</td><td>R$1.039.360</td><td>R$560.000</td><td>R$479.360</td><td>R$43.000</td><td class="pos">+R$436.360</td><td class="pos">+R$1.165.680</td></tr>
+    <tr><td>Out/26</td><td>32</td><td>R$1.187.840</td><td>R$640.000</td><td>R$547.840</td><td>R$45.000</td><td class="pos">+R$502.840</td><td class="pos">+R$1.668.520</td></tr>
+    <tr><td>Nov/26</td><td>36</td><td>R$1.336.320</td><td>R$720.000</td><td>R$616.320</td><td>R$47.000</td><td class="pos">+R$569.320</td><td class="pos">+R$2.237.840</td></tr>
+    <tr class="highlight"><td>Dez/26</td><td>40</td><td>R$1.484.800</td><td>R$800.000</td><td>R$684.800</td><td>R$50.000</td><td class="pos">+R$634.800</td><td class="pos">+R$2.872.640</td></tr>
+  </tbody>
+</table>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">40</div><div class="metric-label">Devs Dez/26</div></div>
+  <div class="metric-card"><div class="metric-value">R$2,9M</div><div class="metric-label">Acumulado 9 meses</div></div>
+  <div class="metric-card"><div class="metric-value">Mai/26</div><div class="metric-label">Break-even (M2)</div></div>
+  <div class="metric-card"><div class="metric-value">R$635k</div><div class="metric-label">Resultado Dez/26</div></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-3" id="panel-sec-3" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-3">
+<h1>3. Kumon Caemargos — P&L Mensal (Abr–Dez 2026)</h1>
+
+<p>Cenário realista com Wy MEI R$4k. <strong>Churn real: -5 saem +2 entram = -3 líquido/mês.</strong> Automação (Fase 1) começa a impactar a partir de Jul/26, reduzindo churn. Sem pró-labore do dono (Pimenta recebe da Impact X — nunca conseguiu tirar mais que sobras em 1+ ano de Kumon).</p>
+
+<table>
+  <thead><tr><th>Mês</th><th>Alunos</th><th>Net</th><th>MRR</th><th>Royalties (36%)</th><th>Rec. Líquida</th><th>CF</th><th>Resultado</th><th>Acumulado</th></tr></thead>
+  <tbody>
+    <tr><td>Abr/26</td><td>74</td><td>-3</td><td>R$26.640</td><td>−R$9.590</td><td>R$17.050</td><td>R$14.164</td><td class="pos">+R$2.886</td><td class="pos">+R$2.886</td></tr>
+    <tr><td>Mai/26</td><td>71</td><td>-3</td><td>R$25.560</td><td>−R$9.202</td><td>R$16.358</td><td>R$14.164</td><td class="pos">+R$2.194</td><td class="pos">+R$5.080</td></tr>
+    <tr><td>Jun/26</td><td>68</td><td>-3</td><td>R$24.480</td><td>−R$8.813</td><td>R$15.667</td><td>R$14.164</td><td class="pos">+R$1.503</td><td class="pos">+R$6.583</td></tr>
+    <tr><td>Jul/26</td><td>67</td><td>-1</td><td>R$24.120</td><td>−R$8.683</td><td>R$15.437</td><td>R$14.164</td><td class="pos">+R$1.273</td><td class="pos">+R$7.856</td></tr>
+    <tr><td>Ago/26</td><td>66</td><td>-1</td><td>R$23.760</td><td>−R$8.554</td><td>R$15.206</td><td>R$14.164</td><td class="pos">+R$1.042</td><td class="pos">+R$8.898</td></tr>
+    <tr><td>Set/26</td><td>65</td><td>-1</td><td>R$23.400</td><td>−R$8.424</td><td>R$14.976</td><td>R$14.164</td><td class="pos">+R$812</td><td class="pos">+R$9.710</td></tr>
+    <tr><td>Out/26</td><td>66</td><td>+1</td><td>R$23.760</td><td>−R$8.554</td><td>R$15.206</td><td>R$14.164</td><td class="pos">+R$1.042</td><td class="pos">+R$10.752</td></tr>
+    <tr><td>Nov/26</td><td>67</td><td>+1</td><td>R$24.120</td><td>−R$8.683</td><td>R$15.437</td><td>R$14.164</td><td class="pos">+R$1.273</td><td class="pos">+R$12.025</td></tr>
+    <tr class="highlight"><td>Dez/26</td><td>68</td><td>+1</td><td>R$24.480</td><td>−R$8.813</td><td>R$15.667</td><td>R$14.164</td><td class="pos">+R$1.503</td><td class="pos">+R$13.528</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning">
+  <div class="callout-icon">⚠️</div>
+  <div class="callout-body">
+    <div class="callout-title">Premissas da tabela Kumon</div>
+    <div class="callout-text"><strong>Abr–Jun:</strong> -3 líquido/mês (churn 5, entrada 2 — sem automação). <strong>Jul–Set:</strong> -1/mês (automação Fase 1 reduz churn de 5 para 3). <strong>Out–Dez:</strong> +1/mês (automação + retenção + período de matrícula). O último mês cresceu 5, mas não é a média fora dos períodos de matrícula.</div>
+  </div>
+</div>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">68</div><div class="metric-label">Alunos Dez/26</div></div>
+  <div class="metric-card"><div class="metric-value">R$13,5k</div><div class="metric-label">Acumulado 9 meses</div></div>
+  <div class="metric-card"><div class="metric-value">62</div><div class="metric-label">Break-even Operacional</div></div>
+  <div class="metric-card"><div class="metric-value">88</div><div class="metric-label">Break-even c/ R$6k Lucro</div></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-4" id="panel-sec-4" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-4">
+<h1>4. Consolidado — Resumo Comparativo</h1>
+
+<table>
+  <thead><tr><th>Indicador</th><th>Conservador</th><th>Base</th><th>Agressivo</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Devs alocados Dez/26</strong></td><td>10</td><td>20</td><td>40</td></tr>
+    <tr><td><strong>Resultado Impact X Dez/26</strong></td><td>+R$140k/mês</td><td>+R$304k/mês</td><td>+R$635k/mês</td></tr>
+    <tr><td><strong>Acumulado Impact X (abr–dez)</strong></td><td>+R$567k</td><td>+R$1,32M</td><td>+R$2,87M</td></tr>
+    <tr><td><strong>Break-even Impact X</strong></td><td>Jun/26 (M3)</td><td>Mai/26 (M2)</td><td>Mai/26 (M2)</td></tr>
+    <tr><td><strong>Queima máxima Impact X</strong></td><td>R$31k (M1+M2)</td><td>R$24k (M1)</td><td>R$24k (M1)</td></tr>
+    <tr><td><strong>Kumon acumulado (abr–dez)</strong></td><td colspan="3">+R$13.528 (Wy MEI R$4k, churn real -3/mês → melhora com automação)</td></tr>
+    <tr><td><strong>Kumon alunos Dez/26</strong></td><td colspan="3">68 (de 77 atuais). Break-even lucro R$6k: 88 alunos — longe sem mudança drástica.</td></tr>
+    <tr class="highlight"><td><strong>TOTAL Ecossistema Dez/26</strong></td><td>+R$580k</td><td>+R$1,33M</td><td>+R$2,89M</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-5" id="panel-sec-5" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-5">
+<h1>5. Fluxo de Caixa Simplificado</h1>
+
+<h2>Necessidade de caixa (pior cenário)</h2>
+<table>
+  <thead><tr><th>Item</th><th>Valor</th><th>Quando</th></tr></thead>
+  <tbody>
+    <tr><td>CAPEX one-time (CNPJ + jurídico + LP)</td><td>R$3.600</td><td>Abril/26</td></tr>
+    <tr><td>OPEX M1 sem receita (Impact X)</td><td>R$24.000</td><td>Abril/26</td></tr>
+    <tr><td>OPEX M2 parcial (conservador, 1 dev)</td><td>R$6.880</td><td>Maio/26</td></tr>
+    <tr><td><strong>Total capital necessário (pior caso)</strong></td><td><strong>R$34.480</strong></td><td>Meses 1–2</td></tr>
+  </tbody>
+</table>
+
+<div class="callout success">
+  <div class="callout-icon">✅</div>
+  <div class="callout-body">
+    <div class="callout-title">R$100k de runway = 3–4 meses de proteção</div>
+    <div class="callout-text">Mesmo no cenário conservador, a queima máxima é R$31k nos dois primeiros meses. O capital de R$100k cobre cenários extremos onde G2i demora ou devs não passam. O Kumon não precisa de capital — se paga sozinho com R$3.577/mês de resultado desde o primeiro mês.</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-6" id="panel-sec-6" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-6">
+<h1>6. Principais Alavancas de Crescimento</h1>
+
+<table>
+  <thead><tr><th>#</th><th>Alavanca</th><th>Impacto</th><th>Timing</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Volume de devs alocados</strong> — cada dev = +R$10k/mês margem</td><td>Crítico</td><td>M2+</td></tr>
+    <tr><td>2</td><td><strong>Bill rate premium</strong> — devs sênior (5+ anos) em $45/h = +R$4,6k/dev/mês</td><td>Alto</td><td>M4+</td></tr>
+    <tr><td>3</td><td><strong>Diversificação de canais</strong> — clientes diretos sem intermediário G2i = bill rate $60–80/h</td><td>Alto</td><td>Q3+</td></tr>
+    <tr><td>4</td><td><strong>Câmbio favorável</strong> — cada R$0,10 de variação = +R$640/dev/mês × N devs</td><td>Médio</td><td>Estrutural</td></tr>
+    <tr><td>5</td><td><strong>Retenção de devs</strong> — churn baixo = zero custo de reposição</td><td>Médio</td><td>Contínuo</td></tr>
+    <tr><td>6</td><td><strong>Kumon: crescimento para 100+ alunos</strong> — gera R$8–9k/mês para reserva</td><td>Baixo</td><td>Q3–Q4</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-7" id="panel-sec-7" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-7">
+<h1>7. Principais Riscos Financeiros</h1>
+
+<table>
+  <thead><tr><th>#</th><th>Risco</th><th>Impacto Financeiro</th><th>Mitigação</th></tr></thead>
+  <tbody>
+    <tr><td>RF1</td><td><strong>G2i não converte em 60 dias</strong></td><td>Queima de R$48k sem receita</td><td>Pipeline B2B alternativo. Canal Toptal/Turing. Limite de abort: R$50k queimados.</td></tr>
+    <tr><td>RF2</td><td><strong>Devs não passam onboarding G2i</strong> (&lt;50% aprovação)</td><td>Atraso de 1–2 meses na rampa</td><td>Turma piloto de 5 mede taxa real. Ajustar prep. Recrutar devs com inglês B2+.</td></tr>
+    <tr><td>RF3</td><td><strong>Câmbio BRL se aprecia 15%+</strong> (R$5,80 → R$4,93)</td><td>Margem cai de R$10k para R$5k/dev</td><td>Reserva em USD na Wise. Renegociar bill rate se necessário.</td></tr>
+    <tr><td>RF4</td><td><strong>Churn de devs >20% trimestral</strong></td><td>Custo de reposição + perda de receita por 2–4 semanas</td><td>R$20k/mês é tier 1 Brasil (~1,3–2× a média de R$10–15k para sênior, Glassdoor/PayScale 2026). Comunidade + cultura + incentivos como retenção. Garantia de substituição em 48h.</td></tr>
+    <tr><td>RF5</td><td><strong>Impostos/regulação PJ internacional</strong></td><td>Aumento de custo de 5–15% sobre receita</td><td>Contador especializado desde M1. Simples Nacional vs Lucro Presumido: avaliar com volume.</td></tr>
+    <tr><td>RF6</td><td><strong>Kumon perde alunos (churn alto)</strong></td><td>Resultado mensal cai para zero ou negativo</td><td>Inadimplência controlada com Asaas. Wy foca em retenção. Break-even baixo (62 alunos) dá margem.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <div class="callout-icon">ℹ️</div>
+  <div class="callout-body">
+    <div class="callout-title">Taxa de aprovação: benchmark de mercado ~70–80%</div>
+    <div class="callout-text">Empresas como X-Team e G2i reportam taxas de aprovação de 70–80% para devs pré-qualificados. Projeções usam essa premissa. Turma piloto validará a taxa real da Impact X.</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-8" id="panel-sec-8" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-8">
+<h1>8. Renda Pessoal — Rafael Camillo</h1>
+
+<table>
+  <thead><tr><th>Período</th><th>Pró-labore Impact X</th><th>Dividendos Impact X</th><th>Total Renda</th><th>Nota</th></tr></thead>
+  <tbody>
+    <tr><td>Abr/26</td><td>R$10.000</td><td>R$0</td><td>R$10.000</td><td>Mês sem receita</td></tr>
+    <tr><td>Jun/26</td><td>R$10.000</td><td>R$0</td><td>R$10.000</td><td>Resultado positivo, caixa acumulando</td></tr>
+    <tr><td>Set/26</td><td>R$10.000–15.000</td><td>R$5.000+</td><td>R$15.000–20.000</td><td>10+ devs, margem estável</td></tr>
+    <tr><td>Dez/26</td><td>R$15.000</td><td>R$15.000+</td><td>R$30.000+</td><td>Cenário base, 20 devs</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <div class="callout-icon">ℹ️</div>
+  <div class="callout-body">
+    <div class="callout-title">Critério de aumento de pró-labore</div>
+    <div class="callout-text">Pró-labore sobe para R$15k quando houver 5+ devs alocados por 2 meses consecutivos + reserva de 3 meses de OPEX em caixa. Dividendos: distribuição trimestral após 3 meses positivos consecutivos.</div>
+  </div>
+</div>
+</section>
+
+</div>
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Março 2026 · Confidencial</div>
+</footer>
+
+<script src="../assets/js/report.js"></script>
 </body>
 </html>
