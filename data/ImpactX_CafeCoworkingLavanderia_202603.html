@@ -138,8 +138,16 @@
     .city-strip, .report-header, thead tr, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
+
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report cafe-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Café · Coworking · Lavanderia</span>
+</header>
+
 
 <div class="report-header">
   <div class="brand-tag">IMPACT <span>X</span> — ANÁLISE DE NEGÓCIO</div>
@@ -154,18 +162,18 @@
 </div>
 
 <!-- TABS NAV -->
-<div class="tabs-nav">
-  <button class="tab-btn active" data-tab="cabo">📍 Cabo Frio</button>
-  <button class="tab-btn" data-tab="arraial">📍 Arraial do Cabo</button>
-  <button class="tab-btn" data-tab="buzios">📍 Búzios</button>
-  <button class="tab-btn" data-tab="itacare">📍 Itacaré</button>
-  <button class="tab-btn" data-tab="compare">⚖️ Comparativo Final</button>
+<div class="tabs-nav tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="cabo">📍 Cabo Frio</button>
+  <button type="button" class="tab-btn" data-tab="arraial">📍 Arraial do Cabo</button>
+  <button type="button" class="tab-btn" data-tab="buzios">📍 Búzios</button>
+  <button type="button" class="tab-btn" data-tab="itacare">📍 Itacaré</button>
+  <button type="button" class="tab-btn" data-tab="compare">⚖️ Comparativo Final</button>
 </div>
 
 <!-- ════════════════════════════════════ -->
 <!-- ABA 1: CABO FRIO -->
 <!-- ════════════════════════════════════ -->
-<div class="tab-panel active" id="tab-cabo">
+<div class="tab-panel active" id="tab-cabo" data-tab="cabo" role="tabpanel" aria-hidden="false">
   <div class="city-strip cabo">
     <div class="city-name">📍 Cabo Frio — RJ</div>
     <div class="city-tagline">Maior cidade da Costa do Sol · Fluxo constante · Melhor custo-benefício</div>
@@ -276,7 +284,7 @@
 <!-- ════════════════════════════════════ -->
 <!-- ABA 2: ARRAIAL DO CABO -->
 <!-- ════════════════════════════════════ -->
-<div class="tab-panel" id="tab-arraial">
+<div class="tab-panel" id="tab-arraial" data-tab="arraial" role="tabpanel" aria-hidden="true">
   <div class="city-strip arraial">
     <div class="city-name">📍 Arraial do Cabo — RJ</div>
     <div class="city-tagline">Caribe Brasileiro · Turismo premium · Alta sazonalidade · Menor custo que Búzios</div>
@@ -378,7 +386,7 @@
 <!-- ════════════════════════════════════ -->
 <!-- ABA 3: BÚZIOS -->
 <!-- ════════════════════════════════════ -->
-<div class="tab-panel" id="tab-buzios">
+<div class="tab-panel" id="tab-buzios" data-tab="buzios" role="tabpanel" aria-hidden="true">
   <div class="city-strip buzios">
     <div class="city-name">📍 Armação dos Búzios — RJ</div>
     <div class="city-tagline">Destino premium consolidado · Aluguel mais caro · Alta concorrência · ROI comprometido</div>
@@ -488,7 +496,7 @@
 <!-- ════════════════════════════════════ -->
 <!-- ABA 4: ITACARÉ -->
 <!-- ════════════════════════════════════ -->
-<div class="tab-panel" id="tab-itacare">
+<div class="tab-panel" id="tab-itacare" data-tab="itacare" role="tabpanel" aria-hidden="true">
   <div class="city-strip itacare">
     <div class="city-name">📍 Itacaré — BA</div>
     <div class="city-tagline">Surf · Natureza · Nômades internacionais · Custo baixo · Lifestyle primeiro</div>
@@ -599,7 +607,7 @@
 <!-- ════════════════════════════════════ -->
 <!-- ABA 5: COMPARATIVO FINAL -->
 <!-- ════════════════════════════════════ -->
-<div class="tab-panel" id="tab-compare">
+<div class="tab-panel" id="tab-compare" data-tab="compare" role="tabpanel" aria-hidden="true">
   <div class="city-strip compare">
     <div class="city-name">⚖️ Comparativo Final — As 4 Cidades</div>
     <div class="city-tagline">ROI · CAPEX · Renda · Risco · Lifestyle — lado a lado</div>
@@ -686,21 +694,9 @@
 
 <footer>
   <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
-  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Confidencial</div>
+  <div>Feito por Impact <span class="x" style="color:var(--ix-yellow);font-weight:700">X</span> — Rafael Camillo · Março 2026 · Confidencial</div>
 </footer>
 
-<script>
-  const tabs = document.querySelectorAll('.tab-btn');
-  const panels = document.querySelectorAll('.tab-panel');
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-</script>
+<script src="../assets/js/report.js"></script>
 </body>
 </html>

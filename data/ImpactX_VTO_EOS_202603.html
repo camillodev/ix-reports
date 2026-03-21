@@ -5,172 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — VTO · Vision/Traction Organizer (EOS)</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black: #0A0A0A;
-  --black-soft: #1A1A1A;
-  --green: #42593D;
-  --green-light: #5A7A52;
-  --green-bg: #E8F0E6;
-  --yellow: #F2C94C;
-  --yellow-dark: #D4A843;
-  --text-light: #F5F5F0;
-  --text-sec: #A0A090;
-  --card-bg: #FFFFFF;
-  --border: #D4DDD1;
-  --success: #42593D;
-  --warning: #D4820A;
-  --danger: #C0392B;
-  --bg: #F7F8F6;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--black); font-size: 15px; line-height: 1.7; }
-
-/* HEADER */
-.report-header {
-  background: linear-gradient(135deg, var(--black), #1a2e1a, var(--green));
-  color: var(--text-light);
-  padding: 56px 64px 48px;
-  position: relative;
-  overflow: hidden;
-}
-.report-header::after {
-  content: 'VTO';
-  position: absolute;
-  right: 60px;
-  bottom: -20px;
-  font-size: 180px;
-  font-weight: 900;
-  opacity: 0.04;
-  color: var(--yellow);
-  letter-spacing: -8px;
-}
-.hdr-brand { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; margin-bottom: 16px; }
-.hdr-brand .x { color: var(--yellow); }
-.hdr-title { font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
-.hdr-title em { color: var(--yellow); font-style: normal; }
-.hdr-sub { font-size: 16px; opacity: .85; font-weight: 300; max-width: 620px; }
-.hdr-meta { display: flex; gap: 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.15); font-size: 13px; opacity: .8; flex-wrap: wrap; }
-
-/* TOC */
-.toc { background: var(--black-soft); border-left: 4px solid var(--green); padding: 28px 36px; margin: 0 64px 0; border-radius: 0 0 8px 0; }
-.toc h2 { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px; }
-.toc ol { padding-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; }
-.toc li { margin: 4px 0; }
-.toc a { color: var(--text-light); text-decoration: none; font-weight: 500; font-size: 14px; }
-.toc a:hover { color: var(--yellow); }
-
-/* CONTENT */
-.content { padding: 8px 64px 48px; max-width: 1000px; }
-section { margin-bottom: 56px; }
-h1 { font-size: 26px; font-weight: 800; color: var(--green); padding-bottom: 10px; border-bottom: 3px solid var(--green); margin: 48px 0 24px; }
-h1 .num { color: var(--yellow); font-family: 'Roboto Mono', monospace; font-size: 22px; margin-right: 8px; }
-h2 { font-size: 18px; font-weight: 700; color: var(--green-light); margin: 28px 0 12px; }
-h3 { font-size: 14px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 8px; color: #555; }
-p { margin-bottom: 14px; }
-ul, ol { padding-left: 22px; margin-bottom: 14px; }
-li { margin: 5px 0; }
-
-/* METRIC CARDS */
-.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 24px 0; }
-.metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(66,89,61,.08); position: relative; overflow: hidden; }
-.metric-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), var(--yellow)); }
-.metric-value { font-size: 28px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 6px; }
-.metric-label { font-size: 11px; color: #777; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-
-/* TABLES */
-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(66,89,61,.08); }
-thead tr { background: var(--green); color: white; }
-thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; letter-spacing: .5px; }
-tbody tr:nth-child(even) { background: var(--green-bg); }
-tbody tr:nth-child(odd) { background: var(--card-bg); }
-tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
-
-/* CALLOUTS */
-.callout { border-radius: 8px; padding: 18px 22px; margin: 18px 0; display: flex; gap: 14px; align-items: flex-start; }
-.callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-.callout-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-.callout-text { font-size: 14px; line-height: 1.65; }
-.callout.info { background: var(--green-bg); border-left: 4px solid var(--green); }
-.callout.info .callout-title { color: var(--green); }
-.callout.success { background: #E8F5EE; border-left: 4px solid var(--success); }
-.callout.success .callout-title { color: var(--success); }
-.callout.warning { background: #FEF3E2; border-left: 4px solid var(--warning); }
-.callout.warning .callout-title { color: var(--warning); }
-.callout.danger { background: #FDECEA; border-left: 4px solid var(--danger); }
-.callout.danger .callout-title { color: var(--danger); }
-
-/* VALUE CARDS */
-.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
-.value-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px 20px; box-shadow: 0 2px 10px rgba(66,89,61,.06); }
-.value-icon { font-size: 28px; margin-bottom: 10px; }
-.value-name { font-size: 15px; font-weight: 800; color: var(--green); margin-bottom: 4px; }
-.value-tagline { font-size: 12px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
-.value-desc { font-size: 13px; color: #555; line-height: 1.6; }
-
-/* ACCOUNTABILITY */
-.org-chart { background: var(--black-soft); border-radius: 12px; padding: 32px; margin: 20px 0; color: var(--text-light); font-family: 'Roboto Mono', monospace; font-size: 14px; line-height: 2; }
-.org-chart .role { color: var(--yellow); font-weight: 700; }
-.org-chart .name { color: var(--text-light); }
-.org-chart .tag { color: var(--green-light); font-size: 12px; }
-
-/* ROCK CARDS */
-.rocks-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 20px 0; }
-.rock-card { background: var(--card-bg); border-left: 5px solid var(--green); border-radius: 0 10px 10px 0; padding: 18px 22px; box-shadow: 0 2px 8px rgba(66,89,61,.06); display: flex; gap: 16px; align-items: flex-start; }
-.rock-card.critical { border-left-color: var(--danger); }
-.rock-card.high { border-left-color: var(--warning); }
-.rock-num { font-size: 24px; font-weight: 900; color: var(--green); opacity: .4; min-width: 36px; font-family: 'Roboto Mono', monospace; }
-.rock-card.critical .rock-num { color: var(--danger); }
-.rock-card.high .rock-num { color: var(--warning); }
-.rock-body { flex: 1; }
-.rock-title { font-weight: 700; color: var(--black); font-size: 15px; margin-bottom: 4px; }
-.rock-detail { font-size: 13px; color: #666; }
-.rock-owner { font-size: 12px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .5px; margin-top: 6px; }
-
-/* ISSUE CARDS */
-.issue-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 10px 0; box-shadow: 0 2px 6px rgba(0,0,0,.04); }
-.issue-title { font-weight: 700; font-size: 15px; color: var(--black); margin-bottom: 6px; }
-.issue-impact { font-size: 13px; color: #666; }
-.tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
-.tag-critical { background: #FDECEA; color: var(--danger); }
-.tag-high { background: #FEF3E2; color: var(--warning); }
-.tag-medium { background: var(--green-bg); color: var(--green); }
-
-/* HERO STATEMENT */
-.hero-statement { background: linear-gradient(135deg, var(--black), #1a2e1a); color: var(--text-light); border-radius: 16px; padding: 40px; margin: 32px 0; text-align: center; position: relative; overflow: hidden; }
-.hero-statement::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--green), var(--yellow), var(--green)); }
-.hero-statement p { font-size: 20px; line-height: 1.65; font-weight: 300; color: var(--text-light); margin: 0; }
-.hero-statement strong { font-weight: 900; color: var(--yellow); }
-
-.divider { height: 1px; background: var(--border); margin: 48px 0; }
-
-/* FOOTER */
-footer { background: var(--black); color: rgba(255,255,255,.55); text-align: center; padding: 28px; font-size: 13px; margin-top: 48px; }
-footer .brand { color: white; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-footer .brand .x { color: var(--yellow); }
-
-@media print {
-  body { background: white; font-size: 12px; }
-  .report-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .hero-statement { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .org-chart { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  section { page-break-inside: avoid; }
-  footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-}
-@media (max-width: 768px) {
-  .report-header { padding: 32px 24px; }
-  .hdr-title { font-size: 28px; }
-  .content { padding: 8px 24px 32px; }
-  .toc { margin: 0 24px; }
-  .toc ol { grid-template-columns: 1fr; }
-}
-</style>
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">VTO · Vision/Traction Organizer</span>
+</header>
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="s1" role="tab">Visão — Core Values</button>
+  <button type="button" class="tab-btn" data-tab="s2" role="tab">Targets 1/3/10 anos</button>
+  <button type="button" class="tab-btn" data-tab="s3" role="tab">Marketing</button>
+  <button type="button" class="tab-btn" data-tab="s4" role="tab">Accountability</button>
+  <button type="button" class="tab-btn" data-tab="s5" role="tab">Rocks 90d</button>
+  <button type="button" class="tab-btn" data-tab="s6" role="tab">Scorecard</button>
+  <button type="button" class="tab-btn" data-tab="s7" role="tab">Issues (IDS)</button>
+</nav>
 
-<!-- ═══════════════════════════════════ HEADER ═══════════════════════════════════ -->
-<div class="report-header">
+<div class="tab-panel active" data-tab="s1" id="panel-s1" role="tabpanel" aria-hidden="false">
+<div class="report-header" data-ix-watermark="VTO">
   <div class="hdr-brand">IMPACT <span class="x">X</span> — DOCUMENTO ESTRATÉGICO</div>
   <div class="hdr-title">VTO · Vision/Traction <em>Organizer</em></div>
   <div class="hdr-sub">Framework EOS (Entrepreneurial Operating System) aplicado à Impact X — diagnóstico completo de visão, metas, responsabilidades e execução.</div>
@@ -181,24 +35,7 @@ footer .brand .x { color: var(--yellow); }
     <span>📋 Baseado no livro "Tração" — Gino Wickman</span>
   </div>
 </div>
-
-<!-- TOC -->
-<div class="toc">
-  <h2>Índice</h2>
-  <ol>
-    <li><a href="#s1">Visão — Core Values & Focus</a></li>
-    <li><a href="#s2">Onde Estaremos — Targets 1/3/10 anos</a></li>
-    <li><a href="#s3">Marketing Strategy</a></li>
-    <li><a href="#s4">Accountability Chart</a></li>
-    <li><a href="#s5">Rocks — Prioridades 90 dias</a></li>
-    <li><a href="#s6">Scorecard — Métricas Semanais</a></li>
-    <li><a href="#s7">Issues List — IDS</a></li>
-  </ol>
-</div>
-
 <div class="content">
-
-<!-- ═══════════════════════════════════ 1. VISÃO ═══════════════════════════════════ -->
 <section id="s1">
 <h1><span class="num">01</span> Visão — Core Values & Focus</h1>
 
@@ -272,8 +109,11 @@ footer .brand .x { color: var(--yellow); }
   </div>
 </div>
 </section>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════ 2. TARGETS ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="s2" id="panel-s2" role="tabpanel" aria-hidden="true">
+<div class="content">
 <section id="s2">
 <h1><span class="num">02</span> Onde Estaremos — Targets</h1>
 
@@ -331,8 +171,11 @@ footer .brand .x { color: var(--yellow); }
   </tbody>
 </table>
 </section>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════ 3. MARKETING ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="s3" id="panel-s3" role="tabpanel" aria-hidden="true">
+<div class="content">
 <section id="s3">
 <h1><span class="num">03</span> Marketing Strategy</h1>
 
@@ -383,8 +226,11 @@ footer .brand .x { color: var(--yellow); }
   <div class="metric-card"><div class="metric-value">Mês 1</div><div class="metric-label">Payback</div></div>
 </div>
 </section>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════ 4. ACCOUNTABILITY ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="s4" id="panel-s4" role="tabpanel" aria-hidden="true">
+<div class="content">
 <section id="s4">
 <h1><span class="num">04</span> The Accountability Chart</h1>
 
@@ -441,8 +287,11 @@ footer .brand .x { color: var(--yellow); }
   <div class="metric-card"><div class="metric-value">5</div><div class="metric-label">Pessoas Total</div></div>
 </div>
 </section>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════ 5. ROCKS ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="s5" id="panel-s5" role="tabpanel" aria-hidden="true">
+<div class="content">
 <section id="s5">
 <h1><span class="num">05</span> Rocks — Prioridades 90 Dias (Q2 · Abr–Jun 2026)</h1>
 
@@ -507,8 +356,11 @@ footer .brand .x { color: var(--yellow); }
   </div>
 </div>
 </section>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════ 6. SCORECARD ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="s6" id="panel-s6" role="tabpanel" aria-hidden="true">
+<div class="content">
 <section id="s6">
 <h1><span class="num">06</span> Scorecard — Métricas Semanais</h1>
 
@@ -551,8 +403,11 @@ footer .brand .x { color: var(--yellow); }
   </div>
 </div>
 </section>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════ 7. ISSUES ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="s7" id="panel-s7" role="tabpanel" aria-hidden="true">
+<div class="content">
 <section id="s7">
 <h1><span class="num">07</span> Issues List — Problemas para IDS</h1>
 
@@ -631,7 +486,7 @@ footer .brand .x { color: var(--yellow); }
 </table>
 
 </section>
-
+</div>
 </div>
 
 <!-- FOOTER -->
@@ -641,5 +496,6 @@ footer .brand .x { color: var(--yellow); }
   Framework EOS · Vision/Traction Organizer · Baseado em "Tração" de Gino Wickman
 </footer>
 
+<script src="../assets/js/report.js"></script>
 </body>
 </html>

@@ -5,79 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Skills v2: Mapa Completo do Sistema</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --purple: #7B2FBE; --purple-dark: #5A1E9A; --purple-light: #F3EAFF;
-    --purple-x: #9B59D4; --text: #1A1A2E; --text-secondary: #555577;
-    --bg: #FAFAFA; --card-bg: #FFFFFF; --border: #E0D4F5;
-    --success: #1A7A4A; --success-bg: #E8F5EE; --warning: #D4820A;
-    --warning-bg: #FEF3E2; --danger: #C0392B; --danger-bg: #FDECEA;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
-  .report-header { background: linear-gradient(135deg, var(--purple-dark), var(--purple)); color: white; padding: 48px 64px 40px; }
-  .brand-tag { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; margin-bottom: 16px; }
-  .brand-tag span { color: #C9A3F5; }
-  .report-title { font-size: 36px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
-  .report-subtitle { font-size: 16px; opacity: .85; font-weight: 300; }
-  .report-meta { display: flex; gap: 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.2); font-size: 13px; opacity: .8; }
-  .content { padding: 8px 64px 48px; max-width: 1000px; }
-  h1 { font-size: 26px; font-weight: 800; color: var(--purple-dark); padding-bottom: 10px; border-bottom: 3px solid var(--purple); margin: 40px 0 20px; }
-  h2 { font-size: 19px; font-weight: 700; color: var(--purple); margin: 28px 0 12px; }
-  p { margin-bottom: 12px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(123,47,190,.08); }
-  thead tr { background: var(--purple); color: white; }
-  thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; }
-  tbody tr:nth-child(even) { background: var(--purple-light); }
-  tbody tr:nth-child(odd) { background: var(--card-bg); }
-  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
-  .callout { border-radius: 8px; padding: 16px 20px; margin: 16px 0; display: flex; gap: 14px; align-items: flex-start; }
-  .callout-icon { font-size: 20px; flex-shrink: 0; }
-  .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-  .callout-text { font-size: 14px; line-height: 1.6; }
-  .callout.info { background: var(--purple-light); border-left: 4px solid var(--purple); }
-  .callout.info .callout-title { color: var(--purple-dark); }
-  .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
-  .callout.success .callout-title { color: var(--success); }
-  .callout.warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
-  .callout.warning .callout-title { color: var(--warning); }
-  .callout.danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
-  .callout.danger .callout-title { color: var(--danger); }
-  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 20px 0; }
-  .metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
-  .metric-value { font-size: 30px; font-weight: 900; color: var(--purple); margin-bottom: 6px; }
-  .metric-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
-  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-  .badge-new { background: var(--purple-light); color: var(--purple); }
-  .badge-kill { background: var(--danger-bg); color: var(--danger); }
-  .badge-keep { background: var(--success-bg); color: var(--success); }
-  .flow-box { background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; }
-  .flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-  .flow-step { background: var(--purple-light); border: 1px solid var(--purple); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--purple-dark); }
-  .flow-arrow { color: var(--purple); font-weight: 900; font-size: 18px; }
-  .flow-output { background: var(--success-bg); border: 1px solid var(--success); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: var(--success); }
-  .phase { display: flex; gap: 0; border-radius: 10px; overflow: hidden; margin: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
-  .phase-label { background: var(--purple); color: white; padding: 20px 24px; min-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-  .phase-label .phase-num { font-size: 22px; font-weight: 900; }
-  .phase-label .phase-period { font-size: 11px; opacity: .8; margin-top: 4px; }
-  .phase-content { background: var(--card-bg); padding: 20px 24px; flex: 1; border: 1px solid var(--border); border-left: none; }
-  .phase-content h3 { font-size: 15px; font-weight: 700; color: var(--purple); margin: 0 0 10px; }
-  .phase-content ul { padding-left: 18px; }
-  .phase-content li { font-size: 14px; margin: 4px 0; }
-  ul, ol { padding-left: 22px; margin-bottom: 12px; }
-  li { margin: 5px 0; }
-  code { background: var(--purple-light); padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 13px; color: var(--purple-dark); }
-  footer { background: var(--text); color: rgba(255,255,255,.6); text-align: center; padding: 24px; font-size: 13px; margin-top: 48px; }
-  footer .brand { color: white; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-  footer .brand .x { color: var(--purple-x); }
-  @media print {
-    body { background: white; font-size: 12px; }
-    .report-header, thead tr, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    section { page-break-inside: avoid; }
-  }
-</style>
+
+
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Sistema de Skills v2 — Mapa Completo</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="sec-1" role="tab">Overview</button>
+  <button type="button" class="tab-btn" data-tab="sec-2" role="tab">Skills: Antes → Depois</button>
+  <button type="button" class="tab-btn" data-tab="sec-3" role="tab">As 8 Skills Novas</button>
+  <button type="button" class="tab-btn" data-tab="sec-4" role="tab">Fluxos Encadeados</button>
+  <button type="button" class="tab-btn" data-tab="sec-5" role="tab">Atalhos Rápidos</button>
+  <button type="button" class="tab-btn" data-tab="sec-6" role="tab">Automações (Scheduled Tasks)</button>
+  <button type="button" class="tab-btn" data-tab="sec-7" role="tab">Problemas Resolvidos</button>
+  <button type="button" class="tab-btn" data-tab="sec-8" role="tab">Como Instalar</button>
+</nav>
 
 <div class="report-header">
   <div class="brand-tag">IMPACT <span>X</span> — SKILLS V2</div>
@@ -89,11 +37,9 @@
     <span>🔧 Refundação completa</span>
   </div>
 </div>
-
+<div class="tab-panel active" data-tab="sec-1" id="panel-sec-1" role="tabpanel" aria-hidden="false">
 <div class="content">
-
-<!-- ═══ OVERVIEW ═══ -->
-<section>
+<section id="sec-1">
   <h1>Overview</h1>
 
   <div class="metrics-grid">
@@ -117,7 +63,12 @@
 </section>
 
 <!-- ═══ SKILLS ANTIGAS vs NOVAS ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-2" id="panel-sec-2" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-2">
   <h1>Skills: Antes → Depois</h1>
 
   <table>
@@ -155,7 +106,12 @@
 </section>
 
 <!-- ═══ MAPA DE SKILLS ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-3" id="panel-sec-3" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-3">
   <h1>As 8 Skills Novas</h1>
 
   <table>
@@ -176,7 +132,12 @@
 </section>
 
 <!-- ═══ FLUXOS ENCADEADOS ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-4" id="panel-sec-4" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-4">
   <h1>Fluxos Encadeados</h1>
 
   <h2>🔴 Fluxo Comercial</h2>
@@ -257,7 +218,12 @@
 </section>
 
 <!-- ═══ SHORTCUTS ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-5" id="panel-sec-5" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-5">
   <h1>Atalhos Rápidos</h1>
   <table>
     <thead>
@@ -277,7 +243,12 @@
 </section>
 
 <!-- ═══ AUTOMAÇÕES ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-6" id="panel-sec-6" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-6">
   <h1>Automações (Scheduled Tasks)</h1>
   <table>
     <thead>
@@ -306,7 +277,12 @@
 </section>
 
 <!-- ═══ PROBLEMAS RESOLVIDOS ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-7" id="panel-sec-7" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-7">
   <h1>Problemas Resolvidos</h1>
   <table>
     <thead>
@@ -328,7 +304,12 @@
 </section>
 
 <!-- ═══ INSTALAÇÃO ═══ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-8" id="panel-sec-8" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-8">
   <h1>Como Instalar</h1>
 
   <div class="callout info">
@@ -394,11 +375,15 @@
 </section>
 
 </div>
+</div>
+</div>
 
 <footer>
   <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
   <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Uso Interno</div>
 </footer>
 
+
+<script src="../assets/js/report.js"></script>
 </body>
 </html>

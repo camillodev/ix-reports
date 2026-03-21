@@ -5,170 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>G2i Interview Prep — Rafael Camillo</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black: #0A0A0A;
-  --black-soft: #1A1A1A;
-  --green: #42593D;
-  --green-light: #5A7A52;
-  --green-bg: #E8F0E6;
-  --yellow: #F2C94C;
-  --yellow-dark: #D4A843;
-  --text-light: #F5F5F0;
-  --text-secondary: #A0A090;
-  --card-bg: #FFFFFF;
-  --border: #D4DDD1;
-  --success: #42593D;
-  --warning: #D4820A;
-  --danger: #C0392B;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--black); line-height: 1.6; }
-
-.report-header {
-  background: linear-gradient(135deg, var(--black) 0%, #1a2e18 100%);
-  color: var(--text-light); padding: 40px 32px; text-align: center;
-}
-.report-header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 8px; }
-.report-header h1 .accent { color: var(--yellow); }
-.report-header .subtitle { font-size: 1.1rem; color: var(--text-secondary); font-weight: 300; }
-.report-header .meta { margin-top: 16px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
-.report-header .meta-item { background: rgba(255,255,255,0.08); padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; }
-.report-header .meta-item strong { color: var(--yellow); }
-
-.tabs-container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-.tab-nav {
-  display: flex; overflow-x: auto; gap: 4px; background: var(--black);
-  padding: 8px 8px 0; border-radius: 12px 12px 0 0; margin-top: 24px;
-  -webkit-overflow-scrolling: touch;
-}
-.tab-nav::-webkit-scrollbar { height: 0; }
-.tab-btn {
-  padding: 12px 20px; border: none; background: transparent; color: var(--text-secondary);
-  font-family: 'Roboto', sans-serif; font-size: 0.85rem; font-weight: 500;
-  cursor: pointer; border-radius: 8px 8px 0 0; white-space: nowrap; transition: all 0.2s;
-}
-.tab-btn:hover { color: var(--text-light); background: rgba(255,255,255,0.05); }
-.tab-btn.active { background: #F5F5F0; color: var(--green); font-weight: 700; }
-.tab-content { display: none; background: #F5F5F0; padding: 32px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-.tab-content.active { display: block; }
-
-.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-.card h3 { font-size: 1.1rem; font-weight: 700; color: var(--green); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-
-.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-.metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; border-top: 3px solid var(--green); }
-.metric-card.warning { border-top-color: var(--warning); }
-.metric-card.danger { border-top-color: var(--danger); }
-.metric-card.gold { border-top-color: var(--yellow); }
-.metric-value { font-size: 1.8rem; font-weight: 900; color: var(--green); }
-.metric-card.warning .metric-value { color: var(--warning); }
-.metric-card.gold .metric-value { color: var(--yellow-dark); }
-.metric-label { font-size: 0.8rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-.callout { padding: 16px 20px; border-radius: 8px; margin-bottom: 16px; font-size: 0.95rem; border-left: 4px solid; }
-.callout.success { background: var(--green-bg); border-color: var(--green); }
-.callout.warning { background: #FFF8E1; border-color: var(--warning); }
-.callout.danger { background: #FDECEA; border-color: var(--danger); }
-.callout.info { background: #E3F2FD; border-color: #1976D2; }
-.callout strong { display: block; margin-bottom: 4px; }
-
-.pitch-box {
-  background: var(--black); color: var(--text-light); border-radius: 12px;
-  padding: 28px; margin: 20px 0; line-height: 1.8; font-size: 1.05rem;
-}
-.pitch-box .highlight { color: var(--yellow); font-weight: 700; }
-.pitch-box .green { color: #8BC34A; font-weight: 500; }
-.pitch-box .pause { display: block; text-align: center; color: var(--text-secondary); font-size: 0.8rem; margin: 12px 0; font-style: italic; }
-
-.keyword-tree { background: var(--card-bg); border: 2px solid var(--green); border-radius: 12px; padding: 24px; margin: 20px 0; }
-.keyword-tree h4 { color: var(--green); font-weight: 700; margin-bottom: 12px; }
-.kt-branch { margin-left: 0; padding-left: 0; list-style: none; }
-.kt-branch > li { margin-bottom: 16px; }
-.kt-branch > li > strong { color: var(--green); font-size: 1rem; display: block; margin-bottom: 6px; }
-.kt-branch ul { list-style: none; padding-left: 20px; border-left: 2px solid var(--green-bg); }
-.kt-branch ul li { padding: 4px 0 4px 12px; position: relative; font-size: 0.93rem; color: #444; }
-.kt-branch ul li::before { content: '\2192'; position: absolute; left: -4px; color: var(--green); }
-.kt-branch ul ul { border-left-color: #ddd; }
-.kt-branch ul ul li::before { content: '\00B7'; font-weight: 900; }
-.kt-branch .metric { background: var(--yellow); color: var(--black); padding: 1px 6px; border-radius: 4px; font-weight: 700; font-size: 0.82rem; }
-
-.star-story { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; border-left: 4px solid var(--green); }
-.star-story h4 { color: var(--green); font-weight: 700; margin-bottom: 12px; }
-.star-story .star-label { display: inline-block; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 4px; margin-right: 8px; }
-.star-s { background: #E3F2FD; color: #1565C0; }
-.star-t { background: #FFF8E1; color: #F57F17; }
-.star-a { background: var(--green-bg); color: var(--green); }
-.star-r { background: #FCE4EC; color: #C62828; }
-.star-story p { margin-bottom: 10px; }
-
-.fit-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-.fit-table th, .fit-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
-.fit-table th { background: var(--green); color: white; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
-.fit-table tr:hover { background: var(--green-bg); }
-.badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; }
-.badge-green { background: var(--green-bg); color: var(--green); }
-.badge-yellow { background: #FFF8E1; color: var(--warning); }
-.badge-red { background: #FDECEA; color: var(--danger); }
-
-.strategy-step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
-.step-number { min-width: 40px; height: 40px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; flex-shrink: 0; }
-.step-content h4 { color: var(--green); margin-bottom: 4px; }
-
-.check-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
-.check-icon { font-size: 1.3rem; }
-
-.ha-box { background: linear-gradient(135deg, #1a1a2e, #16213e); color: var(--text-light); border-radius: 12px; padding: 24px; margin: 16px 0; border-left: 4px solid var(--yellow); }
-.ha-box h4 { color: var(--yellow); margin-bottom: 8px; }
-.ha-pill { display: inline-block; background: var(--yellow); color: var(--black); padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem; margin-right: 6px; }
-
-.process-step { display: flex; gap: 16px; margin-bottom: 16px; padding: 16px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
-.process-step .step-badge { min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.75rem; text-align: center; flex-shrink: 0; }
-
-.nagringa-quote { background: #1a1a2e; color: var(--text-light); padding: 20px 24px; border-radius: 12px; margin: 16px 0; font-style: italic; border-left: 4px solid var(--yellow); }
-.nagringa-quote .source { color: var(--yellow); font-style: normal; font-size: 0.85rem; margin-top: 8px; display: block; }
-
-.report-footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; margin-top: 24px; }
-.report-footer a { color: var(--green); text-decoration: none; }
-
-/* STORY INDEX */
-.story-index { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 28px; }
-.story-index-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; cursor: pointer; transition: all 0.2s; border-left: 4px solid var(--green); }
-.story-index-item:hover { background: var(--green-bg); transform: translateY(-2px); }
-.story-index-item .si-number { font-weight: 900; color: var(--green); font-size: 0.8rem; }
-.story-index-item .si-title { font-weight: 700; color: var(--black); margin-top: 2px; }
-.story-index-item .si-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
-.story-index-item .si-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
-.si-tag.leadership { background: #E3F2FD; color: #1565C0; }
-.si-tag.ambiguity { background: #FFF8E1; color: #F57F17; }
-.si-tag.ownership { background: var(--green-bg); color: var(--green); }
-.si-tag.technical { background: #F3E5F5; color: #7B1FA2; }
-.si-tag.failure { background: #FCE4EC; color: #C62828; }
-.si-tag.ai { background: #E0F7FA; color: #00695C; }
-.si-tag.stakeholder { background: #FFF3E0; color: #E65100; }
-.si-tag.entrepreneurship { background: #FBE9E7; color: #BF360C; }
-
-/* KEYWORD HIGHLIGHTS */
-.kw { background: var(--yellow); color: var(--black); padding: 1px 5px; border-radius: 3px; font-weight: 700; font-size: 0.92em; }
-.kw-green { background: var(--green-bg); color: var(--green); padding: 1px 5px; border-radius: 3px; font-weight: 600; font-size: 0.92em; }
-.kw-blue { background: #E3F2FD; color: #1565C0; padding: 1px 5px; border-radius: 3px; font-weight: 600; font-size: 0.92em; }
-.kw-red { background: #FDECEA; color: #C62828; padding: 1px 5px; border-radius: 3px; font-weight: 600; font-size: 0.92em; }
-
-@media print {
-  .tab-nav { display: none; }
-  .tab-content { display: block !important; page-break-before: always; }
-  .tab-content:first-of-type { page-break-before: auto; }
-}
-@media (max-width: 768px) {
-  .tab-btn { padding: 10px 14px; font-size: 0.78rem; }
-  .tab-content { padding: 20px 16px; }
-  .report-header { padding: 24px 16px; }
-  .report-header h1 { font-size: 1.6rem; }
-  .story-index { grid-template-columns: 1fr; }
-}
-</style>
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report g2i-prep">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Back">← Back</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">G2i Interview Prep</span>
+</header>
+
 
 <!-- HEADER -->
 <div class="report-header">
@@ -186,20 +31,20 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
 <!-- TABS -->
 <div class="tabs-container">
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('company')">Company</button>
-    <button class="tab-btn" onclick="showTab('role')">Role + RLHF</button>
-    <button class="tab-btn" onclick="showTab('process')">Process</button>
-    <button class="tab-btn" onclick="showTab('profile')">My Profile</button>
-    <button class="tab-btn" onclick="showTab('fit')">Fit Analysis</button>
-    <button class="tab-btn" onclick="showTab('pitch')">Pitch + Keywords</button>
-    <button class="tab-btn" onclick="showTab('star')">STAR + High Agency</button>
-    <button class="tab-btn" onclick="showTab('questions')">Questions</button>
-    <button class="tab-btn" onclick="showTab('bgcheck')">Background Check</button>
-    <button class="tab-btn" onclick="showTab('strategy')">Strategy</button>
+    <button type="button" class="tab-btn active" data-tab="company" role="tab">Company</button>
+    <button type="button" class="tab-btn" data-tab="role" role="tab">Role + RLHF</button>
+    <button type="button" class="tab-btn" data-tab="process" role="tab">Process</button>
+    <button type="button" class="tab-btn" data-tab="profile" role="tab">My Profile</button>
+    <button type="button" class="tab-btn" data-tab="fit" role="tab">Fit Analysis</button>
+    <button type="button" class="tab-btn" data-tab="pitch" role="tab">Pitch + Keywords</button>
+    <button type="button" class="tab-btn" data-tab="star" role="tab">STAR + High Agency</button>
+    <button type="button" class="tab-btn" data-tab="questions" role="tab">Questions</button>
+    <button type="button" class="tab-btn" data-tab="bgcheck" role="tab">Background Check</button>
+    <button type="button" class="tab-btn" data-tab="strategy" role="tab">Strategy</button>
   </div>
 
   <!-- ==================== TAB 1: COMPANY ==================== -->
-  <div id="company" class="tab-content active">
+  <div id="company" class="tab-content active" data-tab="company" role="tabpanel" aria-hidden="false">
     <h2 style="color:var(--green);margin-bottom:20px;">G2i — Company Intelligence</h2>
 
     <div class="metrics-grid">
@@ -287,7 +132,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 2: ROLE + RLHF ==================== -->
-  <div id="role" class="tab-content">
+  <div id="role" class="tab-content" data-tab="role" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Role Analysis + What is RLHF in Practice</h2>
 
     <div class="callout danger">
@@ -357,7 +202,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 3: PROCESS ==================== -->
-  <div id="process" class="tab-content">
+  <div id="process" class="tab-content" data-tab="process" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Real Selection Process — What to Expect</h2>
 
     <div class="callout danger">
@@ -418,7 +263,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 4: PROFILE ==================== -->
-  <div id="profile" class="tab-content">
+  <div id="profile" class="tab-content" data-tab="profile" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Rafael Camillo — Profile</h2>
 
     <div class="metrics-grid">
@@ -492,7 +337,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 5: FIT ANALYSIS ==================== -->
-  <div id="fit" class="tab-content">
+  <div id="fit" class="tab-content" data-tab="fit" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Fit Analysis — Rafael x G2i</h2>
 
     <div class="metrics-grid">
@@ -540,7 +385,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 6: PITCH + KEYWORDS ==================== -->
-  <div id="pitch" class="tab-content">
+  <div id="pitch" class="tab-content" data-tab="pitch" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">2-Minute Pitch + Keyword Bullets</h2>
 
     <div class="callout warning" style="margin-bottom: 24px;">
@@ -669,7 +514,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 7: STAR + HIGH AGENCY ==================== -->
-  <div id="star" class="tab-content">
+  <div id="star" class="tab-content" data-tab="star" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">7 STAR Stories + High Agency Framework</h2>
 
     <!-- STORY INDEX -->
@@ -848,7 +693,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 8: QUESTIONS ==================== -->
-  <div id="questions" class="tab-content">
+  <div id="questions" class="tab-content" data-tab="questions" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Questions — To Ask and To Answer</h2>
 
     <div class="card">
@@ -926,7 +771,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 9: BACKGROUND CHECK ==================== -->
-  <div id="bgcheck" class="tab-content">
+  <div id="bgcheck" class="tab-content" data-tab="bgcheck" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Background Check — Consistency</h2>
 
     <div class="callout info">
@@ -964,7 +809,7 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   </div>
 
   <!-- ==================== TAB 10: STRATEGY ==================== -->
-  <div id="strategy" class="tab-content">
+  <div id="strategy" class="tab-content" data-tab="strategy" role="tabpanel" aria-hidden="true">
     <h2 style="color:var(--green);margin-bottom:20px;">Strategy — How to Land the Highest Role</h2>
 
     <div class="callout success">
@@ -1059,13 +904,6 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
   <small>Sources: <a href="https://newsletter.nagringa.dev/p/guia-2025-entrevistas-comportamentais">NaGringa Behavioral Guide</a> | <a href="https://newsletter.nagringa.dev/p/high-agency">NaGringa High Agency</a> | <a href="https://www.glassdoor.com/Interview/G2i-Interview-Questions-E4414795.htm">Glassdoor G2i</a></small>
 </div>
 
-<script>
-function showTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
-}
-</script>
+<script src="../assets/js/report.js"></script>
 </body>
 </html>

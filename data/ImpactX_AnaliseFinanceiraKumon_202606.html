@@ -5,240 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Análise Financeira — Unidade Kumon · Junho 2025</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --purple: #7B2FBE;
-    --purple-dark: #5A1E9A;
-    --purple-light: #F3EAFF;
-    --purple-x: #9B59D4;
-    --text: #1A1A2E;
-    --text-secondary: #555577;
-    --bg: #FAFAFA;
-    --card-bg: #FFFFFF;
-    --border: #E0D4F5;
-    --success: #1A7A4A;
-    --success-bg: #E8F5EE;
-    --warning: #D4820A;
-    --warning-bg: #FEF3E2;
-    --danger: #C0392B;
-    --danger-bg: #FDECEA;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .report-header {
-    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
-    color: white;
-    padding: 48px 64px 40px;
-  }
-  .brand-tag {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.75;
-    margin-bottom: 16px;
-  }
-  .brand-tag span { color: #C9A3F5; }
-  .report-title { font-size: 36px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
-  .report-subtitle { font-size: 16px; opacity: 0.85; font-weight: 300; }
-  .report-meta {
-    display: flex;
-    gap: 32px;
-    margin-top: 28px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    font-size: 13px;
-    opacity: 0.8;
-  }
-
-  .toc {
-    background: var(--purple-light);
-    border-left: 4px solid var(--purple);
-    padding: 28px 36px;
-    margin: 40px 64px;
-    border-radius: 0 8px 8px 0;
-  }
-  .toc h2 {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--purple-dark);
-    margin-bottom: 14px;
-  }
-  .toc ol { padding-left: 20px; }
-  .toc li { margin: 6px 0; }
-  .toc a { color: var(--purple); text-decoration: none; font-weight: 500; }
-  .toc a:hover { text-decoration: underline; }
-
-  .content { padding: 8px 64px 48px; max-width: 1060px; }
-  section { margin-bottom: 52px; }
-
-  h1 {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--purple-dark);
-    padding-bottom: 10px;
-    border-bottom: 3px solid var(--purple);
-    margin-bottom: 20px;
-    margin-top: 40px;
-  }
-  h2 { font-size: 19px; font-weight: 700; color: var(--purple); margin: 28px 0 12px; }
-  h3 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 20px 0 8px;
-  }
-  p { margin-bottom: 12px; color: var(--text); }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0 24px;
-    font-size: 14px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(123,47,190,0.08);
-  }
-  thead tr { background: var(--purple); color: white; }
-  thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; letter-spacing: 0.5px; }
-  tbody tr:nth-child(even) { background: var(--purple-light); }
-  tbody tr:nth-child(odd) { background: var(--card-bg); }
-  tbody tr.total-row { font-weight: 700; background: #EDE0FF; }
-  tbody tr.highlight-danger { background: #FDECEA; }
-  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
-  td.num { text-align: right; font-family: 'Roboto Mono', monospace; }
-  td.pct { text-align: right; color: var(--text-secondary); font-size: 13px; }
-
-  .callout {
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin: 16px 0;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-  .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-  .callout-text { font-size: 14px; line-height: 1.6; }
-  .callout.info { background: var(--purple-light); border-left: 4px solid var(--purple); }
-  .callout.info .callout-title { color: var(--purple-dark); }
-  .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
-  .callout.success .callout-title { color: var(--success); }
-  .callout.warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
-  .callout.warning .callout-title { color: var(--warning); }
-  .callout.danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
-  .callout.danger .callout-title { color: var(--danger); }
-
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 16px;
-    margin: 20px 0;
-  }
-  .metric-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px 16px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(123,47,190,0.06);
-  }
-  .metric-card.danger-card { border-color: #f5c6c2; background: #fff8f8; }
-  .metric-card.success-card { border-color: #a8d5ba; background: #f4fff8; }
-  .metric-value { font-size: 28px; font-weight: 900; color: var(--purple); line-height: 1; margin-bottom: 6px; }
-  .metric-value.danger { color: var(--danger); }
-  .metric-value.success { color: var(--success); }
-  .metric-value.warning { color: var(--warning); }
-  .metric-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
-  .metric-sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
-
-  /* Bar chart */
-  .bar-chart { margin: 20px 0; }
-  .bar-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
-  .bar-label { font-size: 13px; min-width: 220px; color: var(--text); }
-  .bar-track { flex: 1; background: #EEE; border-radius: 4px; height: 22px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; }
-  .bar-value { font-size: 12px; font-weight: 700; color: white; white-space: nowrap; }
-  .bar-pct { font-size: 12px; color: var(--text-secondary); min-width: 48px; text-align: right; }
-
-  /* Waterfall */
-  .waterfall { display: flex; gap: 8px; align-items: flex-end; margin: 28px 0 12px; height: 220px; }
-  .wf-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-  .wf-bar-wrap { width: 100%; display: flex; flex-direction: column; justify-content: flex-end; height: 180px; }
-  .wf-bar { width: 100%; border-radius: 4px 4px 0 0; min-height: 4px; display: flex; align-items: center; justify-content: center; }
-  .wf-label { font-size: 11px; color: var(--text-secondary); text-align: center; line-height: 1.3; }
-  .wf-val { font-size: 11px; font-weight: 700; text-align: center; }
-
-  /* Gauge */
-  .gauge-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
-  .gauge-item { flex: 1; min-width: 160px; }
-  .gauge-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
-  .gauge-bar-track { background: #EEE; border-radius: 99px; height: 14px; overflow: hidden; }
-  .gauge-bar-fill { height: 100%; border-radius: 99px; }
-  .gauge-val { font-size: 13px; font-weight: 700; margin-top: 4px; }
-
-  /* Phase */
-  .phase { display: flex; gap: 0; border-radius: 10px; overflow: hidden; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-  .phase-label {
-    background: var(--purple); color: white; padding: 16px 20px; min-width: 100px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  }
-  .phase-label .phase-num { font-size: 20px; font-weight: 900; }
-  .phase-label .phase-period { font-size: 11px; opacity: 0.8; margin-top: 4px; }
-  .phase-content { background: var(--card-bg); padding: 16px 20px; flex: 1; border: 1px solid var(--border); border-left: none; }
-  .phase-content h3 { font-size: 14px; font-weight: 700; color: var(--purple); text-transform: none; letter-spacing: 0; margin: 0 0 8px; }
-  .phase-content ul { padding-left: 18px; }
-  .phase-content li { font-size: 13px; margin: 3px 0; }
-
-  ul, ol { padding-left: 22px; margin-bottom: 12px; }
-  li { margin: 5px 0; }
-
-  .tag {
-    display: inline-block; padding: 2px 10px; border-radius: 99px;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
-  }
-  .tag.danger { background: var(--danger-bg); color: var(--danger); }
-  .tag.warning { background: var(--warning-bg); color: var(--warning); }
-  .tag.success { background: var(--success-bg); color: var(--success); }
-
-  footer {
-    background: var(--text);
-    color: rgba(255,255,255,0.6);
-    text-align: center;
-    padding: 24px;
-    font-size: 13px;
-    margin-top: 48px;
-  }
-  footer .brand { color: white; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-  footer .brand .x { color: var(--purple-x); }
-
-  @media print {
-    body { background: white; font-size: 12px; }
-    .report-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .toc { page-break-after: always; }
-    section { page-break-inside: avoid; }
-    footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
-</style>
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Unidade Kumon — Resultado Junho 2025</span>
+</header>
 
-<!-- HEADER -->
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="sec-resumo" role="tab">Resumo Executivo</button>
+  <button type="button" class="tab-btn" data-tab="sec-receita" role="tab">Receitas</button>
+  <button type="button" class="tab-btn" data-tab="sec-despesas" role="tab">Despesas e Gargalo Principal</button>
+  <button type="button" class="tab-btn" data-tab="sec-dre" role="tab">DRE Simplificado — Junho 2025</button>
+  <button type="button" class="tab-btn" data-tab="sec-alunos" role="tab">Base de Alunos e Taxa de Crescimento</button>
+  <button type="button" class="tab-btn" data-tab="sec-julho" role="tab">Previsão Julho 2025</button>
+  <button type="button" class="tab-btn" data-tab="sec-acoes" role="tab">Recomendações de Ação</button>
+</nav>
+
 <div class="report-header">
   <div class="brand-tag">IMPACT <span>X</span> — ANÁLISE FINANCEIRA</div>
   <div class="report-title">Unidade Kumon — Resultado Junho 2025</div>
@@ -249,26 +36,9 @@
     <span>🔒 Uso Interno</span>
   </div>
 </div>
-
-<!-- TOC -->
-<div class="toc">
-  <h2>Índice</h2>
-  <ol>
-    <li><a href="#sec-resumo">Resumo Executivo</a></li>
-    <li><a href="#sec-receita">Receitas</a></li>
-    <li><a href="#sec-despesas">Despesas e Gargalo</a></li>
-    <li><a href="#sec-dre">DRE Simplificado</a></li>
-    <li><a href="#sec-alunos">Base de Alunos e Taxa de Crescimento</a></li>
-    <li><a href="#sec-julho">Previsão Julho 2025</a></li>
-    <li><a href="#sec-acoes">Recomendações de Ação</a></li>
-  </ol>
-</div>
-
-<!-- CONTENT -->
+<div class="tab-panel active" data-tab="sec-resumo" id="panel-sec-resumo" role="tabpanel" aria-hidden="false">
 <div class="content">
-
-  <!-- 1. RESUMO EXECUTIVO -->
-  <section id="sec-resumo">
+<section id="sec-resumo">
     <h1>1. Resumo Executivo</h1>
     <p>A unidade encerrou junho de 2025 com receita real de <strong>R$ 26.339,52</strong> e despesas totais de <strong>R$ 18.593,69</strong>, gerando um lucro líquido de <strong>R$ 7.745,83</strong> — margem de 29,4%. A receita ficou <strong>5% abaixo da projeção</strong> (R$ 27.738,62). O principal gargalo identificado é o <strong>Royalty Kumon</strong>, que consome sozinho 37,9% de toda a receita.</p>
 
@@ -315,7 +85,12 @@
   </section>
 
   <!-- 2. RECEITAS -->
-  <section id="sec-receita">
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-receita" id="panel-sec-receita" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-receita">
     <h1>2. Receitas</h1>
 
     <table>
@@ -366,7 +141,12 @@
   </section>
 
   <!-- 3. DESPESAS -->
-  <section id="sec-despesas">
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-despesas" id="panel-sec-despesas" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-despesas">
     <h1>3. Despesas e Gargalo Principal</h1>
 
     <h2>Visão geral das despesas</h2>
@@ -475,7 +255,12 @@
   </section>
 
   <!-- 4. DRE -->
-  <section id="sec-dre">
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-dre" id="panel-sec-dre" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-dre">
     <h1>4. DRE Simplificado — Junho 2025</h1>
 
     <table>
@@ -506,7 +291,12 @@
   </section>
 
   <!-- 5. ALUNOS E CRESCIMENTO -->
-  <section id="sec-alunos">
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-alunos" id="panel-sec-alunos" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-alunos">
     <h1>5. Base de Alunos e Taxa de Crescimento</h1>
 
     <div class="metrics-grid">
@@ -569,7 +359,12 @@
   </section>
 
   <!-- 6. PREVISÃO JULHO -->
-  <section id="sec-julho">
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-julho" id="panel-sec-julho" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-julho">
     <h1>6. Previsão Julho 2025</h1>
 
     <table>
@@ -608,7 +403,12 @@
   </section>
 
   <!-- 7. RECOMENDAÇÕES -->
-  <section id="sec-acoes">
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-acoes" id="panel-sec-acoes" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-acoes">
     <h1>7. Recomendações de Ação</h1>
 
     <div class="phase">
@@ -675,10 +475,15 @@
 </div>
 
 <!-- FOOTER -->
+</div>
+</div>
+
 <footer>
   <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
   <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Uso Interno · Referência: Junho 2025</div>
 </footer>
 
+
+<script src="../assets/js/report.js"></script>
 </body>
 </html>

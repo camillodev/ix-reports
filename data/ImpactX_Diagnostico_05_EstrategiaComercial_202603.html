@@ -5,53 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Estratégia Comercial</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{--purple:#7B2FBE;--purple-dark:#5A1E9A;--purple-light:#F3EAFF;--purple-x:#9B59D4;--text:#1A1A2E;--text-sec:#555577;--bg:#FAFAFA;--card:#FFFFFF;--border:#E0D4F5;--green:#1A7A4A;--green-bg:#E8F5EE;--orange:#D4820A;--orange-bg:#FEF3E2;--red:#C0392B;--red-bg:#FDECEA;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
-.hdr{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:white;padding:48px 64px 40px;}
-.hdr-brand{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:16px;}.hdr-brand span{color:#C9A3F5;}
-.hdr-title{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:12px;}
-.hdr-sub{font-size:16px;opacity:.85;font-weight:300;}
-.hdr-meta{display:flex;gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;opacity:.8;flex-wrap:wrap;}
-.content{padding:8px 64px 48px;max-width:1000px;}
-section{margin-bottom:48px;}
-h1{font-size:26px;font-weight:800;color:var(--purple-dark);padding-bottom:10px;border-bottom:3px solid var(--purple);margin-bottom:20px;margin-top:40px;}
-h2{font-size:19px;font-weight:700;color:var(--purple);margin:28px 0 12px;}
-h3{font-size:15px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;margin:20px 0 8px;}
-p{margin-bottom:12px;}
-table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(123,47,190,.08);}
-thead tr{background:var(--purple);color:white;}
-thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:13px;letter-spacing:.5px;}
-tbody tr:nth-child(even){background:var(--purple-light);}
-tbody tr:nth-child(odd){background:var(--card);}
-tbody td{padding:10px 16px;border-bottom:1px solid var(--border);}
-.callout{border-radius:8px;padding:16px 20px;margin:16px 0;display:flex;gap:14px;align-items:flex-start;}
-.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}.callout-body{}.callout-title{font-weight:700;font-size:14px;margin-bottom:4px;}.callout-text{font-size:14px;line-height:1.6;}
-.callout.info{background:var(--purple-light);border-left:4px solid var(--purple);}.callout.info .callout-title{color:var(--purple-dark);}
-.callout.success{background:var(--green-bg);border-left:4px solid var(--green);}.callout.success .callout-title{color:var(--green);}
-.callout.warning{background:var(--orange-bg);border-left:4px solid var(--orange);}.callout.warning .callout-title{color:var(--orange);}
-.callout.danger{background:var(--red-bg);border-left:4px solid var(--red);}.callout.danger .callout-title{color:var(--red);}
-.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0;}
-.metric-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(123,47,190,.06);}
-.metric-value{font-size:30px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
-.metric-label{font-size:12px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:500;}
-ul,ol{padding-left:22px;margin-bottom:12px;}li{margin:5px 0;}
-.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:20px 0;}
-.flow-step{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;min-width:140px;}
-.flow-step strong{display:block;font-size:14px;color:var(--purple);margin-bottom:4px;}
-.flow-step span{font-size:12px;color:var(--text-sec);}
-.flow-arrow{font-size:24px;color:var(--purple);padding:0 8px;}
-.tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
-.tag-confirmed{background:var(--green-bg);color:var(--green);}
-.tag-inferred{background:var(--orange-bg);color:var(--orange);}
-.tag-benchmark{background:var(--purple-light);color:var(--purple);}
-footer{background:var(--text);color:rgba(255,255,255,.6);text-align:center;padding:24px;font-size:13px;margin-top:48px;}
-footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}footer .brand .x{color:var(--purple-x);}
-@media print{body{background:white;font-size:12px;}.hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}thead tr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}section{page-break-inside:avoid;}footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
-</style>
+
+
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">05 · Estratégia Comercial</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="sec-1" role="tab">G2i como Canal Inicial</button>
+  <button type="button" class="tab-btn" data-tab="sec-2" role="tab">Pipeline de Aquisição — G2i</button>
+  <button type="button" class="tab-btn" data-tab="sec-3" role="tab">Riscos de Concentração</button>
+  <button type="button" class="tab-btn" data-tab="sec-4" role="tab">Estratégia de Diversificação de Canais</button>
+  <button type="button" class="tab-btn" data-tab="sec-5" role="tab">Abordagem Comercial Recomendada</button>
+  <button type="button" class="tab-btn" data-tab="sec-6" role="tab">Próximos Passos Comerciais</button>
+</nav>
+
 <div class="hdr">
   <div class="hdr-brand">IMPACT <span>X</span> — DIAGNÓSTICO EXECUTIVO 2026</div>
   <div class="hdr-title">05 · Estratégia Comercial</div>
@@ -63,11 +36,9 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
     <span>📄 Arquivo 5 de 9</span>
   </div>
 </div>
-
+<div class="tab-panel active" data-tab="sec-1" id="panel-sec-1" role="tabpanel" aria-hidden="false">
 <div class="content">
-
-<!-- ═══════════════════════════════════════════ -->
-<section>
+<section id="sec-1">
 <h1>1. G2i como Canal Inicial</h1>
 
 <p><strong>Context:</strong> G2i é uma plataforma de hiring com 8.000+ engenheiros focada em projetos de AI/RLHF. Possuem 80–240 vagas abertas AGORA. Contatos: <strong>Gabe Greenberg (CEO)</strong> + <strong>Gabriela Morua (Tech Recruiter Sênior)</strong>.</p>
@@ -97,7 +68,12 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-2" id="panel-sec-2" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-2">
 <h1>2. Pipeline de Aquisição — G2i</h1>
 
 <div class="flow">
@@ -130,7 +106,12 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-3" id="panel-sec-3" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-3">
 <h1>3. Riscos de Concentração</h1>
 
 <table>
@@ -155,7 +136,12 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-4" id="panel-sec-4" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-4">
 <h1>4. Estratégia de Diversificação de Canais</h1>
 
 <table>
@@ -180,7 +166,12 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-5" id="panel-sec-5" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-5">
 <h1>5. Abordagem Comercial Recomendada</h1>
 
 <h2>Script G2i (Rafael Pimenta)</h2>
@@ -215,7 +206,12 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
-<section>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec-6" id="panel-sec-6" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec-6">
 <h1>6. Próximos Passos Comerciais</h1>
 
 <table>
@@ -243,10 +239,14 @@ footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}foot
 </section>
 
 </div>
+</div>
+</div>
 
 <footer>
   <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
   <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Março 2026 · Confidencial</div>
 </footer>
+
+<script src="../assets/js/report.js"></script>
 </body>
 </html>

@@ -114,8 +114,26 @@
   .footer-meta strong { color: var(--text-secondary); }
   @media (max-width: 640px) { .orixa-cards, .three-col { grid-template-columns: 1fr; } .toc-grid { grid-template-columns: 1fr; } .report-header { padding: 32px 24px; } .report-header h1 { font-size: 26px; } }
 </style>
+
+<link rel="stylesheet" href="assets/css/report.css">
 </head>
-<body>
+<body class="ix-report ix-report-dark">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Guia do Ori</span>
+</header>
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="cap1" role="tab">Fundamentos</button>
+  <button type="button" class="tab-btn" data-tab="cap2" role="tab">Iemanjá &amp; Oxossi</button>
+  <button type="button" class="tab-btn" data-tab="cap3" role="tab">Diagnóstico</button>
+  <button type="button" class="tab-btn" data-tab="cap4" role="tab">Práticas</button>
+  <button type="button" class="tab-btn" data-tab="cap5" role="tab">7 dias</button>
+  <button type="button" class="tab-btn" data-tab="cap6" role="tab">Mar &amp; Mata</button>
+  <button type="button" class="tab-btn" data-tab="cap7" role="tab">Banhos</button>
+</nav>
+
+
 <div class="report-header">
   <div class="container">
     <div class="tag">Guia Pessoal · Espiritualidade Africana</div>
@@ -133,20 +151,7 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="toc">
-    <h3>📋 Índice</h3>
-    <div class="toc-grid">
-      <a href="#cap1"><span class="num">01</span> O Que é o Ori — Fundamentos</a>
-      <a href="#cap2"><span class="num">02</span> Seus Orixás: Iemanjá e Oxossi</a>
-      <a href="#cap3"><span class="num">03</span> Diagnóstico — Sinais de Desregulação</a>
-      <a href="#cap4"><span class="num">04</span> Práticas Imediatas — Sem Iniciação</a>
-      <a href="#cap5"><span class="num">05</span> Protocolo de 7 Dias — Cabo Frio</a>
-      <a href="#cap6"><span class="num">06</span> Mar e Mata — Liturgia dos Seus Elementos</a>
-      <a href="#cap7"><span class="num">07</span> Banhos, Defumações e Materiais</a>
-    </div>
-  </div>
-  <section id="cap1">
+<div class="tab-panel active" data-tab="cap1" role="tabpanel" aria-hidden="false"><div class="container"><section id="cap1">
     <div class="section-label">Capítulo 01</div>
     <h2 class="section-title">O Que é o Ori — Fundamentos</h2>
     <p class="body-text">Ori é uma palavra Yorubá que significa literalmente <em>cabeça</em>. Na cosmologia africana, a cabeça é a sede da identidade espiritual, do destino pessoal e da consciência individual.</p>
@@ -158,8 +163,9 @@
     <div class="quote-block"><p>"Ori é o primeiro orixá que deve ser cultuado."</p><div class="author">— Tradição Yorubá</div></div>
     <div class="callout info"><div class="callout-title">🔑 O que o Ori guarda</div><p>Quem você é de verdade. Onde você deve chegar. O que é para você e o que não é. Os orixás só conseguem agir em alguém cujo Ori aceita a ajuda. Iemanjá e Oxossi estão ao seu lado — mas precisam do seu Ori aberto para agir.</p></div>
     <div class="callout danger"><div class="callout-title">⚠️ Nenhum orixá ajuda sozinho</div><p>Nenhum orixá pode beneficiar alguém cujo Ori não aceita a ajuda. Por isso o Ori vem ANTES de qualquer outro culto. Fortalecer o Ori é o passo zero — mesmo sendo filho de Iemanjá.</p></div>
-  </section>
-  <section id="cap2">
+  </section></div></div>
+
+<div class="tab-panel" data-tab="cap2" role="tabpanel" aria-hidden="true"><div class="container"><section id="cap2">
     <div class="section-label">Capítulo 02</div>
     <h2 class="section-title">Seus Orixás: Iemanjá e Oxossi</h2>
     <p class="body-text">Conhecer seus orixás muda completamente o trabalho espiritual. Cada prática, banho e intenção pode ser direcionada para quem rege sua cabeça e te protege.</p>
@@ -188,8 +194,9 @@
       <tr><td class="highlight">Número sagrado</td><td>7 (compartilha com Iemanjá)</td></tr>
     </tbody></table></div>
     <div class="callout iemanja"><div class="callout-title">🌊🏹 A dupla Iemanjá + Oxossi</div><p>Mar e Mata. Profundidade e Precisão. Quando desequilibrada: profundidade de Iemanjá vira turbilhão interno, instinto de Oxossi vira ansiedade. Quando equilibrada: intuição emocional + prática funcionando juntas. Você foi feito para encontrar caminhos onde outros não veem.</p></div>
-  </section>
-  <section id="cap3">
+  </section></div></div>
+
+<div class="tab-panel" data-tab="cap3" role="tabpanel" aria-hidden="true"><div class="container"><section id="cap3">
     <div class="section-label">Capítulo 03</div>
     <h2 class="section-title">Diagnóstico — Sinais de Desregulação</h2>
     <div class="metrics-grid">
@@ -206,8 +213,9 @@
       <tr><td>Espírito e mente desconectados do corpo</td><td class="tag-ambos">🌊🏹 Ambos</td><td>Mar e Mata separados dentro de você. O trabalho é reconectá-los.</td></tr>
     </tbody></table></div>
     <div class="callout info"><div class="callout-title">🔍 Por que seus sintomas fazem sentido</div><p>Sono ruim = Iemanjá com canal sujo. Mente acelerada = Oxossi sem trilha. Desconexão = mar e mata separados em você. O trabalho é reconectá-los.</p></div>
-  </section>
-  <section id="cap4">
+  </section></div></div>
+
+<div class="tab-panel" data-tab="cap4" role="tabpanel" aria-hidden="true"><div class="container"><section id="cap4">
     <div class="section-label">Capítulo 04</div>
     <h2 class="section-title">Práticas Imediatas — Sem Iniciação</h2>
     <h3 class="sub-title">4.1 Conversa com o Ori</h3>
@@ -240,8 +248,9 @@
       <tr><td>Decisões impulsivas</td><td>Oxossi caça com paciência. Espere o momento certo.</td></tr>
       <tr><td>Ambientes poluídos, águas sujas</td><td>Iemanjá é sensível à poluição — afeta seu campo diretamente</td></tr>
     </tbody></table></div>
-  </section>
-  <section id="cap5">
+  </section></div></div>
+
+<div class="tab-panel" data-tab="cap5" role="tabpanel" aria-hidden="true"><div class="container"><section id="cap5">
     <div class="section-label">Capítulo 05</div>
     <h2 class="section-title">Protocolo de 7 Dias — Cabo Frio</h2>
     <div class="callout iemanja"><div class="callout-title">📍 Você está no lugar ideal</div><p>Jardim Esperança, Cabo Frio. Mar de Iemanjá a poucos minutos. Natureza aberta de Oxossi ao redor. Dias 1-2 limpeza · Dias 3-4 estabilização · Dias 5-6 nutrição · Dia 7 selagem.</p></div>
@@ -290,8 +299,9 @@
         </div>
       </div>
     </div>
-  </section>
-  <section id="cap6">
+  </section></div></div>
+
+<div class="tab-panel" data-tab="cap6" role="tabpanel" aria-hidden="true"><div class="container"><section id="cap6">
     <div class="section-label">Capítulo 06</div>
     <h2 class="section-title">Mar e Mata — Liturgia dos Seus Elementos</h2>
     <h3 class="sub-title">6.1 O Mar — Território de Iemanjá</h3>
@@ -317,8 +327,9 @@
       <li>Ao entrar: <strong>Okê Arô!</strong></li>
     </ul>
     <div class="callout oxossi"><div class="callout-title">🌊🏹 A prática mais poderosa para sua regência</div><p>Num mesmo dia: de manhã o mar (Iemanjá), à tarde natureza aberta (Oxossi). Mar e Mata ativados juntos reconectam as duas forças separadas em você. É o alinhamento completo do seu sistema espiritual.</p></div>
-  </section>
-  <section id="cap7">
+  </section></div></div>
+
+<div class="tab-panel" data-tab="cap7" role="tabpanel" aria-hidden="true"><div class="container"><section id="cap7">
     <div class="section-label">Capítulo 07</div>
     <h2 class="section-title">Banhos, Defumações e Materiais</h2>
     <h3 class="sub-title">7.1 Banho de Limpeza de Iemanjá</h3>
@@ -359,8 +370,8 @@
       <li><strong>Os Nagô e a Morte</strong> — Juana Elbein dos Santos</li>
       <li><strong>Mitos e Lendas dos Orixás</strong> — Reginaldo Prandi</li>
     </ul>
-  </section>
-</div>
+  </section></div></div>
+
 <div class="report-footer">
   <div class="footer-closing">🌊  🔱  🏹</div>
   <div class="footer-closing">Odoyá Iemanjá. Okê Arô Oxossi. Ori mi, ori mi, ori mi.</div>
@@ -368,5 +379,7 @@
   <hr style="border-color:rgba(255,255,255,0.07);margin:20px auto;max-width:300px;">
   <div class="footer-meta">Uso pessoal · Não substitui orientação de babalorixá ou yalorixá iniciado<br><strong>Feito por Impact X — Rafael Camillo</strong></div>
 </div>
+
+<script src="assets/js/report.js"></script>
 </body>
 </html>

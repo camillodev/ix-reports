@@ -237,8 +237,16 @@ footer .x{color:var(--purple-x)}
   .tc:first-child{page-break-before:avoid}
 }
 </style>
+
+<link rel="stylesheet" href="../assets/css/report.css">
 </head>
-<body>
+<body class="ix-report sistema-vida-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Sistema de Vida</span>
+</header>
+
 
 <!-- HERO -->
 <div class="hero">
@@ -264,19 +272,19 @@ footer .x{color:var(--purple-x)}
 
 <!-- TAB NAV -->
 <div class="tab-nav">
-  <button class="tb active" onclick="st('home')">🏠 Home</button>
-  <button class="tb" onclick="st('fatos')">🔵 Fatos & Hipóteses</button>
-  <button class="tb" onclick="st('experimentos')">🔬 Experimentos</button>
-  <button class="tb" onclick="st('time')">👥 Time de Suporte</button>
-  <button class="tb" onclick="st('bot')">🤖 Bot & Canal</button>
-  <button class="tb" onclick="st('build')">🛠️ Como Construir</button>
-  <button class="tb" onclick="st('hardware')">📦 Hardware & Compras</button>
-  <button class="tb" onclick="st('to')">🧠 TO Residente</button>
-  <button class="tb" onclick="st('action')">✅ Action Items</button>
+  <button type="button" class="tb tab-btn active" data-tab="tab-home">🏠 Home</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-fatos">🔵 Fatos & Hipóteses</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-experimentos">🔬 Experimentos</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-time">👥 Time de Suporte</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-bot">🤖 Bot & Canal</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-build">🛠️ Como Construir</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-hardware">📦 Hardware & Compras</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-to">🧠 TO Residente</button>
+  <button type="button" class="tb tab-btn" data-tab="tab-action">✅ Action Items</button>
 </div>
 
 <!-- ═══ HOME ═══ -->
-<div class="tc active" id="tab-home">
+<div class="tc tab-panel active" id="tab-home" data-tab="tab-home" role="tabpanel" aria-hidden="false">
   <h1>O problema — e por que este sistema existe</h1>
 
   <div class="cl info">
@@ -425,7 +433,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ FATOS & HIPÓTESES ═══ -->
-<div class="tc" id="tab-fatos">
+<div class="tc tab-panel" id="tab-fatos" data-tab="tab-fatos" role="tabpanel" aria-hidden="true">
   <h1>Fatos confirmados <span class="tf">FATO</span></h1>
 
   <div class="cl fact">
@@ -497,7 +505,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ EXPERIMENTOS ═══ -->
-<div class="tc" id="tab-experimentos">
+<div class="tc tab-panel" id="tab-experimentos" data-tab="tab-experimentos" role="tabpanel" aria-hidden="true">
   <h1>Protocolo de experimentos <span class="tt">ATIVO</span></h1>
 
   <div class="cl info"><div class="ci">🔬</div><div><div class="ct">Regra — 1 variável por vez</div><div class="cx">Mudar exercício + remédio + horário ao mesmo tempo = impossível saber o que causou o quê. Nenhuma mudança em dia de humor ≤2. Decisões só na review semanal com dados.</div></div></div>
@@ -577,7 +585,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ TIME ═══ -->
-<div class="tc" id="tab-time">
+<div class="tc tab-panel" id="tab-time" data-tab="tab-time" role="tabpanel" aria-hidden="true">
   <h1>Time de suporte completo — quem faz o quê</h1>
 
   <div class="cl teal"><div class="ci">💡</div><div><div class="ct">Princípio de distribuição</div><div class="cx">Suporte concentrado em 1 pessoa (geralmente parceiro romântico) é instável — quando a pessoa oscila, tudo oscila junto. Este sistema distribui papéis diferentes entre pessoas diferentes. Se 1 sai, o sistema não colapsa.</div></div></div>
@@ -637,7 +645,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ BOT ═══ -->
-<div class="tc" id="tab-bot">
+<div class="tc tab-panel" id="tab-bot" data-tab="tab-bot" role="tabpanel" aria-hidden="true">
   <h1>Canal — decisão <span class="tf">DECIDIDO</span></h1>
 
   <div class="cl success"><div class="ci">✅</div><div><div class="ct">WhatsApp para tudo agora</div><div class="cx">Bot pessoal no WhatsApp. Comunicação com Nicole no WhatsApp. Você usa Android Redmi, já tem o app, zero fricção de adoção. Slack só entra se Nicole precisar coordenar com terceiros em projetos — e mesmo assim só ela usa, Rafa não. Uma interface para Rafa. Sempre.</div></div></div>
@@ -699,7 +707,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ BUILD ═══ -->
-<div class="tc" id="tab-build">
+<div class="tc tab-panel" id="tab-build" data-tab="tab-build" role="tabpanel" aria-hidden="true">
   <h1>System Design — Stack Completa</h1>
 
   <div class="sl"><div class="sl-label">📱 Entrada</div><div class="sl-tools"><span class="chip">WhatsApp (Redmi)</span><span class="chip">Mensagem de voz → Whisper</span><span class="chip ext">Smartwatch → Health Connect</span><span class="chip new">Fitbit API (mês 2)</span></div></div>
@@ -825,7 +833,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ HARDWARE & COMPRAS ═══ -->
-<div class="tc" id="tab-hardware">
+<div class="tc tab-panel" id="tab-hardware" data-tab="tab-hardware" role="tabpanel" aria-hidden="true">
 
   <h1>Hardware — o que comprar e por quê</h1>
 
@@ -954,7 +962,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ TO RESIDENTE ═══ -->
-<div class="tc" id="tab-to">
+<div class="tc tab-panel" id="tab-to" data-tab="tab-to" role="tabpanel" aria-hidden="true">
   <h1>TO Residente — Job Description</h1>
 
   <div class="cl danger"><div class="ci">🔬</div><div><div class="ct">Território novo — ser honesto sobre isso</div><div class="cx">Terapia Ocupacional para adultos autistas é uma área emergente no Brasil. A maioria dos recursos, protocolos e técnicas foi desenvolvida para crianças. Isso não invalida o papel — significa que o trabalho vai ser mais exploratório do que protocolar. O TO não vai chegar com respostas prontas. Vai chegar com ferramentas e descobrir junto com Rafael o que funciona no contexto adulto.</div></div></div>
@@ -1027,7 +1035,7 @@ footer .x{color:var(--purple-x)}
 </div>
 
 <!-- ═══ ACTION ITEMS ═══ -->
-<div class="tc" id="tab-action">
+<div class="tc tab-panel" id="tab-action" data-tab="tab-action" role="tabpanel" aria-hidden="true">
   <h1>Action Items — priorizados por impacto</h1>
 
   <div class="cl warn"><div class="ci">⚠️</div><div><div class="ct">Regra anti-TDAH desta lista</div><div class="cx">Máximo 3 itens por semana. Um de cada vez. Não começar o próximo antes de terminar o anterior. Nicole acompanha o progresso sexta na review.</div></div></div>
@@ -1071,14 +1079,6 @@ footer .x{color:var(--purple-x)}
   <div>Documento Mestre v1 · Março 2026 · Gerado com Claude Sonnet 4.6 · Confidencial</div>
 </footer>
 
-<script>
-function st(id) {
-  document.querySelectorAll('.tc').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo(0, 0);
-}
-</script>
+<script src="../assets/js/report.js"></script>
 </body>
 </html>
