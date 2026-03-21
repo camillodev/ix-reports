@@ -1,35 +1,38 @@
 # IX Reports
 
-**Impact X** — Relatórios e documentos publicados via GitHub Pages.
+**Impact X** — Relatórios e documentos publicados via Vercel.
 
 ## URLs
 
 | URL | Uso |
 |-----|-----|
 | **https://reports.impactxlabs.com/** | Custom domain (principal) |
-| **https://camillodev.github.io/ix-reports/** | Fallback (redireciona pro custom domain) |
+| **ix-reports.vercel.app** | Vercel default URL |
 
 ## Como funciona
 
-Este repositório serve HTML estático via **GitHub Pages**. Zero build, zero framework, zero manutenção.
+Este repositório serve HTML estático via **Vercel**. Zero build, zero framework, zero manutenção. Deploy automático a cada push no `master`. Deploy previews automáticos por branch/PR.
 
 ### Fluxo de publicação
 
 ```
 1. Claude gera relatório HTML com identidade Impact X
-2. Push do arquivo via GitHub MCP → camillodev/ix-reports (branch master)
-3. GitHub Pages serve automaticamente
-4. Link público: https://reports.impactxlabs.com/[nome-do-arquivo].html
+2. Push do arquivo para data/ via GitHub MCP → camillodev/ix-reports (branch master)
+3. Vercel detecta push e faz deploy automaticamente
+4. Link público: https://reports.impactxlabs.com/data/[nome-do-arquivo].html
 ```
 
 ### Estrutura do repo
 
 ```
 ix-reports/
-├── README.md           ← Este arquivo
-├── CNAME               ← Custom domain (reports.impactxlabs.com)
-├── index.html          ← Página de listagem de todos os reports
-└── ImpactX_*.html      ← Relatórios individuais
+├── README.md               ← Este arquivo
+├── index.html              ← Hub de listagem (Bootstrap 5.3 + filtros)
+├── assets/
+│   └── css/
+│       └── hub.css         ← Estilos custom do hub
+└── data/
+    └── ImpactX_*.html      ← Relatórios individuais
 ```
 
 ### Naming convention
@@ -59,11 +62,72 @@ Via GitHub MCP (automatizado pelo Claude):
 ```
 owner: camillodev
 repo: ix-reports
-path: ImpactX_NomeDoReport_AAAAMM.html
+path: data/ImpactX_NomeDoReport_AAAAMM.html
 branch: master
 ```
 
-Depois, atualizar `index.html` adicionando o link do novo report.
+Depois, atualizar `index.html` adicionando o card do novo report (com `href="data/..."`) **e tags obrigatórias**.
+
+### Tags obrigatórias
+
+Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtro de busca funcione corretamente.
+
+#### Como adicionar tags a um novo report
+
+1. Adicione o atributo `data-tags` no `<div class="card report-card">` com tags separadas por vírgula:
+
+```html
+<div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,financeiro">
+```
+
+2. Adicione badges dentro do card:
+
+```html
+<div class="d-flex flex-wrap gap-1 mt-2">
+  <span class="badge tag-empresa">IMPACT X</span>
+  <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+  <span class="badge tag-area">FINANCEIRO</span>
+</div>
+```
+
+3. Cada report deve ter no mínimo: **1 cliente**, **1 projeto** e **1 tag**.
+
+#### Tags disponíveis
+
+**Clientes** (`tag-empresa` · amarelo):
+
+| Slug | Label |
+|------|-------|
+| `impact-x` | Impact X |
+| `kumon` | Kumon |
+| `g2i` | G2i |
+| `wy` | Wy |
+
+**Projetos** (`tag-projeto` · roxo):
+
+| Slug | Label |
+|------|-------|
+| `diagnostico-2026` | Diagnóstico 2026 |
+| `vto-eos` | VTO/EOS |
+| `institucional` | Institucional |
+| `ingles-kumon` | Inglês Kumon |
+| `g2i-interview` | G2i Interview |
+| `skills-v2` | Skills v2 |
+
+**Tags** (`tag-area` · verde):
+
+| Slug | Label |
+|------|-------|
+| `estrategia` | Estratégia |
+| `financeiro` | Financeiro |
+| `people` | People |
+| `operacoes` | Operações |
+| `comercial` | Comercial |
+| `cultura` | Cultura |
+| `legal` | Legal |
+| `tech` | Tech |
+
+Novas tags podem ser criadas — basta adicionar um novo `<button class="chip">` na seção de filtros do `index.html`.
 
 ---
 
