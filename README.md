@@ -17,18 +17,22 @@ Este repositório serve HTML estático via **Vercel**. Zero build, zero framewor
 
 ```
 1. Claude gera relatório HTML com identidade Impact X
-2. Push do arquivo via GitHub MCP → camillodev/ix-reports (branch master)
+2. Push do arquivo para data/ via GitHub MCP → camillodev/ix-reports (branch master)
 3. Vercel detecta push e faz deploy automaticamente
-4. Link público: https://reports.impactxlabs.com/[nome-do-arquivo].html
+4. Link público: https://reports.impactxlabs.com/data/[nome-do-arquivo].html
 ```
 
 ### Estrutura do repo
 
 ```
 ix-reports/
-├── README.md           ← Este arquivo
-├── index.html          ← Página de listagem (Bootstrap 5.3 + filtros)
-└── ImpactX_*.html      ← Relatórios individuais
+├── README.md               ← Este arquivo
+├── index.html              ← Hub de listagem (Bootstrap 5.3 + filtros)
+├── assets/
+│   └── css/
+│       └── hub.css         ← Estilos custom do hub
+└── data/
+    └── ImpactX_*.html      ← Relatórios individuais
 ```
 
 ### Naming convention
@@ -58,11 +62,11 @@ Via GitHub MCP (automatizado pelo Claude):
 ```
 owner: camillodev
 repo: ix-reports
-path: ImpactX_NomeDoReport_AAAAMM.html
+path: data/ImpactX_NomeDoReport_AAAAMM.html
 branch: master
 ```
 
-Depois, atualizar `index.html` adicionando o card do novo report **com tags obrigatórias**.
+Depois, atualizar `index.html` adicionando o card do novo report (com `href="data/..."`) **e tags obrigatórias**.
 
 ### Tags obrigatórias
 
@@ -86,11 +90,11 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 </div>
 ```
 
-3. Cada report deve ter no mínimo: **1 empresa**, **1 projeto** e **1 área**.
+3. Cada report deve ter no mínimo: **1 cliente**, **1 projeto** e **1 tag**.
 
 #### Tags disponíveis
 
-**Empresa** (`tag-empresa` · amarelo):
+**Clientes** (`tag-empresa` · amarelo):
 
 | Slug | Label |
 |------|-------|
@@ -99,7 +103,7 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 | `g2i` | G2i |
 | `wy` | Wy |
 
-**Projeto** (`tag-projeto` · roxo):
+**Projetos** (`tag-projeto` · roxo):
 
 | Slug | Label |
 |------|-------|
@@ -110,7 +114,7 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 | `g2i-interview` | G2i Interview |
 | `skills-v2` | Skills v2 |
 
-**Área** (`tag-area` · verde):
+**Tags** (`tag-area` · verde):
 
 | Slug | Label |
 |------|-------|
