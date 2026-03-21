@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Completo — Franquia Kumon BH-Camargos · Março 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --black-soft: #1A1A1A;
+    --green: #42593D;
+    --green-light: #5A7A52;
+    --green-bg: #E8F0E6;
+    --yellow: #F2C94C;
+    --yellow-dark: #D4A843;
+    --text-light: #F5F5F0;
+    --text-secondary: #A0A090;
+    --card-bg: #FFFFFF;
+    --border: #D4DDD1;
+    --success: #42593D;
+    --success-bg: #E8F0E6;
+    --warning: #D4820A;
+    --warning-bg: #FEF3E2;
+    --danger: #C0392B;
+    --danger-bg: #FDECEA;
+    --text: #1A1A2E;
+    --bg: #FAFAFA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, var(--black) 0%, #1a2e18 60%, var(--green) 100%);
+    color: white;
+    padding: 48px 64px 40px;
+  }
+  .brand-tag {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; opacity: 0.75; margin-bottom: 16px;
+  }
+  .brand-tag .x { color: var(--yellow); }
+  .report-title { font-size: 34px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
+  .report-subtitle { font-size: 16px; opacity: 0.85; font-weight: 300; }
+  .report-meta {
+    display: flex; gap: 32px; margin-top: 28px;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 13px; opacity: 0.8;
+  }
+
+  .toc {
+    background: var(--green-bg);
+    border-left: 4px solid var(--green);
+    padding: 28px 36px; margin: 40px 64px; border-radius: 0 8px 8px 0;
+  }
+  .toc h2 {
+    font-size: 14px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green); margin-bottom: 14px;
+  }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 6px 0; }
+  .toc a { color: var(--green); text-decoration: none; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+
+  .content { padding: 8px 64px 48px; max-width: 1100px; }
+  section { margin-bottom: 52px; }
+
+  h1 {
+    font-size: 24px; font-weight: 800; color: var(--green);
+    padding-bottom: 10px; border-bottom: 3px solid var(--green);
+    margin-bottom: 20px; margin-top: 40px;
+  }
+  h2 { font-size: 18px; font-weight: 700; color: var(--black-soft); margin: 28px 0 12px; }
+  h3 {
+    font-size: 14px; font-weight: 700; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 8px;
+  }
+  p { margin-bottom: 12px; color: var(--text); }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 16px 0 24px;
+    font-size: 14px; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 1px 4px rgba(66,89,61,0.08);
+  }
+  thead tr { background: var(--green); color: white; }
+  thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; letter-spacing: 0.5px; }
+  tbody tr:nth-child(even) { background: var(--green-bg); }
+  tbody tr:nth-child(odd) { background: var(--card-bg); }
+  tbody tr.total-row { font-weight: 700; background: #D4E8CF; }
+  tbody tr.highlight-danger { background: #FDECEA; }
+  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  td.num { text-align: right; font-family: 'Roboto Mono', monospace; }
+  td.pct { text-align: right; color: var(--text-secondary); font-size: 13px; }
+
+  .callout {
+    border-radius: 8px; padding: 16px 20px; margin: 16px 0;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .callout-text { font-size: 14px; line-height: 1.6; }
+  .callout.info { background: var(--green-bg); border-left: 4px solid var(--green); }
+  .callout.info .callout-title { color: var(--green); }
+  .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
+  .callout.success .callout-title { color: var(--success); }
+  .callout.warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
+  .callout.warning .callout-title { color: var(--warning); }
+  .callout.danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
+  .callout.danger .callout-title { color: var(--danger); }
+
+  .metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px; margin: 20px 0;
+  }
+  .metric-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 16px; text-align: center;
+    box-shadow: 0 2px 8px rgba(66,89,61,0.06);
+  }
+  .metric-card.danger-card { border-color: #f5c6c2; background: #fff8f8; }
+  .metric-card.success-card { border-color: #a8d5ba; background: #f4fff8; }
+  .metric-card.warning-card { border-color: #f5deb3; background: #fffaf0; }
+  .metric-value { font-size: 28px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 6px; }
+  .metric-value.danger { color: var(--danger); }
+  .metric-value.success { color: var(--success); }
+  .metric-value.warning { color: var(--warning); }
+  .metric-value.yellow { color: var(--yellow-dark); }
+  .metric-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+  .metric-sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+  .bar-chart { margin: 20px 0; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
+  .bar-label { font-size: 13px; min-width: 220px; color: var(--text); }
+  .bar-track { flex: 1; background: #EEE; border-radius: 4px; height: 22px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; }
+  .bar-value { font-size: 12px; font-weight: 700; color: white; white-space: nowrap; }
+  .bar-pct { font-size: 12px; color: var(--text-secondary); min-width: 48px; text-align: right; }
+
+  .phase { display: flex; gap: 0; border-radius: 10px; overflow: hidden; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .phase-label {
+    background: var(--green); color: white; padding: 16px 20px; min-width: 110px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+  .phase-label .phase-num { font-size: 20px; font-weight: 900; }
+  .phase-label .phase-period { font-size: 11px; opacity: 0.8; margin-top: 4px; }
+  .phase-content { background: var(--card-bg); padding: 16px 20px; flex: 1; border: 1px solid var(--border); border-left: none; }
+  .phase-content h3 { font-size: 14px; font-weight: 700; color: var(--green); text-transform: none; letter-spacing: 0; margin: 0 0 8px; }
+  .phase-content ul { padding-left: 18px; }
+  .phase-content li { font-size: 13px; margin: 3px 0; }
+
+  ul, ol { padding-left: 22px; margin-bottom: 12px; }
+  li { margin: 5px 0; }
+
+  .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 99px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .tag.danger { background: var(--danger-bg); color: var(--danger); }
+  .tag.warning { background: var(--warning-bg); color: var(--warning); }
+  .tag.success { background: var(--success-bg); color: var(--success); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0; }
+
+  footer {
+    background: var(--black);
+    color: rgba(255,255,255,0.6);
+    text-align: center; padding: 24px; font-size: 13px; margin-top: 48px;
+  }
+  footer .brand { color: white; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  footer .brand .x { color: var(--yellow); }
+
+  @media print {
+    body { background: white; font-size: 12px; }
+    .report-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .toc { page-break-after: always; }
+    section { page-break-inside: avoid; }
+    footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="brand-tag">IMPACT <span class="x">X</span> — RELATÓRIO ESTRATÉGICO</div>
+  <div class="report-title">Franquia Kumon BH-Camargos<br>Análise Completa & Roadmap 2026</div>
+  <div class="report-subtitle">Contexto · Financeiro · Análise de Negócio · Metas · Parcerias · Roadmap de Execução</div>
+  <div class="report-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo · Impact X</span>
+    <span>🏢 Parceiro: Rafael Pimenta</span>
+    <span>🔒 Confidencial</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#sec-contexto">Contexto do Negócio</a></li>
+    <li><a href="#sec-financeiro">Análise Financeira</a></li>
+    <li><a href="#sec-alunos">Base de Alunos — Fev/2026</a></li>
+    <li><a href="#sec-analise">Análise de Negócio & Diagnóstico</a></li>
+    <li><a href="#sec-metas">Metas 2026</a></li>
+    <li><a href="#sec-parcerias">Possíveis Parcerias & Modelo de Receita</a></li>
+    <li><a href="#sec-roadmap">Roadmap de Execução</a></li>
+    <li><a href="#sec-foco">Onde Focar Agora</a></li>
+  </ol>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- 1. CONTEXTO -->
+  <section id="sec-contexto">
+    <h1>1. Contexto do Negócio</h1>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">BH-Camargos</div>
+        <div class="metric-label">Unidade</div>
+        <div class="metric-sub">ID 70477111 · Belo Horizonte</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:20px">Rafael Pimenta</div>
+        <div class="metric-label">Orientador</div>
+        <div class="metric-sub">+55 31 98262-2750</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:16px">Carlos A. das Chagas</div>
+        <div class="metric-label">Coordenador Kumon</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:20px">Jun/2024</div>
+        <div class="metric-label">Data de Abertura</div>
+        <div class="metric-sub">~20 meses de operação</div>
+      </div>
+    </div>
+
+    <h2>A história</h2>
+    <p>Rafael Pimenta abriu a franquia Kumon BH-Camargos em <strong>junho de 2024</strong>. Nos primeiros 6 meses, cometeu o erro clássico de focar em "grandes ideias" em vez de operação: a base caiu de 96 para 68 alunos. Ao corrigir o curso — focando em gestão de pessoas e treinamento — a unidade se recuperou para 88 alunos e obteve <strong>certificação de referência</strong> da rede Kumon.</p>
+    <p>Porém, o modelo de franquia cobra <strong>~38% de royalties</strong> sobre toda a receita, o que torna o pró-labore insustentável. Pimenta nunca atingiu sua meta de retirada. Isso gerou burnout e dívidas pessoais (parcelas de apartamento em atraso, nome negativado).</p>
+
+    <h2>A parceria com Impact X</h2>
+    <p>Em <strong>março de 2026</strong>, Rafael Camillo (Impact X) e Rafael Pimenta alinharam uma parceria estratégica:</p>
+    <ul>
+      <li><strong>Pimenta</strong> ingressa na Impact X como Líder Comercial, fazendo a transição gradual da franquia</li>
+      <li><strong>Impact X</strong> automatiza a operação Kumon (cobrança, NF, relatórios) e constrói ferramentas reutilizáveis</li>
+      <li><strong>Visão de longo prazo:</strong> usar o Kumon como laboratório para validar um SaaS educacional para PMEs</li>
+    </ul>
+
+    <div class="callout info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <div class="callout-title">Tese principal</div>
+        <div class="callout-text">A maior oportunidade <strong>não está em otimizar o Kumon</strong> — está em usar o Kumon como laboratório para validar um negócio educacional próprio, mais lucrativo e escalável. Se vendermos a automação para 200 franqueados, a expectativa é de ~R$100k/mês.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. FINANCEIRO -->
+  <section id="sec-financeiro">
+    <h1>2. Análise Financeira</h1>
+
+    <h2>Último DRE completo — Junho 2025</h2>
+    <p>Este é o último mês com dados detalhados de receita vs despesa. Serve como base para projeções.</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card success-card">
+        <div class="metric-value success">R$ 26.339</div>
+        <div class="metric-label">Receita Real</div>
+        <div class="metric-sub">Jun/2025 · 63 alunos</div>
+      </div>
+      <div class="metric-card danger-card">
+        <div class="metric-value danger">R$ 18.593</div>
+        <div class="metric-label">Despesas Totais</div>
+        <div class="metric-sub">70,6% da receita</div>
+      </div>
+      <div class="metric-card success-card">
+        <div class="metric-value success">R$ 7.745</div>
+        <div class="metric-label">Lucro Líquido</div>
+        <div class="metric-sub">Margem 29,4%</div>
+      </div>
+      <div class="metric-card danger-card">
+        <div class="metric-value danger">R$ 9.975</div>
+        <div class="metric-label">Royalty Kumon</div>
+        <div class="metric-sub">37,9% da receita (!)</div>
+      </div>
+    </div>
+
+    <h2>DRE Simplificado — Jun/2025</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th style="text-align:right">R$</th><th style="text-align:right">% Receita</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Receita Bruta</strong></td><td class="num"><strong>26.339,52</strong></td><td class="pct">100,0%</td></tr>
+        <tr class="highlight-danger"><td>&nbsp;&nbsp;(−) Royalty Kumon</td><td class="num" style="color:var(--danger)">(9.975,36)</td><td class="pct" style="color:var(--danger)">−37,9%</td></tr>
+        <tr><td>&nbsp;&nbsp;<strong>Receita após Royalty</strong></td><td class="num"><strong>16.364,16</strong></td><td class="pct"><strong>62,1%</strong></td></tr>
+        <tr><td>(−) Salários + Encargos (INSS + FGTS)</td><td class="num">(4.147,79)</td><td class="pct">−15,7%</td></tr>
+        <tr><td>(−) Simples Nacional</td><td class="num">(715,99)</td><td class="pct">−2,7%</td></tr>
+        <tr><td>(−) Aluguel + Estrutura</td><td class="num">(1.796,60)</td><td class="pct">−6,8%</td></tr>
+        <tr><td>(−) Cartão Crédito Kumon</td><td class="num">(600,00)</td><td class="pct">−2,3%</td></tr>
+        <tr><td>(−) Contabilidade</td><td class="num">(400,00)</td><td class="pct">−1,5%</td></tr>
+        <tr><td>(−) Outros (faxina, transporte, alarme, saúde)</td><td class="num">(957,95)</td><td class="pct">−3,6%</td></tr>
+        <tr class="total-row"><td>LUCRO LÍQUIDO</td><td class="num">7.745,83</td><td class="pct">29,4%</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Composição de Despesas — Visualização</h2>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Royalty Kumon</div>
+        <div class="bar-track"><div class="bar-fill" style="width:53.6%; background: var(--danger);"><span class="bar-value">R$ 9.975 (53,6%)</span></div></div>
+        <div class="bar-pct">37,9%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Salários (3 funcionárias)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:18.3%; background: var(--green);"><span class="bar-value">R$ 3.398</span></div></div>
+        <div class="bar-pct">12,9%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Aluguel + Estrutura</div>
+        <div class="bar-track"><div class="bar-fill" style="width:9.7%; background: var(--green-light);"><span class="bar-value">R$ 1.796</span></div></div>
+        <div class="bar-pct">6,8%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Impostos (Simples + INSS + FGTS)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:7.8%; background: var(--yellow-dark);"><span class="bar-value">R$ 1.465</span></div></div>
+        <div class="bar-pct">5,6%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Outros (contab., faxina, etc.)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:10.5%; background: #aaa;"><span class="bar-value">R$ 1.957</span></div></div>
+        <div class="bar-pct">7,4%</div>
+      </div>
+    </div>
+
+    <div class="callout danger">
+      <div class="callout-icon">🚨</div>
+      <div class="callout-body">
+        <div class="callout-title">Gargalo #1: Royalty Kumon = 37,9% da receita bruta</div>
+        <div class="callout-text">Para cada R$ 1.000 recebidos, R$ 379 vão direto para a Kumon. É <strong>maior que toda a folha + aluguel + impostos somados</strong>. Eliminar esse custo (marca própria) transformaria a margem de 29% para ~62%.</div>
+      </div>
+    </div>
+
+    <h2>Projeção por cenário</h2>
+    <table>
+      <thead>
+        <tr><th>Cenário</th><th style="text-align:right">Alunos</th><th style="text-align:right">Receita Bruta</th><th style="text-align:right">Lucro Est.</th><th style="text-align:right">Margem</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Jun/2025 (real)</td><td class="num">63</td><td class="num">R$ 26.339</td><td class="num">R$ 7.745</td><td class="pct">29,4%</td></tr>
+        <tr><td>Fev/2026 (estimado)</td><td class="num">~75</td><td class="num">~R$ 29.925</td><td class="num">~R$ 9.500</td><td class="pct">~31,7%</td></tr>
+        <tr><td>Capacidade máxima</td><td class="num">90</td><td class="num">R$ 35.910</td><td class="num">R$ 10.000+</td><td class="pct">~28%</td></tr>
+        <tr class="total-row"><td>Marca própria (sem royalty)</td><td class="num">90</td><td class="num">R$ 35.910</td><td class="num"><strong>R$ 22.470</strong></td><td class="pct"><strong>62,6%</strong></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. BASE DE ALUNOS -->
+  <section id="sec-alunos">
+    <h1>3. Base de Alunos — Fevereiro 2026</h1>
+
+    <p>Dados extraídos do Relatório 1 oficial da Kumon (Center Management File).</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">28</div>
+        <div class="metric-label">Matemática</div>
+        <div class="metric-sub">7 desistentes no período</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">18</div>
+        <div class="metric-label">Português</div>
+        <div class="metric-sub">18 desistentes no período</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">29</div>
+        <div class="metric-label">Inglês</div>
+        <div class="metric-sub">23 desistentes no período</div>
+      </div>
+      <div class="metric-card success-card">
+        <div class="metric-value success">75</div>
+        <div class="metric-label">Total Disciplinas Ativas</div>
+        <div class="metric-sub">vs 78 em Jun/2025</div>
+      </div>
+    </div>
+
+    <h2>Evolução — Matemática (abertura → hoje)</h2>
+    <table>
+      <thead>
+        <tr><th>Período</th><th style="text-align:right">Alunos Ativos</th><th style="text-align:right">Tendência</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Jun/2024 (abertura)</td><td class="num">20</td><td class="pct">—</td></tr>
+        <tr><td>Set/2024 (baixa)</td><td class="num">15</td><td class="pct" style="color:var(--danger)">↓ 25%</td></tr>
+        <tr><td>Set/2025 (pico)</td><td class="num">24</td><td class="pct" style="color:var(--success)">↑ 60%</td></tr>
+        <tr><td>Dez/2025</td><td class="num">25</td><td class="pct" style="color:var(--success)">estável</td></tr>
+        <tr class="total-row"><td>Fev/2026</td><td class="num">28</td><td class="pct" style="color:var(--success)">↑ 12% YTD</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Distribuição por Nível — Matemática</h2>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Nível 2A–4A (iniciante)</div><div class="bar-track"><div class="bar-fill" style="width:28.6%; background: var(--yellow-dark);"><span class="bar-value">8 alunos (28,6%)</span></div></div></div>
+      <div class="bar-row"><div class="bar-label">Nível A–C (fundamental)</div><div class="bar-track"><div class="bar-fill" style="width:42.9%; background: var(--green);"><span class="bar-value">12 alunos (42,9%)</span></div></div></div>
+      <div class="bar-row"><div class="bar-label">Nível D–G (intermediário)</div><div class="bar-track"><div class="bar-fill" style="width:25%; background: var(--green-light);"><span class="bar-value">7 alunos (25%)</span></div></div></div>
+      <div class="bar-row"><div class="bar-label">Nível J+ (avançado)</div><div class="bar-track"><div class="bar-fill" style="width:3.6%; background: var(--black-soft);"><span class="bar-value">1</span></div></div></div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <div class="callout-title">Churn alto em Português (18 desistentes vs 18 ativos)</div>
+        <div class="callout-text">A taxa de desistência em Português é <strong>50%</strong> do total histórico. Inglês também tem churn significativo (23 desistentes vs 29 ativos). Matemática é a matéria mais estável. Investigar o motivo da evasão em Português é urgente.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <div class="callout-title">Oportunidade: Ticket médio por upsell de disciplinas</div>
+        <div class="callout-text">Ticket de 1 disciplina = R$ 337. Ticket de 2 = R$ 675. Migrar 5 alunos de 1 → 2 disciplinas = <strong>+R$ 1.685/mês sem captar ninguém novo</strong>. Campanha de desconto na 2ª matéria é a quick win mais óbvia.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ANÁLISE DE NEGÓCIO -->
+  <section id="sec-analise">
+    <h1>4. Análise de Negócio & Diagnóstico</h1>
+
+    <h2>Problemas identificados</h2>
+    <table>
+      <thead>
+        <tr><th>Problema</th><th>Impacto</th><th>Severidade</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-danger"><td>Royalty de ~38% consome receita</td><td>Pró-labore inviável, sem margem para investir</td><td><span class="tag danger">Crítico</span></td></tr>
+        <tr class="highlight-danger"><td>Sem processo de cobrança automatizado</td><td>Inadimplência provável não contabilizada</td><td><span class="tag danger">Crítico</span></td></tr>
+        <tr><td>Churn alto em Português e Inglês</td><td>Base instável, receita pode retrair</td><td><span class="tag warning">Alto</span></td></tr>
+        <tr><td>Dono operacionalmente refém</td><td>Ausência paralisa o negócio</td><td><span class="tag warning">Alto</span></td></tr>
+        <tr><td>Sem captação estruturada de alunos</td><td>Crescimento por boca-a-boca, imprevisível</td><td><span class="tag warning">Alto</span></td></tr>
+        <tr><td>Sem retenção ativa (follow-up, NPS)</td><td>Churn silencioso sem visibilidade</td><td><span class="tag warning">Médio</span></td></tr>
+        <tr><td>Dados financeiros manuais e fragmentados</td><td>Impossível tomar decisão com dados</td><td><span class="tag warning">Médio</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Forças do negócio</h2>
+    <table>
+      <thead>
+        <tr><th>Força</th><th>Por quê importa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Marca Kumon = confiança automática</td><td>CAC baixo, pais já conhecem o método</td></tr>
+        <tr><td>Ticket recorrente (R$ 337–399/mês)</td><td>Receita previsível mês a mês</td></tr>
+        <tr><td>Pimenta tem certificação de referência</td><td>Prova de competência operacional</td></tr>
+        <tr><td>Matemática em crescimento consistente</td><td>15 → 28 alunos em 18 meses</td></tr>
+        <tr><td>Inglês com 29 ativos (maior base)</td><td>Demanda forte por inglês na região</td></tr>
+        <tr><td>Custos fixos baixos (aluguel R$ 1.600)</td><td>Breakeven acessível</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Matemática da transição: Kumon vs Marca Própria</h2>
+    <table>
+      <thead>
+        <tr><th>Métrica</th><th style="text-align:right">Com Kumon (38%)</th><th style="text-align:right">Marca Própria (0%)</th><th style="text-align:right">Delta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Receita Bruta (90 alunos)</td><td class="num">R$ 35.910</td><td class="num">R$ 35.910</td><td class="num">—</td></tr>
+        <tr class="highlight-danger"><td>Royalties</td><td class="num" style="color:var(--danger)">−R$ 14.364</td><td class="num" style="color:var(--success)">R$ 0</td><td class="num" style="color:var(--success)">+R$ 14.364</td></tr>
+        <tr><td>Pessoal + Operacional</td><td class="num">−R$ 13.440</td><td class="num">−R$ 13.440</td><td class="num">—</td></tr>
+        <tr class="total-row"><td>Lucro Líquido</td><td class="num">R$ 8.106</td><td class="num"><strong>R$ 22.470</strong></td><td class="num" style="color:var(--success)"><strong>+R$ 14.364</strong></td></tr>
+        <tr class="total-row"><td>Margem</td><td class="pct">22,6%</td><td class="pct"><strong>62,6%</strong></td><td class="pct" style="color:var(--success)">+40pp</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5. METAS 2026 -->
+  <section id="sec-metas">
+    <h1>5. Metas 2026</h1>
+
+    <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="metric-card success-card">
+        <div class="metric-value success">90</div>
+        <div class="metric-label">Alunos Ativos</div>
+        <div class="metric-sub">Meta: capacidade máxima até Set/2026</div>
+      </div>
+      <div class="metric-card warning-card">
+        <div class="metric-value yellow">R$ 10k+</div>
+        <div class="metric-label">Lucro Mensal</div>
+        <div class="metric-sub">Meta: com operação automatizada</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">0h/sem</div>
+        <div class="metric-label">Tempo do Pimenta</div>
+        <div class="metric-sub">Meta: operação funciona sem ele</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Meta</th><th>Indicador</th><th style="text-align:right">Baseline (Mar/26)</th><th style="text-align:right">Target (Dez/26)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Atingir capacidade máxima</td><td>Alunos ativos</td><td class="num">~75 disciplinas</td><td class="num">90+ alunos</td></tr>
+        <tr><td>Automatizar cobrança</td><td>% cobranças automáticas</td><td class="num">0%</td><td class="num">100%</td></tr>
+        <tr><td>Reduzir inadimplência</td><td>Taxa de inadimplência</td><td class="num">~5% (estimado)</td><td class="num">&lt;1%</td></tr>
+        <tr><td>Reduzir churn</td><td>Churn mensal</td><td class="num">~7,9%</td><td class="num">&lt;3%</td></tr>
+        <tr><td>Aumentar ticket médio</td><td>Disc./aluno</td><td class="num">1,24</td><td class="num">1,5+</td></tr>
+        <tr><td>Liberar Pimenta da operação</td><td>Horas/semana na unidade</td><td class="num">40h+</td><td class="num">0–5h</td></tr>
+        <tr><td>Sistema de automação replicável</td><td>MVP do SaaS</td><td class="num">Inexistente</td><td class="num">v1.0 rodando</td></tr>
+        <tr><td>Validar venda para outros franqueados</td><td>Franqueados usando</td><td class="num">0</td><td class="num">3–5 pilotos</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 6. PARCERIAS -->
+  <section id="sec-parcerias">
+    <h1>6. Possíveis Parcerias & Modelo de Receita</h1>
+
+    <h2>Parceria Impact X + Pimenta</h2>
+    <p>A parceria já está em andamento. Pimenta transiciona para Líder Comercial da Impact X. A franquia Kumon será automatizada e gerida por equipe dedicada. Reunião de alinhamento marcada para <strong>25/03/2026</strong>.</p>
+
+    <h2>Modelo SaaS para franqueados Kumon</h2>
+    <table>
+      <thead>
+        <tr><th>Produto</th><th>Preço/mês</th><th>Mercado potencial</th><th>Receita potencial</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sistema de cobrança automatizada</td><td class="num">R$ 297–497</td><td>~1.500 franquias Kumon BR</td><td class="num">R$ 445k–745k/mês</td></tr>
+        <tr><td>Dashboard financeiro + relatórios</td><td class="num">R$ 197–297</td><td>~1.500 franquias</td><td class="num">R$ 295k–445k/mês</td></tr>
+        <tr><td>CRM + captação + retenção de alunos</td><td class="num">R$ 197–397</td><td>~1.500 franquias</td><td class="num">R$ 295k–595k/mês</td></tr>
+        <tr class="total-row"><td>Pacote completo (bundle)</td><td class="num">R$ 497–797</td><td>200 franqueados (meta conservadora)</td><td class="num"><strong>R$ 99k–159k/mês</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Outras oportunidades de parceria</h2>
+    <table>
+      <thead>
+        <tr><th>Parceria</th><th>O que</th><th>Por quê</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Coordenadores regionais Kumon</td><td>Canal de distribuição</td><td>Cada coordenador supervisiona 15–30 unidades</td></tr>
+        <tr><td>AbacatePay / Banco Inter PJ</td><td>Gateway de pagamento</td><td>API para automação de cobrança PIX/boleto</td></tr>
+        <tr><td>Outras redes de franquia educacional</td><td>Expansão horizontal</td><td>Wizard, CCAA, Fisk — mesmos problemas</td></tr>
+        <tr><td>Escolas particulares de pequeno porte</td><td>Mercado adjacente</td><td>Gestão financeira = dor universal em educação</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body">
+        <div class="callout-title">Validação: transformar em ferramenta para PMEs</div>
+        <div class="callout-text">O sistema de automação financeira e pagamento de funcionários é a prioridade #1. Se funcionar pro Kumon, funciona pra qualquer PME de serviço recorrente. É o <strong>primeiro produto Impact X</strong>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ROADMAP -->
+  <section id="sec-roadmap">
+    <h1>7. Roadmap de Execução</h1>
+
+    <div class="phase">
+      <div class="phase-label" style="background: var(--yellow-dark); color: var(--black);">
+        <div class="phase-num">F1</div>
+        <div class="phase-period">Mar–Mai 2026</div>
+      </div>
+      <div class="phase-content">
+        <h3>Automação Financeira & Operacional</h3>
+        <ul>
+          <li><strong>Mapear fluxo atual</strong> — inadimplência real, processos de cobrança, pagamento de funcionários</li>
+          <li><strong>Sistema de cobrança automática</strong> — PIX/boleto via AbacatePay ou Banco Inter PJ</li>
+          <li><strong>Régua de cobrança</strong> — D+3, D+7, D+10 por WhatsApp + email</li>
+          <li><strong>Dashboard de inadimplência</strong> em tempo real</li>
+          <li><strong>NF automática</strong> via API da prefeitura</li>
+          <li><strong>Relatório mensal automático</strong> para pais (frequência + progresso)</li>
+          <li><strong>Testar com 10 alunos</strong> antes de rollout completo</li>
+        </ul>
+        <p style="margin-top:8px;font-size:13px;color:var(--text-secondary)"><strong>Investimento:</strong> R$ 2–5k · <strong>Retorno:</strong> +R$ 1.800–2.000/mês · <strong>Entregável:</strong> MVP cobrança rodando</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">
+        <div class="phase-num">F2</div>
+        <div class="phase-period">Jun–Ago 2026</div>
+      </div>
+      <div class="phase-content">
+        <h3>Crescimento & Captação Estruturada</h3>
+        <ul>
+          <li><strong>Programa de indicação</strong> — pai indica → ganha 1 mensalidade (automático)</li>
+          <li><strong>Email marketing por segmento</strong> — leads frios, alunos ativos, risco de churn, reativação</li>
+          <li><strong>Campanha upsell 2ª disciplina</strong> — desconto progressivo</li>
+          <li><strong>Reduzir churn</strong> — flag automático para queda de frequência + contato proativo</li>
+          <li><strong>Meta: 90 alunos</strong> até final da fase</li>
+        </ul>
+        <p style="margin-top:8px;font-size:13px;color:var(--text-secondary)"><strong>Investimento:</strong> R$ 500–1k/mês · <strong>Retorno:</strong> +R$ 2–4k/mês · <strong>Entregável:</strong> operação no capacity</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label" style="background: var(--black-soft);">
+        <div class="phase-num">F3</div>
+        <div class="phase-period">Set–Dez 2026</div>
+      </div>
+      <div class="phase-content">
+        <h3>SaaS para Franqueados + Preparação Marca Própria</h3>
+        <ul>
+          <li><strong>Empacotar sistema como SaaS</strong> — multi-tenant, onboarding self-service</li>
+          <li><strong>Pilotar com 3–5 franqueados</strong> Kumon (via rede do Pimenta + coordenadores)</li>
+          <li><strong>Revisar contrato Kumon com advogado</strong> — cláusulas de não-concorrência</li>
+          <li><strong>Começar documentação</strong> do método/conteúdo próprio</li>
+          <li><strong>Contratar gerente</strong> para a unidade — Pimenta 100% em Impact X</li>
+        </ul>
+        <p style="margin-top:8px;font-size:13px;color:var(--text-secondary)"><strong>Investimento:</strong> R$ 10–30k · <strong>Retorno:</strong> +R$ 14k/mês (se marca própria) + receita SaaS · <strong>Entregável:</strong> SaaS v1 + 3 pilotos</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label" style="background: var(--yellow); color: var(--black);">
+        <div class="phase-num">F4</div>
+        <div class="phase-period">2027</div>
+      </div>
+      <div class="phase-content">
+        <h3>Escala: Marca Própria + SaaS Nacional</h3>
+        <ul>
+          <li><strong>Lançar marca educacional própria</strong> em nova unidade (sem royalties)</li>
+          <li><strong>Escalar SaaS</strong> para 50–200 franqueados</li>
+          <li><strong>Expandir para redes adjacentes</strong> — Wizard, CCAA, escolas particulares</li>
+          <li><strong>Avaliar:</strong> manter Kumon como canal ou migrar 100%</li>
+        </ul>
+        <p style="margin-top:8px;font-size:13px;color:var(--text-secondary)"><strong>Meta:</strong> R$ 100k+/mês em receita SaaS · Margem 62%+ na(s) unidade(s) própria(s)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FOCO AGORA -->
+  <section id="sec-foco">
+    <h1>8. Onde Focar Agora</h1>
+
+    <div class="callout success">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body">
+        <div class="callout-title">Prioridade #1 — Reunião de Alinhamento (25/03)</div>
+        <div class="callout-text">Usar a reunião de 25/03 com Pimenta para: (1) mapear processo atual de cobrança, pagamento e captação, (2) definir escopo do MVP de automação, (3) alinhar cronograma da transição dele para Impact X.</div>
+      </div>
+    </div>
+
+    <h2>Top 5 ações imediatas (Mar–Abr/2026)</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Ação</th><th>Responsável</th><th>Prazo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Responder perguntas-chave:</strong> processo de cobrança, pagamento de funcionários, vendas, protocolos de atendimento</td><td>Pimenta (reunião 25/03)</td><td>25/03</td></tr>
+        <tr><td>2</td><td><strong>Levantar inadimplência real</strong> — cruzar dados de cobrança vs pagamento dos últimos 3 meses</td><td>Pimenta + Nicole</td><td>31/03</td></tr>
+        <tr><td>3</td><td><strong>Escolher gateway:</strong> AbacatePay vs Banco Inter PJ — testar APIs</td><td>Rafa Camillo</td><td>07/04</td></tr>
+        <tr><td>4</td><td><strong>MVP cobrança automática</strong> — 10 alunos piloto (PIX + régua WhatsApp)</td><td>Rafa Camillo</td><td>30/04</td></tr>
+        <tr><td>5</td><td><strong>Campanha upsell 2ª disciplina</strong> — desconto para alunos de 1 matéria</td><td>Pimenta</td><td>15/04</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Riscos a monitorar</h2>
+    <table>
+      <thead>
+        <tr><th>Risco</th><th>Mitigação</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Kumon detecta sistema paralelo → rescisão + multa</td><td>Advogado antes de qualquer ação; CNPJ separado</td></tr>
+        <tr><td>Contrato Kumon com cláusula de não-concorrência</td><td>Revisar contrato na Fase 3 — antes de construir marca própria</td></tr>
+        <tr><td>Pimenta sobrecarregado na transição</td><td>Contratar auxiliar administrativo; automatizar antes de transicionar</td></tr>
+        <tr><td>Gateway instável no lançamento</td><td>Manter processo manual como fallback por 2 meses</td></tr>
+        <tr><td>Churn acelera em Português</td><td>Pesquisa com pais que cancelaram; ajustar abordagem</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<footer>
+  <div class="brand">Impact <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo · Março 2026 · Confidencial
+</footer>
+
+</body>
+</html>
