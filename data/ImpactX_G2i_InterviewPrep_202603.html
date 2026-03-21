@@ -46,459 +46,1026 @@ body { font-family: 'Roboto', sans-serif; background: #F5F5F0; color: var(--blac
 .tab-btn {
   padding: 12px 20px; border: none; background: transparent; color: var(--text-secondary);
   font-family: 'Roboto', sans-serif; font-size: 0.85rem; font-weight: 500;
-  cursor: pointer; border-radius: 12px 12px 0 0; transition: all 0.3s ease; white-space: nowrap;
+  cursor: pointer; border-radius: 8px 8px 0 0; white-space: nowrap; transition: all 0.2s;
 }
-.tab-btn:hover { background: rgba(255,255,255,0.08); color: var(--text-light); }
-.tab-btn.active { background: var(--black-soft); color: var(--yellow); border-bottom: 3px solid var(--yellow); }
-.tab-content { display: none; background: var(--black-soft); color: var(--text-light); padding: 32px; border-radius: 0 12px 12px 12px; }
+.tab-btn:hover { color: var(--text-light); background: rgba(255,255,255,0.05); }
+.tab-btn.active { background: #F5F5F0; color: var(--green); font-weight: 700; }
+.tab-content { display: none; background: #F5F5F0; padding: 32px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
 .tab-content.active { display: block; }
-.tab-content h2 { color: var(--yellow); margin-bottom: 16px; font-size: 1.8rem; }
-.tab-content h3 { color: var(--green-light); margin-top: 20px; margin-bottom: 12px; font-size: 1.2rem; }
-.tab-content p { margin-bottom: 12px; line-height: 1.8; color: #D0D0CC; }
-.tab-content ul, .tab-content ol { margin-left: 24px; margin-bottom: 12px; }
-.tab-content li { margin-bottom: 8px; }
-.tab-content strong { color: var(--yellow); }
-.tab-content em { color: var(--green-light); }
-.highlight { background: rgba(242,201,76,0.15); padding: 2px 6px; border-left: 3px solid var(--yellow); padding-left: 8px; margin-left: -3px; }
-.section { margin-bottom: 24px; background: rgba(255,255,255,0.03); padding: 16px; border-radius: 8px; border-left: 3px solid var(--green-light); }
-.key-point { background: rgba(66,89,61,0.2); border-left: 4px solid var(--success); padding: 12px; margin: 12px 0; border-radius: 4px; }
-.example { background: rgba(0,0,0,0.3); padding: 12px; margin: 8px 0; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 0.9rem; overflow-x: auto; }
-footer { background: var(--black); color: var(--text-secondary); text-align: center; padding: 24px; margin-top: 40px; border-top: 1px solid var(--border); font-size: 0.85rem; }
-.section-divider { height: 2px; background: linear-gradient(90deg, var(--green) 0%, transparent 100%); margin: 24px 0; }
 
+.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.card h3 { font-size: 1.1rem; font-weight: 700; color: var(--green); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; border-top: 3px solid var(--green); }
+.metric-card.warning { border-top-color: var(--warning); }
+.metric-card.danger { border-top-color: var(--danger); }
+.metric-card.gold { border-top-color: var(--yellow); }
+.metric-value { font-size: 1.8rem; font-weight: 900; color: var(--green); }
+.metric-card.warning .metric-value { color: var(--warning); }
+.metric-card.gold .metric-value { color: var(--yellow-dark); }
+.metric-label { font-size: 0.8rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.callout { padding: 16px 20px; border-radius: 8px; margin-bottom: 16px; font-size: 0.95rem; border-left: 4px solid; }
+.callout.success { background: var(--green-bg); border-color: var(--green); }
+.callout.warning { background: #FFF8E1; border-color: var(--warning); }
+.callout.danger { background: #FDECEA; border-color: var(--danger); }
+.callout.info { background: #E3F2FD; border-color: #1976D2; }
+.callout strong { display: block; margin-bottom: 4px; }
+
+.pitch-box {
+  background: var(--black); color: var(--text-light); border-radius: 12px;
+  padding: 28px; margin: 20px 0; line-height: 1.8; font-size: 1.05rem;
+}
+.pitch-box .highlight { color: var(--yellow); font-weight: 700; }
+.pitch-box .green { color: #8BC34A; font-weight: 500; }
+.pitch-box .pause { display: block; text-align: center; color: var(--text-secondary); font-size: 0.8rem; margin: 12px 0; font-style: italic; }
+
+.keyword-tree { background: var(--card-bg); border: 2px solid var(--green); border-radius: 12px; padding: 24px; margin: 20px 0; }
+.keyword-tree h4 { color: var(--green); font-weight: 700; margin-bottom: 12px; }
+.kt-branch { margin-left: 0; padding-left: 0; list-style: none; }
+.kt-branch > li { margin-bottom: 16px; }
+.kt-branch > li > strong { color: var(--green); font-size: 1rem; display: block; margin-bottom: 6px; }
+.kt-branch ul { list-style: none; padding-left: 20px; border-left: 2px solid var(--green-bg); }
+.kt-branch ul li { padding: 4px 0 4px 12px; position: relative; font-size: 0.93rem; color: #444; }
+.kt-branch ul li::before { content: '\2192'; position: absolute; left: -4px; color: var(--green); }
+.kt-branch ul ul { border-left-color: #ddd; }
+.kt-branch ul ul li::before { content: '\00B7'; font-weight: 900; }
+.kt-branch .metric { background: var(--yellow); color: var(--black); padding: 1px 6px; border-radius: 4px; font-weight: 700; font-size: 0.82rem; }
+
+.star-story { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; border-left: 4px solid var(--green); }
+.star-story h4 { color: var(--green); font-weight: 700; margin-bottom: 12px; }
+.star-story .star-label { display: inline-block; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 4px; margin-right: 8px; }
+.star-s { background: #E3F2FD; color: #1565C0; }
+.star-t { background: #FFF8E1; color: #F57F17; }
+.star-a { background: var(--green-bg); color: var(--green); }
+.star-r { background: #FCE4EC; color: #C62828; }
+.star-story p { margin-bottom: 10px; }
+
+.fit-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.fit-table th, .fit-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.fit-table th { background: var(--green); color: white; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.fit-table tr:hover { background: var(--green-bg); }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; }
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-yellow { background: #FFF8E1; color: var(--warning); }
+.badge-red { background: #FDECEA; color: var(--danger); }
+
+.strategy-step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+.step-number { min-width: 40px; height: 40px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; flex-shrink: 0; }
+.step-content h4 { color: var(--green); margin-bottom: 4px; }
+
+.check-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
+.check-icon { font-size: 1.3rem; }
+
+.ha-box { background: linear-gradient(135deg, #1a1a2e, #16213e); color: var(--text-light); border-radius: 12px; padding: 24px; margin: 16px 0; border-left: 4px solid var(--yellow); }
+.ha-box h4 { color: var(--yellow); margin-bottom: 8px; }
+.ha-pill { display: inline-block; background: var(--yellow); color: var(--black); padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem; margin-right: 6px; }
+
+.process-step { display: flex; gap: 16px; margin-bottom: 16px; padding: 16px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
+.process-step .step-badge { min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.75rem; text-align: center; flex-shrink: 0; }
+
+.nagringa-quote { background: #1a1a2e; color: var(--text-light); padding: 20px 24px; border-radius: 12px; margin: 16px 0; font-style: italic; border-left: 4px solid var(--yellow); }
+.nagringa-quote .source { color: var(--yellow); font-style: normal; font-size: 0.85rem; margin-top: 8px; display: block; }
+
+.report-footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; margin-top: 24px; }
+.report-footer a { color: var(--green); text-decoration: none; }
+
+/* STORY INDEX */
+.story-index { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.story-index-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; cursor: pointer; transition: all 0.2s; border-left: 4px solid var(--green); }
+.story-index-item:hover { background: var(--green-bg); transform: translateY(-2px); }
+.story-index-item .si-number { font-weight: 900; color: var(--green); font-size: 0.8rem; }
+.story-index-item .si-title { font-weight: 700; color: var(--black); margin-top: 2px; }
+.story-index-item .si-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+.story-index-item .si-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.si-tag.leadership { background: #E3F2FD; color: #1565C0; }
+.si-tag.ambiguity { background: #FFF8E1; color: #F57F17; }
+.si-tag.ownership { background: var(--green-bg); color: var(--green); }
+.si-tag.technical { background: #F3E5F5; color: #7B1FA2; }
+.si-tag.failure { background: #FCE4EC; color: #C62828; }
+.si-tag.ai { background: #E0F7FA; color: #00695C; }
+.si-tag.stakeholder { background: #FFF3E0; color: #E65100; }
+.si-tag.entrepreneurship { background: #FBE9E7; color: #BF360C; }
+
+/* KEYWORD HIGHLIGHTS */
+.kw { background: var(--yellow); color: var(--black); padding: 1px 5px; border-radius: 3px; font-weight: 700; font-size: 0.92em; }
+.kw-green { background: var(--green-bg); color: var(--green); padding: 1px 5px; border-radius: 3px; font-weight: 600; font-size: 0.92em; }
+.kw-blue { background: #E3F2FD; color: #1565C0; padding: 1px 5px; border-radius: 3px; font-weight: 600; font-size: 0.92em; }
+.kw-red { background: #FDECEA; color: #C62828; padding: 1px 5px; border-radius: 3px; font-weight: 600; font-size: 0.92em; }
+
+@media print {
+  .tab-nav { display: none; }
+  .tab-content { display: block !important; page-break-before: always; }
+  .tab-content:first-of-type { page-break-before: auto; }
+}
 @media (max-width: 768px) {
+  .tab-btn { padding: 10px 14px; font-size: 0.78rem; }
+  .tab-content { padding: 20px 16px; }
   .report-header { padding: 24px 16px; }
   .report-header h1 { font-size: 1.6rem; }
-  .tab-nav { padding: 4px 4px 0; }
-  .tab-btn { padding: 10px 16px; font-size: 0.8rem; }
-  .tab-content { padding: 16px; }
+  .story-index { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="report-header">
-  <h1>G2i Interview <span class="accent">Prep</span></h1>
-  <p class="subtitle">RLHF Intelligence, High Agency Framework & STAR Stories</p>
+  <h1>G2i Interview Prep <span class="accent">v3</span></h1>
+  <div class="subtitle">Rafael Camillo — Senior Product Engineer / Tech Lead</div>
   <div class="meta">
-    <div class="meta-item"><strong>Version:</strong> EN 2026.3</div>
-    <div class="meta-item"><strong>Focus:</strong> Structured Interview Excellence</div>
-    <div class="meta-item"><strong>Framework:</strong> High Agency + STAR + RLHF</div>
+    <div class="meta-item"><strong>Role</strong> Tech Lead</div>
+    <div class="meta-item"><strong>Stage</strong> Initial HR / Behavioral</div>
+    <div class="meta-item"><strong>Rate</strong> $50/hr</div>
+    <div class="meta-item"><strong>Recruiter</strong> Jose Guilherme Thome</div>
+    <div class="meta-item"><strong>Model</strong> Remote — 3-6 month Contract</div>
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs-container">
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab(event, 'overview')">Overview</button>
-    <button class="tab-btn" onclick="switchTab(event, 'rlhf')">RLHF Intelligence</button>
-    <button class="tab-btn" onclick="switchTab(event, 'high-agency')">High Agency Framework</button>
-    <button class="tab-btn" onclick="switchTab(event, 'star')">STAR Method</button>
-    <button class="tab-btn" onclick="switchTab(event, 'execution')">Execution Checklist</button>
+    <button class="tab-btn active" onclick="showTab('company')">Company</button>
+    <button class="tab-btn" onclick="showTab('role')">Role + RLHF</button>
+    <button class="tab-btn" onclick="showTab('process')">Process</button>
+    <button class="tab-btn" onclick="showTab('profile')">My Profile</button>
+    <button class="tab-btn" onclick="showTab('fit')">Fit Analysis</button>
+    <button class="tab-btn" onclick="showTab('pitch')">Pitch + Keywords</button>
+    <button class="tab-btn" onclick="showTab('star')">STAR + High Agency</button>
+    <button class="tab-btn" onclick="showTab('questions')">Questions</button>
+    <button class="tab-btn" onclick="showTab('bgcheck')">Background Check</button>
+    <button class="tab-btn" onclick="showTab('strategy')">Strategy</button>
   </div>
 
-  <!-- TAB: OVERVIEW -->
-  <div id="overview" class="tab-content active">
-    <h2>Interview Preparation Overview</h2>
-    
-    <p>This guide provides a comprehensive approach to G2i technical interviews, combining three key methodologies: RLHF (Reinforcement Learning from Human Feedback) intelligence, the High Agency Framework, and STAR storytelling. Together, these create a powerful system for demonstrating technical expertise, ownership mentality, and proven results.</p>
-    
-    <div class="section">
-      <h3>Why This Framework Works</h3>
-      <p><strong>RLHF Intelligence</strong> ensures you understand what interviewers value and reward. By studying feedback patterns, you align your responses with expectations.</p>
-      <p><strong>High Agency Framework</strong> positions you as someone who takes ownership, drives solutions, and delivers impact—the exact mindset G2i teams seek.</p>
-      <p><strong>STAR Method</strong> provides the narrative structure to communicate accomplishments with clarity, context, and credibility.</p>
+  <!-- ==================== TAB 1: COMPANY ==================== -->
+  <div id="company" class="tab-content active">
+    <h2 style="color:var(--green);margin-bottom:20px;">G2i — Company Intelligence</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">8,000+</div><div class="metric-label">Engineers Available</div></div>
+      <div class="metric-card gold"><div class="metric-value">$28M</div><div class="metric-label">Paid to Devs</div></div>
+      <div class="metric-card"><div class="metric-value">500k+</div><div class="metric-label">Hours Delivered</div></div>
+      <div class="metric-card"><div class="metric-value">~30%</div><div class="metric-label">Margin (vs 60% competitors)</div></div>
     </div>
 
-    <div class="key-point">
-      <strong>Core Principle:</strong> Great interviews aren't about perfection; they're about demonstrating agency, learning, and impact. This framework helps you do exactly that.
+    <div class="card">
+      <h3>What They Do</h3>
+      <p>Platform connecting <span class="kw-green">senior-level engineers</span> with companies. Operates in the US, Latin America and Europe. Process based on <span class="kw-green">video + real technical assessment</span> — interviews conducted by senior engineers, not HR.</p>
     </div>
 
-    <h3>The Three Pillars</h3>
-    
-    <div class="section">
-      <h4>1. RLHF Intelligence</h4>
-      <p>Study what interviewers reward in successful candidates. Common patterns:</p>
-      <ul>
-        <li><strong>Clarity over jargon:</strong> Explain complex ideas simply</li>
-        <li><strong>Ownership mentality:</strong> "I led," "I decided," "I shipped"</li>
-        <li><strong>Impact focus:</strong> Numbers, metrics, user outcomes</li>
-        <li><strong>Learning from failures:</strong> Resilience and growth</li>
-        <li><strong>Curiosity and drive:</strong> Self-directed learning</li>
-      </ul>
+    <div class="card">
+      <h3>Clients</h3>
+      <p><strong>FAANG & Fortune 100:</strong> Meta, Google, Microsoft<br>
+      <strong>High-growth startups:</strong> Webflow, Scale AI, 1Password, LaunchDarkly</p>
     </div>
 
-    <div class="section">
-      <h4>2. High Agency Framework</h4>
-      <p>Demonstrate that you identify problems, propose solutions, and drive results. This is the opposite of passive problem-solving.</p>
-      <ul>
-        <li><strong>Identify:</strong> What was the real problem?</li>
-        <li><strong>Propose:</strong> What solution did you imagine?</li>
-        <li><strong>Drive:</strong> How did you execute and overcome obstacles?</li>
-        <li><strong>Impact:</strong> What was the measurable outcome?</li>
-      </ul>
+    <div class="card">
+      <h3>3 Areas of Operation</h3>
+      <p><strong style="color:var(--green)">Engineering</strong> — frontend, backend, mobile, DevOps, AI<br>
+      <strong style="color:var(--green)">Product</strong> — PM, design, TPM<br>
+      <strong style="color:var(--green)">AI</strong> — RLHF, fine-tuning, LLM, research</p>
     </div>
 
-    <div class="section">
-      <h4>3. STAR Method</h4>
-      <p><strong>S</strong>ituation, <strong>T</strong>ask, <strong>A</strong>ction, <strong>R</strong>esult—the most effective way to tell stories that stick.</p>
-      <ul>
-        <li><strong>Situation:</strong> Context and constraints</li>
-        <li><strong>Task:</strong> Your responsibility</li>
-        <li><strong>Action:</strong> What YOU did (focus on agency)</li>
-        <li><strong>Result:</strong> Measurable outcome and learning</li>
-      </ul>
+    <div class="card">
+      <h3>Differentiation vs Accenture / Deloitte / Capgemini</h3>
+      <table class="fit-table">
+        <thead><tr><th>Criteria</th><th>G2i</th><th>Big Consulting</th></tr></thead>
+        <tbody>
+          <tr><td>Margin</td><td><strong>~30%</strong></td><td>~60%</td></tr>
+          <tr><td>Replacement</td><td>Immediate, painless</td><td>Bureaucratic</td></tr>
+          <tr><td>Selection process</td><td>Customized per client</td><td>Cookie-cutter</td></tr>
+          <tr><td>Interviews</td><td>By senior eng</td><td>By HR</td></tr>
+          <tr><td>Speed</td><td>&lt;14 days contract / &lt;45 days hire</td><td>Months</td></tr>
+        </tbody>
+      </table>
     </div>
 
+    <div class="card">
+      <h3>Gabe Greenberg — CEO & Founder</h3>
+      <p><strong>Since:</strong> 2012 (bootstrapped, no VC)<br>
+      <strong>Education:</strong> Florida Atlantic University<br>
+      <strong>Internal framework:</strong> EOS<br>
+      <strong>Current focus:</strong> Human data + RL environments for AI labs<br>
+      <strong>Community:</strong> Co-organizer of <strong>AI Engineer Miami</strong> & <strong>React Miami</strong></p>
+      <div class="callout info" style="margin-top:12px">
+        <strong>Important personal story:</strong>
+        8+ years of chronic illness from overwork (60-70h/week). This created the mission of <span class="kw-green">developer health</span> — Developer Health Fund and Dev Health OS.
+      </div>
+      <p style="margin-top:12px"><strong>What Gabe looks for in an engineer:</strong></p>
+      <p>1. <span class="kw-green">Autonomy</span> — does not wait to be told<br>
+      2. <span class="kw-green">Ownership</span> — takes care of what is theirs and what is not<br>
+      3. <span class="kw-green">Good decision-making</span> — acts well in ambiguity</p>
+    </div>
+
+    <div class="card">
+      <h3>Official Values</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px">
+        <div style="background:var(--green-bg);padding:16px;border-radius:8px;text-align:center">
+          <strong style="color:var(--green);font-size:1.1rem">Quality</strong><br><small>In the product, in the engineers, in the team</small>
+        </div>
+        <div style="background:#FFF8E1;padding:16px;border-radius:8px;text-align:center">
+          <strong style="color:var(--warning);font-size:1.1rem">Urgency</strong><br><small>Speed is part of the value prop</small>
+        </div>
+        <div style="background:#E3F2FD;padding:16px;border-radius:8px;text-align:center">
+          <strong style="color:#1565C0;font-size:1.1rem">Agility</strong><br><small>Rapid adaptation to each context</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Leadership Team</h3>
+      <p><strong>Gabe Greenberg</strong> — Founder & CEO, Miami<br>
+      <strong>Patrick Severs</strong> — Director of Sales & Partnerships, Nashville<br>
+      <strong>Gabriel Ferreira</strong> — Senior Talent Manager, <strong style="color:var(--green)">Sao Paulo</strong> (LATAM strategic)</p>
+    </div>
+
+    <div class="callout warning">
+      <strong>Glassdoor (real data):</strong>
+      3.4/5 (23 reviews). 63% would recommend. Selection process: avg 12 days, difficulty 2.6/5. Mixed reviews about post-contract rate changes — good to know but don't bring up in interview.
+    </div>
   </div>
 
-  <!-- TAB: RLHF -->
-  <div id="rlhf" class="tab-content">
-    <h2>RLHF Intelligence: What Interviewers Reward</h2>
-    
-    <p>RLHF (Reinforcement Learning from Human Feedback) is how AI systems learn what humans prefer. Apply the same principle to interviews: what do hiring managers and team leads reward?</p>
+  <!-- ==================== TAB 2: ROLE + RLHF ==================== -->
+  <div id="role" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Role Analysis + What is RLHF in Practice</h2>
 
-    <div class="section">
-      <h3>The RLHF Framework for Interviews</h3>
-      <p><strong>Positive Signals (What Gets Rewarded):</strong></p>
-      <ul>
-        <li>🎯 <strong>Ownership language:</strong> "I identified," "I drove," "I shipped"</li>
-        <li>📊 <strong>Metrics and impact:</strong> "Reduced latency by 40%," "Grew user base to 50k"</li>
-        <li>🔍 <strong>Root cause thinking:</strong> "We dug deeper and discovered..."</li>
-        <li>🚀 <strong>Initiative and speed:</strong> "I shipped it in 2 weeks"</li>
-        <li>💡 <strong>Learning from failure:</strong> "We failed first, but learned..."</li>
-        <li>🤝 <strong>Collaboration and influence:</strong> "I aligned the team around..."</li>
-        <li>⚙️ <strong>Technical depth with clarity:</strong> Explain hard things simply</li>
-      </ul>
+    <div class="callout danger">
+      <strong>What this role actually is:</strong>
+      NOT a traditional SaaS Tech Lead. You'd be leading a squad inside an <span class="kw">AI training data pipeline</span> for one of the world's leading AI labs (likely Anthropic, OpenAI or Meta). Your code becomes <span class="kw">ground truth</span> that language models learn from.
     </div>
 
-    <div class="section">
-      <h3>Negative Signals (What Gets Filtered):</h3>
-      <ul>
-        <li>❌ Passive language: "The project," "The team decided"</li>
-        <li>❌ Vague outcomes: "It went well" (no metrics)</li>
-        <li>❌ Victim mentality: "We didn't have resources," "The project failed"</li>
-        <li>❌ Overthinking: "Let me think about that" (too many pauses)</li>
-        <li>❌ Unclear technical explanations: Losing the interviewer</li>
-        <li>❌ No learning moments: Coming across as arrogant or stuck</li>
-      </ul>
+    <div class="card">
+      <h3>What you'll do day to day (RLHF)</h3>
+      <p>Based on real G2i job postings 2025-2026:</p>
+      <div style="margin-top:12px">
+        <p><strong style="color:var(--green)">1. Evaluate AI-generated code</strong><br>
+        Read code that models generated, write <span class="kw-green">human summaries</span> about quality, identify bugs, suggest improvements. You are the "human judge" of model output.</p>
+        <p style="margin-top:12px"><strong style="color:var(--green)">2. Build React reference components</strong><br>
+        Write React components, hooks, and modern JS solutions that serve as <span class="kw">training data</span>. The model learns from your code — if you write mediocre, the model learns mediocre.</p>
+        <p style="margin-top:12px"><strong style="color:var(--green)">3. Solve coding problems</strong><br>
+        Coding challenges focused on <span class="kw-green">JavaScript/React/TypeScript</span>. Demonstrate functional, efficient and testable code.</p>
+        <p style="margin-top:12px"><strong style="color:var(--green)">4. Write robust test cases</strong><br>
+        Tests that confirm code works. Not "testing for testing" — it's defining what <span class="kw">"correct" means</span> for the model to learn.</p>
+      </div>
     </div>
 
-    <div class="key-point">
-      <strong>RLHF Hack:</strong> Before every interview, identify 5-7 stories where YOU took agency, drove results, and learned. These are your "high-reward" responses.
+    <div class="card">
+      <h3>What is RLHF — Quick Explanation</h3>
+      <div style="background:#1a1a2e;color:var(--text-light);padding:20px;border-radius:8px;margin-top:8px">
+        <p><strong style="color:var(--yellow)">RLHF = Reinforcement Learning from Human Feedback</strong></p>
+        <p style="margin-top:8px">Model generates code → human (you) evaluates if it's good or bad → that evaluation becomes <span class="kw">reward signal</span> → model learns to generate better code.</p>
+        <p style="margin-top:12px"><strong style="color:var(--yellow)">Your role in this loop:</strong></p>
+        <p>You are the <span class="kw">Human</span> in RLHF. Your expertise in React/TS/Node is what allows you to judge output quality and write quality references. You don't need ML knowledge — you need <strong>frontend excellence</strong>.</p>
+      </div>
     </div>
 
-    <h3>RLHF in Practice: Question Mapping</h3>
-    
-    <div class="section">
-      <h4>Common Interview Questions → RLHF-Optimized Responses</h4>
-      
-      <p><strong>"Tell me about yourself."</strong></p>
-      <div class="highlight">Focus on: I've built X, shipped Y, learned Z. Use ownership language. Lead with impact.</div>
-      
-      <p><strong>"Tell me about a challenge you overcame."</strong></p>
-      <div class="highlight">Focus on: YOUR agency in solving it. What did YOU do differently? Metrics of success.</div>
-      
-      <p><strong>"What's your biggest failure?"</strong></p>
-      <div class="highlight">Focus on: What you learned. How you grew. How you'd approach it differently. Resilience signal.</div>
-      
-      <p><strong>"How do you approach a new problem?"</strong></p>
-      <div class="highlight">Focus on: Your systematic thinking. Your curiosity. How you validate assumptions. High agency in exploration.</div>
-      
-      <p><strong>"Why should we hire you?"</strong></p>
-      <div class="highlight">Focus on: Specific impact you'll deliver. How your past experience directly applies. Your unique contribution.</div>
+    <div class="card">
+      <h3>Required stack (non-negotiable)</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <span class="badge badge-green"><strong>TypeScript</strong></span>
+        <span class="badge badge-green"><strong>React</strong></span>
+        <span class="badge badge-green"><strong>Node.js</strong></span>
+        <span class="badge badge-green"><strong>Hooks</strong></span>
+        <span class="badge badge-green"><strong>Components</strong></span>
+        <span class="badge badge-green"><strong>Testing</strong></span>
+      </div>
+      <p style="margin-top:8px;font-size:0.9rem;color:#666">Extra requirement: full English fluency (written and verbal), attention to detail, ability to articulate complex technical concepts.</p>
     </div>
 
+    <div class="card">
+      <h3>Contract structure</h3>
+      <table class="fit-table">
+        <tbody>
+          <tr><td><strong>Rate</strong></td><td>$50/hour</td></tr>
+          <tr><td><strong>Model</strong></td><td>Contract (3-6 month pilot)</td></tr>
+          <tr><td><strong>Hours</strong></td><td>40-55 hrs/week — must be exclusive work</td></tr>
+          <tr><td><strong>Expansion</strong></td><td>Depends on pilot going well with the AI lab</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warning">
+      <strong>Real risks:</strong>
+      3-month contract is real. Expansion depends on the lab renewing, not just your performance. Lab name not revealed before joining. Calculated risk, not a guarantee.
+    </div>
+
+    <div class="callout success">
+      <strong>What's exciting:</strong>
+      Working on <span class="kw-green">AI-native</span> in build phase. Perfect stack. High autonomy. Real technical credibility from G2i (8+ years in the React ecosystem). The kind of project that stays on your portfolio for years. And you'd be defining what "good code" means for the model — that's <span class="kw">real influence</span>.
+    </div>
   </div>
 
-  <!-- TAB: HIGH AGENCY -->
-  <div id="high-agency" class="tab-content">
-    <h2>High Agency Framework: Taking Ownership</h2>
-    
-    <p>High agency means you don't wait for permission to solve problems. You identify gaps, propose solutions, and drive execution. This is what separates good hires from great ones.</p>
+  <!-- ==================== TAB 3: PROCESS ==================== -->
+  <div id="process" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Real Selection Process — What to Expect</h2>
 
-    <div class="section">
-      <h3>The High Agency Mindset</h3>
-      <ul>
-        <li><strong>🔍 Observation:</strong> What isn't being done? What could be better?</li>
-        <li><strong>💭 Imagination:</strong> What if we tried...? How could we...?</li>
-        <li><strong>🚀 Action:</strong> I'll take the first step. I'll build a prototype. I'll learn.</li>
-        <li><strong>📈 Iteration:</strong> I'll measure, learn, and improve based on feedback.</li>
-        <li><strong>🎯 Impact:</strong> I shipped X, which resulted in Y.</li>
-      </ul>
+    <div class="callout danger">
+      <strong>NEW INTEL (Glassdoor Jan 2026):</strong>
+      The technical stage includes <span class="kw">12 live code questions</span> (6 TypeScript + 6 React.js). The final stage is a <span class="kw">simulated RLHF task</span>. Prepare for both.
     </div>
 
-    <div class="section">
-      <h3>High Agency in Action: The Framework</h3>
-      
-      <p><strong>1. Identify the Gap</strong></p>
-      <p>Examples:</p>
-      <ul>
-        <li>"Our deployment process took 30 minutes. I noticed we could parallelize three steps."</li>
-        <li>"Our analytics dashboard was outdated. The team wasn't tracking the right metrics."</li>
-        <li>"New engineers were spending 2 days onboarding. The docs were scattered."</li>
-      </ul>
-      
-      <p><strong>2. Propose a Solution (Without Waiting for Permission)</strong></p>
-      <p>Examples:</p>
-      <ul>
-        <li>"I proposed parallelizing the deployment steps and drafted an implementation plan."</li>
-        <li>"I redesigned our analytics dashboard with input from three stakeholders."</li>
-        <li>"I consolidated our onboarding docs and created a checklist."</li>
-      </ul>
-      
-      <p><strong>3. Execute and Drive to Completion</strong></p>
-      <p>Examples:</p>
-      <ul>
-        <li>"I owned the implementation end-to-end, working with DevOps to test the changes."</li>
-        <li>"I built the new dashboard, trained the team, and iterated based on feedback."</li>
-        <li>"I led the onboarding process redesign with the whole team."</li>
-      </ul>
-      
-      <p><strong>4. Measure the Impact</strong></p>
-      <p>Examples:</p>
-      <ul>
-        <li>"We reduced deployment time from 30 to 8 minutes—a 73% improvement."</li>
-        <li>"Adoption of the new dashboard reached 95% in the first month."</li>
-        <li>"New engineer onboarding time dropped from 2 days to 4 hours."</li>
-      </ul>
+    <div class="process-step">
+      <div class="step-badge" style="background:var(--green-bg);color:var(--green)">NOW<br>15min</div>
+      <div>
+        <h4 style="color:var(--green)">1. Recruiting Screen (Live or Async)</h4>
+        <p>With Jose Guilherme Thome. Behavioral + culture. <span class="kw-green">This is where you are now.</span></p>
+        <p style="margin-top:8px"><strong>What they'll evaluate:</strong> cultural fit, communication, motivation, G2i knowledge, leadership posture.</p>
+        <p style="margin-top:4px"><strong>Use:</strong> 2 min Pitch + strategic questions.</p>
+      </div>
     </div>
 
-    <div class="key-point">
-      <strong>High Agency Principle:</strong> Move from "What should I do?" to "What COULD we do?" and then "Here's what I'm doing."
+    <div class="process-step">
+      <div class="step-badge" style="background:#FFF8E1;color:var(--warning)">NEXT<br>60min</div>
+      <div>
+        <h4 style="color:var(--warning)">2. Technical Interview</h4>
+        <p><strong>12 live code questions:</strong> 6 TypeScript + 6 React.js</p>
+        <p style="margin-top:8px"><strong>What to practice:</strong></p>
+        <p>&#8226; TypeScript: generics, utility types, type guards, discriminated unions, mapped types, conditional types<br>
+        &#8226; React: hooks (useState, useEffect, useCallback, useMemo, useRef, custom hooks), component patterns, performance optimization, context API, error boundaries<br>
+        &#8226; Standard: clean, typed, testable code</p>
+      </div>
     </div>
 
-    <h3>High Agency Stories: Framework Examples</h3>
-    
-    <div class="section">
-      <h4>Example 1: Process Improvement</h4>
-      <p><strong>Gap:</strong> "Our PR review cycle was slow; developers were blocked waiting for feedback."</p>
-      <p><strong>Proposal:</strong> "I proposed a code review SLA—reviews within 24 hours—and built a Slack bot to track it."</p>
-      <p><strong>Execution:</strong> "I coded the bot, got team buy-in, and monitored metrics for 2 weeks."</p>
-      <p><strong>Impact:</strong> "PR review time dropped from 3 days to 18 hours. Developer satisfaction scores improved by 35%."</p>
+    <div class="process-step">
+      <div class="step-badge" style="background:#E3F2FD;color:#1565C0">FINAL<br>30min</div>
+      <div>
+        <h4 style="color:#1565C0">3. Team Lead Interview</h4>
+        <p>Conversation with leadership. Evaluates judgment, leadership, team fit. Yes/No decision.</p>
+      </div>
     </div>
 
-    <div class="section">
-      <h4>Example 2: Technical Innovation</h4>
-      <p><strong>Gap:</strong> "Our GraphQL schema validation was causing issues in production."</p>
-      <p><strong>Proposal:</strong> "I proposed a pre-commit validation hook and schema versioning system."</p>
-      <p><strong>Execution:</strong> "I led the design, implemented it with two teammates, and handled rollout across 40+ services."</p>
-      <p><strong>Impact:</strong> "Caught 100% of schema breaking changes before production. Reduced incidents by 40%."</p>
+    <div class="process-step">
+      <div class="step-badge" style="background:#FCE4EC;color:#C62828">RLHF<br>Task</div>
+      <div>
+        <h4 style="color:#C62828">4. Simulated RLHF Task (Async)</h4>
+        <p>You receive a simulated production task: evaluate AI code, write reference components, and/or create test cases. <span class="kw">Determines your leveling and project.</span></p>
+        <p style="margin-top:8px"><strong>Tip:</strong> Treat it as if the code will be learned by a model. Be impeccable in naming, structure, edge cases and readability.</p>
+      </div>
     </div>
 
-    <div class="section">
-      <h4>Example 3: Customer Impact</h4>
-      <p><strong>Gap:</strong> "Customers were complaining about slow search. The team hadn't prioritized it."</p>
-      <p><strong>Proposal:</strong> "I analyzed the issue, proposed an ElasticSearch migration, and created a business case."</p>
-      <p><strong>Execution:</strong> "I led the migration (3 months), coordinated with product and DevOps, and ran performance tests."</p>
-      <p><strong>Impact:</strong> "Search latency dropped from 2s to 200ms. Customer satisfaction increased. Won a major contract partly because of this."</p>
+    <div class="process-step">
+      <div class="step-badge" style="background:var(--green-bg);color:var(--green)">ON<br>60min</div>
+      <div>
+        <h4 style="color:var(--green)">5. Onboarding</h4>
+        <p>If approved, 60-minute onboarding. Total process: ~3.5 hours, completable in 1 week or less.</p>
+      </div>
     </div>
 
+    <div class="callout info">
+      <strong>Total estimated time:</strong> 3.5 hours distributed over ~1 week. Most stages are async because RLHF work is async and self-guided.
+    </div>
   </div>
 
-  <!-- TAB: STAR -->
+  <!-- ==================== TAB 4: PROFILE ==================== -->
+  <div id="profile" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Rafael Camillo — Profile</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">11+</div><div class="metric-label">Years of experience</div></div>
+      <div class="metric-card gold"><div class="metric-value">46</div><div class="metric-label">Countries (payment infra)</div></div>
+      <div class="metric-card"><div class="metric-value">10</div><div class="metric-label">Engineers managed</div></div>
+      <div class="metric-card"><div class="metric-value">3</div><div class="metric-label">Projects led simultaneously</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Impact X — Boutique Consultancy & Tech Lead (Mar 2023 – Present)</h3>
+      <p><span class="kw">Impact X is my own boutique consultancy</span>. Inspired by Flylance, I curate trusted engineers and place them at top-tier international clients. Currently managing <span class="kw">10 developers</span> allocated to different clients. The model works because I've built real relationships and understand quality from the inside.</p>
+      <p style="margin-top:12px">I learned the consulting model at X-Team, saw what works and what doesn't, and built my own operation with a focus on <span class="kw-green">trust-based placements</span> and zero churn. Sometimes we work through other consultancies like G2i — that's the nature of the business. I understand your business model because I run a smaller version of it.</p>
+
+      <p style="margin-top:16px"><strong style="color:var(--green)">Hubble — International Marketplace (US remote)</strong></p>
+      <p>&#8226; Payment infra for <span class="kw">46 countries</span>, from zero to production<br>
+      &#8226; <span class="kw">$12,000 MRR</span> in month 1 (top 2-3% early-stage startups)<br>
+      &#8226; <span class="kw">-50%</span> payment bugs with robust error handling</p>
+
+      <p style="margin-top:16px"><strong style="color:var(--green)">Client Projects — Tech Lead of 3 simultaneous projects (BR remote)</strong></p>
+      <p>Led a <span class="kw">cross-functional team of 10 engineers</span> across <strong>3 projects simultaneously</strong>, all of which were <span class="kw-red">already delayed</span> when I joined:</p>
+      <p style="margin-top:8px">
+      &#8226; <strong>Infinitoon</strong> — <span class="kw-green">Brazil's first cartoon streaming platform</span>. Concept to production.<br>
+      &#8226; <strong>DETRAN Portal</strong> — Government <span class="kw-green">driver's license exam portal</span>. High compliance requirements.<br>
+      &#8226; <strong>IoT Management Platform</strong> — <span class="kw-green">Device management dashboard</span> for IoT fleet operations.</p>
+      <p style="margin-top:12px"><span class="kw-blue">Stakeholder Management</span>: All 3 projects were behind schedule. I rebuilt client trust through <span class="kw">transparent communication</span>, realistic timelines, and consistent early delivery. Clients went from frustrated to advocates of the team.</p>
+      <p style="margin-top:8px">
+      &#8226; Lead time: <span class="kw">-55%</span> (20 to 9 days) | Production bugs: <span class="kw">-60%</span> | Latency: <span class="kw">-40%</span> (CDN+Redis)<br>
+      &#8226; Team of <span class="kw">10 eng</span> cross-functional | <span class="kw">Zero turnover</span> in 1 year<br>
+      &#8226; Conduct <span class="kw-green">technical interviews</span> for the company</p>
+    </div>
+
+    <div class="card">
+      <h3>X-Team — Senior Software Engineer (Jan 2022 – Feb 2023)</h3>
+      <p>&#8226; Blog React/Next.js with SSR+SSG: <span class="kw">+40% engagement, +25% page speed</span><br>
+      &#8226; GraphQL e-commerce API: <span class="kw">+60% data fetching efficiency</span><br>
+      &#8226; EdTech Vue.js/Vuex: <span class="kw">+35% interaction</span><br>
+      &#8226; Code splitting + lazy loading: <span class="kw">-40% load time</span></p>
+    </div>
+
+    <div class="card">
+      <h3>TinkerList.tv — Senior Frontend Engineer (2021 – 2022)</h3>
+      <p>&#8226; Notion-like block editor: <span class="kw">-40% rendering latency</span><br>
+      &#8226; Offline-first (PouchDB): <span class="kw">100% offline support</span><br>
+      &#8226; Conflict resolution for concurrent edits: <span class="kw">-60% sync incidents</span><br>
+      &#8226; Lag-free real-time collaboration</p>
+    </div>
+
+    <div class="card">
+      <h3>Iteris — Frontend Engineer (2020 – 2021)</h3>
+      <p>&#8226; EdTech Vue.js — national exam from in-person to online (COVID): <span class="kw">delivered in 1 month</span><br>
+      &#8226; <span class="kw">+80% user engagement</span><br>
+      &#8226; Frontend for <span class="kw-green">national instant payment system</span> (Angular, NgRx, RxJS)</p>
+    </div>
+
+    <div class="card">
+      <h3>Tecnogueto — Co-Founder (2019 – 2020)</h3>
+      <p>Social impact startup — tech education for underrepresented groups<br>
+      &#8226; <span class="kw">70% job placement rate</span> (B2W, Vale, Totvs)<br>
+      &#8226; <span class="kw">R$200k in funding</span> | <span class="kw">100+ students</span></p>
+    </div>
+
+    <div class="card">
+      <h3>Full stack</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="badge badge-green">TypeScript</span><span class="badge badge-green">React</span><span class="badge badge-green">Next.js</span><span class="badge badge-green">Node.js</span><span class="badge badge-green">GraphQL</span>
+        <span class="badge badge-yellow">Vue.js</span><span class="badge badge-yellow">Angular</span><span class="badge badge-yellow">Redux</span><span class="badge badge-yellow">NestJS</span>
+        <span class="badge badge-yellow">PostgreSQL</span><span class="badge badge-yellow">MongoDB</span><span class="badge badge-yellow">Redis</span><span class="badge badge-yellow">AWS</span><span class="badge badge-yellow">Docker</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 5: FIT ANALYSIS ==================== -->
+  <div id="fit" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Fit Analysis — Rafael x G2i</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">95%</div><div class="metric-label">Technical fit</div></div>
+      <div class="metric-card"><div class="metric-value">90%</div><div class="metric-label">Cultural fit</div></div>
+      <div class="metric-card gold"><div class="metric-value">85%</div><div class="metric-label">Strategic fit</div></div>
+      <div class="metric-card"><div class="metric-value">HIGH</div><div class="metric-label">Recommendation</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Technical Fit — 95%</h3>
+      <table class="fit-table">
+        <thead><tr><th>G2i Requirement</th><th>Rafael</th><th>Match</th></tr></thead>
+        <tbody>
+          <tr><td>Strong TypeScript</td><td>11+ years JS/TS, all projects</td><td><span class="badge badge-green">PERFECT</span></td></tr>
+          <tr><td>React: components, hooks, architecture</td><td>Next.js, Notion-like editor, streaming, SSR/SSG</td><td><span class="badge badge-green">PERFECT</span></td></tr>
+          <tr><td>Node.js: backend, APIs</td><td>Express, NestJS, GraphQL</td><td><span class="badge badge-green">PERFECT</span></td></tr>
+          <tr><td>Tech Lead with real team</td><td>10 eng, 3 simultaneous projects, zero turnover</td><td><span class="badge badge-green">PERFECT</span></td></tr>
+          <tr><td>Architectural judgment</td><td>Offline-first editor, payment 46 countries, CDN/Redis</td><td><span class="badge badge-green">PERFECT</span></td></tr>
+          <tr><td>Evaluate code quality</td><td>Already conducts technical interviews at Impact X</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>Stakeholder management</td><td>Rebuilt trust on 3 delayed projects, clients became advocates</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>AI/RLHF experience</td><td>Power user + integrator, not ML engineer</td><td><span class="badge badge-yellow">PARTIAL</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Cultural Fit — 90% (via High Agency framework)</h3>
+      <table class="fit-table">
+        <thead><tr><th>G2i Value</th><th>Rafael Evidence (High Agency)</th><th>Match</th></tr></thead>
+        <tbody>
+          <tr><td>Autonomy</td><td>Builds from zero without playbook (Hubble, client projects)</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>Ownership</td><td>Co-founded Tecnogueto (nobody asked), zero turnover</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>Good decisions</td><td>Payment arch for 46 countries, PouchDB offline-first</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>Quality</td><td>-60% prod bugs, -50% payment bugs, code reviews</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>Urgency</td><td>EdTech in 1 month (COVID), $12k MRR month 1</td><td><span class="badge badge-green">STRONG</span></td></tr>
+          <tr><td>Agility</td><td>React, Vue, Angular, multiple industries</td><td><span class="badge badge-green">STRONG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout success">
+      <strong>Verdict:</strong> Only real gap is lack of direct RLHF experience, but G2i explicitly says "no prior AI experience needed". What they need is <span class="kw">frontend excellence</span> — and you have that in spades. Running technical interviews = already knows how to evaluate others' code, which is literally what RLHF demands.
+    </div>
+  </div>
+
+  <!-- ==================== TAB 6: PITCH + KEYWORDS ==================== -->
+  <div id="pitch" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">2-Minute Pitch + Keyword Bullets</h2>
+
+    <div class="callout warning" style="margin-bottom: 24px;">
+      <strong>"Why would you leave Impact X for a 3-month contract?"</strong>
+      <p style="margin-top:8px;color:#333;">Impact X is my boutique consultancy — I run it, I won't leave it. Working through G2i is actually how the model works. I already place engineers through consulting networks, just like I learned at X-Team. G2i isn't a departure, it's a <span class="kw-green">strategic partnership</span>. I bring my own quality standards and deep understanding of the consulting business because I run a smaller version of it. If anything, this strengthens Impact X — I come back with hands-on RLHF experience and a deeper relationship with one of the top talent networks in React and AI.</p>
+    </div>
+
+    <div class="nagringa-quote">
+      "The difference between mid-level and senior isn't in the code — it's in how you tell your stories and demonstrate <span class="kw">ownership of the result</span>, not just the delivery."
+      <span class="source">— Lucas Faria, NaGringa</span>
+    </div>
+
+    <div class="callout info">
+      <strong>Instruction:</strong> Don't memorize word for word. Use the keywords as anchors. Speak naturally. Ownership of the RESULT, not the delivery.
+    </div>
+
+    <div class="pitch-box">
+      <p>My name is Rafael. I'm a software engineer with <span class="highlight">11 years of experience</span>, focused on <span class="highlight">TypeScript, React and Node.js</span> — exactly the stack you need for this project.</p>
+
+      <p style="margin-top:12px">For the past 3 years I've been running <span class="green">Impact X, my own boutique consultancy</span>. I lead a network of <span class="highlight">10 engineers</span> placed at international clients. I learned the consulting model at X-Team and built my own operation inspired by Flylance — curating trusted engineers, placing them at top clients, and sometimes working through consulting networks like G2i itself. This is key: <span class="highlight">I understand your business model from the inside</span> because I run a similar operation at smaller scale.</p>
+
+      <p style="margin-top:12px">At Impact X, I've been leading projects end-to-end as a Tech Lead. I built a <span class="highlight">payment infrastructure supporting 46 countries</span> from scratch — it hit <span class="highlight">$12k MRR in month one</span>. I simultaneously led <span class="highlight">3 projects with a team of 10 engineers</span> — a streaming platform, a government exam portal, and an IoT management dashboard — all of which were <span class="highlight">already behind schedule</span> when I joined. Through <span class="highlight">stakeholder management</span> and consistent delivery, I turned frustrated clients into advocates.</p>
+
+      <span class="pause">— natural pause —</span>
+
+      <p>What sets me apart isn't just the stack — it's <span class="highlight">how I work</span>. I don't wait for a playbook to start. When there's ambiguity, I map the problem, propose paths, and make the decision that unblocks the team. Across those projects, I reduced feature lead time by <span class="highlight">55%</span> and production bugs by <span class="highlight">60%</span> — not with magic, but with process ownership and structured code reviews.</p>
+
+      <p style="margin-top:12px">What attracted me to <span class="highlight">G2i</span> specifically: you don't treat engineers as a commodity. The 30% margin, the custom process per client, Gabriel Ferreira in Sao Paulo — LATAM is strategic for you, not plan B. And Gabe creating the <span class="green">Developer Health Fund</span> tells me the culture is real, not a marketing page. But here's the real connection: <span class="highlight">I already work through consulting networks like G2i</span>. This isn't a departure from Impact X — it's a strategic partnership that actually strengthens it.</p>
+
+      <p style="margin-top:12px">I want to be on the <span class="highlight">front line of AI-native systems</span> where my code becomes the ground truth that models learn from. I already run <span class="highlight">technical interviews at Impact X</span> — I know how to evaluate code quality, which is literally what the RLHF role demands. My goal is to contribute not just as an engineer, but help <span class="highlight">scale the operation</span> — quality standards, selection, talent pipeline.</p>
+
+      <p style="margin-top:12px;color:var(--text-secondary);font-style:italic">If this makes sense for your team, I'd love to move forward.</p>
+    </div>
+
+    <div class="keyword-tree">
+      <h4>Keyword Memory Tree — Nested Bullet List</h4>
+      <ul class="kt-branch">
+        <li>
+          <strong>1. WHO I AM</strong>
+          <ul>
+            <li>Rafael, <span class="metric">11 years</span></li>
+            <li>TypeScript + React + Node = their stack</li>
+            <li>Tech Lead at Impact X (my consultancy)</li>
+            <li>Boutique consultancy, <span class="metric">10 devs allocated</span></li>
+            <li>Inspired by Flylance, learned model at X-Team</li>
+          </ul>
+        </li>
+        <li>
+          <strong>2. WHAT I DELIVERED (ownership of result)</strong>
+          <ul>
+            <li>Hubble: payment infra <span class="metric">46 countries</span>
+              <ul>
+                <li><span class="metric">$12k MRR</span> month 1 (top 2-3%)</li>
+                <li><span class="metric">-50%</span> payment bugs</li>
+                <li>from ZERO, no playbook = HIGH AGENCY</li>
+              </ul>
+            </li>
+            <li>Client Projects: <span class="metric">3 simultaneous projects</span>
+              <ul>
+                <li>Streaming + Gov portal + IoT dashboard</li>
+                <li>All <span class="metric">already delayed</span> when joined</li>
+                <li>Team <span class="metric">10 eng</span>, <span class="metric">zero turnover</span></li>
+                <li><span class="metric">-55%</span> lead time, <span class="metric">-60%</span> bugs, <span class="metric">-40%</span> latency</li>
+                <li><span class="metric">stakeholder mgmt</span>: rebuilt client trust</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>3. HOW I WORK (High Agency)</strong>
+          <ul>
+            <li>"I don't wait for a playbook"</li>
+            <li>ambiguity: map it, propose, DECIDE</li>
+            <li>ownership beyond scope (Tecnogueto: nobody asked, I did it)</li>
+            <li>I care if it SOLVED the problem, not just if it shipped</li>
+          </ul>
+        </li>
+        <li>
+          <strong>4. WHY G2I (genuine knowledge)</strong>
+          <ul>
+            <li>30% margin: engineers aren't commodity</li>
+            <li>Gabriel Ferreira in SP: LATAM is strategic</li>
+            <li>Developer Health Fund: culture is real</li>
+            <li>Gabe bootstrapped since 2012, no VC: respect</li>
+            <li>React Miami + AI Engineer Miami</li>
+          </ul>
+        </li>
+        <li>
+          <strong>5. WHY ME FOR RLHF</strong>
+          <ul>
+            <li>already run technical interviews: know how to evaluate code</li>
+            <li>11 years writing React/TS = quality ground truth</li>
+            <li>evaluating AI code = natural extension of what I already do</li>
+            <li>"didn't build models, but I know what excellent code looks like"</li>
+          </ul>
+        </li>
+        <li>
+          <strong>6. WHAT I WANT (plant the seed)</strong>
+          <ul>
+            <li>front line of AI-native</li>
+            <li>influence over architecture</li>
+            <li>contribute to the OPERATION, not just code</li>
+            <li>quality standards, selection, talent pipeline</li>
+          </ul>
+        </li>
+        <li>
+          <strong>7. EXTRAS (if it comes up)</strong>
+          <ul>
+            <li>Tecnogueto: social impact, <span class="metric">70% placement</span>, <span class="metric">R$200k</span></li>
+            <li>X-Team: SSR/SSG, GraphQL, <span class="metric">+40%</span> engagement</li>
+            <li>TinkerList: Notion-like editor, offline-first</li>
+            <li>Iteris: COVID in 1 month, <span class="metric">+80%</span> engagement</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="callout warning">
+      <strong>NaGringa tips:</strong>
+      <p>&#8226; Pause after "and how I work" — let it land<br>
+      &#8226; Every story = MEASURED result, not feature delivered<br>
+      &#8226; If you say "I used React" replace with "I reduced X by Y%" — seniors talk results<br>
+      &#8226; Don't create villains, don't fake perfection, tell the truth with numbers<br>
+      &#8226; Speak calmly — confidence > speed</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 7: STAR + HIGH AGENCY ==================== -->
   <div id="star" class="tab-content">
-    <h2>STAR Method: Telling Stories That Stick</h2>
-    
-    <p>STAR is the backbone of behavioral interviews. It's a simple but powerful structure that keeps your stories clear, compelling, and credible.</p>
+    <h2 style="color:var(--green);margin-bottom:20px;">7 STAR Stories + High Agency Framework</h2>
 
-    <div class="section">
-      <h3>The STAR Framework Breakdown</h3>
-      
-      <p><strong>S – Situation (Set the context)</strong></p>
-      <p>Establish where you were, what the challenge was, and why it mattered.</p>
-      <div class="example">
-"I was a backend engineer at [Company] working on the payments team. We processed $100M+ annually, but our reconciliation process was manual and error-prone. This was causing accounting delays and customer trust issues."
+    <!-- STORY INDEX -->
+    <div class="story-index">
+      <div class="story-index-item" onclick="document.getElementById('story1').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 1</div>
+        <div class="si-title">Leadership & Stakeholder Recovery</div>
+        <div class="si-tags">
+          <span class="si-tag leadership">leadership</span>
+          <span class="si-tag stakeholder">stakeholder mgmt</span>
+          <span class="si-tag ownership">3 projects</span>
+        </div>
       </div>
-      
-      <p><strong>T – Task (Define your role)</strong></p>
-      <p>Make clear what YOUR responsibility was—not the team's.</p>
-      <div class="example">
-"I was tasked with building an automated reconciliation system. This was critical because our accounting team was spending 2 days each week on manual reconciliation."
+      <div class="story-index-item" onclick="document.getElementById('story2').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 2</div>
+        <div class="si-title">Decision Under Ambiguity</div>
+        <div class="si-tags">
+          <span class="si-tag ambiguity">ambiguity</span>
+          <span class="si-tag technical">architecture</span>
+          <span class="si-tag ownership">$12k MRR</span>
+        </div>
       </div>
-      
-      <p><strong>A – Action (Show your agency)</strong></p>
-      <p>Detail the specific steps YOU took. Use "I" language. This is where high agency shines.</p>
-      <div class="example">
-"I took ownership of the project end-to-end. First, I spent a week analyzing the reconciliation process with the accounting team to understand failure modes. I identified that 80% of mismatches came from three sources: timing issues, currency conversions, and fee calculations.
-
-Then I designed a system that automatically matched transactions using these three rules. I built an API that consumed transaction logs from our payment processor, applied the matching logic, and flagged discrepancies for manual review.
-
-I also built a dashboard so the accounting team could see real-time reconciliation status. I iterated on the design based on their feedback—they wanted to see which transactions were flagged and why.
-
-Finally, I wrote comprehensive tests, documented the system, and trained the team on how to use it."
+      <div class="story-index-item" onclick="document.getElementById('story3').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 3</div>
+        <div class="si-title">Ownership Beyond Scope</div>
+        <div class="si-tags">
+          <span class="si-tag ownership">ownership</span>
+          <span class="si-tag entrepreneurship">social impact</span>
+        </div>
       </div>
-      
-      <p><strong>R – Result (Quantify the impact)</strong></p>
-      <p>Give numbers. Metrics make impact real.</p>
-      <div class="example">
-"The system worked. We automated 95% of reconciliation, reducing manual effort from 2 days to 2 hours per week. The accounting team could now reconcile daily instead of weekly, improving our financial controls. This also improved customer trust—we could respond to reconciliation questions in hours instead of days.
-
-As a bonus, during the process I learned a lot about payment processing and accounting systems. I became the go-to person on the team for anything payments-related."
+      <div class="story-index-item" onclick="document.getElementById('story3b').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 3B</div>
+        <div class="si-title">Building Impact X Consultancy</div>
+        <div class="si-tags">
+          <span class="si-tag entrepreneurship">entrepreneurship</span>
+          <span class="si-tag leadership">consulting model</span>
+        </div>
+      </div>
+      <div class="story-index-item" onclick="document.getElementById('story4').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 4</div>
+        <div class="si-title">Hard Technical Decision</div>
+        <div class="si-tags">
+          <span class="si-tag technical">architecture</span>
+          <span class="si-tag ownership">trade-offs</span>
+        </div>
+      </div>
+      <div class="story-index-item" onclick="document.getElementById('story5').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 5</div>
+        <div class="si-title">Failure + Learning</div>
+        <div class="si-tags">
+          <span class="si-tag failure">failure</span>
+          <span class="si-tag leadership">growth</span>
+        </div>
+      </div>
+      <div class="story-index-item" onclick="document.getElementById('story6').scrollIntoView({behavior:'smooth'})">
+        <div class="si-number">STORY 6</div>
+        <div class="si-title">AI Connection & Future Vision</div>
+        <div class="si-tags">
+          <span class="si-tag ai">RLHF ready</span>
+          <span class="si-tag technical">code quality</span>
+        </div>
       </div>
     </div>
 
-    <div class="key-point">
-      <strong>STAR Rule:</strong> Each section should be 30-45 seconds. If any section takes longer, you're overcomplicating it. The interviewer should understand clearly what you did and why it mattered.
-    </strong>
+    <div class="nagringa-quote">
+      "High Agency is what separates exceptional engineers. Three pillars: <strong style="color:var(--yellow)">ownership, action and clarity</strong>. You saw the impact and decided to act — not because you were asked, but because you saw it needed to be done."
+      <span class="source">— Lucas Faria, NaGringa (on High Agency at Brex)</span>
     </div>
 
-    <h3>STAR Template for Your Stories</h3>
-    
-    <div class="section">
-      <h4>Template: Problem-Solving Story</h4>
-      <p><strong>Situation:</strong> "I was working at [Company] as a [Role]. We faced [Problem]. This mattered because [Business Impact]."</p>
-      <p><strong>Task:</strong> "I was responsible for [Your specific ownership]."</p>
-      <p><strong>Action:</strong> "I took these steps: [1], [2], [3]. I also [unexpected challenge + how you overcame it]."</p>
-      <p><strong>Result:</strong> "The outcome was [Metric 1] improvement in [area], [Metric 2] improvement in [area], and I learned [key learning]."</p>
+    <div class="callout info">
+      <strong>NaGringa rules:</strong>
+      <p>&#8226; 90 sec to 2 min per story | Ownership of the <span class="kw">RESULT</span>, not the delivery<br>
+      &#8226; <span class="kw-red">No villains</span> | <span class="kw-red">No perfect success</span> | With <span class="kw">specific numbers</span><br>
+      &#8226; Minimum 1 story of "went beyond what was asked"<br>
+      &#8226; 7 different stories: <span class="kw-green">leadership</span>, <span class="kw-green">ambiguity</span>, <span class="kw-green">ownership</span>, <span class="kw-green">technical</span>, <span class="kw-green">failure</span>, <span class="kw-green">AI</span>, <span class="kw-green">stakeholder</span></p>
     </div>
 
-    <div class="section">
-      <h4>Template: Initiative Story</h4>
-      <p><strong>Situation:</strong> "At [Company], I noticed [Gap]. This was affecting [Team/Business]."</p>
-      <p><strong>Task:</strong> "Without waiting for permission, I took it upon myself to [High Agency Action]."</p>
-      <p><strong>Action:</strong> "Here's what I did: [Action 1], [Action 2], [Action 3]. I coordinated with [Team] to ensure alignment."</p>
-      <p><strong>Result:</strong> "We saw [Metric] improvement. It also set a precedent for [Team Culture Shift]."</p>
+    <!-- STORY 1: LEADERSHIP + STAKEHOLDER -->
+    <div id="story1" class="star-story">
+      <h4>Story 1 — LEADERSHIP + STAKEHOLDER RECOVERY (Client Projects at Impact X)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">HIGH AGENCY</span> <span class="ha-pill">STAKEHOLDER MGMT</span> Why this story matters</h4>
+        <p>Not just "led a team". I <span class="kw">inherited 3 delayed projects</span>, rebuilt client trust through transparency and delivery, restructured processes without permission, and measured results. Seniors don't just ship features — they care if the <span class="kw">problem is actually solved</span>.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> Impact X client engagement — <span class="kw">3 simultaneous projects</span>: Infinitoon (Brazil's first cartoon streaming platform), a DETRAN driver's license exam portal, and an IoT device management dashboard. Team of <span class="kw">10 engineers</span>. All 3 projects were <span class="kw-red">already behind schedule</span> when I came on board. Clients were frustrated and losing confidence.</p>
+      <p><span class="star-label star-t">TASK</span> I was the technical reference point. Had to <span class="kw">recover client trust</span>, fix delivery cadence, and ensure quality — simultaneously across 3 different products with different stakeholders.</p>
+      <p><span class="star-label star-a">ACTION</span> First: <span class="kw-blue">stakeholder management</span>. Set up transparent status reports, gave honest timelines instead of optimistic lies. Clients started trusting the process. Then: restructured <span class="kw-green">sprint planning</span> with clear ownership per feature — each engineer knew what was THEIRS. Introduced <span class="kw-green">structured code reviews</span> and test coverage standards that didn't exist before. When I saw streaming latency was bad on Infinitoon, I made the call to optimize CDN and implement <span class="kw">Redis caching</span> without waiting for approval — because the problem was urgent.</p>
+      <p><span class="star-label star-r">RESULT</span> Lead time <span class="kw">-55%</span> (20 to 9 days). Production bugs <span class="kw">-60%</span>. Latency <span class="kw">-40%</span>. <span class="kw">Zero turnover</span> in 1 year. Clients went from frustrated to <span class="kw-green">advocates of the team</span>. The team performed better because they had clarity and ownership, not micromanagement.</p>
     </div>
 
-    <div class="section">
-      <h4>Template: Failure Story</h4>
-      <p><strong>Situation:</strong> "I was working on [Project]. I believed [Approach] was the right way forward."</p>
-      <p><strong>Task:</strong> "I led [Initiative]."</p>
-      <p><strong>Action:</strong> "Halfway through, [What went wrong]. Instead of giving up, I [Pivot/Recovery]. I also [Learning from failure]."</p>
-      <p><strong>Result:</strong> "The project ultimately [Outcome]. More importantly, I learned [Key insight]. Now I always [How you apply the learning]."</p>
+    <!-- STORY 2: AMBIGUITY -->
+    <div id="story2" class="star-story">
+      <h4>Story 2 — DECISION UNDER AMBIGUITY (Hubble)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">HIGH AGENCY</span> Decision > paralysis</h4>
+        <p>No playbook, no legacy system, <span class="kw">46 countries</span> with different regulations. Most would freeze doing infinite analysis. I mapped, decided and executed. The result validates the decision.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> Hubble — international marketplace. Payment infrastructure <span class="kw">from zero</span>. 46 countries, different currencies, different providers, different regulations. No existing system.</p>
+      <p><span class="star-label star-t">TASK</span> Responsible for the entire architecture. Choose providers, define <span class="kw-green">error handling</span>, ensure it scales.</p>
+      <p><span class="star-label star-a">ACTION</span> Mapped provider <span class="kw-green">trade-offs</span> quickly (not indefinitely). Proposed architecture with comprehensive error handling. Prioritized <span class="kw">robustness over features</span> — first it works without bugs, then expand. Made the decision and executed.</p>
+      <p><span class="star-label star-r">RESULT</span> <span class="kw">$12,000 MRR in month 1</span> (top 2-3% early-stage startups). <span class="kw">-50%</span> payment bugs. 46 countries in production. The quick decision generated quick revenue.</p>
     </div>
 
-    <h3>STAR + High Agency = Unstoppable Stories</h3>
-    
-    <div class="section">
-      <p>The magic happens when you combine STAR with high agency language:</p>
-      <ul>
-        <li>Use "I" and "me" liberally (without sounding arrogant)</li>
-        <li>Emphasize decision-making: "I decided to..." "I chose to..."</li>
-        <li>Show initiative: "Without waiting for approval, I..." "I took ownership of..."</li>
-        <li>Own the outcome: "I delivered..." "I shipped..." "I drove..."</li>
-        <li>Connect to impact: "Which resulted in..." "This enabled..."</li>
-      </ul>
+    <!-- STORY 3: OWNERSHIP -->
+    <div id="story3" class="star-story">
+      <h4>Story 3 — OWNERSHIP BEYOND SCOPE (Tecnogueto)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">HIGH AGENCY</span> Nobody asked. I saw the problem and solved it.</h4>
+        <p>This is the story that proves <span class="kw">genuine ownership</span>. It wasn't "my job". No financial incentive. Saw it needed to be done and did it.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> Underrepresented communities with talent but <span class="kw-red">zero access</span> to the tech market. Nobody was solving this practically in my region.</p>
+      <p><span class="star-label star-t">TASK</span> Not my job. But if nobody did it, the problem would continue.</p>
+      <p><span class="star-label star-a">ACTION</span> Co-founded Tecnogueto. Designed complete <span class="kw-green">technical curriculum</span> (JS, web dev, soft skills, English). Built partnerships with tech companies. Led volunteers. Raised <span class="kw">R$200k</span> in grants.</p>
+      <p><span class="star-label star-r">RESULT</span> <span class="kw">70% job placement rate</span> — students at B2W, Vale, Totvs. <span class="kw">100+ students</span>. Proof: ownership isn't about your title — it's about seeing impact and acting.</p>
     </div>
 
+    <!-- STORY 3B: BUILDING IMPACT X -->
+    <div id="story3b" class="star-story">
+      <h4>Story 3B — BUILDING IMPACT X (Entrepreneurship + Consulting Model)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">HIGH AGENCY</span> Saw a gap, built a consulting operation from scratch.</h4>
+        <p>I didn't just work in consulting at X-Team — I <span class="kw">learned the model and built my own</span>. This story shows ownership at a different level: not just executing well, but seeing a business opportunity and creating it.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> At X-Team, I saw how consulting models work — the <span class="kw-green">relationship-based placements</span>, the quality focus, the network effect. But I also saw the limitations of big shops: engineers treated as commodities, one-size-fits-all process. There was a gap for <span class="kw">boutique, trust-based consulting</span> inspired by Flylance.</p>
+      <p><span class="star-label star-t">TASK</span> Build something better. A consultancy where I hand-pick engineers I actually trust, place them at international clients, and sometimes work through other networks like G2i when the fit is perfect.</p>
+      <p><span class="star-label star-a">ACTION</span> Started Impact X in 2023. Recruited a network of <span class="kw">10 engineers</span> I personally vetted. Built a pipeline of international clients. Sometimes we work through consulting networks like G2i — same as I did at X-Team. Stayed <span class="kw-green">hands-on</span>: I conduct technical interviews, mentor engineers, handle quality control personally. Zero churn because it's based on <span class="kw">real relationships and quality standards</span>, not just rate arbitrage.</p>
+      <p><span class="star-label star-r">RESULT</span> <span class="kw">10 developers allocated</span> across international clients. <span class="kw">Zero involuntary turnover</span>. Healthy pipeline, sustainable growth. Proof that I understand G2i's business model from the inside — because I run a smaller version of it. This isn't a risky hire; it's a <span class="kw-green">strategic partnership</span>.</p>
+    </div>
+
+    <!-- STORY 4: TECHNICAL DECISION -->
+    <div id="story4" class="star-story">
+      <h4>Story 4 — HARD TECHNICAL DECISION (TinkerList.tv)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">HIGH AGENCY</span> Defended the decision with clear trade-offs</h4>
+        <p>Not just "chose PouchDB". Analyzed <span class="kw-green">trade-offs</span>, defended the decision, implemented it, and the result validated it. Seniors make the choice AND own the consequences.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> Notion-like block editor. <span class="kw">Concurrent editing</span> + offline-first + reliable sync. Real architecture problem.</p>
+      <p><span class="star-label star-t">TASK</span> Choose sync architecture. Decision impacted <span class="kw-green">performance, UX and reliability</span> of the entire product.</p>
+      <p><span class="star-label star-a">ACTION</span> PouchDB for <span class="kw">offline-first</span>. Custom conflict resolution for concurrent edits. Optimized rendering for real-time collaboration on large docs. Defended the decision with data and clear trade-offs.</p>
+      <p><span class="star-label star-r">RESULT</span> <span class="kw">100% offline support</span>. <span class="kw">-40%</span> rendering latency on large docs. <span class="kw">-60%</span> sync incidents. Product scaled without issues.</p>
+    </div>
+
+    <!-- STORY 5: FAILURE -->
+    <div id="story5" class="star-story">
+      <h4>Story 5 — FAILURE + LEARNING (Honest)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">NAGRINGA</span> Perfect success is a red flag. Tell the truth.</h4>
+        <p>Everyone fails. The difference is: did you <span class="kw">LEARN and CHANGE</span> your behavior? This story shows maturity.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> Early at Impact X, I tried to do everything myself — architecture, code, review, planning. I thought leading meant <span class="kw-red">having all the answers</span>.</p>
+      <p><span class="star-label star-t">TASK</span> Deliver a complex project on time with quality.</p>
+      <p><span class="star-label star-a">ACTION</span> Realized <span class="kw-red">I was the bottleneck</span>. Changed approach: delegated with real ownership (not micromanaging), structured <span class="kw-green">code reviews as teaching tools</span> (not control), and started asking "what do you think?" before giving my opinion.</p>
+      <p><span class="star-label star-r">RESULT</span> The team after that shift: <span class="kw">-55% lead time, zero turnover</span>. The lesson: leadership isn't having all the answers — it's creating the environment where the team finds the answers. <span class="kw-green">My failure made me a better leader</span>.</p>
+    </div>
+
+    <!-- STORY 6: AI CONNECTION -->
+    <div id="story6" class="star-story">
+      <h4>Story 6 — AI CONNECTION (Future Vision)</h4>
+      <div class="ha-box">
+        <h4><span class="ha-pill">RLHF READY</span> Why I'm the right profile for AI training data</h4>
+        <p>I don't need to pretend I'm an ML engineer. My role in RLHF is to be the <span class="kw">HUMAN who knows what excellent code looks like</span>. 11 years writing React/TS = quality ground truth.</p>
+      </div>
+      <p><span class="star-label star-s">SITUATION</span> At Impact X, I started using AI deeply in the workflow — code reviews, planning, automations. Not as a buzzword, but as a <span class="kw-green">real tool</span>.</p>
+      <p><span class="star-label star-t">TASK</span> Understand how AI truly changes engineering and how to build WITH models, not despite them.</p>
+      <p><span class="star-label star-a">ACTION</span> Integrated AI into the complete Impact X workflow. Run <span class="kw">technical interviews</span> — know how to evaluate others' code, which is literally what RLHF demands. Actively study how quality frontend serves as training data. Understand that the model is only as good as the human examples it receives.</p>
+      <p><span class="star-label star-r">RESULT</span> Impact X grew with less overhead. My thesis: the next leap in frontend engineering is exactly where G2i is — at the <span class="kw">intersection of quality human code and model training</span>. I want to be there because I know how to evaluate, write, and teach what "good code" is.</p>
+    </div>
+
+    <div class="callout danger">
+      <strong>NEVER do (NaGringa):</strong>
+      <p>&#8226; <span class="kw-red">Lie</span> (follow-ups will expose it)<br>
+      &#8226; <span class="kw-red">Create "villains"</span> (giant red flag — "my boss was bad" = never)<br>
+      &#8226; <span class="kw-red">Perfect success</span> (life is messy, tell the truth — Story 5)<br>
+      &#8226; <span class="kw-red">Focus only on tech</span> ("I used React" isn't a story. "I reduced checkout by 40%" is a story)</p>
+    </div>
   </div>
 
-  <!-- TAB: EXECUTION -->
-  <div id="execution" class="tab-content">
-    <h2>Interview Execution Checklist</h2>
-    
-    <p>This checklist helps you prepare, execute, and follow up effectively.</p>
+  <!-- ==================== TAB 8: QUESTIONS ==================== -->
+  <div id="questions" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Questions — To Ask and To Answer</h2>
 
-    <h3>Pre-Interview Preparation (1-2 weeks before)</h3>
-    
-    <div class="section">
-      <ul>
-        <li>☑️ <strong>Identify 5-7 STAR stories</strong> covering: technical challenge, failure/learning, initiative, collaboration, and impact</li>
-        <li>☑️ <strong>Map stories to likely questions:</strong> Tell me about yourself, biggest challenge, failure, teamwork, etc.</li>
-        <li>☑️ <strong>Practice each story:</strong> Time yourself. Aim for 2 minutes per story (S 30s, T 15s, A 45s, R 30s)</li>
-        <li>☑️ <strong>Prepare metrics:</strong> Have numbers ready. "Reduced latency by 40%" beats "Made it faster"</li>
-        <li>☑️ <strong>Research the company:</strong> Product, culture, recent news, team structure</li>
-        <li>☑️ <strong>Prepare questions for them:</strong> Show genuine interest. Ask about technical challenges they're solving</li>
-        <li>☑️ <strong>Mock interview:</strong> Do a dry run with a friend or mentor. Get feedback on delivery</li>
-      </ul>
+    <div class="card">
+      <h3>Questions FOR the recruiter (pick 2 of 4)</h3>
+
+      <div style="background:var(--green-bg);padding:16px;border-radius:8px;margin-bottom:12px">
+        <strong style="color:var(--green)">1. About the project (shows research)</strong>
+        <p style="margin-top:8px;font-style:italic">"Gabe mentioned in the Loom that you're building AI-native applications with one of the leading AI labs. Without revealing who the lab is — can you give me more context on what the engineering team is actually building day to day? I want to understand if my React/TypeScript/Node experience connects directly with the technical challenges."</p>
+      </div>
+
+      <div style="background:#FFF8E1;padding:16px;border-radius:8px;margin-bottom:12px">
+        <strong style="color:var(--warning)">2. About the Tech Lead role (shows maturity)</strong>
+        <p style="margin-top:8px;font-style:italic">"With a team scaling to 100-150 engineers, how is the Tech Lead role structured? Who would I report to, how autonomous is the architecture work, and how does the technical leadership interact with the AI lab's own team?"</p>
+      </div>
+
+      <div style="background:#E3F2FD;padding:16px;border-radius:8px;margin-bottom:12px">
+        <strong style="color:#1565C0">3. About contract (shows courage)</strong>
+        <p style="margin-top:8px;font-style:italic">"I understand it starts as a 3-month contract because of the pilot structure. What are the milestones that define the expansion to long-term? What separates the engineers who stay from those who don't?"</p>
+      </div>
+
+      <div style="background:#FCE4EC;padding:16px;border-radius:8px;margin-bottom:12px">
+        <strong style="color:#C62828">4. STRATEGIC question (plants the seed)</strong>
+        <p style="margin-top:8px;font-style:italic">"Beyond the Tech Lead role for this specific project — how do you think about career evolution within G2i? I'm interested in contributing not just with code, but with the operation — selection, quality standards, even helping scale the talent pipeline. Is that a path that exists here?"</p>
+      </div>
     </div>
 
-    <h3>During the Interview (Strategy & Delivery)</h3>
-    
-    <div class="section">
-      <h4>Opening (First 2 Minutes)</h4>
-      <ul>
-        <li>☑️ <strong>Start strong:</strong> "Thanks for taking the time. I'm excited to discuss [specific thing about the role/company]."</li>
-        <li>☑️ <strong>Brief intro:</strong> "I'm a [Role] with [X years] experience. I've focused on [Your specialty]." Keep it 30 seconds.</li>
-        <li>☑️ <strong>Lead with impact:</strong> "Most recently, I [High-impact achievement]."</li>
-      </ul>
-      
-      <h4>During Questions</h4>
-      <ul>
-        <li>☑️ <strong>Listen first:</strong> Understand the question before answering. Ask for clarification if needed.</li>
-        <li>☑️ <strong>Use STAR for behavioral questions:</strong> Never just answer "yes" or "no." Always tell a story.</li>
-        <li>☑️ <strong>Bridge to your strength:</strong> "That reminds me of a time when I..." [Launch into STAR story]</li>
-        <li>☑️ <strong>Use high agency language:</strong> "I identified," "I decided," "I drove," "I shipped"</li>
-        <li>☑️ <strong>Quantify outcomes:</strong> "Which improved [metric] by [percentage]."</li>
-        <li>☑️ <strong>Show learning:</strong> End stories with "I learned..." or "This taught me..."</li>
-        <li>☑️ <strong>Pause for questions:</strong> After each story, "Does that answer your question? Do you want to dive deeper?"</li>
-      </ul>
+    <div class="card">
+      <h3>Questions they WILL ask — and how to answer</h3>
 
-      <h4>Technical Questions</h4>
-      <ul>
-        <li>☑️ <strong>Think out loud:</strong> "Let me think through this..." Show your reasoning process.</li>
-        <li>☑️ <strong>Ask clarifying questions:</strong> "What's the scale?" "Are there constraints I should know about?"</li>
-        <li>☑️ <strong>Start simple, build complexity:</strong> "A basic approach would be... But given [constraint], I'd optimize by..."</li>
-        <li>☑️ <strong>Trade-offs matter:</strong> "Here's the tradeoff: [Option A] is faster but [downside]. [Option B] is more reliable but [downside]. I'd choose [Option] because..."</li>
-        <li>☑️ <strong>Show past experience:</strong> "I built something similar at [Company]. We used [Technology/Approach]."</li>
-      </ul>
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"Tell me about yourself"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; 2 min Pitch (Pitch Tab). <span class="kw-green">Result, not feature.</span></p>
+      </div>
 
-      <h4>When You Don't Know the Answer</h4>
-      <ul>
-        <li>☑️ <strong>Don't panic:</strong> Confidence in uncertainty is attractive.</li>
-        <li>☑️ <strong>Acknowledge:</strong> "I haven't worked with [Technology], but here's how I'd approach learning it..."</li>
-        <li>☑️ <strong>Show reasoning:</strong> "I'd start by [Step 1], then [Step 2]."</li>
-        <li>☑️ <strong>Connect to relevant experience:</strong> "I've learned other [similar] technologies like this..."</li>
-      </ul>
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"Why G2i?"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; "You don't treat engineers as commodity. <span class="kw">30% margin</span>. Custom process. LATAM is strategic. Developer Health Fund shows the culture is real. And I want to be at the front line of AI-native — where my code becomes the <span class="kw">ground truth</span> models learn from."</p>
+      </div>
 
-      <h4>Closing (Last 5 Minutes)</h4>
-      <ul>
-        <li>☑️ <strong>Ask your questions:</strong> "I'm curious about [challenge] the team is working on. How does the team approach [technical decision]?"</li>
-        <li>☑️ <strong>Express enthusiasm:</strong> "I'm really excited about this opportunity because [Specific reason]."</li>
-        <li>☑️ <strong>End strong:</strong> "Thanks again. I'm confident I can make a real impact here."</li>
-      </ul>
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"What's your experience with AI?"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; <span class="kw-green">HONEST:</span> "My AI experience is as a <span class="kw">power user and workflow integrator</span> — I haven't built models. But what you need for the RLHF pipeline isn't someone who trains models. It's someone who writes React/TypeScript/Node at a level that serves as <span class="kw">ground truth</span>. That's 11 years of practice. I also run technical interviews at Impact X — evaluating code quality is literally what RLHF demands from the human side."</p>
+      </div>
+
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"Give me an example of leadership"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; STAR 1: <span class="kw">3 delayed projects</span>, 10 eng, rebuilt client trust, zero turnover, -55% lead time, -60% bugs. <span class="kw-green">Stakeholder management</span> + process ownership.</p>
+      </div>
+
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"How do you handle ambiguity?"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; STAR 2: Hubble. Payment infra <span class="kw">46 countries from zero</span>. No playbook. Mapped, decided, executed. $12k MRR month 1. "I'd rather make a well-informed decision quickly than a perfect decision slowly."</p>
+      </div>
+
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"What do you know about G2i?"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; "8,000+ engineers, bootstrapped by Gabe since 2012. Clients like Meta, Google, Webflow. ~30% margin, interviews by senior engineers. Current focus on AI — RLHF, training data, fine-tuning. I watched the Loom, researched React Miami, and know Gabriel Ferreira manages LATAM talent from Sao Paulo."</p>
+      </div>
+
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"Does the 3-month contract concern you?"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; "It's a <span class="kw-green">calculated risk</span> I accept with eyes open. The upside of being at the front line of an AI lab building native systems outweighs the contract risk. And my track record shows I deliver — in 3 months you'll have enough data to decide."</p>
+      </div>
+
+      <div style="border-bottom:1px solid #eee;padding:16px 0">
+        <strong>"Tell me about a failure"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; STAR 5: "Early at Impact X I tried to do everything myself. Thought leading meant having all the answers. <span class="kw-red">Realized I was the bottleneck</span>. Changed approach: real delegation, reviews as teaching tools, asking before telling. Result: team hit <span class="kw">-55% lead time and zero turnover</span>. My failure made me a better leader."</p>
+      </div>
+
+      <div style="padding:16px 0">
+        <strong>"Why would you leave Impact X for a 3-month contract?"</strong>
+        <p style="color:var(--green);font-size:0.9rem;margin-top:4px">&#8594; "Impact X is my boutique consultancy — I run it, I won't leave it. Working through G2i is actually <span class="kw-green">how the model works</span>. I already place engineers through consulting networks. G2i isn't a departure, it's a <span class="kw">strategic partnership</span>. I bring my own quality standards and I understand your business model because I run a smaller version of it."</p>
+      </div>
     </div>
-
-    <h3>Post-Interview (Follow-Up)</h3>
-    
-    <div class="section">
-      <ul>
-        <li>☑️ <strong>Send within 24 hours:</strong> Email thank you note to your interviewer</li>
-        <li>☑️ <strong>Personalize it:</strong> Reference something specific from the conversation: "When you mentioned [Topic], it reminded me of [Experience]."</li>
-        <li>☑️ <strong>Reiterate interest:</strong> "I'm genuinely excited about this role because..."</li>
-        <li>☑️ <strong>Offer more info:</strong> "Feel free to reach out if you have follow-up questions."</li>
-        <li>☑️ <strong>Keep it brief:</strong> One short paragraph. Respect their time.</li>
-      </ul>
-    </div>
-
-    <h3>Interview Anti-Patterns (What to Avoid)</h3>
-    
-    <div class="section">
-      <ul>
-        <li>❌ <strong>Passive language:</strong> "The team decided..." → Use "I decided..."</li>
-        <li>❌ <strong>No metrics:</strong> "It went well" → Say "We improved X by Y%"</li>
-        <li>❌ <strong>Rambling stories:</strong> Time yourself. 2 minutes max per story.</li>
-        <li>❌ <strong>No learning moments:</strong> Always end with what you learned or how you grew</li>
-        <li>❌ <strong>Dishonesty:</strong> Don't fake experience. Confidence in admitting gaps is better.</li>
-        <li>❌ <strong>Overthinking:</strong> If asked "What's your weakness?" don't panic. "I tend to over-optimize. I've learned to ship early and iterate."</li>
-        <li>❌ <strong>Forgetting them:</strong> Make it a conversation. Ask questions. Show genuine interest.</li>
-      </ul>
-    </div>
-
   </div>
+
+  <!-- ==================== TAB 9: BACKGROUND CHECK ==================== -->
+  <div id="bgcheck" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Background Check — Consistency</h2>
+
+    <div class="callout info">
+      <strong>Important:</strong> G2i does background checks. Everything you say must be consistent between your CV, LinkedIn and interview.
+    </div>
+
+    <div class="card">
+      <h3>Consistency checklist</h3>
+      <div class="check-item"><span class="check-icon" style="color:var(--green)">&#9989;</span><div><strong>Impact X — Tech Lead (Mar 2023 – Present)</strong><br>Hubble + 3 client projects (Infinitoon, DETRAN, IoT). Verifiable. Metrics consistent with CV. Note: it's your consultancy — explain naturally.</div></div>
+      <div class="check-item"><span class="check-icon" style="color:var(--green)">&#9989;</span><div><strong>X-Team — Senior Software Engineer (Jan 2022 – Feb 2023)</strong><br>Internationally known company. Easy to verify.</div></div>
+      <div class="check-item"><span class="check-icon" style="color:var(--green)">&#9989;</span><div><strong>TinkerList.tv — Senior Frontend Engineer (2021 – 2022)</strong><br>Belgian company, real product. Verifiable.</div></div>
+      <div class="check-item"><span class="check-icon" style="color:var(--green)">&#9989;</span><div><strong>Iteris — Frontend Engineer (2020 – 2021)</strong><br>Brazilian company. Verifiable.</div></div>
+      <div class="check-item"><span class="check-icon" style="color:var(--green)">&#9989;</span><div><strong>Tecnogueto — Co-Founder (Mar 2019 – Jul 2020)</strong><br>Startup with media coverage. R$200k documented. Verifiable.</div></div>
+      <div class="check-item"><span class="check-icon" style="color:var(--warning)">&#9888;&#65039;</span><div><strong>Early Career (2014 – 2019)</strong><br>Generic on CV. If they ask for company names, have them prepared. DO NOT invent.</div></div>
+      <div class="check-item"><span class="check-icon" style="color:var(--green)">&#9989;</span><div><strong>B.Sc. Computer Science — Centro Universitario Carioca (2012 – 2015)</strong><br>Verifiable by diploma.</div></div>
+    </div>
+
+    <div class="callout warning">
+      <strong>Points of attention:</strong>
+      <p>&#8226; <strong>Early Career (2014-2019):</strong> Generic. Prepare real company names if asked.<br>
+      &#8226; <strong>Metrics:</strong> $12k MRR, 46 countries, 10 eng, -55% lead time — know how you measured each one.<br>
+      &#8226; <strong>"11+ years":</strong> 2014-present = ~12 years. Consistent.<br>
+      &#8226; <strong>Impact X:</strong> It's your consultancy. Say: "It's my consulting firm where I lead projects as Tech Lead for international clients."<br>
+      &#8226; <strong>AI experience:</strong> <span class="kw-red">NEVER say you built models</span>. Your experience is as power user/integrator.</p>
+    </div>
+
+    <div class="callout danger">
+      <strong>NEVER say in the interview:</strong>
+      <p>&#8226; Client names from Impact X without authorization<br>
+      &#8226; Metrics you can't substantiate<br>
+      &#8226; That you "built AI models"<br>
+      &#8226; Information about the AI lab they haven't revealed<br>
+      &#8226; Anything that contradicts the written CV</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 10: STRATEGY ==================== -->
+  <div id="strategy" class="tab-content">
+    <h2 style="color:var(--green);margin-bottom:20px;">Strategy — How to Land the Highest Role</h2>
+
+    <div class="callout success">
+      <strong>Your real goal:</strong> Enter as Tech Lead &#8594; prove value &#8594; grow into operational leadership &#8594; contribute to talent pipeline and developer sales.
+    </div>
+
+    <div class="nagringa-quote">
+      "Seniors care if you actually solved the problem. This <span class="kw">ownership mindset</span> is what separates perpetual mid-levels from real seniors."
+      <span class="source">— Lucas Faria, NaGringa</span>
+    </div>
+
+    <div class="card">
+      <h3>Positioning: Senior Product Engineer &#8594; Tech Lead</h3>
+      <p>You're not "just another senior dev". You're someone who:</p>
+      <p style="margin-top:8px">
+      &#8226; <span class="kw-green">Leads projects end-to-end</span> (doesn't just write code)<br>
+      &#8226; <span class="kw-green">Manages people</span> (10 eng, 3 projects, zero turnover)<br>
+      &#8226; <span class="kw-green">Understands business</span> (co-founded startup, $12k MRR)<br>
+      &#8226; <span class="kw-green">Runs technical interviews</span> (already does at Impact X = natural RLHF fit)<br>
+      &#8226; <span class="kw-green">Manages stakeholders</span> (recovered 3 delayed projects, rebuilt client trust)<br>
+      &#8226; <span class="kw-green">Operates with AI</span> (integrated workflow, not buzzword)</p>
+    </div>
+
+    <div class="card">
+      <h3>3-Phase Plan</h3>
+      <div class="strategy-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Months 1-3: Prove technical value (pilot)</h4>
+          <p>Impeccable TypeScript/React/Node code. Be recognized as the eng who <span class="kw-green">elevates quality</span>. Define standards. In the RLHF task, treat each evaluation as if it were the definitive reference. Zero drama, pure output.</p>
+        </div>
+      </div>
+      <div class="strategy-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Months 3-6: Expand scope</h4>
+          <p>Contribute to pipeline <span class="kw-green">architecture decisions</span>. Mentor other engineers. Participate in staffing decisions. Show you think beyond the ticket.</p>
+        </div>
+      </div>
+      <div class="strategy-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Months 6-12: Leadership + pipeline</h4>
+          <p>Leverage my experience running Impact X (10 devs, boutique consultancy model) to contribute to G2i's <span class="kw">talent operations</span>. I don't just code — I source, evaluate, and retain engineers. That's exactly what G2i needs at scale. Propose improvements to the technical selection process. Help G2i evaluate new engineers. Background: technical interviews at Impact X + co-founder Tecnogueto = credibility. This is where you start to <span class="kw">"sell devs"</span>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Strategic phrases (use 1, not all)</h3>
+      <div style="margin-top:12px">
+        <p style="padding:10px;background:var(--green-bg);border-radius:6px;margin-bottom:8px">
+          <em>"I already run technical interviews at Impact X. I know how to evaluate engineers because I've been on both sides."</em>
+        </p>
+        <p style="padding:10px;background:#FFF8E1;border-radius:6px;margin-bottom:8px">
+          <em>"I'm interested in contributing beyond code — quality standards, selection process, onboarding new engineers."</em>
+        </p>
+        <p style="padding:10px;background:#E3F2FD;border-radius:6px;margin-bottom:8px">
+          <em>"I managed 3 simultaneous projects with a team of 10 and zero turnover. I know that retaining talent is as hard as finding it."</em>
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Why Tech Lead is the right entry role</h3>
+      <p>&#8226; <span class="kw-green">Writes reference code</span> (Eng Managers don't do this)<br>
+      &#8226; <span class="kw-green">Hands-on architectural judgment</span><br>
+      &#8226; <span class="kw-green">Leads by technical example</span> (not pure management)<br>
+      &#8226; Sweet spot between technical impact and organizational influence<br>
+      &#8226; Once inside with credibility, expansion to operational leadership is natural</p>
+    </div>
+
+    <div class="card">
+      <h3>Pre-call checklist</h3>
+      <div style="font-size:0.95rem">
+        <div class="check-item"><span class="check-icon">&#127919;</span> Pitch practiced OUT LOUD in English (1-2x)</div>
+        <div class="check-item"><span class="check-icon">&#127919;</span> 2 questions for the recruiter chosen</div>
+        <div class="check-item"><span class="check-icon">&#127919;</span> 3 STAR stories ready (1, 2, 5)</div>
+        <div class="check-item"><span class="check-icon">&#127919;</span> Keywords open on 2nd monitor or printed</div>
+        <div class="check-item"><span class="check-icon">&#127919;</span> Loom rewatched (last 2 min)</div>
+        <div class="check-item"><span class="check-icon">&#127919;</span> Webcam, mic, clean background</div>
+        <div class="check-item"><span class="check-icon">&#127919;</span> Breathe. Confidence > speed. Result > feature.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<footer>
-  <p>G2i Interview Prep Guide — Powered by RLHF Intelligence, High Agency Framework, and STAR Method</p>
-  <p>Version 2026.3 | English | Rafael Camillo</p>
-  <p><small>This guide is designed to help you interview at your best. Remember: authenticity + preparation = confidence.</small></p>
-</footer>
+<!-- FOOTER -->
+<div class="report-footer">
+  Impact<span style="color:var(--yellow)">X</span> — Rafael Camillo | Generated 19/03/2026 | v3 EN — NaGringa + RLHF intel + Stakeholder Management<br>
+  <small>Sources: <a href="https://newsletter.nagringa.dev/p/guia-2025-entrevistas-comportamentais">NaGringa Behavioral Guide</a> | <a href="https://newsletter.nagringa.dev/p/high-agency">NaGringa High Agency</a> | <a href="https://www.glassdoor.com/Interview/G2i-Interview-Questions-E4414795.htm">Glassdoor G2i</a></small>
+</div>
 
 <script>
-function switchTab(evt, tabName) {
-  // Hide all tab contents
-  const tabContents = document.querySelectorAll('.tab-content');
-  tabContents.forEach(tab => tab.classList.remove('active'));
-  
-  // Remove active class from all buttons
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  tabButtons.forEach(btn => btn.classList.remove('active'));
-  
-  // Show the current tab and mark button as active
-  document.getElementById(tabName).classList.add('active');
-  evt.currentTarget.classList.add('active');
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
 }
 </script>
-
 </body>
 </html>

@@ -4,9 +4,249 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Estratégia Comercial</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-dark:#5A1E9A;--purple-light:#F3EAFF;--purple-x:#9B59D4;--text:#1A1A2E;--text-sec:#555577;--bg:#FAFAFA;--card:#FFFFFF;--border:#E0D4F5;--green:#1A7A4A;--green-bg:#E8F5EE;--orange:#D4820A;--orange-bg:#FEF3E2;--red:#C0392B;--red-bg:#FDECEA;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
+.hdr{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:white;padding:48px 64px 40px;}
+.hdr-brand{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:16px;}.hdr-brand span{color:#C9A3F5;}
+.hdr-title{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:12px;}
+.hdr-sub{font-size:16px;opacity:.85;font-weight:300;}
+.hdr-meta{display:flex;gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;opacity:.8;flex-wrap:wrap;}
+.content{padding:8px 64px 48px;max-width:1000px;}
+section{margin-bottom:48px;}
+h1{font-size:26px;font-weight:800;color:var(--purple-dark);padding-bottom:10px;border-bottom:3px solid var(--purple);margin-bottom:20px;margin-top:40px;}
+h2{font-size:19px;font-weight:700;color:var(--purple);margin:28px 0 12px;}
+h3{font-size:15px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;margin:20px 0 8px;}
+p{margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(123,47,190,.08);}
+thead tr{background:var(--purple);color:white;}
+thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:13px;letter-spacing:.5px;}
+tbody tr:nth-child(even){background:var(--purple-light);}
+tbody tr:nth-child(odd){background:var(--card);}
+tbody td{padding:10px 16px;border-bottom:1px solid var(--border);}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}.callout-body{}.callout-title{font-weight:700;font-size:14px;margin-bottom:4px;}.callout-text{font-size:14px;line-height:1.6;}
+.callout.info{background:var(--purple-light);border-left:4px solid var(--purple);}.callout.info .callout-title{color:var(--purple-dark);}
+.callout.success{background:var(--green-bg);border-left:4px solid var(--green);}.callout.success .callout-title{color:var(--green);}
+.callout.warning{background:var(--orange-bg);border-left:4px solid var(--orange);}.callout.warning .callout-title{color:var(--orange);}
+.callout.danger{background:var(--red-bg);border-left:4px solid var(--red);}.callout.danger .callout-title{color:var(--red);}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0;}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(123,47,190,.06);}
+.metric-value{font-size:30px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
+.metric-label{font-size:12px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:500;}
+ul,ol{padding-left:22px;margin-bottom:12px;}li{margin:5px 0;}
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:20px 0;}
+.flow-step{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;min-width:140px;}
+.flow-step strong{display:block;font-size:14px;color:var(--purple);margin-bottom:4px;}
+.flow-step span{font-size:12px;color:var(--text-sec);}
+.flow-arrow{font-size:24px;color:var(--purple);padding:0 8px;}
+.tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.tag-confirmed{background:var(--green-bg);color:var(--green);}
+.tag-inferred{background:var(--orange-bg);color:var(--orange);}
+.tag-benchmark{background:var(--purple-light);color:var(--purple);}
+footer{background:var(--text);color:rgba(255,255,255,.6);text-align:center;padding:24px;font-size:13px;margin-top:48px;}
+footer .brand{color:white;font-weight:700;font-size:14px;margin-bottom:4px;}footer .brand .x{color:var(--purple-x);}
+@media print{body{background:white;font-size:12px;}.hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}thead tr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}section{page-break-inside:avoid;}footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
 </head>
 <body>
-<h1>Estratégia Comercial</h1>
-<p>Documento 05 detalhando a estratégia comercial com G2i como canal inicial, diversificação, pipeline de aquisição e timeline para desenvolvimento de canais diretos.</p>
+<div class="hdr">
+  <div class="hdr-brand">IMPACT <span>X</span> — DIAGNÓSTICO EXECUTIVO 2026</div>
+  <div class="hdr-title">05 · Estratégia Comercial</div>
+  <div class="hdr-sub">G2i como canal inicial, diversificação de canais, abordagem comercial, riscos e próximos passos</div>
+  <div class="hdr-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo</span>
+    <span>🔒 Confidencial</span>
+    <span>📄 Arquivo 5 de 9</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>1. G2i como Canal Inicial</h1>
+
+<p><strong>Context:</strong> G2i é uma plataforma de hiring com 8.000+ engenheiros focada em projetos de AI/RLHF. Possuem 80–240 vagas abertas AGORA. Contatos: <strong>Gabe Greenberg (CEO)</strong> + <strong>Gabriela Morua (Tech Recruiter Sênior)</strong>.</p>
+
+<p><strong>A oportunidade:</strong> G2i tentou contratar Rafa como desenvolvedor → relacionamento quente. Impact X flippa de candidato para supplier.</p>
+
+<table>
+  <thead><tr><th>Razão</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Lead quente</strong></td><td>G2i tentou contratar Rafa — relacionamento existente</td></tr>
+    <tr><td><strong>Demanda real</strong></td><td>80–240 vagas abertas para engenheiros</td></tr>
+    <tr><td><strong>Zero CAC</strong></td><td>Não precisa investir em marketing/prospecção</td></tr>
+    <tr><td><strong>Escala rápida</strong></td><td>Marketplace já tem o demand side resolvido</td></tr>
+    <tr><td><strong>Validação do modelo</strong></td><td>Testar supply + prep + pricing sem construir pipeline próprio</td></tr>
+    <tr><td><strong>Bill rate definido</strong></td><td>$35–45/h — pricing já é conhecido</td></tr>
+  </tbody>
+</table>
+
+<div class="callout success">
+  <div class="callout-icon">✅</div>
+  <div class="callout-body">
+    <div class="callout-title">G2i é o 'first customer ideal'</div>
+    <div class="callout-text">Demanda existente, precificação conhecida, baixa fricção de entrada. Usar como trampolim de validação, não como dependência permanente.</div>
+  </div>
+</div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>2. Pipeline de Aquisição — G2i</h1>
+
+<div class="flow">
+  <div class="flow-step"><strong>nagringa.dev</strong><span>300 devs</span></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><strong>Triagem</strong><span>Tech Recruiter</span></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><strong>Prep 3 dias</strong><span>Async</span></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><strong>Submissão G2i</strong><span>Candidato qualificado</span></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><strong>Onboarding</strong><span>RLHF + simulação</span></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><strong>Alocação</strong><span>Faturamento USD</span></div>
+</div>
+
+<h2>Metas de entrega</h2>
+<table>
+  <thead><tr><th>Prazo</th><th>Meta</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Semana 1 (Abr)</strong></td><td>Email/LinkedIn para Gabe + Gabriela</td></tr>
+    <tr><td><strong>Semana 2</strong></td><td>Call com G2i — apresentar proposta</td></tr>
+    <tr><td><strong>Semana 3</strong></td><td>5 candidatos em prep async</td></tr>
+    <tr><td><strong>Semana 4</strong></td><td>Primeiros 2–5 devs submetidos ao G2i</td></tr>
+    <tr><td><strong>M2 (Mai)</strong></td><td>Primeiras alocações confirmadas</td></tr>
+    <tr><td><strong>M3 (Jun)</strong></td><td>4–10 devs alocados (break-even)</td></tr>
+  </tbody>
+</table>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>3. Riscos de Concentração</h1>
+
+<table>
+  <thead><tr><th>#</th><th>Risco</th><th>Impacto</th><th>Prob.</th><th>Mitigação</th></tr></thead>
+  <tbody>
+    <tr><td>RC1</td><td><strong>G2i não responde ou nega parceria</strong></td><td>Zero receita M1–M2</td><td>Média</td><td>Plano B com 3+ canais alternativos mapeados</td></tr>
+    <tr><td>RC2</td><td><strong>G2i reduz demanda</strong> (AI winter, budget cut)</td><td>Receita cai 50–100%</td><td>Baixa</td><td>Diversificação de canais a partir de M4</td></tr>
+    <tr><td>RC3</td><td><strong>G2i renegocia bill rate para baixo</strong></td><td>Margem comprime</td><td>Média</td><td>Contrato com floor rate. Diversificar antes que isso aconteça.</td></tr>
+    <tr><td>RC4</td><td><strong>G2i encontra outro supplier LATAM</strong></td><td>Perda gradual de market share</td><td>Média</td><td>Entregar qualidade excepcional. Ser o supplier mais rápido e confiável.</td></tr>
+    <tr><td>RC5</td><td><strong>100% revenue concentration 6+ meses</strong></td><td>Risco existencial se G2i sair</td><td>Alta</td><td>MANDATÓRIO: iniciar diversificação em Q3 2026</td></tr>
+  </tbody>
+</table>
+
+<div class="callout danger">
+  <div class="callout-icon">🚨</div>
+  <div class="callout-body">
+    <div class="callout-title">Concentração é o maior risco comercial</div>
+    <div class="callout-text">100% de revenue em um único canal é existencial. Planeje a diversificação ANTES de precisar dela.</div>
+  </div>
+</div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>4. Estratégia de Diversificação de Canais</h1>
+
+<table>
+  <thead><tr><th>Canal</th><th>Timing</th><th>Esforço</th><th>CAC est.</th><th>Bill Rate</th><th>Prioridade</th></tr></thead>
+  <tbody>
+    <tr><td>G2i (marketplace)</td><td>Q2 2026</td><td>Baixo</td><td>$0</td><td>$40/h</td><td>🔴 Agora</td></tr>
+    <tr><td>LinkedIn outbound (Apollo.io)</td><td>Q3 2026</td><td>Médio</td><td>R$500–1k/lead</td><td>$50–80/h</td><td>🟡 Próximo</td></tr>
+    <tr><td>Toptal/Turing (outros marketplaces)</td><td>Q3 2026</td><td>Baixo</td><td>$0</td><td>$45–60/h</td><td>🟡 Próximo</td></tr>
+    <tr><td>Referral network (clientes G2i satisfeitos)</td><td>Q3–Q4 2026</td><td>Baixo</td><td>$0</td><td>$50–70/h</td><td>🟢 Orgânico</td></tr>
+    <tr><td>Content marketing (LinkedIn thought leadership)</td><td>Q3 2026</td><td>Médio</td><td>R$0</td><td>Indireto</td><td>🟢 Longo prazo</td></tr>
+    <tr><td>Clientes diretos (website + inbound)</td><td>Q4 2026</td><td>Alto</td><td>R$1–3k/lead</td><td>$60–100/h</td><td>🔵 Futuro</td></tr>
+  </tbody>
+</table>
+
+<h2>Fases de crescimento</h2>
+<ul>
+  <li><strong>Q2 (Abr–Jun):</strong> 100% G2i — validar modelo, medir unit economics, entregar excelência</li>
+  <li><strong>Q3 (Jul–Set):</strong> 70% G2i + 30% canais novos — LinkedIn outbound via Pimenta + Apollo, aplicar Toptal/Turing</li>
+  <li><strong>Q4 (Out–Dez):</strong> 50% G2i + 50% diversificado — primeiros clientes diretos, referrals ativos</li>
+</ul>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>5. Abordagem Comercial Recomendada</h1>
+
+<h2>Script G2i (Rafael Pimenta)</h2>
+<p><strong>Subject:</strong> "Brazilian JS/TS Senior Engineers for AI Training — 5 Ready Now, 20+ by May"</p>
+<ul>
+  <li><strong>Posicionamento:</strong> supplier de volume com qualidade (300+ devs prontos)</li>
+  <li><strong>Diferencial:</strong> prep técnico proprietário que maximiza taxa de aprovação</li>
+  <li><strong>Oferta concreta:</strong> 5 engenheiros na semana 3, 20+ em 60 dias</li>
+  <li><strong>Ask:</strong> call de 20 minutos para alinhar roles abertas</li>
+</ul>
+
+<h2>Objeções comuns G2i</h2>
+<table>
+  <thead><tr><th>Objeção</th><th>Resposta</th></tr></thead>
+  <tbody>
+    <tr><td>"Não conhecemos a Impact X"</td><td>Noir Labs CNPJ constituído. Pool 300+ devs. Processo documentado.</td></tr>
+    <tr><td>"Qualidade dos devs BR?"</td><td>Prep técnico 3 dias async. Só submetemos quem passa triagem interna.</td></tr>
+    <tr><td>"Velocidade?"</td><td>5 candidatos semana 3. Pool ativo pré-mapeado.</td></tr>
+    <tr><td>"Exclusividade?"</td><td>Parceria não-exclusiva. Volume por mérito.</td></tr>
+    <tr><td>"Suporte durante contrato?"</td><td>Acompanhamento full. Garantia substituição 48h.</td></tr>
+  </tbody>
+</table>
+
+<h2>Playbook para canais futuros (Q3+)</h2>
+<ul>
+  <li><strong>LinkedIn:</strong> Pimenta posta 3x/semana sobre staffing LATAM, casos de sucesso</li>
+  <li><strong>Apollo.io:</strong> prospecção de VPs of Engineering em empresas 50–500 funcionários US</li>
+  <li><strong>Toptal:</strong> aplicar como empresa parceira para supply</li>
+  <li><strong>Referral:</strong> pedir indicação a todo cliente G2i satisfeito após 30 dias</li>
+</ul>
+
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<section>
+<h1>6. Próximos Passos Comerciais</h1>
+
+<table>
+  <thead><tr><th>#</th><th>Ação</th><th>Responsável</th><th>Prazo</th><th>Dependência</th></tr></thead>
+  <tbody>
+    <tr><td>PC1</td><td>Enviar email/LinkedIn para Gabe + Gabriela (G2i)</td><td>Pimenta</td><td>Semana 1 Abril</td><td>Contrato PJ Pimenta assinado</td></tr>
+    <tr><td>PC2</td><td>Agendar call de apresentação com G2i</td><td>Pimenta</td><td>Semana 2 Abril</td><td>PC1</td></tr>
+    <tr><td>PC3</td><td>Preparar 5 devs turma piloto</td><td>Rafa C. + Tech Recruiter</td><td>Semana 2–3 Abril</td><td>Material de prep pronto</td></tr>
+    <tr><td>PC4</td><td>Submeter primeiros candidatos ao G2i</td><td>Pimenta</td><td>Semana 3–4 Abril</td><td>PC2 + PC3</td></tr>
+    <tr><td>PC5</td><td>Medir taxa de aprovação turma piloto</td><td>Nicole</td><td>M2</td><td>PC4</td></tr>
+    <tr><td>PC6</td><td>Criar conta Apollo.io e mapear 100 leads</td><td>Pimenta</td><td>Junho</td><td>Resultados G2i validados</td></tr>
+    <tr><td>PC7</td><td>Aplicar para Toptal/Turing como supplier</td><td>Nicole</td><td>Junho</td><td>CNPJ ativo + primeiros casos</td></tr>
+    <tr><td>PC8</td><td>Lançar LinkedIn content plan</td><td>Pimenta + Rafa C.</td><td>Julho</td><td>Casos de sucesso para compartilhar</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <div class="callout-icon">ℹ️</div>
+  <div class="callout-body">
+    <div class="callout-title">Cadência comercial</div>
+    <div class="callout-text">Abril é mês crítico. As 4 primeiras ações (PC1–PC4) precisam rodar em paralelo. Delay em PC1 cascata para toda a timeline. Monitorar weekly.</div>
+  </div>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Março 2026 · Confidencial</div>
+</footer>
 </body>
 </html>

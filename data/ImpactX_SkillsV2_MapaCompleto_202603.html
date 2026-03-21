@@ -7,36 +7,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #42593D; --green-dark: #2E3F2A; --green-light: #E8F0E6;
-    --yellow: #F2C94C; --text: #1A1A2E; --text-secondary: #555577;
-    --bg: #FAFAFA; --card-bg: #FFFFFF; --border: #D4DDD1;
-    --success: #42593D; --success-bg: #E8F0E6; --warning: #D4820A;
+    --purple: #7B2FBE; --purple-dark: #5A1E9A; --purple-light: #F3EAFF;
+    --purple-x: #9B59D4; --text: #1A1A2E; --text-secondary: #555577;
+    --bg: #FAFAFA; --card-bg: #FFFFFF; --border: #E0D4F5;
+    --success: #1A7A4A; --success-bg: #E8F5EE; --warning: #D4820A;
     --warning-bg: #FEF3E2; --danger: #C0392B; --danger-bg: #FDECEA;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
-  .report-header { background: linear-gradient(135deg, #0A0A0A, var(--green-dark)); color: white; padding: 48px 64px 40px; }
+  .report-header { background: linear-gradient(135deg, var(--purple-dark), var(--purple)); color: white; padding: 48px 64px 40px; }
   .brand-tag { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: .75; margin-bottom: 16px; }
-  .brand-tag span { color: var(--yellow); }
+  .brand-tag span { color: #C9A3F5; }
   .report-title { font-size: 36px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
   .report-subtitle { font-size: 16px; opacity: .85; font-weight: 300; }
   .report-meta { display: flex; gap: 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.2); font-size: 13px; opacity: .8; }
   .content { padding: 8px 64px 48px; max-width: 1000px; }
-  h1 { font-size: 26px; font-weight: 800; color: var(--green-dark); padding-bottom: 10px; border-bottom: 3px solid var(--green); margin: 40px 0 20px; }
-  h2 { font-size: 19px; font-weight: 700; color: var(--green); margin: 28px 0 12px; }
+  h1 { font-size: 26px; font-weight: 800; color: var(--purple-dark); padding-bottom: 10px; border-bottom: 3px solid var(--purple); margin: 40px 0 20px; }
+  h2 { font-size: 19px; font-weight: 700; color: var(--purple); margin: 28px 0 12px; }
   p { margin-bottom: 12px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(66,89,61,.08); }
-  thead tr { background: var(--green); color: white; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(123,47,190,.08); }
+  thead tr { background: var(--purple); color: white; }
   thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; }
-  tbody tr:nth-child(even) { background: var(--green-light); }
+  tbody tr:nth-child(even) { background: var(--purple-light); }
   tbody tr:nth-child(odd) { background: var(--card-bg); }
   tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
   .callout { border-radius: 8px; padding: 16px 20px; margin: 16px 0; display: flex; gap: 14px; align-items: flex-start; }
   .callout-icon { font-size: 20px; flex-shrink: 0; }
   .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
   .callout-text { font-size: 14px; line-height: 1.6; }
-  .callout.info { background: var(--green-light); border-left: 4px solid var(--green); }
-  .callout.info .callout-title { color: var(--green-dark); }
+  .callout.info { background: var(--purple-light); border-left: 4px solid var(--purple); }
+  .callout.info .callout-title { color: var(--purple-dark); }
   .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
   .callout.success .callout-title { color: var(--success); }
   .callout.warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
@@ -45,31 +45,31 @@
   .callout.danger .callout-title { color: var(--danger); }
   .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 20px 0; }
   .metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
-  .metric-value { font-size: 30px; font-weight: 900; color: var(--green); margin-bottom: 6px; }
+  .metric-value { font-size: 30px; font-weight: 900; color: var(--purple); margin-bottom: 6px; }
   .metric-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
   .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-  .badge-new { background: var(--green-light); color: var(--green); }
+  .badge-new { background: var(--purple-light); color: var(--purple); }
   .badge-kill { background: var(--danger-bg); color: var(--danger); }
   .badge-keep { background: var(--success-bg); color: var(--success); }
   .flow-box { background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; }
   .flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-  .flow-step { background: var(--green-light); border: 1px solid var(--green); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--green-dark); }
-  .flow-arrow { color: var(--green); font-weight: 900; font-size: 18px; }
-  .flow-output { background: #FFF8E1; border: 1px solid var(--yellow); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: #8B6914; }
+  .flow-step { background: var(--purple-light); border: 1px solid var(--purple); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--purple-dark); }
+  .flow-arrow { color: var(--purple); font-weight: 900; font-size: 18px; }
+  .flow-output { background: var(--success-bg); border: 1px solid var(--success); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: var(--success); }
   .phase { display: flex; gap: 0; border-radius: 10px; overflow: hidden; margin: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
-  .phase-label { background: var(--green); color: white; padding: 20px 24px; min-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .phase-label { background: var(--purple); color: white; padding: 20px 24px; min-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
   .phase-label .phase-num { font-size: 22px; font-weight: 900; }
   .phase-label .phase-period { font-size: 11px; opacity: .8; margin-top: 4px; }
   .phase-content { background: var(--card-bg); padding: 20px 24px; flex: 1; border: 1px solid var(--border); border-left: none; }
-  .phase-content h3 { font-size: 15px; font-weight: 700; color: var(--green); margin: 0 0 10px; }
+  .phase-content h3 { font-size: 15px; font-weight: 700; color: var(--purple); margin: 0 0 10px; }
   .phase-content ul { padding-left: 18px; }
   .phase-content li { font-size: 14px; margin: 4px 0; }
   ul, ol { padding-left: 22px; margin-bottom: 12px; }
   li { margin: 5px 0; }
-  code { background: var(--green-light); padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 13px; color: var(--green-dark); }
-  footer { background: #0A0A0A; color: rgba(255,255,255,.6); text-align: center; padding: 24px; font-size: 13px; margin-top: 48px; }
+  code { background: var(--purple-light); padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 13px; color: var(--purple-dark); }
+  footer { background: var(--text); color: rgba(255,255,255,.6); text-align: center; padding: 24px; font-size: 13px; margin-top: 48px; }
   footer .brand { color: white; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-  footer .brand .x { color: var(--yellow); }
+  footer .brand .x { color: var(--purple-x); }
   @media print {
     body { background: white; font-size: 12px; }
     .report-header, thead tr, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -91,70 +91,313 @@
 </div>
 
 <div class="content">
-  <section>
-    <h1>Overview</h1>
-    <div class="metrics-grid">
-      <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">Skills novas</div></div>
-      <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Reference docs</div></div>
-      <div class="metric-card"><div class="metric-value">6</div><div class="metric-label">Automações</div></div>
-      <div class="metric-card"><div class="metric-value">4</div><div class="metric-label">Fluxos encadeados</div></div>
-      <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">Shortcuts</div></div>
-    </div>
-    <div class="callout success">
-      <div class="callout-icon">✅</div>
-      <div class="callout-body">
-        <div class="callout-title">O que muda</div>
-        <div class="callout-text">
-          <strong>Antes</strong>: 20 skills isoladas, sem padrão, sem encadeamento, sem automação.<br>
-          <strong>Depois</strong>: 8 skills encadeadas que formam sistema, automações rodando sozinhas, padrões de código/commit/PR, assistente TDAH/TEA, brand voice garantido em toda saída.
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section>
-    <h1>As 8 Skills Novas</h1>
-    <table>
-      <thead><tr><th>Skill</th><th>Função</th><th>Encadeia com</th></tr></thead>
-      <tbody>
-        <tr><td><code>ix-core</code></td><td>Kernel: brand voice, pipeline, stack, atalhos, estado</td><td>TODAS herdam daqui</td></tr>
-        <tr><td><code>ix-adhd-copilot</code></td><td>Assistente TDAH/TEA: priorização, briefing, desbloqueio</td><td>→ todas (prioriza o dia)</td></tr>
-        <tr><td><code>ix-sales-pipeline</code></td><td>Pipeline comercial end-to-end</td><td>→ ix-reports, ix-product-ops</td></tr>
-        <tr><td><code>ix-content-engine</code></td><td>Presença digital: pesquisa → copy → visual</td><td>→ ix-reports, canvas-design</td></tr>
-        <tr><td><code>ix-product-ops</code></td><td>PM lean: tickets concisos, backlog limpo</td><td>→ ix-engineering, Linear MCP</td></tr>
-        <tr><td><code>ix-engineering</code></td><td>Problema → PRD → system design → frontend → backend</td><td>← ix-product-ops, → deploy</td></tr>
-        <tr><td><code>ix-knowledge-hub</code></td><td>Organizador: Notion + Drive, naming, busca</td><td>→ enterprise-search</td></tr>
-        <tr><td><code>ix-reports</code></td><td>Relatórios branded + deploy GitHub Pages</td><td>← todas que precisam de output</td></tr>
-      </tbody>
-    </table>
-  </section>
+<!-- ═══ OVERVIEW ═══ -->
+<section>
+  <h1>Overview</h1>
 
-  <section>
-    <h1>Deploy de Reports — Novo Fluxo</h1>
-    <div class="flow-box">
-      <div class="flow-row">
-        <div class="flow-step">Rafa pede report</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">ix-reports gera HTML</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">Push via GitHub MCP</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-output">camillodev.github.io/ix-reports/[nome].html</div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">Skills novas</div></div>
+    <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Reference docs</div></div>
+    <div class="metric-card"><div class="metric-value">6</div><div class="metric-label">Automações</div></div>
+    <div class="metric-card"><div class="metric-value">4</div><div class="metric-label">Fluxos encadeados</div></div>
+    <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">Shortcuts</div></div>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <div class="callout-title">O que muda</div>
+      <div class="callout-text">
+        <strong>Antes</strong>: 20 skills isoladas, sem padrão, sem encadeamento, sem automação, Claude confundindo nome da empresa.<br>
+        <strong>Depois</strong>: 8 skills encadeadas que formam sistema, automações rodando sozinhas, padrões de código/commit/PR definidos, assistente TDAH/TEA integrado, brand voice garantido em toda saída.
       </div>
     </div>
-    <div class="callout info">
-      <div class="callout-icon">ℹ️</div>
-      <div class="callout-body">
-        <div class="callout-title">Zero build, zero manutenção</div>
-        <div class="callout-text">GitHub Pages serve HTML estático direto do repo. Sem Next.js, sem Clerk, sem build step. Push → link público em segundos.</div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ANTIGAS vs NOVAS ═══ -->
+<section>
+  <h1>Skills: Antes → Depois</h1>
+
+  <table>
+    <thead>
+      <tr><th>Skill antiga</th><th>Destino</th><th>Skill nova</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>contexto-impact-x</code></td><td><span class="badge badge-kill">Substituída</span></td><td><code>ix-core</code> — expandida com pipeline, atalhos, estado</td></tr>
+      <tr><td><code>rafa-mentor</code></td><td><span class="badge badge-kill">Absorvida</span></td><td><code>ix-adhd-copilot</code> + <code>ix-core</code> — mentor virou copiloto neurodivergente</td></tr>
+      <tr><td><code>impact-x-report</code></td><td><span class="badge badge-kill">Substituída</span></td><td><code>ix-reports</code> — com deploy e links integrados</td></tr>
+      <tr><td><code>deploy-reports</code></td><td><span class="badge badge-kill">Absorvida</span></td><td><code>ix-reports</code> — deploy é parte do fluxo, não skill separada</td></tr>
+      <tr><td><code>startup-validator</code></td><td><span class="badge badge-kill">Absorvida</span></td><td><code>ix-sales-pipeline</code> — qualificação é etapa do pipeline</td></tr>
+      <tr><td><code>automation-architect</code></td><td><span class="badge badge-keep">Manter</span></td><td>Útil standalone — mas agora encadeia com ix-core</td></tr>
+      <tr><td><code>architecture-decision</code></td><td><span class="badge badge-kill">Absorvida</span></td><td><code>ix-engineering</code> — decisão arquitetural é etapa do ciclo</td></tr>
+      <tr><td><code>linear-ticket-writer</code></td><td><span class="badge badge-kill">Substituída</span></td><td><code>ix-product-ops</code> — tickets mais concisos + backlog management</td></tr>
+      <tr><td><code>doc-coauthoring</code></td><td><span class="badge badge-keep">Manter</span></td><td>Útil standalone pra docs longos</td></tr>
+      <tr><td><code>ship-learn-next</code></td><td><span class="badge badge-keep">Manter</span></td><td>Funciona bem, encadeia com ix-adhd-copilot</td></tr>
+      <tr><td><code>brand-guidelines</code></td><td><span class="badge badge-kill">Remover</span></td><td>É da Anthropic, não da IX. Irrelevante.</td></tr>
+      <tr><td><code>internal-comms</code></td><td><span class="badge badge-keep">Manter</span></td><td>Útil quando time crescer</td></tr>
+      <tr><td><code>canvas-design</code></td><td><span class="badge badge-keep">Manter</span></td><td>Usado pelo ix-content-engine pra visuais</td></tr>
+      <tr><td><code>skill-creator</code></td><td><span class="badge badge-keep">Manter</span></td><td>Meta-ferramenta — pra iterar nas skills v2</td></tr>
+      <tr><td><code>mcp-builder</code></td><td><span class="badge badge-keep">Manter</span></td><td>Futuro: criar MCPs custom</td></tr>
+      <tr><td><code>schedule</code></td><td><span class="badge badge-keep">Manter</span></td><td>Necessária pra criar as automações</td></tr>
+      <tr><td><code>pdf/pptx/docx/xlsx</code></td><td><span class="badge badge-keep">Manter</span></td><td>Utilitários de formato — sempre úteis</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout info">
+    <div class="callout-icon">ℹ️</div>
+    <div class="callout-body">
+      <div class="callout-title">Resultado: 8 novas + 9 mantidas = 17 skills (vs. 20 antes)</div>
+      <div class="callout-text">Menos skills, mas cada uma faz mais. E falam entre si.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAPA DE SKILLS ═══ -->
+<section>
+  <h1>As 8 Skills Novas</h1>
+
+  <table>
+    <thead>
+      <tr><th>Skill</th><th>Função</th><th>Arquivos</th><th>Encadeia com</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>ix-core</code></td><td>Kernel: brand voice, pipeline, stack, atalhos, estado da empresa</td><td>SKILL.md + brand-voice.md + pipeline.md</td><td>TODAS herdam daqui</td></tr>
+      <tr><td><code>ix-adhd-copilot</code></td><td>Assistente TDAH/TEA: priorização, briefing, desbloqueio, planning</td><td>SKILL.md + adhd-tea-playbook.md</td><td>→ todas (prioriza o dia)</td></tr>
+      <tr><td><code>ix-sales-pipeline</code></td><td>Pipeline comercial: pesquisa → outreach → call → proposta → follow-up</td><td>SKILL.md</td><td>→ ix-reports, ix-product-ops</td></tr>
+      <tr><td><code>ix-content-engine</code></td><td>Presença digital: pesquisa → posicionamento → copy → visual → calendário</td><td>SKILL.md</td><td>→ ix-reports, canvas-design</td></tr>
+      <tr><td><code>ix-product-ops</code></td><td>PM lean: tickets concisos, backlog limpo, sprint planning</td><td>SKILL.md</td><td>→ ix-engineering, Linear MCP</td></tr>
+      <tr><td><code>ix-engineering</code></td><td>Ciclo completo: problema → PRD → system design → prototype → frontend → backend</td><td>SKILL.md + prd-template.md + system-design-checklist.md + frontend-standards.md + backend-standards.md</td><td>← ix-product-ops, → deploy</td></tr>
+      <tr><td><code>ix-knowledge-hub</code></td><td>Organizador: Notion + Drive, naming, busca, templates</td><td>SKILL.md</td><td>→ enterprise-search</td></tr>
+      <tr><td><code>ix-reports</code></td><td>Relatórios branded + deploy de links compartilháveis</td><td>SKILL.md</td><td>← todas que precisam de output bonito</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ FLUXOS ENCADEADOS ═══ -->
+<section>
+  <h1>Fluxos Encadeados</h1>
+
+  <h2>🔴 Fluxo Comercial</h2>
+  <div class="flow-box">
+    <div class="flow-row">
+      <div class="flow-step">ix-sales-pipeline<br><small>Pesquisa lead</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-sales-pipeline<br><small>Qualificação</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-sales-pipeline<br><small>Outreach (brand voice)</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-sales-pipeline<br><small>Prep call</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-arrow">↓</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">ix-sales-pipeline<br><small>Post-call summary</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-product-ops<br><small>Tickets das ações</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-reports<br><small>Proposta branded</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Link compartilhável</div>
+    </div>
+  </div>
+
+  <h2>🟣 Fluxo Conteúdo</h2>
+  <div class="flow-box">
+    <div class="flow-row">
+      <div class="flow-step">ix-content-engine<br><small>Pesquisa competitiva</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-content-engine<br><small>Posicionamento IX</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-content-engine<br><small>Copy por canal</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">canvas-design<br><small>Visual</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Posts prontos</div>
+    </div>
+  </div>
+
+  <h2>🔵 Fluxo Engenharia</h2>
+  <div class="flow-box">
+    <div class="flow-row">
+      <div class="flow-step">ix-engineering<br><small>Problema + Hipóteses</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-engineering<br><small>PRD + Requisitos</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-engineering<br><small>System Design</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-arrow">↓</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">ix-engineering<br><small>Protótipo navegável</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-engineering<br><small>Frontend (padrões)</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-engineering<br><small>Backend (seguro)</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Deploy + PR organizada</div>
+    </div>
+  </div>
+
+  <h2>🟢 Fluxo Diário (TDAH-optimized)</h2>
+  <div class="flow-box">
+    <div class="flow-row">
+      <div class="flow-step">ix-adhd-copilot<br><small>Morning briefing</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-adhd-copilot<br><small>Priorização ICE</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ix-adhd-copilot<br><small>Triagem email</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Dia estruturado</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHORTCUTS ═══ -->
+<section>
+  <h1>Atalhos Rápidos</h1>
+  <table>
+    <thead>
+      <tr><th>Comando</th><th>O que faz</th><th>Skill ativada</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>prep [empresa]</code></td><td>Pesquisa lead + prep call</td><td>ix-sales-pipeline</td></tr>
+      <tr><td><code>post ix</code></td><td>Gera posts da semana</td><td>ix-content-engine</td></tr>
+      <tr><td><code>kickoff [projeto]</code></td><td>PRD + arquitetura + tickets</td><td>ix-engineering + ix-product-ops</td></tr>
+      <tr><td><code>briefing</code></td><td>Morning briefing TDAH</td><td>ix-adhd-copilot</td></tr>
+      <tr><td><code>review</code></td><td>Weekly review</td><td>ix-adhd-copilot</td></tr>
+      <tr><td><code>prioriza</code></td><td>Priorização do dia</td><td>ix-adhd-copilot</td></tr>
+      <tr><td><code>task [desc]</code></td><td>Cria ticket Linear</td><td>ix-product-ops</td></tr>
+      <tr><td><code>report [tema]</code></td><td>Gera relatório branded</td><td>ix-reports</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ AUTOMAÇÕES ═══ -->
+<section>
+  <h1>Automações (Scheduled Tasks)</h1>
+  <table>
+    <thead>
+      <tr><th>Automação</th><th>Quando</th><th>O que faz</th><th>Skills/MCPs</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Morning Briefing</strong></td><td>Seg–Sex 8h</td><td>Gmail + Calendar + Linear → 1 foco + compromissos + alertas (formato TDAH)</td><td>ix-adhd-copilot, Gmail, GCal, Linear</td></tr>
+      <tr><td><strong>Weekly Planning</strong></td><td>Domingo 20h</td><td>Linear + Calendar + Notion → plano da semana dia-a-dia</td><td>ix-adhd-copilot, Linear, GCal, Notion</td></tr>
+      <tr><td><strong>Weekly Review</strong></td><td>Sexta 17h</td><td>Tickets fechados vs. planejados + padrões + 1 conceito pra estudar</td><td>ix-adhd-copilot, Linear</td></tr>
+      <tr><td><strong>Email Triage</strong></td><td>Seg–Sex 9h</td><td>Classifica emails em 🔴🟡⚪🗑️ + sugere respostas + cria tickets</td><td>ix-adhd-copilot, Gmail, Linear</td></tr>
+      <tr><td><strong>Meeting Prep</strong></td><td>30min antes de cada call</td><td>Analisa Fathom + tickets + contexto → envia email com ata prévia + link</td><td>ix-sales-pipeline, GCal, Gmail, Fathom</td></tr>
+      <tr><td><strong>API Cost Monitor</strong></td><td>Seg 9h</td><td>Dashboard de custos: LLMs + APIs + ferramentas → alerta se >threshold</td><td>ix-reports</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warning">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">Meeting Prep e API Cost Monitor precisam de setup extra</div>
+      <div class="callout-text">
+        <strong>Meeting Prep</strong>: precisa de acesso ao Fathom (verificar se tem API/MCP disponível) e lógica de trigger 30min antes de evento no Calendar.<br>
+        <strong>API Cost Monitor</strong>: precisa definir quais APIs monitorar e como acessar dashboards de billing (Anthropic, Vercel, Supabase, etc.). Pode começar manual e automatizar depois.
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ═══ PROBLEMAS RESOLVIDOS ═══ -->
+<section>
+  <h1>Problemas Resolvidos</h1>
+  <table>
+    <thead>
+      <tr><th>Problema</th><th>Antes</th><th>Depois</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Nome "Bantupi"</strong></td><td>Claude confundia o nome constantemente</td><td>ix-core tem regra #1: "NUNCA chamar de Bantupi" — reforçada em toda skill</td></tr>
+      <tr><td><strong>Skills isoladas</strong></td><td>Cada skill era uma ilha, sem encadear</td><td>8 skills com output → input definido, 4 fluxos encadeados</td></tr>
+      <tr><td><strong>Sem assistente TDAH</strong></td><td>Nenhuma adaptação neurodivergente</td><td>ix-adhd-copilot com protocolos específicos pra paralisia, priorização, briefing</td></tr>
+      <tr><td><strong>Tickets prolixos</strong></td><td>linear-ticket-writer gerava walls of text</td><td>ix-product-ops: ticket max 1 tela, ACs verificáveis, formato fixo</td></tr>
+      <tr><td><strong>Sem padrão de código</strong></td><td>Cada projeto com estrutura diferente</td><td>ix-engineering: frontend-standards.md + backend-standards.md com padrões IX</td></tr>
+      <tr><td><strong>Commits bagunçados</strong></td><td>Sem padrão, "WIP", "misc fixes"</td><td>Conventional Commits obrigatório, 1 commit = 1 mudança</td></tr>
+      <tr><td><strong>PRs ruins</strong></td><td>Sem template, sem contexto</td><td>Template de PR com What/Why/How/Testing, max 400 linhas</td></tr>
+      <tr><td><strong>Deploy reports quebrado</strong></td><td>Projeto não existia mais</td><td>ix-reports cuida de gerar E deployar via GitHub → Vercel</td></tr>
+      <tr><td><strong>Zero automações</strong></td><td>Tudo reativo</td><td>6 scheduled tasks: briefing, planning, review, triage, prep, costs</td></tr>
+      <tr><td><strong>Conexões não falam entre si</strong></td><td>MCPs conectados mas sem orquestração</td><td>Skills encadeadas orquestram Gmail+Calendar+Linear+Notion+GitHub juntos</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ INSTALAÇÃO ═══ -->
+<section>
+  <h1>Como Instalar</h1>
+
+  <div class="callout info">
+    <div class="callout-icon">ℹ️</div>
+    <div class="callout-body">
+      <div class="callout-title">Skills estão em: ix-skills-v2/</div>
+      <div class="callout-text">
+        Todas as 8 skills estão na pasta <code>ix-skills-v2/</code> na sua pasta selecionada. Cada uma tem sua estrutura completa (SKILL.md + references/).
+      </div>
+    </div>
+  </div>
+
+  <h2>Passo a passo</h2>
+
+  <div class="phase">
+    <div class="phase-label"><div class="phase-num">1</div><div class="phase-period">Agora</div></div>
+    <div class="phase-content">
+      <h3>Revisar e aprovar skills</h3>
+      <ul>
+        <li>Ler cada SKILL.md e dizer o que ajustar</li>
+        <li>Usar skill-creator pra iterar e testar</li>
+        <li>Aprovar ou modificar cada uma</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label"><div class="phase-num">2</div><div class="phase-period">Depois</div></div>
+    <div class="phase-content">
+      <h3>Instalar no Claude Desktop</h3>
+      <ul>
+        <li>Empacotar com <code>skill-creator:package_skill.py</code></li>
+        <li>Instalar cada .skill no Claude Desktop</li>
+        <li>Remover skills antigas substituídas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label"><div class="phase-num">3</div><div class="phase-period">Semana 1</div></div>
+    <div class="phase-content">
+      <h3>Criar scheduled tasks</h3>
+      <ul>
+        <li>Configurar as 6 automações via skill <code>schedule</code></li>
+        <li>Testar cada uma manualmente primeiro</li>
+        <li>Ativar cron</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label"><div class="phase-num">4</div><div class="phase-period">Contínuo</div></div>
+    <div class="phase-content">
+      <h3>Iterar e evoluir</h3>
+      <ul>
+        <li>Usar o sistema no dia a dia</li>
+        <li>Anotar o que não funciona</li>
+        <li>Iterar com skill-creator</li>
+        <li>Adicionar novas automações conforme necessidade</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 </div>
 
 <footer>
   <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
-  <div>Feito por Impact <span style="color:#F2C94C;font-weight:700">X</span> — Rafael Camillo · Março 2026</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Uso Interno</div>
 </footer>
 
 </body>

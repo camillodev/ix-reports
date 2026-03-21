@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café · Coworking · Lavanderia — Análise por Cidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7B2FBE; --purple-dark: #5A1E9A; --purple-light: #F3EAFF; --purple-x: #9B59D4;
+    --text: #1A1A2E; --text-secondary: #555577; --bg: #FAFAFA; --card-bg: #FFFFFF; --border: #E0D4F5;
+    --success: #1A7A4A; --success-bg: #E8F5EE; --warning: #D4820A; --warning-bg: #FEF3E2;
+    --danger: #C0392B; --danger-bg: #FDECEA;
+    --cabo: #0077B6; --arraial: #00B4D8; --buzios: #9B2335; --itacare: #2D6A4F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Roboto', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
+
+  /* HEADER */
+  .report-header { background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%); color: white; padding: 40px 60px 32px; }
+  .brand-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 12px; }
+  .brand-tag span { color: #C9A3F5; }
+  .report-title { font-size: 32px; font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
+  .report-subtitle { font-size: 15px; opacity: 0.8; font-weight: 300; }
+  .report-meta { display: flex; gap: 24px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 12px; opacity: 0.75; flex-wrap: wrap; }
+
+  /* TABS NAV */
+  .tabs-nav { background: var(--purple-dark); display: flex; overflow-x: auto; border-bottom: none; position: sticky; top: 0; z-index: 100; }
+  .tab-btn {
+    padding: 14px 24px; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.55); background: transparent; border: none; cursor: pointer;
+    letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 3px solid transparent;
+    transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+  }
+  .tab-btn:hover { color: white; background: rgba(255,255,255,0.08); }
+  .tab-btn.active { color: white; border-bottom-color: white; background: rgba(255,255,255,0.12); }
+  .tab-btn[data-tab="cabo"].active { border-bottom-color: #48CAE4; }
+  .tab-btn[data-tab="arraial"].active { border-bottom-color: #00B4D8; }
+  .tab-btn[data-tab="buzios"].active { border-bottom-color: #FF6B6B; }
+  .tab-btn[data-tab="itacare"].active { border-bottom-color: #52B788; }
+  .tab-btn[data-tab="compare"].active { border-bottom-color: #FFD60A; }
+
+  /* TAB PANELS */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* CONTENT */
+  .content { padding: 32px 60px 48px; max-width: 1040px; }
+
+  /* CITY HEADER STRIP */
+  .city-strip { padding: 24px 60px 20px; color: white; margin-bottom: 0; }
+  .city-strip.cabo { background: linear-gradient(135deg, #023E8A, #0077B6); }
+  .city-strip.arraial { background: linear-gradient(135deg, #005F73, #0096C7); }
+  .city-strip.buzios { background: linear-gradient(135deg, #6A0572, #9B2335); }
+  .city-strip.itacare { background: linear-gradient(135deg, #1B4332, #2D6A4F); }
+  .city-strip.compare { background: linear-gradient(135deg, #1A1A2E, #3D2B6B); }
+  .city-name { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
+  .city-tagline { font-size: 14px; opacity: 0.8; }
+  .city-badges { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .cbadge { padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.2); color: white; }
+
+  h1 { font-size: 22px; font-weight: 800; color: var(--purple-dark); padding-bottom: 8px; border-bottom: 3px solid var(--purple); margin-bottom: 16px; margin-top: 32px; }
+  h2 { font-size: 17px; font-weight: 700; color: var(--purple); margin: 24px 0 10px; }
+  p { margin-bottom: 10px; color: var(--text); }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 13.5px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(123,47,190,0.08); }
+  thead tr { background: var(--purple); color: white; }
+  thead th { padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; }
+  tbody tr:nth-child(even) { background: var(--purple-light); }
+  tbody tr:nth-child(odd) { background: var(--card-bg); }
+  tbody tr.total { font-weight: 700 !important; background: #EDE0FF !important; }
+  tbody tr.highlight-green { background: #E8F5EE !important; font-weight: 600; }
+  tbody tr.highlight-red { background: #FDECEA !important; font-weight: 600; }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+
+  /* CALLOUTS */
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 14px 0; display: flex; gap: 12px; align-items: flex-start; }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .callout-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+  .callout-text { font-size: 13px; line-height: 1.6; }
+  .callout.info { background: var(--purple-light); border-left: 4px solid var(--purple); }
+  .callout.info .callout-title { color: var(--purple-dark); }
+  .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
+  .callout.success .callout-title { color: var(--success); }
+  .callout.warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
+  .callout.warning .callout-title { color: var(--warning); }
+  .callout.danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
+  .callout.danger .callout-title { color: var(--danger); }
+
+  /* METRICS */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+  .metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(123,47,190,0.06); }
+  .metric-value { font-size: 22px; font-weight: 900; color: var(--purple); line-height: 1; margin-bottom: 4px; }
+  .metric-label { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .metric-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* INCOME HIGHLIGHT */
+  .income-box { background: var(--success-bg); border: 2px solid var(--success); border-radius: 12px; padding: 20px 24px; margin: 20px 0; }
+  .income-box h2 { color: var(--success); margin: 0 0 12px; font-size: 16px; }
+  .income-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #C3E6CB; }
+  .income-row:last-child { border-bottom: none; padding-top: 10px; }
+  .income-row.total-row { font-weight: 800; font-size: 16px; color: var(--success); }
+  .income-label { font-size: 13px; color: var(--text-secondary); }
+  .income-value { font-size: 14px; font-weight: 700; color: var(--text); }
+
+  /* SAZONALIDADE BAR */
+  .sazon-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin: 14px 0; }
+  .sazon-month { text-align: center; }
+  .sazon-bar { height: 40px; border-radius: 4px; margin-bottom: 4px; }
+  .sazon-label { font-size: 10px; color: var(--text-secondary); font-weight: 600; }
+  .sazon-alta { background: var(--success); }
+  .sazon-media { background: var(--warning); }
+  .sazon-baixa { background: #E0D4F5; }
+
+  /* COMPARE TABLE */
+  .compare-winner { background: var(--success-bg) !important; }
+  .compare-loser { background: var(--danger-bg) !important; }
+  .rank-badge { display: inline-block; width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 11px; font-weight: 800; margin-right: 4px; }
+  .rank-1 { background: #FFD700; color: #1A1A2E; }
+  .rank-2 { background: #C0C0C0; color: #1A1A2E; }
+  .rank-3 { background: #CD7F32; color: white; }
+  .rank-4 { background: #E0D4F5; color: var(--purple-dark); }
+
+  ul, ol { padding-left: 20px; margin-bottom: 10px; }
+  li { margin: 4px 0; font-size: 14px; }
+
+  /* FOOTER */
+  footer { background: var(--text); color: rgba(255,255,255,0.6); text-align: center; padding: 20px; font-size: 12px; margin-top: 0; }
+  footer .brand { color: white; font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+  footer .x { color: var(--purple-x); }
+
+  @media print {
+    .tabs-nav { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: auto; }
+    body { font-size: 12px; }
+    .city-strip, .report-header, thead tr, footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="brand-tag">IMPACT <span>X</span> — ANÁLISE DE NEGÓCIO</div>
+  <div class="report-title">☕🌊 Café · Coworking · Lavanderia à Beira-Mar</div>
+  <div class="report-subtitle">CAPEX · OPEX · ROI · Renda Mensal — Análise individualizada por cidade</div>
+  <div class="report-meta">
+    <span>📅 Março 2026</span>
+    <span>👤 Rafael Camillo</span>
+    <span>💰 Capital disponível: R$120k</span>
+    <span>🏖️ 4 cidades analisadas</span>
+  </div>
+</div>
+
+<!-- TABS NAV -->
+<div class="tabs-nav">
+  <button class="tab-btn active" data-tab="cabo">📍 Cabo Frio</button>
+  <button class="tab-btn" data-tab="arraial">📍 Arraial do Cabo</button>
+  <button class="tab-btn" data-tab="buzios">📍 Búzios</button>
+  <button class="tab-btn" data-tab="itacare">📍 Itacaré</button>
+  <button class="tab-btn" data-tab="compare">⚖️ Comparativo Final</button>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- ABA 1: CABO FRIO -->
+<!-- ════════════════════════════════════ -->
+<div class="tab-panel active" id="tab-cabo">
+  <div class="city-strip cabo">
+    <div class="city-name">📍 Cabo Frio — RJ</div>
+    <div class="city-tagline">Maior cidade da Costa do Sol · Fluxo constante · Melhor custo-benefício</div>
+    <div class="city-badges">
+      <span class="cbadge">🏆 Melhor ROI</span>
+      <span class="cbadge">✅ Viável com R$120k (Fase 1)</span>
+      <span class="cbadge">📅 Sazonalidade Moderada</span>
+      <span class="cbadge">👥 Público Nômade Crescente</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">R$285k</div><div class="metric-label">CAPEX Total</div><div class="metric-sub">Completo (3 módulos)</div></div>
+      <div class="metric-card"><div class="metric-value">R$27k</div><div class="metric-label">OPEX Mensal</div></div>
+      <div class="metric-card"><div class="metric-value">R$52k</div><div class="metric-label">Receita Alvo/Mês</div><div class="metric-sub">Média anual</div></div>
+      <div class="metric-card"><div class="metric-value">R$16k</div><div class="metric-label">Lucro Líquido/Mês</div><div class="metric-sub">Média após payback</div></div>
+      <div class="metric-card"><div class="metric-value">22–26m</div><div class="metric-label">Payback</div></div>
+      <div class="metric-card"><div class="metric-value">~28%</div><div class="metric-label">Margem Líquida</div></div>
+    </div>
+
+    <h1>CAPEX — Investimento Inicial</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Mínimo</th><th>Realista</th><th>Obs</th></tr></thead>
+      <tbody>
+        <tr><td>Reforma e adequação (120m²)</td><td>R$ 28.000</td><td>R$ 55.000</td><td>Piso, elétrica, hidráulica</td></tr>
+        <tr><td>Ar-condicionado + ventilação</td><td>R$ 6.000</td><td>R$ 11.000</td><td>3 splits + exaustores</td></tr>
+        <tr><td>Internet fibra + rede estruturada</td><td>R$ 3.000</td><td>R$ 5.500</td><td>2 links redundantes</td></tr>
+        <tr><td>Fachada + identidade visual</td><td>R$ 3.500</td><td>R$ 7.000</td><td>Lettering, cores, placa</td></tr>
+        <tr><td><strong>☕ Equip. Cafeteria</strong></td><td>R$ 14.000</td><td>R$ 30.000</td><td>Espresso + moedor + mobiliário</td></tr>
+        <tr><td><strong>💻 Equip. Coworking</strong></td><td>R$ 16.000</td><td>R$ 35.000</td><td>20 estações + sala reunião</td></tr>
+        <tr><td><strong>🧺 Equip. Lavanderia</strong></td><td>R$ 75.000</td><td>R$ 130.000</td><td>4 lavad. + 4 secad. + totem</td></tr>
+        <tr><td>Caução aluguel (3 meses)</td><td>R$ 9.000</td><td>R$ 15.000</td><td>R$3–5k/mês × 3</td></tr>
+        <tr><td>Capital de giro (3 meses OPEX)</td><td>R$ 54.000</td><td>R$ 81.000</td><td>Reserva segura</td></tr>
+        <tr><td>Legalização, alvarás, contador</td><td>R$ 2.500</td><td>R$ 5.000</td><td>CNPJ + AVCB + vigilância sanitária</td></tr>
+        <tr><td>Marketing de lançamento</td><td>R$ 3.000</td><td>R$ 6.500</td><td>Instagram + Google + evento</td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX</strong></td><td><strong>R$ 214.000</strong></td><td><strong>R$ 381.000</strong></td><td><strong>Ref. realista: R$285k</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <div class="callout-title">Estratégia com R$120k disponível</div>
+        <div class="callout-text"><strong>Fase 1 (R$120k):</strong> Café + Coworking apenas. CAPEX ~R$115k. Valida o ponto e gera caixa.<br><strong>Fase 2 (mês 8–12):</strong> Lavanderia com caixa gerado + financiamento BNDES Microempreendedor (~R$80–100k a 1,9%/mês). Isso é viável e inteligente.</div>
+      </div>
+    </div>
+
+    <h1>OPEX — Custos Mensais</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Baixa Temp.</th><th>Média Temp.</th><th>Alta Temp.</th></tr></thead>
+      <tbody>
+        <tr><td>Aluguel (ponto prime próx. praia)</td><td>R$ 4.000</td><td>R$ 4.000</td><td>R$ 4.000</td></tr>
+        <tr><td>Energia elétrica</td><td>R$ 1.800</td><td>R$ 2.800</td><td>R$ 4.200</td></tr>
+        <tr><td>Água</td><td>R$ 500</td><td>R$ 900</td><td>R$ 1.400</td></tr>
+        <tr><td>Internet (2 links fibra)</td><td>R$ 700</td><td>R$ 700</td><td>R$ 700</td></tr>
+        <tr><td>Pessoal (CLT + encargos)</td><td>R$ 5.500</td><td>R$ 7.000</td><td>R$ 10.000</td></tr>
+        <tr><td>Insumos cafeteria (CMV ~32%)</td><td>R$ 2.400</td><td>R$ 3.800</td><td>R$ 5.600</td></tr>
+        <tr><td>Insumos lavanderia (CMV ~12%)</td><td>R$ 900</td><td>R$ 1.500</td><td>R$ 2.400</td></tr>
+        <tr><td>Contador + Simples Nacional ~6,5%</td><td>R$ 2.000</td><td>R$ 3.200</td><td>R$ 4.800</td></tr>
+        <tr><td>Seguros + manutenção preventiva</td><td>R$ 900</td><td>R$ 900</td><td>R$ 1.200</td></tr>
+        <tr><td>Marketing digital</td><td>R$ 600</td><td>R$ 800</td><td>R$ 1.500</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX</strong></td><td><strong>R$ 19.300</strong></td><td><strong>R$ 25.600</strong></td><td><strong>R$ 35.800</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>Receita Projetada</h1>
+    <table>
+      <thead><tr><th>Módulo</th><th>Baixa (mai–ago)</th><th>Média (abr/set–nov)</th><th>Alta (dez–mar)</th></tr></thead>
+      <tbody>
+        <tr><td>☕ Cafeteria (ticket R$28)</td><td>R$ 8.400 <small>(25 cli/dia)</small></td><td>R$ 14.560 <small>(40/dia)</small></td><td>R$ 23.800 <small>(65/dia)</small></td></tr>
+        <tr><td>💻 Coworking (diária R$50 + mensais)</td><td>R$ 7.500 <small>(6 mens + 5 diárias)</small></td><td>R$ 12.000 <small>(8 mens + 10 diárias)</small></td><td>R$ 18.000 <small>(8 mens + 20 diárias)</small></td></tr>
+        <tr><td>🧺 Lavanderia (R$32/ciclo)</td><td>R$ 9.600 <small>(10 ciclos/dia)</small></td><td>R$ 19.200 <small>(20 ciclos/dia)</small></td><td>R$ 33.600 <small>(35 ciclos/dia)</small></td></tr>
+        <tr class="total"><td><strong>RECEITA BRUTA/MÊS</strong></td><td><strong>R$ 25.500</strong></td><td><strong>R$ 45.760</strong></td><td><strong>R$ 75.400</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>ROI e Renda Mensal</h1>
+    <table>
+      <thead><tr><th>Período</th><th>Meses</th><th>Receita Total</th><th>OPEX Total</th><th>Lucro Líquido</th></tr></thead>
+      <tbody>
+        <tr><td>Alta Temporada</td><td>4</td><td>R$ 301.600</td><td>R$ 143.200</td><td>R$ 158.400</td></tr>
+        <tr><td>Média Temporada</td><td>4</td><td>R$ 183.040</td><td>R$ 102.400</td><td>R$ 80.640</td></tr>
+        <tr><td>Baixa Temporada</td><td>4</td><td>R$ 102.000</td><td>R$ 77.200</td><td>R$ 24.800</td></tr>
+        <tr class="total"><td><strong>ANO 1 TOTAL</strong></td><td><strong>12</strong></td><td><strong>R$ 586.640</strong></td><td><strong>R$ 322.800</strong></td><td><strong>R$ 263.840</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="income-box">
+      <h2>💰 Sua Renda Mensal Esperada — Cabo Frio</h2>
+      <div class="income-row"><span class="income-label">Lucro líquido médio/mês (anualizado)</span><span class="income-value">R$ 22.000/mês</span></div>
+      <div class="income-row"><span class="income-label">Baixa temporada (mai–ago)</span><span class="income-value">R$ 6.200/mês</span></div>
+      <div class="income-row"><span class="income-label">Média temporada (abr/set–nov)</span><span class="income-value">R$ 20.160/mês</span></div>
+      <div class="income-row"><span class="income-label">Alta temporada (dez–mar)</span><span class="income-value">R$ 39.600/mês</span></div>
+      <div class="income-row total-row"><span>Payback do investimento</span><span>~mês 22–24</span></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body">
+        <div class="callout-title">Veredicto Cabo Frio</div>
+        <div class="callout-text">Melhor equilíbrio entre receita, sazonalidade e custo operacional. A lavanderia é uma mina de ouro em cidade litorânea — turista que fica 1–2 semanas <strong>precisa lavar roupa</strong>. Aluguel de R$4k para ponto prime ainda é razoável. <strong>Cidade recomendada para quem quer segurança financeira.</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- ABA 2: ARRAIAL DO CABO -->
+<!-- ════════════════════════════════════ -->
+<div class="tab-panel" id="tab-arraial">
+  <div class="city-strip arraial">
+    <div class="city-name">📍 Arraial do Cabo — RJ</div>
+    <div class="city-tagline">Caribe Brasileiro · Turismo premium · Alta sazonalidade · Menor custo que Búzios</div>
+    <div class="city-badges">
+      <span class="cbadge">🏖️ Águas mais bonitas do RJ</span>
+      <span class="cbadge">⚠️ Alta sazonalidade</span>
+      <span class="cbadge">💎 Público premium</span>
+      <span class="cbadge">📍 Cidade pequena</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">R$255k</div><div class="metric-label">CAPEX Total</div><div class="metric-sub">Completo (3 módulos)</div></div>
+      <div class="metric-card"><div class="metric-value">R$24k</div><div class="metric-label">OPEX Mensal</div></div>
+      <div class="metric-card"><div class="metric-value">R$46k</div><div class="metric-label">Receita Alvo/Mês</div><div class="metric-sub">Média anual</div></div>
+      <div class="metric-card"><div class="metric-value">R$14k</div><div class="metric-label">Lucro Líquido/Mês</div><div class="metric-sub">Média após payback</div></div>
+      <div class="metric-card"><div class="metric-value">24–28m</div><div class="metric-label">Payback</div></div>
+      <div class="metric-card"><div class="metric-value">~22%</div><div class="metric-label">Margem Líquida</div></div>
+    </div>
+
+    <h1>CAPEX — Investimento Inicial</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Mínimo</th><th>Realista</th><th>Obs</th></tr></thead>
+      <tbody>
+        <tr><td>Reforma e adequação (100m²)</td><td>R$ 24.000</td><td>R$ 48.000</td><td>Espaço menor — cidade menor</td></tr>
+        <tr><td>Ar-condicionado + ventilação</td><td>R$ 5.000</td><td>R$ 9.500</td><td>Clima exige boa ventilação</td></tr>
+        <tr><td>Internet fibra + rede</td><td>R$ 2.500</td><td>R$ 5.000</td><td>Infraestrutura mais limitada</td></tr>
+        <tr><td>Fachada + identidade visual</td><td>R$ 3.500</td><td>R$ 7.000</td><td></td></tr>
+        <tr><td><strong>☕ Equip. Cafeteria</strong></td><td>R$ 14.000</td><td>R$ 28.000</td><td>Ticket maior — equip. melhor</td></tr>
+        <tr><td><strong>💻 Equip. Coworking</strong></td><td>R$ 14.000</td><td>R$ 28.000</td><td>15 estações (cidade menor)</td></tr>
+        <tr><td><strong>🧺 Equip. Lavanderia</strong></td><td>R$ 70.000</td><td>R$ 120.000</td><td>4 lavad. + 4 secad.</td></tr>
+        <tr><td>Caução aluguel (3 meses)</td><td>R$ 7.500</td><td>R$ 12.000</td><td>R$2.5–4k/mês × 3</td></tr>
+        <tr><td>Capital de giro (3 meses OPEX)</td><td>R$ 48.000</td><td>R$ 72.000</td><td></td></tr>
+        <tr><td>Legalização + marketing lançamento</td><td>R$ 4.500</td><td>R$ 9.000</td><td></td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX</strong></td><td><strong>R$ 193.000</strong></td><td><strong>R$ 338.500</strong></td><td><strong>Ref. realista: R$255k</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>OPEX — Custos Mensais</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Baixa Temp.</th><th>Média Temp.</th><th>Alta Temp.</th></tr></thead>
+      <tbody>
+        <tr><td>Aluguel (centro/beira-mar)</td><td>R$ 3.200</td><td>R$ 3.200</td><td>R$ 3.200</td></tr>
+        <tr><td>Energia elétrica</td><td>R$ 1.500</td><td>R$ 2.400</td><td>R$ 3.800</td></tr>
+        <tr><td>Água</td><td>R$ 400</td><td>R$ 750</td><td>R$ 1.200</td></tr>
+        <tr><td>Internet</td><td>R$ 600</td><td>R$ 600</td><td>R$ 600</td></tr>
+        <tr><td>Pessoal</td><td>R$ 4.500</td><td>R$ 6.000</td><td>R$ 9.000</td></tr>
+        <tr><td>Insumos cafeteria</td><td>R$ 2.000</td><td>R$ 3.500</td><td>R$ 6.000</td></tr>
+        <tr><td>Insumos lavanderia</td><td>R$ 700</td><td>R$ 1.300</td><td>R$ 2.200</td></tr>
+        <tr><td>Contador + impostos</td><td>R$ 1.600</td><td>R$ 2.800</td><td>R$ 4.500</td></tr>
+        <tr><td>Seguros + manutenção</td><td>R$ 800</td><td>R$ 800</td><td>R$ 1.100</td></tr>
+        <tr><td>Marketing</td><td>R$ 500</td><td>R$ 700</td><td>R$ 1.200</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX</strong></td><td><strong>R$ 15.800</strong></td><td><strong>R$ 22.050</strong></td><td><strong>R$ 32.800</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>Receita Projetada</h1>
+    <table>
+      <thead><tr><th>Módulo</th><th>Baixa (mai–ago)</th><th>Média (abr/set–nov)</th><th>Alta (dez–mar)</th></tr></thead>
+      <tbody>
+        <tr><td>☕ Cafeteria (ticket R$32 — premium)</td><td>R$ 6.400 <small>(20/dia)</small></td><td>R$ 12.800 <small>(40/dia)</small></td><td>R$ 25.600 <small>(80/dia)</small></td></tr>
+        <tr><td>💻 Coworking</td><td>R$ 5.500 <small>(4 mens + 5 diár.)</small></td><td>R$ 9.500 <small>(6 mens + 8 diár.)</small></td><td>R$ 14.000 <small>(6 mens + 16 diár.)</small></td></tr>
+        <tr><td>🧺 Lavanderia (R$32/ciclo)</td><td>R$ 7.680 <small>(8/dia)</small></td><td>R$ 16.960 <small>(17/dia)</small></td><td>R$ 35.200 <small>(36/dia)</small></td></tr>
+        <tr class="total"><td><strong>RECEITA BRUTA/MÊS</strong></td><td><strong>R$ 19.580</strong></td><td><strong>R$ 39.260</strong></td><td><strong>R$ 74.800</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>ROI e Renda Mensal</h1>
+    <table>
+      <thead><tr><th>Período</th><th>Meses</th><th>Receita Total</th><th>OPEX Total</th><th>Lucro Líquido</th></tr></thead>
+      <tbody>
+        <tr><td>Alta Temporada</td><td>4</td><td>R$ 299.200</td><td>R$ 131.200</td><td>R$ 168.000</td></tr>
+        <tr><td>Média Temporada</td><td>4</td><td>R$ 157.040</td><td>R$ 88.200</td><td>R$ 68.840</td></tr>
+        <tr><td>Baixa Temporada</td><td>4</td><td>R$ 78.320</td><td>R$ 63.200</td><td>R$ 15.120</td></tr>
+        <tr class="total"><td><strong>ANO 1 TOTAL</strong></td><td><strong>12</strong></td><td><strong>R$ 534.560</strong></td><td><strong>R$ 282.600</strong></td><td><strong>R$ 251.960</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="income-box">
+      <h2>💰 Sua Renda Mensal Esperada — Arraial do Cabo</h2>
+      <div class="income-row"><span class="income-label">Lucro líquido médio/mês (anualizado)</span><span class="income-value">R$ 20.997/mês</span></div>
+      <div class="income-row"><span class="income-label">Baixa temporada (mai–ago) ⚠️</span><span class="income-value">R$ 3.780/mês</span></div>
+      <div class="income-row"><span class="income-label">Média temporada (abr/set–nov)</span><span class="income-value">R$ 17.210/mês</span></div>
+      <div class="income-row"><span class="income-label">Alta temporada (dez–mar)</span><span class="income-value">R$ 42.000/mês</span></div>
+      <div class="income-row total-row"><span>Payback do investimento</span><span>~mês 24–28</span></div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <div class="callout-title">Cuidado com a baixa temporada</div>
+        <div class="callout-text">Arraial é uma cidade <strong>muito pequena e ultra-sazonal</strong>. Em maio–agosto, o movimento cai drasticamente. O lucro de R$3.780/mês mal cobre sua subsistência pessoal se esse for seu único negócio. <strong>Só funciona bem se você mantiver renda de engenheiro na baixa.</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- ABA 3: BÚZIOS -->
+<!-- ════════════════════════════════════ -->
+<div class="tab-panel" id="tab-buzios">
+  <div class="city-strip buzios">
+    <div class="city-name">📍 Armação dos Búzios — RJ</div>
+    <div class="city-tagline">Destino premium consolidado · Aluguel mais caro · Alta concorrência · ROI comprometido</div>
+    <div class="city-badges">
+      <span class="cbadge">💎 Turismo Premium</span>
+      <span class="cbadge">🔴 Aluguel Alto</span>
+      <span class="cbadge">🌍 Turistas Estrangeiros</span>
+      <span class="cbadge">⚠️ Concorrência Forte</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">R$390k</div><div class="metric-label">CAPEX Total</div><div class="metric-sub">Completo (3 módulos)</div></div>
+      <div class="metric-card"><div class="metric-value">R$38k</div><div class="metric-label">OPEX Mensal</div></div>
+      <div class="metric-card"><div class="metric-value">R$56k</div><div class="metric-label">Receita Alvo/Mês</div><div class="metric-sub">Média anual</div></div>
+      <div class="metric-card"><div class="metric-value">R$9k</div><div class="metric-label">Lucro Líquido/Mês</div><div class="metric-sub">Média — pior margem</div></div>
+      <div class="metric-card"><div class="metric-value">36–48m</div><div class="metric-label">Payback</div></div>
+      <div class="metric-card"><div class="metric-value">~14%</div><div class="metric-label">Margem Líquida</div></div>
+    </div>
+
+    <div class="callout danger">
+      <div class="callout-icon">🚨</div>
+      <div class="callout-body">
+        <div class="callout-title">Alerta: o aluguel mata a margem em Búzios</div>
+        <div class="callout-text">Um ponto comercial decente próximo à Rua das Pedras ou à orla custa <strong>R$7.000–15.000/mês</strong>. Esse único custo consome praticamente todo o lucro extra que o turismo premium gera. <strong>Búzios só faz sentido com imóvel próprio.</strong></div>
+      </div>
+    </div>
+
+    <h1>CAPEX — Investimento Inicial</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Mínimo</th><th>Realista</th><th>Obs</th></tr></thead>
+      <tbody>
+        <tr><td>Reforma e adequação (120m²)</td><td>R$ 35.000</td><td>R$ 70.000</td><td>Padrão Búzios exige acabamento premium</td></tr>
+        <tr><td>Ar-condicionado + ventilação</td><td>R$ 7.000</td><td>R$ 14.000</td><td></td></tr>
+        <tr><td>Internet + rede estruturada</td><td>R$ 3.500</td><td>R$ 6.500</td><td></td></tr>
+        <tr><td>Fachada premium + branding</td><td>R$ 6.000</td><td>R$ 15.000</td><td>Padrão visual Búzios é exigente</td></tr>
+        <tr><td><strong>☕ Equip. Cafeteria (premium)</strong></td><td>R$ 20.000</td><td>R$ 45.000</td><td>Espresso italiano + ambiente</td></tr>
+        <tr><td><strong>💻 Equip. Coworking (premium)</strong></td><td>R$ 18.000</td><td>R$ 40.000</td><td>Mobiliário high-end</td></tr>
+        <tr><td><strong>🧺 Equip. Lavanderia</strong></td><td>R$ 75.000</td><td>R$ 130.000</td><td>4 lavad. + 4 secad. + totem</td></tr>
+        <tr><td>Caução aluguel (3 meses)</td><td>R$ 21.000</td><td>R$ 45.000</td><td>R$7–15k/mês × 3</td></tr>
+        <tr><td>Capital de giro (3 meses OPEX)</td><td>R$ 72.000</td><td>R$ 114.000</td><td></td></tr>
+        <tr><td>Legalização + marketing</td><td>R$ 6.000</td><td>R$ 14.000</td><td>Marketing mais caro em Búzios</td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX</strong></td><td><strong>R$ 263.500</strong></td><td><strong>R$ 493.500</strong></td><td><strong>Ref. realista: R$390k</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>OPEX — Custos Mensais</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Baixa Temp.</th><th>Média Temp.</th><th>Alta Temp.</th></tr></thead>
+      <tbody>
+        <tr class="highlight-red"><td>Aluguel (ponto próx. orla)</td><td>R$ 8.000</td><td>R$ 8.000</td><td>R$ 8.000</td></tr>
+        <tr><td>Energia elétrica</td><td>R$ 2.000</td><td>R$ 3.200</td><td>R$ 5.000</td></tr>
+        <tr><td>Água</td><td>R$ 500</td><td>R$ 900</td><td>R$ 1.500</td></tr>
+        <tr><td>Internet</td><td>R$ 700</td><td>R$ 700</td><td>R$ 700</td></tr>
+        <tr><td>Pessoal (mais pessoas = mais turismo)</td><td>R$ 6.000</td><td>R$ 8.500</td><td>R$ 14.000</td></tr>
+        <tr><td>Insumos cafeteria (CMV ~30%)</td><td>R$ 2.400</td><td>R$ 5.000</td><td>R$ 9.000</td></tr>
+        <tr><td>Insumos lavanderia</td><td>R$ 700</td><td>R$ 1.500</td><td>R$ 2.800</td></tr>
+        <tr><td>Contador + impostos</td><td>R$ 2.000</td><td>R$ 3.800</td><td>R$ 6.500</td></tr>
+        <tr><td>Seguros + manutenção</td><td>R$ 1.000</td><td>R$ 1.000</td><td>R$ 1.500</td></tr>
+        <tr><td>Marketing</td><td>R$ 800</td><td>R$ 1.200</td><td>R$ 2.000</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX</strong></td><td><strong>R$ 24.100</strong></td><td><strong>R$ 33.800</strong></td><td><strong>R$ 51.000</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>Receita Projetada</h1>
+    <table>
+      <thead><tr><th>Módulo</th><th>Baixa (mai–ago)</th><th>Média (abr/set–nov)</th><th>Alta (dez–mar)</th></tr></thead>
+      <tbody>
+        <tr><td>☕ Cafeteria (ticket R$38 — premium)</td><td>R$ 7.600 <small>(20/dia)</small></td><td>R$ 17.100 <small>(45/dia)</small></td><td>R$ 34.200 <small>(90/dia)</small></td></tr>
+        <tr><td>💻 Coworking (diária R$65)</td><td>R$ 5.000 <small>(3 mens + 5 diár.)</small></td><td>R$ 10.000 <small>(5 mens + 10 diár.)</small></td><td>R$ 15.000 <small>(5 mens + 18 diár.)</small></td></tr>
+        <tr><td>🧺 Lavanderia (R$35/ciclo)</td><td>R$ 7.000 <small>(6,6/dia)</small></td><td>R$ 17.500 <small>(16,6/dia)</small></td><td>R$ 40.250 <small>(38/dia)</small></td></tr>
+        <tr class="total"><td><strong>RECEITA BRUTA/MÊS</strong></td><td><strong>R$ 19.600</strong></td><td><strong>R$ 44.600</strong></td><td><strong>R$ 89.450</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>ROI e Renda Mensal</h1>
+    <table>
+      <thead><tr><th>Período</th><th>Meses</th><th>Receita Total</th><th>OPEX Total</th><th>Lucro Líquido</th></tr></thead>
+      <tbody>
+        <tr><td>Alta Temporada</td><td>4</td><td>R$ 357.800</td><td>R$ 204.000</td><td>R$ 153.800</td></tr>
+        <tr><td>Média Temporada</td><td>4</td><td>R$ 178.400</td><td>R$ 135.200</td><td>R$ 43.200</td></tr>
+        <tr><td>Baixa Temporada</td><td>4</td><td>R$ 78.400</td><td>R$ 96.400</td><td><strong style="color:var(--danger)">- R$ 18.000</strong></td></tr>
+        <tr class="total"><td><strong>ANO 1 TOTAL</strong></td><td><strong>12</strong></td><td><strong>R$ 614.600</strong></td><td><strong>R$ 435.600</strong></td><td><strong>R$ 179.000</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="income-box">
+      <h2>💰 Sua Renda Mensal Esperada — Búzios</h2>
+      <div class="income-row"><span class="income-label">Lucro líquido médio/mês (anualizado)</span><span class="income-value">R$ 14.917/mês</span></div>
+      <div class="income-row"><span class="income-label" style="color:var(--danger)">Baixa temporada (mai–ago) 🚨 PREJUÍZO</span><span class="income-value" style="color:var(--danger)">- R$ 4.500/mês</span></div>
+      <div class="income-row"><span class="income-label">Média temporada (abr/set–nov)</span><span class="income-value">R$ 10.800/mês</span></div>
+      <div class="income-row"><span class="income-label">Alta temporada (dez–mar)</span><span class="income-value">R$ 38.450/mês</span></div>
+      <div class="income-row total-row"><span>Payback do investimento</span><span>~mês 36–48 ⚠️</span></div>
+    </div>
+
+    <div class="callout danger">
+      <div class="callout-icon">🚨</div>
+      <div class="callout-body">
+        <div class="callout-title">Veredicto Búzios — Não recomendado</div>
+        <div class="callout-text">Na baixa temporada, <strong>você opera no prejuízo</strong>. O aluguel alto de R$8k+/mês é impiedoso. O payback de 3–4 anos é longo demais para o capital arriscado. Só faz sentido se você já tem imóvel em Búzios ou um investidor de peso. <strong>Risco-retorno muito desfavorável.</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- ABA 4: ITACARÉ -->
+<!-- ════════════════════════════════════ -->
+<div class="tab-panel" id="tab-itacare">
+  <div class="city-strip itacare">
+    <div class="city-name">📍 Itacaré — BA</div>
+    <div class="city-tagline">Surf · Natureza · Nômades internacionais · Custo baixo · Lifestyle primeiro</div>
+    <div class="city-badges">
+      <span class="cbadge">🏄 Capital do Surf Baiano</span>
+      <span class="cbadge">💸 Menor Custo de Todos</span>
+      <span class="cbadge">🌍 Nômades Internacionais</span>
+      <span class="cbadge">⚡ Menor Concorrência</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">R$225k</div><div class="metric-label">CAPEX Total</div><div class="metric-sub">Completo (3 módulos)</div></div>
+      <div class="metric-card"><div class="metric-value">R$20k</div><div class="metric-label">OPEX Mensal</div></div>
+      <div class="metric-card"><div class="metric-value">R$38k</div><div class="metric-label">Receita Alvo/Mês</div><div class="metric-sub">Média anual</div></div>
+      <div class="metric-card"><div class="metric-value">R$13k</div><div class="metric-label">Lucro Líquido/Mês</div><div class="metric-sub">Média após payback</div></div>
+      <div class="metric-card"><div class="metric-value">20–24m</div><div class="metric-label">Payback</div></div>
+      <div class="metric-card"><div class="metric-value">~26%</div><div class="metric-label">Margem Líquida</div></div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-icon">🌴</div>
+      <div class="callout-body">
+        <div class="callout-title">Itacaré: o curinga do projeto</div>
+        <div class="callout-text">Itacaré tem uma comunidade de nômades digitais internacionais consolidada — surfistas que ficam meses, estrangeiros que trabalham remotamente, uma vibe alternativa que abraça esse tipo de negócio. O <strong>diferencial de ser o ÚNICO espaço estruturado</strong> de café + coworking + lavanderia ali é real e poderoso.</div>
+      </div>
+    </div>
+
+    <h1>CAPEX — Investimento Inicial</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Mínimo</th><th>Realista</th><th>Obs</th></tr></thead>
+      <tbody>
+        <tr><td>Reforma e adequação (100m²)</td><td>R$ 20.000</td><td>R$ 40.000</td><td>Mão de obra mais barata na BA</td></tr>
+        <tr><td>Ventilação (menos AC, mais circulação)</td><td>R$ 3.000</td><td>R$ 7.000</td><td>Clima quente mas ventilado</td></tr>
+        <tr><td>Internet (atenção: infraestrutura menor)</td><td>R$ 3.000</td><td>R$ 6.000</td><td>Pode precisar de link satélite</td></tr>
+        <tr><td>Fachada + identidade visual</td><td>R$ 3.000</td><td>R$ 6.000</td><td>Estilo rústico-premium funciona</td></tr>
+        <tr><td><strong>☕ Equip. Cafeteria</strong></td><td>R$ 12.000</td><td>R$ 26.000</td><td>Público gosta de qualidade artesanal</td></tr>
+        <tr><td><strong>💻 Equip. Coworking</strong></td><td>R$ 12.000</td><td>R$ 26.000</td><td>15 estações — foco em nômades</td></tr>
+        <tr><td><strong>🧺 Equip. Lavanderia</strong></td><td>R$ 65.000</td><td>R$ 110.000</td><td>3 lavad. + 3 secad. (escala menor)</td></tr>
+        <tr><td>Caução aluguel (3 meses)</td><td>R$ 6.000</td><td>R$ 10.500</td><td>R$2–3.5k/mês × 3</td></tr>
+        <tr><td>Capital de giro (3 meses OPEX)</td><td>R$ 42.000</td><td>R$ 60.000</td><td></td></tr>
+        <tr><td>Logística + transporte inicial</td><td>R$ 5.000</td><td>R$ 10.000</td><td>Itacaré é mais isolado — frete maior</td></tr>
+        <tr><td>Legalização + marketing</td><td>R$ 4.000</td><td>R$ 8.500</td><td>Instagram/TikTok surfa bem ali</td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX</strong></td><td><strong>R$ 175.000</strong></td><td><strong>R$ 310.000</strong></td><td><strong>Ref. realista: R$225k</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>OPEX — Custos Mensais</h1>
+    <table>
+      <thead><tr><th>Item</th><th>Baixa Temp.</th><th>Média Temp.</th><th>Alta Temp.</th></tr></thead>
+      <tbody>
+        <tr class="highlight-green"><td>Aluguel (grande diferencial)</td><td>R$ 2.200</td><td>R$ 2.200</td><td>R$ 2.200</td></tr>
+        <tr><td>Energia + infraestrutura</td><td>R$ 1.200</td><td>R$ 2.000</td><td>R$ 3.200</td></tr>
+        <tr><td>Água</td><td>R$ 350</td><td>R$ 600</td><td>R$ 1.000</td></tr>
+        <tr><td>Internet</td><td>R$ 700</td><td>R$ 700</td><td>R$ 700</td></tr>
+        <tr><td>Pessoal (2–3 func.)</td><td>R$ 4.000</td><td>R$ 5.500</td><td>R$ 8.000</td></tr>
+        <tr><td>Insumos cafeteria</td><td>R$ 1.600</td><td>R$ 2.800</td><td>R$ 4.800</td></tr>
+        <tr><td>Insumos lavanderia</td><td>R$ 600</td><td>R$ 1.100</td><td>R$ 1.800</td></tr>
+        <tr><td>Contador + impostos</td><td>R$ 1.200</td><td>R$ 2.200</td><td>R$ 3.600</td></tr>
+        <tr><td>Seguros + manutenção</td><td>R$ 700</td><td>R$ 700</td><td>R$ 900</td></tr>
+        <tr><td>Marketing</td><td>R$ 500</td><td>R$ 700</td><td>R$ 1.000</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX</strong></td><td><strong>R$ 13.050</strong></td><td><strong>R$ 18.500</strong></td><td><strong>R$ 27.200</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>Receita Projetada</h1>
+    <table>
+      <thead><tr><th>Módulo</th><th>Baixa (abr–jun)</th><th>Média (jul–out)</th><th>Alta (nov–mar)</th></tr></thead>
+      <tbody>
+        <tr><td>☕ Cafeteria (ticket R$25)</td><td>R$ 5.500 <small>(22/dia)</small></td><td>R$ 10.000 <small>(40/dia)</small></td><td>R$ 18.750 <small>(75/dia)</small></td></tr>
+        <tr><td>💻 Coworking (diária R$45)</td><td>R$ 5.000 <small>(4 mens + 6 diár.)</small></td><td>R$ 9.000 <small>(6 mens + 10 diár.)</small></td><td>R$ 13.500 <small>(6 mens + 16 diár.)</small></td></tr>
+        <tr><td>🧺 Lavanderia (R$28/ciclo)</td><td>R$ 5.880 <small>(7/dia)</small></td><td>R$ 12.600 <small>(15/dia)</small></td><td>R$ 26.880 <small>(32/dia)</small></td></tr>
+        <tr class="total"><td><strong>RECEITA BRUTA/MÊS</strong></td><td><strong>R$ 16.380</strong></td><td><strong>R$ 31.600</strong></td><td><strong>R$ 59.130</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>ROI e Renda Mensal</h1>
+    <table>
+      <thead><tr><th>Período</th><th>Meses</th><th>Receita Total</th><th>OPEX Total</th><th>Lucro Líquido</th></tr></thead>
+      <tbody>
+        <tr><td>Alta Temporada (nov–mar)</td><td>5</td><td>R$ 295.650</td><td>R$ 136.000</td><td>R$ 159.650</td></tr>
+        <tr><td>Média Temporada (jul–out)</td><td>4</td><td>R$ 126.400</td><td>R$ 74.000</td><td>R$ 52.400</td></tr>
+        <tr><td>Baixa Temporada (abr–jun)</td><td>3</td><td>R$ 49.140</td><td>R$ 39.150</td><td>R$ 9.990</td></tr>
+        <tr class="total"><td><strong>ANO 1 TOTAL</strong></td><td><strong>12</strong></td><td><strong>R$ 471.190</strong></td><td><strong>R$ 249.150</strong></td><td><strong>R$ 222.040</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="income-box">
+      <h2>💰 Sua Renda Mensal Esperada — Itacaré</h2>
+      <div class="income-row"><span class="income-label">Lucro líquido médio/mês (anualizado)</span><span class="income-value">R$ 18.503/mês</span></div>
+      <div class="income-row"><span class="income-label">Baixa temporada (abr–jun)</span><span class="income-value">R$ 3.330/mês</span></div>
+      <div class="income-row"><span class="income-label">Média temporada (jul–out)</span><span class="income-value">R$ 13.100/mês</span></div>
+      <div class="income-row"><span class="income-label">Alta temporada (nov–mar) 🔥</span><span class="income-value">R$ 31.930/mês</span></div>
+      <div class="income-row total-row"><span>Payback do investimento</span><span>~mês 20–24 ✅</span></div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-icon">🏄</div>
+      <div class="callout-body">
+        <div class="callout-title">Veredicto Itacaré — Melhor para Lifestyle</div>
+        <div class="callout-text">Se você quer <strong>viver à beira-mar com custo baixo e propósito</strong>, Itacaré é a escolha. OPEX mais barato, aluguel acessível, comunidade orgânica de nômades e surfistas. A desvantagem: menor volume absoluto de receita e infraestrutura menos robusta (internet, fornecedores). <strong>Escolha do coração — com viabilidade financeira real.</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- ABA 5: COMPARATIVO FINAL -->
+<!-- ════════════════════════════════════ -->
+<div class="tab-panel" id="tab-compare">
+  <div class="city-strip compare">
+    <div class="city-name">⚖️ Comparativo Final — As 4 Cidades</div>
+    <div class="city-tagline">ROI · CAPEX · Renda · Risco · Lifestyle — lado a lado</div>
+  </div>
+  <div class="content">
+
+    <h1>Scorecard Geral</h1>
+    <table>
+      <thead><tr><th>Dimensão</th><th>Cabo Frio</th><th>Arraial do Cabo</th><th>Búzios</th><th>Itacaré</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CAPEX Total Realista</strong></td><td>R$ 285k</td><td>R$ 255k</td><td class="highlight-red">R$ 390k</td><td class="highlight-green">R$ 225k</td></tr>
+        <tr><td><strong>OPEX Médio/Mês</strong></td><td>R$ 27k</td><td>R$ 23k</td><td class="highlight-red">R$ 36k</td><td class="highlight-green">R$ 19k</td></tr>
+        <tr><td><strong>Receita Média/Mês</strong></td><td class="highlight-green">R$ 52k</td><td>R$ 44k</td><td>R$ 51k</td><td>R$ 39k</td></tr>
+        <tr><td><strong>Lucro Médio/Mês</strong></td><td class="highlight-green">R$ 22k</td><td>R$ 21k</td><td class="highlight-red">R$ 15k</td><td>R$ 18k</td></tr>
+        <tr><td><strong>Payback</strong></td><td class="highlight-green">22–24m</td><td>24–28m</td><td class="highlight-red">36–48m</td><td class="highlight-green">20–24m</td></tr>
+        <tr><td><strong>Margem Líquida</strong></td><td class="highlight-green">~28%</td><td>~22%</td><td class="highlight-red">~14%</td><td>~26%</td></tr>
+        <tr><td><strong>Baixa Temporada (risco)</strong></td><td>R$ 6.2k/mês ⚠️</td><td>R$ 3.8k/mês 🔴</td><td class="highlight-red">-R$ 4.5k/mês 💀</td><td>R$ 3.3k/mês 🔴</td></tr>
+        <tr><td><strong>Alta Temporada (potencial)</strong></td><td class="highlight-green">R$ 39.6k/mês</td><td>R$ 42k/mês</td><td>R$ 38.5k/mês</td><td>R$ 31.9k/mês</td></tr>
+        <tr><td><strong>Logística / Infraestrutura</strong></td><td class="highlight-green">Ótima</td><td>Boa</td><td class="highlight-green">Ótima</td><td>Mediana</td></tr>
+        <tr><td><strong>Público Nômade Digital</strong></td><td>Crescente</td><td>Baixo</td><td>Médio</td><td class="highlight-green">Alto</td></tr>
+        <tr><td><strong>Lifestyle / Qualidade de Vida</strong></td><td>Boa</td><td class="highlight-green">Ótima</td><td>Ótima</td><td class="highlight-green">Excepcional</td></tr>
+        <tr><td><strong>Viável com R$120k (Fase 1)</strong></td><td class="highlight-green">✅ Sim</td><td class="highlight-green">✅ Sim</td><td class="highlight-red">❌ Não</td><td class="highlight-green">✅ Sim</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Ranking por Objetivo</h1>
+    <table>
+      <thead><tr><th>Objetivo</th><th>1º</th><th>2º</th><th>3º</th><th>4º (evitar)</th></tr></thead>
+      <tbody>
+        <tr><td>💰 Maximizar retorno financeiro</td><td><span class="rank-badge rank-1">1</span>Cabo Frio</td><td><span class="rank-badge rank-2">2</span>Arraial</td><td><span class="rank-badge rank-3">3</span>Itacaré</td><td><span class="rank-badge rank-4">4</span>Búzios</td></tr>
+        <tr><td>🏄 Lifestyle beira-mar + propósito</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Arraial</td><td><span class="rank-badge rank-3">3</span>Cabo Frio</td><td><span class="rank-badge rank-4">4</span>Búzios</td></tr>
+        <tr><td>💸 Menor capital inicial necessário</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Arraial</td><td><span class="rank-badge rank-3">3</span>Cabo Frio</td><td><span class="rank-badge rank-4">4</span>Búzios</td></tr>
+        <tr><td>⚡ Menor risco na baixa temporada</td><td><span class="rank-badge rank-1">1</span>Cabo Frio</td><td><span class="rank-badge rank-2">2</span>Arraial</td><td><span class="rank-badge rank-3">3</span>Itacaré</td><td><span class="rank-badge rank-4">4</span>Búzios</td></tr>
+        <tr><td>🌍 Público nômade internacional</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Búzios</td><td><span class="rank-badge rank-3">3</span>Cabo Frio</td><td><span class="rank-badge rank-4">4</span>Arraial</td></tr>
+        <tr><td>📅 Payback mais rápido</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>Arraial</td><td><span class="rank-badge rank-4">4</span>Búzios</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Renda Mensal — Resumo Visual</h1>
+    <p>Se você se dedicar 100% ao negócio, qual renda esperar por temporada:</p>
+    <table>
+      <thead><tr><th>Cidade</th><th>Baixa Temporada</th><th>Média Temporada</th><th>Alta Temporada</th><th>Média Anual</th></tr></thead>
+      <tbody>
+        <tr><td>📍 Cabo Frio</td><td>R$ 6.200</td><td>R$ 20.160</td><td>R$ 39.600</td><td class="highlight-green"><strong>R$ 22.000</strong></td></tr>
+        <tr><td>📍 Arraial do Cabo</td><td style="color:var(--warning)">R$ 3.780</td><td>R$ 17.210</td><td>R$ 42.000</td><td><strong>R$ 20.997</strong></td></tr>
+        <tr><td>📍 Búzios</td><td style="color:var(--danger)">-R$ 4.500</td><td>R$ 10.800</td><td>R$ 38.450</td><td style="color:var(--warning)"><strong>R$ 14.917</strong></td></tr>
+        <tr><td>📍 Itacaré</td><td style="color:var(--warning)">R$ 3.330</td><td>R$ 13.100</td><td>R$ 31.930</td><td><strong>R$ 18.503</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning">
+      <div class="callout-icon">🧠</div>
+      <div class="callout-body">
+        <div class="callout-title">Renda na baixa temporada: o teste da realidade</div>
+        <div class="callout-text">Esses números assumem <strong>operação plena dos 3 módulos</strong>. Se você lançar em Fase 1 (só café + coworking), divida a receita de lavanderia por zero e recalcule. Na baixa, <strong>o coworking de assinantes mensais é o que salva o caixa</strong> — construir uma base de mensalistas é missão #1.</div>
+      </div>
+    </div>
+
+    <h1>Decisão Final — O que fazer com R$120k</h1>
+    <table>
+      <thead><tr><th>Cenário</th><th>Cidade</th><th>Fase 1 (R$120k)</th><th>Projeção 18 meses</th></tr></thead>
+      <tbody>
+        <tr class="highlight-green"><td><strong>🎯 Recomendado</strong></td><td>Cabo Frio</td><td>Café + Coworking<br><small>~R$115k CAPEX F1</small></td><td>Break-even mês 5<br>Caixa para lavanderia mês 10</td></tr>
+        <tr><td><strong>🌴 Lifestyle</strong></td><td>Itacaré</td><td>Café + Coworking<br><small>~R$100k CAPEX F1</small></td><td>Break-even mês 4<br>Sobra R$20k para giro</td></tr>
+        <tr><td><strong>⚠️ Possível</strong></td><td>Arraial</td><td>Café + Coworking<br><small>~R$105k CAPEX F1</small></td><td>Break-even mês 6<br>Alta sazonal. risco real</td></tr>
+        <tr class="highlight-red"><td><strong>🚫 Evitar</strong></td><td>Búzios</td><td>R$120k não cobre nem o CAPEX F1</td><td>Inviável sem R$250k+</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <div class="callout-icon">🏆</div>
+      <div class="callout-body">
+        <div class="callout-title">Recomendação Final</div>
+        <div class="callout-text">
+          <strong>Segurança financeira → Cabo Frio.</strong> Melhor ROI, menor risco de baixa temporada, maior receita média anual, OPEX equilibrado.<br><br>
+          <strong>Lifestyle + missão → Itacaré.</strong> Menor CAPEX, payback rápido, público de nômades internacionais que valoriza exatamente esse combo, custo de vida menor. O negócio <em>encaixa na sua identidade</em>.<br><br>
+          <strong>Nos dois casos:</strong> Fase 1 com café + coworking. Lavanderia na Fase 2. Sócio operador local ou você morando lá. Lançar em setembro para pegar a alta temporada.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Confidencial</div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

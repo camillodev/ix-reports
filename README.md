@@ -101,7 +101,7 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 | `impact-x` | Impact X |
 | `kumon` | Kumon |
 | `g2i` | G2i |
-| `wy` | Wy |
+| `pessoal` | Pessoal |
 
 **Projetos** (`tag-projeto` · roxo):
 
@@ -113,6 +113,11 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 | `ingles-kumon` | Inglês Kumon |
 | `g2i-interview` | G2i Interview |
 | `skills-v2` | Skills v2 |
+| `automacao` | Automação |
+| `coworking` | Coworking |
+| `concurso-ai` | Concurso AI |
+| `conexoes-profundas` | Conexões Profundas |
+| `espiritualidade` | Espiritualidade |
 
 **Tags** (`tag-area` · verde):
 
@@ -126,6 +131,7 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 | `cultura` | Cultura |
 | `legal` | Legal |
 | `tech` | Tech |
+| `ritual` | Ritual |
 
 Novas tags podem ser criadas — basta adicionar um novo `<button class="chip">` na seção de filtros do `index.html`.
 
