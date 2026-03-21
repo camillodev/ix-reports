@@ -1,24 +1,24 @@
 # IX Reports
 
-**Impact X** — Relatórios e documentos publicados via GitHub Pages.
+**Impact X** — Relatórios e documentos publicados via Vercel.
 
 ## URLs
 
 | URL | Uso |
 |-----|-----|
 | **https://reports.impactxlabs.com/** | Custom domain (principal) |
-| **https://camillodev.github.io/ix-reports/** | Fallback (redireciona pro custom domain) |
+| **ix-reports.vercel.app** | Vercel default URL |
 
 ## Como funciona
 
-Este repositório serve HTML estático via **GitHub Pages**. Zero build, zero framework, zero manutenção.
+Este repositório serve HTML estático via **Vercel**. Zero build, zero framework, zero manutenção. Deploy automático a cada push no `master`. Deploy previews automáticos por branch/PR.
 
 ### Fluxo de publicação
 
 ```
 1. Claude gera relatório HTML com identidade Impact X
 2. Push do arquivo via GitHub MCP → camillodev/ix-reports (branch master)
-3. GitHub Pages serve automaticamente
+3. Vercel detecta push e faz deploy automaticamente
 4. Link público: https://reports.impactxlabs.com/[nome-do-arquivo].html
 ```
 
@@ -27,8 +27,7 @@ Este repositório serve HTML estático via **GitHub Pages**. Zero build, zero fr
 ```
 ix-reports/
 ├── README.md           ← Este arquivo
-├── CNAME               ← Custom domain (reports.impactxlabs.com)
-├── index.html          ← Página de listagem de todos os reports
+├── index.html          ← Página de listagem (Bootstrap 5.3 + filtros)
 └── ImpactX_*.html      ← Relatórios individuais
 ```
 
@@ -63,7 +62,7 @@ path: ImpactX_NomeDoReport_AAAAMM.html
 branch: master
 ```
 
-Depois, atualizar `index.html` adicionando o link do novo report **com tags obrigatórias**.
+Depois, atualizar `index.html` adicionando o card do novo report **com tags obrigatórias**.
 
 ### Tags obrigatórias
 
@@ -71,20 +70,19 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 
 #### Como adicionar tags a um novo report
 
-1. Adicione o atributo `data-tags` no `<a class="report-link">` com tags separadas por vírgula:
+1. Adicione o atributo `data-tags` no `<div class="card report-card">` com tags separadas por vírgula:
 
 ```html
-<a class="report-link" href="ImpactX_NomeDoReport_AAAAMM.html"
-   data-tags="impact-x,diagnostico-2026,financeiro">
+<div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,financeiro">
 ```
 
-2. Adicione tags visuais dentro de uma `<div class="tags-row">`:
+2. Adicione badges dentro do card:
 
 ```html
-<div class="tags-row">
-  <span class="tag tag-empresa">IMPACT X</span>
-  <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-  <span class="tag tag-area">FINANCEIRO</span>
+<div class="d-flex flex-wrap gap-1 mt-2">
+  <span class="badge tag-empresa">IMPACT X</span>
+  <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+  <span class="badge tag-area">FINANCEIRO</span>
 </div>
 ```
 
@@ -125,7 +123,7 @@ Todo novo report **deve** incluir tags no `index.html`. Isso garante que o filtr
 | `legal` | Legal |
 | `tech` | Tech |
 
-Novas tags podem ser criadas — basta adicionar um novo `<button class="chip">` na seção `.filter-bar` do `index.html`.
+Novas tags podem ser criadas — basta adicionar um novo `<button class="chip">` na seção de filtros do `index.html`.
 
 ---
 

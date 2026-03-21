@@ -1,349 +1,417 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-bs-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Reports</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Roboto, sans-serif; background: #0A0A0A; color: #F5F5F0; min-height: 100vh; }
-
-  /* ── Header ── */
-  .header { padding: 48px 40px 32px; border-bottom: 2px solid #42593D; }
-  .brand { font-size: 28px; font-weight: 900; }
+  body { background: #0A0A0A; min-height: 100vh; }
+  .brand { font-size: 28px; font-weight: 900; letter-spacing: 1px; }
   .brand .x { color: #F2C94C; }
-  .subtitle { font-size: 14px; color: #A0A090; margin-top: 8px; }
 
-  /* ── Filter Bar ── */
-  .filter-bar { padding: 28px 40px 0; }
-  .search-input {
-    width: 100%; max-width: 520px; padding: 12px 16px 12px 40px;
-    background: #1A1A1A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") 14px center no-repeat;
-    border: 1px solid #333; border-radius: 8px; color: #F5F5F0;
-    font-size: 14px; font-family: inherit; outline: none; transition: border-color .2s;
-  }
-  .search-input::placeholder { color: #666; }
-  .search-input:focus { border-color: #42593D; }
+  /* Filter chips */
+  .chip { border-radius: 20px; font-size: 12px; font-weight: 600; padding: 4px 14px; transition: all .2s; }
+  .chip-empresa.active, .chip-empresa:active { background: #F2C94C !important; border-color: #F2C94C !important; color: #0A0A0A !important; }
+  .chip-projeto.active, .chip-projeto:active { background: #7B2FBE !important; border-color: #7B2FBE !important; color: #F5F5F0 !important; }
+  .chip-area.active, .chip-area:active { background: #42593D !important; border-color: #42593D !important; color: #F5F5F0 !important; }
 
-  .filter-group { margin-top: 16px; }
-  .filter-label { font-size: 11px; color: #42593D; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; display: block; margin-bottom: 8px; }
-  .tag-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    padding: 5px 14px; background: #1A1A1A; border: 1px solid #333; border-radius: 20px;
-    color: #A0A090; font-size: 12px; font-weight: 600; cursor: pointer;
-    transition: all .2s; font-family: inherit; line-height: 1.4;
-  }
-  .chip:hover { border-color: #555; color: #F5F5F0; }
-  .chip-empresa.active { background: #F2C94C; border-color: #F2C94C; color: #0A0A0A; }
-  .chip-projeto.active { background: #7B2FBE; border-color: #7B2FBE; color: #F5F5F0; }
-  .chip-area.active { background: #42593D; border-color: #42593D; color: #F5F5F0; }
+  /* Section headers */
+  .section-title { font-size: 13px; color: #42593D; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
-  .active-filters { margin-top: 12px; font-size: 12px; color: #666; display: none; }
-  .active-filters.show { display: flex; align-items: center; gap: 8px; }
-  .clear-filters { background: none; border: 1px solid #444; border-radius: 4px; color: #A0A090; font-size: 11px; padding: 2px 10px; cursor: pointer; font-family: inherit; transition: all .2s; }
-  .clear-filters:hover { border-color: #C0392B; color: #C0392B; }
+  /* Report cards */
+  .report-card { transition: all .2s; border-color: #2a2a2a; }
+  .report-card:hover { border-color: #42593D; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(66,89,61,.2); }
+  .report-card .card-title { font-size: 15px; font-weight: 700; color: #F5F5F0; }
+  .report-card .card-text { font-size: 12px; }
+  .report-card a { text-decoration: none; color: inherit; }
+  .report-card a:hover { color: inherit; }
 
-  /* ── Reports List ── */
-  .reports { padding: 32px 40px; }
-  .report-section h2 { font-size: 14px; color: #42593D; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; margin-top: 32px; }
-  .report-section:first-child h2 { margin-top: 0; }
-  .report-link { display: block; padding: 16px 20px; margin: 8px 0; background: #1A1A1A; border: 1px solid #333; border-radius: 8px; text-decoration: none; color: #F5F5F0; transition: all .2s; }
-  .report-link:hover { border-color: #42593D; background: #1e2a1c; }
-  .report-link .title { font-weight: 700; font-size: 16px; line-height: 1.5; }
-  .report-link .date { font-size: 12px; color: #A0A090; margin-top: 4px; }
-  .report-link .tags-row { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  /* Tag badges */
+  .tag-empresa { background: rgba(242,201,76,.15) !important; color: #F2C94C !important; }
+  .tag-projeto { background: rgba(123,47,190,.15) !important; color: #9B59D4 !important; }
+  .tag-area { background: rgba(66,89,61,.25) !important; color: #7A9E72 !important; }
+  .tag-num { background: #2A2A2A !important; color: #A0A090 !important; }
 
-  /* ── Inline Tags ── */
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; vertical-align: middle; }
-  .tag-num { background: #2A2A2A; color: #A0A090; margin-right: 4px; }
-  .tag-empresa { background: rgba(242,201,76,.15); color: #F2C94C; }
-  .tag-projeto { background: rgba(123,47,190,.15); color: #9B59D4; }
-  .tag-area { background: rgba(66,89,61,.25); color: #7A9E72; }
+  /* Filter label */
+  .filter-label { font-size: 11px; color: #42593D; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
 
-  /* ── Visibility ── */
-  .report-link.hidden { display: none; }
-  .report-section.hidden { display: none; }
+  /* Visibility */
+  .report-card.hidden { display: none !important; }
+  .report-section.hidden { display: none !important; }
 
-  /* ── Empty State ── */
-  .empty-state { text-align: center; padding: 64px 20px; color: #555; font-size: 15px; display: none; }
-  .empty-state span { display: block; font-size: 32px; margin-bottom: 12px; }
-
-  /* ── Footer ── */
-  footer { padding: 32px 40px; text-align: center; font-size: 12px; color: #555; border-top: 1px solid #222; margin-top: 48px; }
-
-  /* ── Mobile ── */
-  @media (max-width: 600px) {
-    .header, .filter-bar, .reports, footer { padding-left: 20px; padding-right: 20px; }
-    .search-input { max-width: 100%; }
-    .chip { padding: 4px 10px; font-size: 11px; }
-    .report-link .title { font-size: 14px; }
-  }
+  /* Search focus */
+  .form-control:focus { border-color: #42593D; box-shadow: 0 0 0 .25rem rgba(66,89,61,.25); }
 </style>
 </head>
 <body>
-  <div class="header">
-    <div class="brand">IMPACT <span class="x">X</span></div>
-    <div class="subtitle">Relatórios e documentos publicados · reports.rafaelcamillo.com</div>
+
+  <!-- Header -->
+  <div class="container py-4">
+    <div class="border-bottom pb-3" style="border-color: #42593D !important;">
+      <div class="brand">IMPACT <span class="x">X</span></div>
+      <p class="text-secondary mb-0 mt-1" style="font-size: 14px;">Relatórios e documentos publicados · reports.rafaelcamillo.com</p>
+    </div>
   </div>
 
-  <!-- ── Filter Bar ── -->
-  <div class="filter-bar">
-    <input type="text" id="search-input" class="search-input" placeholder="Buscar por título ou descrição..." autocomplete="off">
-    <div class="filter-group">
-      <span class="filter-label">Empresa</span>
-      <div class="tag-chips">
-        <button class="chip chip-empresa" data-tag="impact-x">Impact X</button>
-        <button class="chip chip-empresa" data-tag="kumon">Kumon</button>
-        <button class="chip chip-empresa" data-tag="g2i">G2i</button>
-        <button class="chip chip-empresa" data-tag="wy">Wy</button>
+  <!-- Filter Bar -->
+  <div class="container mb-4">
+    <div class="input-group mb-3" style="max-width: 520px;">
+      <span class="input-group-text bg-dark border-secondary"><i class="bi bi-search text-secondary"></i></span>
+      <input type="text" id="search-input" class="form-control bg-dark border-secondary text-light" placeholder="Buscar por título ou descrição..." autocomplete="off">
+    </div>
+
+    <div class="mb-2">
+      <span class="filter-label d-block mb-2">Empresa</span>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="impact-x">Impact X</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="kumon">Kumon</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="g2i">G2i</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="wy">Wy</button>
       </div>
     </div>
-    <div class="filter-group">
-      <span class="filter-label">Projeto</span>
-      <div class="tag-chips">
-        <button class="chip chip-projeto" data-tag="diagnostico-2026">Diagnóstico 2026</button>
-        <button class="chip chip-projeto" data-tag="vto-eos">VTO/EOS</button>
-        <button class="chip chip-projeto" data-tag="institucional">Institucional</button>
-        <button class="chip chip-projeto" data-tag="ingles-kumon">Inglês Kumon</button>
-        <button class="chip chip-projeto" data-tag="g2i-interview">G2i Interview</button>
-        <button class="chip chip-projeto" data-tag="skills-v2">Skills v2</button>
+
+    <div class="mb-2">
+      <span class="filter-label d-block mb-2">Projeto</span>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="diagnostico-2026">Diagnóstico 2026</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="vto-eos">VTO/EOS</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="institucional">Institucional</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="ingles-kumon">Inglês Kumon</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="g2i-interview">G2i Interview</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="skills-v2">Skills v2</button>
       </div>
     </div>
-    <div class="filter-group">
-      <span class="filter-label">Área</span>
-      <div class="tag-chips">
-        <button class="chip chip-area" data-tag="estrategia">Estratégia</button>
-        <button class="chip chip-area" data-tag="financeiro">Financeiro</button>
-        <button class="chip chip-area" data-tag="people">People</button>
-        <button class="chip chip-area" data-tag="operacoes">Operações</button>
-        <button class="chip chip-area" data-tag="comercial">Comercial</button>
-        <button class="chip chip-area" data-tag="cultura">Cultura</button>
-        <button class="chip chip-area" data-tag="legal">Legal</button>
-        <button class="chip chip-area" data-tag="tech">Tech</button>
+
+    <div class="mb-3">
+      <span class="filter-label d-block mb-2">Área</span>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="estrategia">Estratégia</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="financeiro">Financeiro</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="people">People</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="operacoes">Operações</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="comercial">Comercial</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="cultura">Cultura</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="legal">Legal</button>
+        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="tech">Tech</button>
       </div>
     </div>
-    <div class="active-filters" id="active-filters">
-      <span id="result-count"></span>
-      <button class="clear-filters" id="clear-filters">Limpar filtros</button>
+
+    <div class="d-none align-items-center gap-2" id="active-filters">
+      <small class="text-secondary" id="result-count"></small>
+      <button class="btn btn-outline-danger btn-sm" id="clear-filters" style="font-size: 11px; padding: 2px 10px;">Limpar filtros</button>
     </div>
   </div>
 
-  <!-- ── Reports ── -->
-  <div class="reports">
+  <!-- Reports -->
+  <div class="container">
 
-    <section class="report-section">
-      <h2>EOS · Vision/Traction Organizer</h2>
-      <a class="report-link" href="ImpactX_VTO_EOS_202603.html" data-tags="impact-x,vto-eos,estrategia">
-        <div class="title">VTO — Vision/Traction Organizer</div>
-        <div class="date">19 Mar 2026 · Core Values, Targets 1/3/10 anos, Marketing, Accountability, Rocks 90d, Scorecard, Issues IDS</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">VTO/EOS</span>
-          <span class="tag tag-area">ESTRATÉGIA</span>
+    <!-- EOS -->
+    <section class="report-section mb-4">
+      <h6 class="section-title mb-3">EOS · Vision/Traction Organizer</h6>
+      <div class="row g-3">
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,vto-eos,estrategia">
+            <a href="ImpactX_VTO_EOS_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">VTO — Vision/Traction Organizer</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Core Values, Targets 1/3/10 anos, Marketing, Accountability, Rocks 90d</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">VTO/EOS</span>
+                <span class="badge tag-area">ESTRATÉGIA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
+      </div>
     </section>
 
-    <section class="report-section">
-      <h2>Institucional</h2>
-      <a class="report-link" href="ImpactX_Manifesto_202603.html" data-tags="impact-x,institucional,cultura">
-        <div class="title">Manifesto Impact X (PT/EN)</div>
-        <div class="date">19 Mar 2026 · Público · O que acreditamos, por que construímos e para quem vivemos</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">INSTITUCIONAL</span>
-          <span class="tag tag-area">CULTURA</span>
+    <!-- Institucional -->
+    <section class="report-section mb-4">
+      <h6 class="section-title mb-3">Institucional</h6>
+      <div class="row g-3">
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,institucional,cultura">
+            <a href="ImpactX_Manifesto_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">Manifesto Impact X (PT/EN)</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Público · O que acreditamos, por que construímos e para quem vivemos</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">INSTITUCIONAL</span>
+                <span class="badge tag-area">CULTURA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_MissaoVisaoValores_202603.html" data-tags="impact-x,institucional,cultura">
-        <div class="title">Missão, Visão e Valores</div>
-        <div class="date">19 Mar 2026 · Interno · Core Purpose, Horizontes de Visão, 8 Valores Fundamentais</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">INSTITUCIONAL</span>
-          <span class="tag tag-area">CULTURA</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,institucional,cultura">
+            <a href="ImpactX_MissaoVisaoValores_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">Missão, Visão e Valores</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Interno · Core Purpose, Horizontes de Visão, 8 Valores Fundamentais</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">INSTITUCIONAL</span>
+                <span class="badge tag-area">CULTURA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_CulturaePeople_202603.html" data-tags="impact-x,institucional,people,cultura">
-        <div class="title">Cultura & People</div>
-        <div class="date">19 Mar 2026 · Interno · Remote-first, Dengos, Diversidade, Benefícios, Posicionamento</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">INSTITUCIONAL</span>
-          <span class="tag tag-area">PEOPLE</span>
-          <span class="tag tag-area">CULTURA</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,institucional,people,cultura">
+            <a href="ImpactX_CulturaePeople_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">Cultura & People</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Interno · Remote-first, Dengos, Diversidade, Benefícios, Posicionamento</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">INSTITUCIONAL</span>
+                <span class="badge tag-area">PEOPLE</span>
+                <span class="badge tag-area">CULTURA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
+      </div>
     </section>
 
-    <section class="report-section">
-      <h2>Diagnóstico Executivo 2026 (Arquivos 00–11)</h2>
-      <a class="report-link" href="ImpactX_Diagnostico_00_Index_202603.html" data-tags="impact-x,diagnostico-2026,estrategia">
-        <div class="title"><span class="tag tag-num">00</span> Índice Master — Diagnóstico Executivo</div>
-        <div class="date">19 Mar 2026 · Índice de todos os 9 relatórios com resumo executivo</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">ESTRATÉGIA</span>
+    <!-- Diagnóstico -->
+    <section class="report-section mb-4">
+      <h6 class="section-title mb-3">Diagnóstico Executivo 2026 (Arquivos 00–11)</h6>
+      <div class="row g-3">
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,estrategia">
+            <a href="ImpactX_Diagnostico_00_Index_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">00</span> Índice Master — Diagnóstico Executivo</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Índice de todos os 9 relatórios com resumo executivo</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">ESTRATÉGIA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_01_ModeloNegocio_202603.html" data-tags="impact-x,kumon,diagnostico-2026,estrategia,financeiro">
-        <div class="title"><span class="tag tag-num">01</span> Modelo de Negócio</div>
-        <div class="date">19 Mar 2026 · Impact X + Kumon · Revenue model, unit economics, equipe, cultura</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-empresa">KUMON</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">ESTRATÉGIA</span>
-          <span class="tag tag-area">FINANCEIRO</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,kumon,diagnostico-2026,estrategia,financeiro">
+            <a href="ImpactX_Diagnostico_01_ModeloNegocio_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">01</span> Modelo de Negócio</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Impact X + Kumon · Revenue model, unit economics, equipe, cultura</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-empresa">KUMON</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">ESTRATÉGIA</span>
+                <span class="badge tag-area">FINANCEIRO</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_02_ProjecaoFinanceira_202603.html" data-tags="impact-x,diagnostico-2026,financeiro">
-        <div class="title"><span class="tag tag-num">02</span> Projeção Financeira 2026</div>
-        <div class="date">19 Mar 2026 · 3 cenários (conservador/moderado/otimista), DRE, break-even, runway</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">FINANCEIRO</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,financeiro">
+            <a href="ImpactX_Diagnostico_02_ProjecaoFinanceira_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">02</span> Projeção Financeira 2026</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · 3 cenários (conservador/moderado/otimista), DRE, break-even, runway</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">FINANCEIRO</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_03_TransicaoKumon_202603.html" data-tags="kumon,wy,diagnostico-2026,operacoes">
-        <div class="title"><span class="tag tag-num">03</span> Transição Kumon → Wy</div>
-        <div class="date">19 Mar 2026 · Plano de transição operacional, automações, fases</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">KUMON</span>
-          <span class="tag tag-empresa">WY</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">OPERAÇÕES</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="kumon,wy,diagnostico-2026,operacoes">
+            <a href="ImpactX_Diagnostico_03_TransicaoKumon_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">03</span> Transição Kumon → Wy</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Plano de transição operacional, automações, fases</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">KUMON</span>
+                <span class="badge tag-empresa">WY</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">OPERAÇÕES</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_04_AcordosWyRafael_202603.html" data-tags="wy,diagnostico-2026,legal">
-        <div class="title"><span class="tag tag-num">04</span> Acordos Wy & Rafael</div>
-        <div class="date">19 Mar 2026 · Estrutura contratual, equity, vesting, compensação</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">WY</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">LEGAL</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="wy,diagnostico-2026,legal">
+            <a href="ImpactX_Diagnostico_04_AcordosWyRafael_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">04</span> Acordos Wy & Rafael</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Estrutura contratual, equity, vesting, compensação</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">WY</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">LEGAL</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_05_EstrategiaComercial_202603.html" data-tags="impact-x,g2i,diagnostico-2026,comercial,estrategia">
-        <div class="title"><span class="tag tag-num">05</span> Estratégia Comercial</div>
-        <div class="date">19 Mar 2026 · G2i como canal, diversificação, pipeline, scripts, playbook</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-empresa">G2I</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">COMERCIAL</span>
-          <span class="tag tag-area">ESTRATÉGIA</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,g2i,diagnostico-2026,comercial,estrategia">
+            <a href="ImpactX_Diagnostico_05_EstrategiaComercial_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">05</span> Estratégia Comercial</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · G2i como canal, diversificação, pipeline, scripts, playbook</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-empresa">G2I</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">COMERCIAL</span>
+                <span class="badge tag-area">ESTRATÉGIA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_06_Metricas_202603.html" data-tags="impact-x,diagnostico-2026,financeiro,comercial">
-        <div class="title"><span class="tag tag-num">06</span> Métricas do Negócio</div>
-        <div class="date">19 Mar 2026 · Pipeline, conversão, MRR, unit economics, CAC, LTV, churn, KPIs</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">FINANCEIRO</span>
-          <span class="tag tag-area">COMERCIAL</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,financeiro,comercial">
+            <a href="ImpactX_Diagnostico_06_Metricas_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">06</span> Métricas do Negócio</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Pipeline, conversão, MRR, unit economics, CAC, LTV, churn, KPIs</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">FINANCEIRO</span>
+                <span class="badge tag-area">COMERCIAL</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_07_TimeMinimo_202603.html" data-tags="impact-x,diagnostico-2026,people,operacoes">
-        <div class="title"><span class="tag tag-num">07</span> Time Mínimo Recomendado</div>
-        <div class="date">19 Mar 2026 · Organograma, gaps, OPEX, regras de contratação, fases</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">PEOPLE</span>
-          <span class="tag tag-area">OPERAÇÕES</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,people,operacoes">
+            <a href="ImpactX_Diagnostico_07_TimeMinimo_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">07</span> Time Mínimo Recomendado</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Organograma, gaps, OPEX, regras de contratação, fases</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">PEOPLE</span>
+                <span class="badge tag-area">OPERAÇÕES</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_08_Roadmap2026_202603.html" data-tags="impact-x,diagnostico-2026,estrategia">
-        <div class="title"><span class="tag tag-num">08</span> Roadmap 2026</div>
-        <div class="date">19 Mar 2026 · Q2/Q3/Q4 · Objetivos, entregas, Go/No-Go, riscos, marcos de decisão</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">ESTRATÉGIA</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,estrategia">
+            <a href="ImpactX_Diagnostico_08_Roadmap2026_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">08</span> Roadmap 2026</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Q2/Q3/Q4 · Objetivos, entregas, Go/No-Go, riscos, marcos de decisão</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">ESTRATÉGIA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_09_ActionItems_202603.html" data-tags="impact-x,diagnostico-2026,operacoes,estrategia">
-        <div class="title"><span class="tag tag-num">09</span> Action Items</div>
-        <div class="date">19 Mar 2026 · Decisões tomadas, ações urgentes (A1-A10), pós-validação, backlog</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">OPERAÇÕES</span>
-          <span class="tag tag-area">ESTRATÉGIA</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,operacoes,estrategia">
+            <a href="ImpactX_Diagnostico_09_ActionItems_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">09</span> Action Items</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Decisões tomadas, ações urgentes (A1-A10), pós-validação, backlog</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">OPERAÇÕES</span>
+                <span class="badge tag-area">ESTRATÉGIA</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_10_G2iEntrevista_202603.html" data-tags="g2i,diagnostico-2026,comercial">
-        <div class="title"><span class="tag tag-num">10</span> Estratégia G2i — Entrevista</div>
-        <div class="date">19 Mar 2026 · Interview prep Rafa + playbook comercial Pimenta para G2i</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">G2I</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">COMERCIAL</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="g2i,diagnostico-2026,comercial">
+            <a href="ImpactX_Diagnostico_10_G2iEntrevista_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">10</span> Estratégia G2i — Entrevista</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Interview prep Rafa + playbook comercial Pimenta para G2i</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">G2I</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">COMERCIAL</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_Diagnostico_11_ProcessoComercialMVP_202603.html" data-tags="impact-x,diagnostico-2026,comercial,operacoes">
-        <div class="title"><span class="tag tag-num">11</span> Processo Comercial MVP</div>
-        <div class="date">19 Mar 2026 · Funil simplificado, timeline 30-45 dias, workflow operacional</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">DIAGNÓSTICO 2026</span>
-          <span class="tag tag-area">COMERCIAL</span>
-          <span class="tag tag-area">OPERAÇÕES</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,comercial,operacoes">
+            <a href="ImpactX_Diagnostico_11_ProcessoComercialMVP_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title"><span class="badge tag-num me-1">11</span> Processo Comercial MVP</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Funil simplificado, timeline 30-45 dias, workflow operacional</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">DIAGNÓSTICO 2026</span>
+                <span class="badge tag-area">COMERCIAL</span>
+                <span class="badge tag-area">OPERAÇÕES</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
+      </div>
     </section>
 
-    <section class="report-section">
-      <h2>Outros Reports</h2>
-      <a class="report-link" href="ImpactX_ProjetoInglesKumon_202603.html" data-tags="kumon,ingles-kumon,comercial,operacoes">
-        <div class="title">Projeto Inglês — Kumon & Comercial</div>
-        <div class="date">19 Mar 2026 · Will Pena · Estratégia, Guia do Professor, OKRs, Timeline</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">KUMON</span>
-          <span class="tag tag-projeto">INGLÊS KUMON</span>
-          <span class="tag tag-area">COMERCIAL</span>
-          <span class="tag tag-area">OPERAÇÕES</span>
+    <!-- Outros -->
+    <section class="report-section mb-4">
+      <h6 class="section-title mb-3">Outros Reports</h6>
+      <div class="row g-3">
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="kumon,ingles-kumon,comercial,operacoes">
+            <a href="ImpactX_ProjetoInglesKumon_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">Projeto Inglês — Kumon & Comercial</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Will Pena · Estratégia, Guia do Professor, OKRs, Timeline</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">KUMON</span>
+                <span class="badge tag-projeto">INGLÊS KUMON</span>
+                <span class="badge tag-area">COMERCIAL</span>
+                <span class="badge tag-area">OPERAÇÕES</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_G2i_InterviewPrep_202603.html" data-tags="g2i,g2i-interview,comercial">
-        <div class="title">G2i Interview Prep — EN Version</div>
-        <div class="date">19 Mar 2026 · RLHF Intelligence, High Agency Framework, STAR Stories</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">G2I</span>
-          <span class="tag tag-projeto">G2I INTERVIEW</span>
-          <span class="tag tag-area">COMERCIAL</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="g2i,g2i-interview,comercial">
+            <a href="ImpactX_G2i_InterviewPrep_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">G2i Interview Prep — EN Version</h6>
+              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · RLHF Intelligence, High Agency Framework, STAR Stories</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">G2I</span>
+                <span class="badge tag-projeto">G2I INTERVIEW</span>
+                <span class="badge tag-area">COMERCIAL</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a class="report-link" href="ImpactX_SkillsV2_MapaCompleto_202603.html" data-tags="impact-x,skills-v2,people,tech">
-        <div class="title">Sistema de Skills v2 — Mapa Completo</div>
-        <div class="date">18 Mar 2026 · Interno</div>
-        <div class="tags-row">
-          <span class="tag tag-empresa">IMPACT X</span>
-          <span class="tag tag-projeto">SKILLS V2</span>
-          <span class="tag tag-area">PEOPLE</span>
-          <span class="tag tag-area">TECH</span>
+        <div class="col-lg-4 col-md-6">
+          <div class="card report-card h-100" data-tags="impact-x,skills-v2,people,tech">
+            <a href="ImpactX_SkillsV2_MapaCompleto_202603.html" class="card-body d-flex flex-column">
+              <h6 class="card-title">Sistema de Skills v2 — Mapa Completo</h6>
+              <p class="card-text text-secondary mt-auto pt-2">18 Mar 2026 · Interno</p>
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                <span class="badge tag-empresa">IMPACT X</span>
+                <span class="badge tag-projeto">SKILLS V2</span>
+                <span class="badge tag-area">PEOPLE</span>
+                <span class="badge tag-area">TECH</span>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
+      </div>
     </section>
 
   </div>
 
-  <div class="empty-state" id="empty-state">
-    <span>Nenhum relatório encontrado.</span>
-    Tente ajustar a busca ou limpar os filtros.
+  <!-- Empty State -->
+  <div class="container text-center py-5 d-none" id="empty-state">
+    <p class="text-secondary fs-5"><i class="bi bi-search me-2"></i>Nenhum relatório encontrado.</p>
+    <p class="text-secondary">Tente ajustar a busca ou limpar os filtros.</p>
   </div>
 
-  <footer>Impact <span style="color:#F2C94C;font-weight:700">X</span> — Rafael Camillo · 19 reports publicados</footer>
+  <!-- Footer -->
+  <footer class="container text-center text-secondary py-4 mt-4 border-top border-dark">
+    Impact <span style="color:#F2C94C;font-weight:700">X</span> — Rafael Camillo · 19 reports publicados
+  </footer>
 
 <script>
 (function () {
   var searchInput = document.getElementById('search-input');
   var chips = document.querySelectorAll('.chip');
-  var links = document.querySelectorAll('.report-link');
+  var cards = document.querySelectorAll('.report-card');
   var sections = document.querySelectorAll('.report-section');
   var emptyState = document.getElementById('empty-state');
   var activeFiltersBar = document.getElementById('active-filters');
@@ -380,31 +448,37 @@
     var hasFilters = query.length > 0 || activeTags.size > 0;
     var visibleCount = 0;
 
-    links.forEach(function (link) {
-      var title = link.querySelector('.title').textContent.toLowerCase();
-      var date = link.querySelector('.date').textContent.toLowerCase();
-      var linkTags = (link.dataset.tags || '').split(',');
+    cards.forEach(function (card) {
+      var title = card.querySelector('.card-title').textContent.toLowerCase();
+      var desc = card.querySelector('.card-text').textContent.toLowerCase();
+      var cardTags = (card.dataset.tags || '').split(',');
 
-      var matchesSearch = !query || title.indexOf(query) !== -1 || date.indexOf(query) !== -1;
-      var matchesTags = activeTags.size === 0 || linkTags.some(function (t) { return activeTags.has(t); });
+      var matchesSearch = !query || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1;
+      var matchesTags = activeTags.size === 0 || cardTags.some(function (t) { return activeTags.has(t); });
       var visible = matchesSearch && matchesTags;
 
-      link.classList.toggle('hidden', !visible);
+      card.classList.toggle('hidden', !visible);
       if (visible) visibleCount++;
     });
 
     sections.forEach(function (section) {
-      var hasVisible = section.querySelector('.report-link:not(.hidden)');
+      var hasVisible = section.querySelector('.report-card:not(.hidden)');
       section.classList.toggle('hidden', !hasVisible);
     });
 
-    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    if (visibleCount === 0) {
+      emptyState.classList.remove('d-none');
+    } else {
+      emptyState.classList.add('d-none');
+    }
 
     if (hasFilters) {
-      activeFiltersBar.classList.add('show');
-      resultCount.textContent = visibleCount + ' de ' + links.length + ' relatórios';
+      activeFiltersBar.classList.remove('d-none');
+      activeFiltersBar.classList.add('d-flex');
+      resultCount.textContent = visibleCount + ' de ' + cards.length + ' relatórios';
     } else {
-      activeFiltersBar.classList.remove('show');
+      activeFiltersBar.classList.add('d-none');
+      activeFiltersBar.classList.remove('d-flex');
     }
   }
 })();
