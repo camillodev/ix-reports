@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-bs-theme="dark">
+<html lang="pt-BR" data-bs-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,373 +7,571 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="assets/css/hub.css" rel="stylesheet">
+<script>
+(function(){var t=localStorage.getItem('ix-theme');if(t)document.documentElement.setAttribute('data-bs-theme',t);})();
+</script>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="container py-4">
-    <div class="border-bottom pb-3" style="border-color: #42593D !important;">
-      <div class="brand">IMPACT <span class="x">X</span></div>
-      <p class="text-secondary mb-0 mt-1" style="font-size: 14px;">Relatórios e documentos publicados · reports.rafaelcamillo.com</p>
-    </div>
+<!-- Topbar -->
+<header class="topbar">
+  <div class="topbar-left">
+    <a href="#" class="brand">IMPACT <span class="x">X</span></a>
+    <span class="topbar-badge">Reports Hub</span>
   </div>
-
-  <!-- Filter Bar -->
-  <div class="container mb-4">
-    <div class="input-group mb-3" style="max-width: 520px;">
-      <span class="input-group-text bg-dark border-secondary"><i class="bi bi-search text-secondary"></i></span>
-      <input type="text" id="search-input" class="form-control bg-dark border-secondary text-light" placeholder="Buscar por título ou descrição..." autocomplete="off">
+  <div class="topbar-right">
+    <div class="search-bar">
+      <i class="bi bi-search"></i>
+      <input type="text" id="search-input" placeholder="Buscar relatórios..." autocomplete="off">
     </div>
-
-    <div class="mb-2">
-      <span class="filter-label d-block mb-2">Clientes</span>
-      <div class="d-flex flex-wrap gap-2">
-        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="impact-x">Impact X</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="kumon">Kumon</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="g2i">G2i</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="wy">Wy</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-empresa" data-tag="pessoal">Pessoal</button>
-      </div>
-    </div>
-
-    <div class="mb-2">
-      <span class="filter-label d-block mb-2">Projetos</span>
-      <div class="d-flex flex-wrap gap-2">
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="diagnostico-2026">Diagnóstico 2026</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="vto-eos">VTO/EOS</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="institucional">Institucional</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="ingles-kumon">Inglês Kumon</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="g2i-interview">G2i Interview</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="skills-v2">Skills v2</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-projeto" data-tag="espiritualidade">Espiritualidade</button>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <span class="filter-label d-block mb-2">Tags</span>
-      <div class="d-flex flex-wrap gap-2">
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="estrategia">Estratégia</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="financeiro">Financeiro</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="people">People</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="operacoes">Operações</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="comercial">Comercial</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="cultura">Cultura</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="legal">Legal</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="tech">Tech</button>
-        <button class="btn btn-outline-secondary btn-sm chip chip-area" data-tag="ritual">Ritual</button>
-      </div>
-    </div>
-
-    <div class="d-none align-items-center gap-2" id="active-filters">
-      <small class="text-secondary" id="result-count"></small>
-      <button class="btn btn-outline-danger btn-sm" id="clear-filters" style="font-size: 11px; padding: 2px 10px;">Limpar filtros</button>
-    </div>
+    <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+      <i class="bi bi-moon-fill" id="theme-icon"></i>
+    </button>
   </div>
+</header>
 
-  <!-- Reports -->
-  <div class="container">
+<!-- Layout -->
+<div class="app-layout">
 
-    <!-- Pessoal -->
-    <section class="report-section mb-4">
-      <h6 class="section-title mb-3">Pessoal</h6>
-      <div class="row g-3">
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="pessoal,espiritualidade,ritual">
-            <a href="ImpactX_GuiaOri_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">🔱 Guia de Fortalecimento do Ori — Iemanjá &amp; Oxossi</h6>
-              <p class="card-text text-secondary mt-auto pt-2">20 Mar 2026 · Cabo Frio · Tradições Yorubá, Candomblé e Umbanda · Protocolo de 7 dias personalizado</p>
-              <div class="d-flex flex-wrap gap-1 mt-2">
-                <span class="badge tag-empresa">PESSOAL</span>
-                <span class="badge tag-projeto">ESPIRITUALIDADE</span>
-                <span class="badge tag-area">RITUAL</span>
-              </div>
-            </a>
-          </div>
-        </div>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Clientes</div>
+      <button class="nav-item-filter active" data-client="all">
+        <span class="nav-icon"><i class="bi bi-grid-3x3-gap"></i></span> Todos
+        <span class="nav-count" id="count-all">20</span>
+      </button>
+      <button class="nav-item-filter" data-client="impact-x">
+        <span class="nav-icon"><i class="bi bi-lightning"></i></span> Impact X
+        <span class="nav-count">15</span>
+      </button>
+      <button class="nav-item-filter" data-client="kumon">
+        <span class="nav-icon"><i class="bi bi-book"></i></span> Kumon
+        <span class="nav-count">4</span>
+      </button>
+      <button class="nav-item-filter" data-client="g2i">
+        <span class="nav-icon"><i class="bi bi-code-slash"></i></span> G2i
+        <span class="nav-count">4</span>
+      </button>
+      <button class="nav-item-filter" data-client="wy">
+        <span class="nav-icon"><i class="bi bi-building"></i></span> Wy
+        <span class="nav-count">3</span>
+      </button>
+      <button class="nav-item-filter" data-client="pessoal">
+        <span class="nav-icon"><i class="bi bi-person"></i></span> Pessoal
+        <span class="nav-count">1</span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Projetos</div>
+      <div id="projectFilters">
+        <span class="filter-tag" data-tag="diagnostico-2026">Diagnóstico 2026</span>
+        <span class="filter-tag" data-tag="vto-eos">VTO/EOS</span>
+        <span class="filter-tag" data-tag="institucional">Institucional</span>
+        <span class="filter-tag" data-tag="ingles-kumon">Inglês Kumon</span>
+        <span class="filter-tag" data-tag="g2i-interview">G2i Interview</span>
+        <span class="filter-tag" data-tag="skills-v2">Skills v2</span>
+        <span class="filter-tag" data-tag="espiritualidade">Espiritualidade</span>
       </div>
-    </section>
+    </div>
 
-    <!-- EOS -->
-    <section class="report-section mb-4">
-      <h6 class="section-title mb-3">EOS · Vision/Traction Organizer</h6>
-      <div class="row g-3">
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,vto-eos,estrategia">
-            <a href="data/ImpactX_VTO_EOS_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">VTO — Vision/Traction Organizer</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Core Values, Targets 1/3/10 anos, Marketing, Accountability, Rocks 90d</p>
-              <div class="d-flex flex-wrap gap-1 mt-2">
-                <span class="badge tag-empresa">IMPACT X</span>
-                <span class="badge tag-projeto">VTO/EOS</span>
-                <span class="badge tag-area">ESTRATÉGIA</span>
-              </div>
-            </a>
-          </div>
-        </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Tags</div>
+      <div id="tagFilters">
+        <span class="filter-tag" data-tag="estrategia">Estratégia</span>
+        <span class="filter-tag" data-tag="financeiro">Financeiro</span>
+        <span class="filter-tag" data-tag="people">People</span>
+        <span class="filter-tag" data-tag="operacoes">Operações</span>
+        <span class="filter-tag" data-tag="comercial">Comercial</span>
+        <span class="filter-tag" data-tag="cultura">Cultura</span>
+        <span class="filter-tag" data-tag="legal">Legal</span>
+        <span class="filter-tag" data-tag="tech">Tech</span>
+        <span class="filter-tag" data-tag="ritual">Ritual</span>
       </div>
-    </section>
+    </div>
 
-    <!-- Institucional -->
-    <section class="report-section mb-4">
-      <h6 class="section-title mb-3">Institucional</h6>
-      <div class="row g-3">
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,institucional,cultura">
-            <a href="data/ImpactX_Manifesto_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">Manifesto Impact X (PT/EN)</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Público · O que acreditamos, por que construímos e para quem vivemos</p>
-              <div class="d-flex flex-wrap gap-1 mt-2">
-                <span class="badge tag-empresa">IMPACT X</span>
-                <span class="badge tag-projeto">INSTITUCIONAL</span>
-                <span class="badge tag-area">CULTURA</span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,institucional,cultura">
-            <a href="data/ImpactX_MissaoVisaoValores_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">Missão, Visão e Valores</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Interno · Core Purpose, Horizontes de Visão, 8 Valores Fundamentais</p>
-              <div class="d-flex flex-wrap gap-1 mt-2">
-                <span class="badge tag-empresa">IMPACT X</span>
-                <span class="badge tag-projeto">INSTITUCIONAL</span>
-                <span class="badge tag-area">CULTURA</span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,institucional,people,cultura">
-            <a href="data/ImpactX_CulturaePeople_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">Cultura &amp; People</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Interno · Remote-first, Dengos, Diversidade, Benefícios, Posicionamento</p>
-              <div class="d-flex flex-wrap gap-1 mt-2">
-                <span class="badge tag-empresa">IMPACT X</span>
-                <span class="badge tag-projeto">INSTITUCIONAL</span>
-                <span class="badge tag-area">PEOPLE</span>
-                <span class="badge tag-area">CULTURA</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="sidebar-section d-none active-filters-bar" id="active-filters">
+      <small class="text-body-secondary" id="result-count"></small>
+      <button class="filter-tag" id="clear-filters" style="font-size:11px;margin-top:4px">Limpar filtros</button>
+    </div>
+  </nav>
 
-    <!-- Diagnóstico -->
-    <section class="report-section mb-4">
-      <h6 class="section-title mb-3">Diagnóstico Executivo 2026 (Arquivos 00–11)</h6>
-      <div class="row g-3">
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,estrategia">
-            <a href="data/ImpactX_Diagnostico_00_Index_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">00</span> Índice Master — Diagnóstico Executivo</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Índice de todos os 9 relatórios com resumo executivo</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">ESTRATÉGIA</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,kumon,diagnostico-2026,estrategia,financeiro">
-            <a href="data/ImpactX_Diagnostico_01_ModeloNegocio_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">01</span> Modelo de Negócio</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Impact X + Kumon · Revenue model, unit economics, equipe, cultura</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-empresa">KUMON</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">ESTRATÉGIA</span><span class="badge tag-area">FINANCEIRO</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,financeiro">
-            <a href="data/ImpactX_Diagnostico_02_ProjecaoFinanceira_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">02</span> Projeção Financeira 2026</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · 3 cenários (conservador/moderado/otimista), DRE, break-even, runway</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">FINANCEIRO</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="kumon,wy,diagnostico-2026,operacoes">
-            <a href="data/ImpactX_Diagnostico_03_TransicaoKumon_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">03</span> Transição Kumon → Wy</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Plano de transição operacional, automações, fases</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">KUMON</span><span class="badge tag-empresa">WY</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">OPERAÇÕES</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="wy,diagnostico-2026,legal">
-            <a href="data/ImpactX_Diagnostico_04_AcordosWyRafael_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">04</span> Acordos Wy &amp; Rafael</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Estrutura contratual, equity, vesting, compensação</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">WY</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">LEGAL</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,g2i,diagnostico-2026,comercial,estrategia">
-            <a href="data/ImpactX_Diagnostico_05_EstrategiaComercial_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">05</span> Estratégia Comercial</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · G2i como canal, diversificação, pipeline, scripts, playbook</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-empresa">G2I</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">COMERCIAL</span><span class="badge tag-area">ESTRATÉGIA</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,financeiro,comercial">
-            <a href="data/ImpactX_Diagnostico_06_Metricas_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">06</span> Métricas do Negócio</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Pipeline, conversão, MRR, unit economics, CAC, LTV, churn, KPIs</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">FINANCEIRO</span><span class="badge tag-area">COMERCIAL</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,people,operacoes">
-            <a href="data/ImpactX_Diagnostico_07_TimeMinimo_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">07</span> Time Mínimo Recomendado</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Organograma, gaps, OPEX, regras de contratação, fases</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">PEOPLE</span><span class="badge tag-area">OPERAÇÕES</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,estrategia">
-            <a href="data/ImpactX_Diagnostico_08_Roadmap2026_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">08</span> Roadmap 2026</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Q2/Q3/Q4 · Objetivos, entregas, Go/No-Go, riscos, marcos de decisão</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">ESTRATÉGIA</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,operacoes,estrategia">
-            <a href="data/ImpactX_Diagnostico_09_ActionItems_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">09</span> Action Items</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Decisões tomadas, ações urgentes (A1-A10), pós-validação, backlog</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">OPERAÇÕES</span><span class="badge tag-area">ESTRATÉGIA</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="g2i,diagnostico-2026,comercial">
-            <a href="data/ImpactX_Diagnostico_10_G2iEntrevista_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">10</span> Estratégia G2i — Entrevista</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Interview prep Rafa + playbook comercial Pimenta para G2i</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">G2I</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">COMERCIAL</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,diagnostico-2026,comercial,operacoes">
-            <a href="data/ImpactX_Diagnostico_11_ProcessoComercialMVP_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title"><span class="badge tag-num me-1">11</span> Processo Comercial MVP</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Funil simplificado, timeline 30-45 dias, workflow operacional</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">DIAGNÓSTICO 2026</span><span class="badge tag-area">COMERCIAL</span><span class="badge tag-area">OPERAÇÕES</span></div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Main -->
+  <main class="main-content">
+    <div class="main-header">
+      <div class="main-title">Relatórios</div>
+      <div class="main-subtitle"><span id="total-count">20</span> documentos publicados</div>
+    </div>
 
-    <!-- Outros -->
-    <section class="report-section mb-4">
-      <h6 class="section-title mb-3">Outros Reports</h6>
-      <div class="row g-3">
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="kumon,ingles-kumon,comercial,operacoes">
-            <a href="data/ImpactX_ProjetoInglesKumon_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">Projeto Inglês — Kumon &amp; Comercial</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · Will Pena · Estratégia, Guia do Professor, OKRs, Timeline</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">KUMON</span><span class="badge tag-projeto">INGLÊS KUMON</span><span class="badge tag-area">COMERCIAL</span><span class="badge tag-area">OPERAÇÕES</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="g2i,g2i-interview,comercial">
-            <a href="data/ImpactX_G2i_InterviewPrep_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">G2i Interview Prep — EN Version</h6>
-              <p class="card-text text-secondary mt-auto pt-2">19 Mar 2026 · RLHF Intelligence, High Agency Framework, STAR Stories</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">G2I</span><span class="badge tag-projeto">G2I INTERVIEW</span><span class="badge tag-area">COMERCIAL</span></div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card report-card h-100" data-tags="impact-x,skills-v2,people,tech">
-            <a href="data/ImpactX_SkillsV2_MapaCompleto_202603.html" class="card-body d-flex flex-column">
-              <h6 class="card-title">Sistema de Skills v2 — Mapa Completo</h6>
-              <p class="card-text text-secondary mt-auto pt-2">18 Mar 2026 · Interno</p>
-              <div class="d-flex flex-wrap gap-1 mt-2"><span class="badge tag-empresa">IMPACT X</span><span class="badge tag-projeto">SKILLS V2</span><span class="badge tag-area">PEOPLE</span><span class="badge tag-area">TECH</span></div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="reports-list" id="reports-list">
 
-  </div>
+      <a class="report-row" href="ImpactX_GuiaOri_202603.html" data-tags="pessoal,espiritualidade,ritual">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">Guia de Fortalecimento do Ori — Iemanjá &amp; Oxossi</div>
+          <div class="rr-meta">20 Mar 2026 · Cabo Frio · Tradições Yorubá, Candomblé e Umbanda</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Pessoal</span>
+          <span class="rr-tag rr-tag-projeto">Espiritualidade</span>
+          <span class="rr-tag rr-tag-area">Ritual</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
 
-  <!-- Empty State -->
-  <div class="container text-center py-5 d-none" id="empty-state">
-    <p class="text-secondary fs-5"><i class="bi bi-search me-2"></i>Nenhum relatório encontrado.</p>
-    <p class="text-secondary">Tente ajustar a busca ou limpar os filtros.</p>
-  </div>
+      <a class="report-row" href="data/ImpactX_VTO_EOS_202603.html" data-tags="impact-x,vto-eos,estrategia">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">VTO — Vision/Traction Organizer</div>
+          <div class="rr-meta">19 Mar 2026 · Core Values, Targets 1/3/10 anos, Marketing, Rocks 90d</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">VTO/EOS</span>
+          <span class="rr-tag rr-tag-area">Estratégia</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
 
-  <!-- Footer -->
-  <footer class="container text-center text-secondary py-4 mt-4 border-top border-dark">
-    Impact <span style="color:#F2C94C;font-weight:700">X</span> — Rafael Camillo · 20 reports publicados
-  </footer>
+      <a class="report-row" href="data/ImpactX_Manifesto_202603.html" data-tags="impact-x,institucional,cultura">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">Manifesto Impact X (PT/EN)</div>
+          <div class="rr-meta">19 Mar 2026 · Público · O que acreditamos, por que construímos e para quem vivemos</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Institucional</span>
+          <span class="rr-tag rr-tag-area">Cultura</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_MissaoVisaoValores_202603.html" data-tags="impact-x,institucional,cultura">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">Missão, Visão e Valores</div>
+          <div class="rr-meta">19 Mar 2026 · Interno · Core Purpose, Horizontes de Visão, 8 Valores Fundamentais</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Institucional</span>
+          <span class="rr-tag rr-tag-area">Cultura</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_CulturaePeople_202603.html" data-tags="impact-x,institucional,people,cultura">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">Cultura &amp; People</div>
+          <div class="rr-meta">19 Mar 2026 · Interno · Remote-first, Dengos, Diversidade, Benefícios</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Institucional</span>
+          <span class="rr-tag rr-tag-area">People</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_00_Index_202603.html" data-tags="impact-x,diagnostico-2026,estrategia">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">00</span>Índice Master — Diagnóstico Executivo</div>
+          <div class="rr-meta">19 Mar 2026 · Índice de todos os 9 relatórios com resumo executivo</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_01_ModeloNegocio_202603.html" data-tags="impact-x,kumon,diagnostico-2026,estrategia,financeiro">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">01</span>Modelo de Negócio</div>
+          <div class="rr-meta">19 Mar 2026 · Impact X + Kumon · Revenue model, unit economics, equipe</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Financeiro</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_02_ProjecaoFinanceira_202603.html" data-tags="impact-x,diagnostico-2026,financeiro">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">02</span>Projeção Financeira 2026</div>
+          <div class="rr-meta">19 Mar 2026 · 3 cenários (conservador/moderado/otimista), DRE, break-even</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Financeiro</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_03_TransicaoKumon_202603.html" data-tags="kumon,wy,diagnostico-2026,operacoes">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">03</span>Transição Kumon → Wy</div>
+          <div class="rr-meta">19 Mar 2026 · Plano de transição operacional, automações, fases</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Kumon</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Operações</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_04_AcordosWyRafael_202603.html" data-tags="wy,diagnostico-2026,legal">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">04</span>Acordos Wy &amp; Rafael</div>
+          <div class="rr-meta">19 Mar 2026 · Estrutura contratual, equity, vesting, compensação</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Wy</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Legal</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_05_EstrategiaComercial_202603.html" data-tags="impact-x,g2i,diagnostico-2026,comercial,estrategia">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">05</span>Estratégia Comercial</div>
+          <div class="rr-meta">19 Mar 2026 · G2i como canal, diversificação, pipeline, playbook</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Comercial</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_06_Metricas_202603.html" data-tags="impact-x,diagnostico-2026,financeiro,comercial">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">06</span>Métricas do Negócio</div>
+          <div class="rr-meta">19 Mar 2026 · Pipeline, conversão, MRR, unit economics, CAC, LTV, KPIs</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Financeiro</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_07_TimeMinimo_202603.html" data-tags="impact-x,diagnostico-2026,people,operacoes">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">07</span>Time Mínimo Recomendado</div>
+          <div class="rr-meta">19 Mar 2026 · Organograma, gaps, OPEX, regras de contratação, fases</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">People</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_08_Roadmap2026_202603.html" data-tags="impact-x,diagnostico-2026,estrategia">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">08</span>Roadmap 2026</div>
+          <div class="rr-meta">19 Mar 2026 · Q2/Q3/Q4 · Objetivos, entregas, Go/No-Go, riscos</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Estratégia</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_09_ActionItems_202603.html" data-tags="impact-x,diagnostico-2026,operacoes,estrategia">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">09</span>Action Items</div>
+          <div class="rr-meta">19 Mar 2026 · Decisões tomadas, ações urgentes (A1-A10), backlog</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Operações</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_10_G2iEntrevista_202603.html" data-tags="g2i,diagnostico-2026,comercial">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">10</span>Estratégia G2i — Entrevista</div>
+          <div class="rr-meta">19 Mar 2026 · Interview prep Rafa + playbook comercial Pimenta</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">G2i</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Comercial</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_Diagnostico_11_ProcessoComercialMVP_202603.html" data-tags="impact-x,diagnostico-2026,comercial,operacoes">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title"><span class="rr-num">11</span>Processo Comercial MVP</div>
+          <div class="rr-meta">19 Mar 2026 · Funil simplificado, timeline 30-45 dias, workflow</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
+          <span class="rr-tag rr-tag-area">Comercial</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_ProjetoInglesKumon_202603.html" data-tags="kumon,ingles-kumon,comercial,operacoes">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">Projeto Inglês — Kumon &amp; Comercial</div>
+          <div class="rr-meta">19 Mar 2026 · Will Pena · Estratégia, Guia do Professor, OKRs</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Kumon</span>
+          <span class="rr-tag rr-tag-projeto">Inglês Kumon</span>
+          <span class="rr-tag rr-tag-area">Comercial</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_G2i_InterviewPrep_202603.html" data-tags="g2i,g2i-interview,comercial">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">G2i Interview Prep — EN Version</div>
+          <div class="rr-meta">19 Mar 2026 · RLHF Intelligence, High Agency Framework, STAR Stories</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">G2i</span>
+          <span class="rr-tag rr-tag-projeto">G2i Interview</span>
+          <span class="rr-tag rr-tag-area">Comercial</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+      <a class="report-row" href="data/ImpactX_SkillsV2_MapaCompleto_202603.html" data-tags="impact-x,skills-v2,people,tech">
+        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
+        <div class="rr-info">
+          <div class="rr-title">Sistema de Skills v2 — Mapa Completo</div>
+          <div class="rr-meta">18 Mar 2026 · Interno</div>
+        </div>
+        <div class="rr-tags d-none d-md-flex">
+          <span class="rr-tag rr-tag-empresa">Impact X</span>
+          <span class="rr-tag rr-tag-projeto">Skills v2</span>
+          <span class="rr-tag rr-tag-area">Tech</span>
+        </div>
+        <span class="rr-arrow">&#x203A;</span>
+      </a>
+
+    </div>
+
+    <div class="empty-state d-none" id="empty-state">
+      <div style="font-size:40px;margin-bottom:12px"><i class="bi bi-search"></i></div>
+      <p>Nenhum relatório encontrado para esse filtro.</p>
+    </div>
+
+    <nav aria-label="Paginação dos relatórios" class="mt-4" id="pagination-nav">
+      <ul class="pagination pagination-sm justify-content-center" id="pagination"></ul>
+    </nav>
+  </main>
+
+</div>
+
+<footer class="text-center py-3 border-top app-footer text-body-secondary">
+  Impact <span class="x-mark">X</span> — Rafael Camillo · <span id="footer-count">20</span> reports
+</footer>
 
 <script>
 (function () {
+  var PAGE_SIZE = 10;
+  var currentPage = 1;
   var searchInput = document.getElementById('search-input');
-  var chips = document.querySelectorAll('.chip');
-  var cards = document.querySelectorAll('.report-card');
-  var sections = document.querySelectorAll('.report-section');
+  var rows = document.querySelectorAll('.report-row');
+  var navItems = document.querySelectorAll('.nav-item-filter');
+  var filterTags = document.querySelectorAll('.filter-tag:not(#clear-filters)');
   var emptyState = document.getElementById('empty-state');
   var activeFiltersBar = document.getElementById('active-filters');
   var resultCount = document.getElementById('result-count');
   var clearBtn = document.getElementById('clear-filters');
+  var paginationEl = document.getElementById('pagination');
+  var totalCountEl = document.getElementById('total-count');
+  var footerCountEl = document.getElementById('footer-count');
+  var themeToggle = document.getElementById('theme-toggle');
+  var themeIcon = document.getElementById('theme-icon');
+
+  var activeClient = 'all';
   var activeTags = new Set();
-  chips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      var tag = chip.dataset.tag;
-      if (activeTags.has(tag)) { activeTags.delete(tag); chip.classList.remove('active'); }
-      else { activeTags.add(tag); chip.classList.add('active'); }
+
+  totalCountEl.textContent = rows.length;
+  footerCountEl.textContent = rows.length;
+  updateThemeIcon();
+
+  // Compute nav-item counts from data-tags
+  navItems.forEach(function (item) {
+    var client = item.dataset.client;
+    var countEl = item.querySelector('.nav-count');
+    if (!countEl) return;
+    if (client === 'all') { countEl.textContent = rows.length; return; }
+    var n = 0;
+    rows.forEach(function (r) { if ((r.dataset.tags || '').split(',').indexOf(client) !== -1) n++; });
+    countEl.textContent = n;
+  });
+
+  // Theme toggle
+  themeToggle.addEventListener('click', function () {
+    var html = document.documentElement;
+    var current = html.getAttribute('data-bs-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-bs-theme', next);
+    localStorage.setItem('ix-theme', next);
+    updateThemeIcon();
+  });
+
+  function updateThemeIcon() {
+    var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+    themeIcon.className = isDark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+  }
+
+  // Nav item clicks (client filter - radio)
+  navItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      navItems.forEach(function (n) { n.classList.remove('active'); });
+      item.classList.add('active');
+      activeClient = item.dataset.client;
+      currentPage = 1;
       applyFilters();
     });
   });
-  searchInput.addEventListener('input', applyFilters);
-  clearBtn.addEventListener('click', function () {
-    activeTags.clear(); searchInput.value = '';
-    chips.forEach(function (c) { c.classList.remove('active'); });
+
+  // Filter tag clicks (project/tag - toggle)
+  filterTags.forEach(function (tag) {
+    tag.addEventListener('click', function () {
+      var t = tag.dataset.tag;
+      if (activeTags.has(t)) { activeTags.delete(t); tag.classList.remove('active'); }
+      else { activeTags.add(t); tag.classList.add('active'); }
+      currentPage = 1;
+      applyFilters();
+    });
+  });
+
+  searchInput.addEventListener('input', function () {
+    currentPage = 1;
     applyFilters();
   });
+
+  clearBtn.addEventListener('click', function () {
+    activeClient = 'all';
+    activeTags.clear();
+    searchInput.value = '';
+    navItems.forEach(function (n) { n.classList.remove('active'); });
+    document.querySelector('[data-client="all"]').classList.add('active');
+    filterTags.forEach(function (t) { t.classList.remove('active'); });
+    currentPage = 1;
+    applyFilters();
+  });
+
   function applyFilters() {
     var query = searchInput.value.toLowerCase().trim();
-    var hasFilters = query.length > 0 || activeTags.size > 0;
-    var visibleCount = 0;
-    cards.forEach(function (card) {
-      var title = card.querySelector('.card-title').textContent.toLowerCase();
-      var desc = card.querySelector('.card-text').textContent.toLowerCase();
-      var cardTags = (card.dataset.tags || '').split(',');
-      var matchesSearch = !query || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1;
-      var matchesTags = activeTags.size === 0 || cardTags.some(function (t) { return activeTags.has(t); });
-      var visible = matchesSearch && matchesTags;
-      card.classList.toggle('hidden', !visible);
-      if (visible) visibleCount++;
+    var hasFilters = query.length > 0 || activeClient !== 'all' || activeTags.size > 0;
+
+    rows.forEach(function (row) {
+      var title = row.querySelector('.rr-title').textContent.toLowerCase();
+      var meta = row.querySelector('.rr-meta').textContent.toLowerCase();
+      var rowTags = (row.dataset.tags || '').split(',');
+
+      var matchesSearch = !query || title.indexOf(query) !== -1 || meta.indexOf(query) !== -1;
+      var matchesClient = activeClient === 'all' || rowTags.indexOf(activeClient) !== -1;
+      var matchesTags = activeTags.size === 0 || rowTags.some(function (t) { return activeTags.has(t); });
+
+      row.classList.toggle('filter-hidden', !(matchesSearch && matchesClient && matchesTags));
+      row.classList.remove('page-hidden');
     });
-    sections.forEach(function (section) {
-      var hasVisible = section.querySelector('.report-card:not(.hidden)');
-      section.classList.toggle('hidden', !hasVisible);
-    });
+
+    paginate();
+
+    var visibleCount = Array.from(rows).filter(function (r) { return !r.classList.contains('filter-hidden'); }).length;
+
     if (visibleCount === 0) { emptyState.classList.remove('d-none'); }
     else { emptyState.classList.add('d-none'); }
+
     if (hasFilters) {
-      activeFiltersBar.classList.remove('d-none'); activeFiltersBar.classList.add('d-flex');
-      resultCount.textContent = visibleCount + ' de ' + cards.length + ' relatórios';
+      activeFiltersBar.classList.remove('d-none');
+      resultCount.textContent = visibleCount + ' de ' + rows.length + ' relatórios';
     } else {
-      activeFiltersBar.classList.add('d-none'); activeFiltersBar.classList.remove('d-flex');
+      activeFiltersBar.classList.add('d-none');
     }
   }
+
+  function paginate() {
+    var visible = Array.from(rows).filter(function (r) { return !r.classList.contains('filter-hidden'); });
+    var totalPages = Math.ceil(visible.length / PAGE_SIZE);
+    if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+    visible.forEach(function (row, i) {
+      row.classList.toggle('page-hidden', i < (currentPage - 1) * PAGE_SIZE || i >= currentPage * PAGE_SIZE);
+    });
+
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    while (paginationEl.firstChild) { paginationEl.removeChild(paginationEl.firstChild); }
+    if (totalPages <= 1) return;
+
+    addPageItem('\u2039', currentPage > 1, function () { currentPage--; applyFilters(); scrollToList(); });
+
+    for (var i = 1; i <= totalPages; i++) {
+      (function (page) {
+        addPageItem(String(page), true, function () { currentPage = page; applyFilters(); scrollToList(); }, page === currentPage);
+      })(i);
+    }
+
+    addPageItem('\u203A', currentPage < totalPages, function () { currentPage++; applyFilters(); scrollToList(); });
+  }
+
+  function addPageItem(label, enabled, onClick, active) {
+    var li = document.createElement('li');
+    li.className = 'page-item' + (!enabled ? ' disabled' : '') + (active ? ' active' : '');
+    var a = document.createElement('a');
+    a.className = 'page-link';
+    a.href = '#';
+    a.textContent = label;
+    if (enabled && !active) {
+      a.addEventListener('click', function (e) { e.preventDefault(); onClick(); });
+    } else {
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    }
+    li.appendChild(a);
+    paginationEl.appendChild(li);
+  }
+
+  function scrollToList() {
+    document.getElementById('reports-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  applyFilters();
 })();
 </script>
 </body>
