@@ -37,9 +37,10 @@ ix-reports/
 
 ## Identidade visual (obrigatória nos relatórios)
 
-- **Cores**: fundo/preto `#0A0A0A`, verde `#42593D`, amarelo `#F2C94C`
-- **Marca**: o **X** de “Impact X” é sempre amarelo (classe `.brand .x` em `report.css`)
-- **Fonte**: Roboto (Google Fonts no `<head>`)
+- **Cores (tema atual)**: verde fintech `#11C76F`, texto `#1A1D21`, fundo cinza-claro `#F4F6F9`, cards brancos; cantos generosos e sombras leves (estética próxima de apps tipo PicPay)
+- **Chrome**: topbar e abas claras; aba ativa em “pill” verde com texto branco
+- **Marca**: **X** em verde no logo; relatórios escuros (`ix-report-dark`) usam slate (`#1E293B`) com mesmo verde de acento
+- **Fonte**: **Plus Jakarta Sans** (corpo e títulos nos relatórios e no hub); **Roboto Mono** para trechos monoespaçados (métricas, índice). Carregamento via `report.css` (`@import`) e/ou `<link>` no `<head>` do HTML.
 - **Corpo**: mínimo **16px** efetivo; `body.ix-report` em `report.css` usa base maior (~18px) para legibilidade
 - **Topo**: toda página de relatório deve ter **topbar** com voltar, link da marca para `/`, e título curto do documento
 
@@ -58,7 +59,7 @@ Arquivos em **`data/`** usam caminhos com `../`. Relatório na **raiz** do repo 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — TITULO_AQUI</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="../assets/css/report.css" rel="stylesheet">
 <!-- Opcional: <style> mínimo só para exceções visuais deste arquivo </style> -->
 </head>
