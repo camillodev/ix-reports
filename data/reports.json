@@ -1,5 +1,77 @@
 [
   {
+    "title": "Guia do Ori — Fortalecimento Espiritual",
+    "slug": "guia-ori-202603",
+    "file": "ImpactX_GuiaOri_202603.html",
+    "date": "2026-03-20",
+    "meta": "20 Mar 2026 · Guia completo de fortalecimento do Ori",
+    "client": "pessoal",
+    "project": null,
+    "tags": ["ritual"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
+    "title": "Cafeteria — Plano de Negocio v3",
+    "slug": "cafeteria-plano-negocio-v3",
+    "file": "ImpactX_Cafeteria_v3_202603.html",
+    "date": "2026-03-22",
+    "meta": "22 Mar 2026 · Plano de negocio completo da cafeteria v3",
+    "client": "impact-x",
+    "project": "coworking",
+    "tags": ["estrategia", "financeiro"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
+    "title": "ConcursoAI — Relatorio Completo",
+    "slug": "concurso-ai-relatorio",
+    "file": "ImpactX_ConcursoAI_202603.html",
+    "date": "2026-03-22",
+    "meta": "22 Mar 2026 · Relatorio completo do projeto ConcursoAI",
+    "client": "impact-x",
+    "project": "concurso-ai",
+    "tags": ["tech", "estrategia"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
+    "title": "Relatorio Kumon BH-Camargos",
+    "slug": "relatorio-kumon-bh-camargos",
+    "file": "ImpactX_RelatorioKumon_202603.html",
+    "date": "2026-03-22",
+    "meta": "Mar 2026 · Franquia Kumon BH-Camargos · Relatorio completo",
+    "client": "kumon",
+    "project": null,
+    "tags": ["operacoes", "financeiro"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
+    "title": "Viagem Itacare",
+    "slug": "viagem-itacare",
+    "file": "ImpactX_ViagemItacare_202603.html",
+    "date": "2026-03-22",
+    "meta": "Mar 2026 · Planejamento viagem Itacare",
+    "client": "pessoal",
+    "project": null,
+    "tags": ["operacoes"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
+    "title": "OpenClaw TDAH Bot",
+    "slug": "openclaw-tdah-bot",
+    "file": "openclaw-tdah-bot.html",
+    "date": "2026-03-22",
+    "meta": "Mar 2026 · Bot TDAH via OpenClaw",
+    "client": "pessoal",
+    "project": null,
+    "tags": ["tech"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
     "title": "PRD — Health Bot OpenClaw v2",
     "slug": "prd-healthbot-openclaw-v2",
     "file": "ImpactX_PRD_HealthBot_OpenClaw_v2_202603.html",
