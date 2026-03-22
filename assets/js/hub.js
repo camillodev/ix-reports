@@ -346,8 +346,6 @@
     }
     a.appendChild(tagsDiv);
 
-    a.appendChild(el('span', { className: 'rr-arrow', textContent: '\u203A' }));
-
     return a;
   }
 
