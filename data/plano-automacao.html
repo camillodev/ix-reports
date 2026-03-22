@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Plano de Automação Completo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+/* Report-specific overrides only */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:16px 0;}
+.tool-card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:24px;box-shadow:var(--ix-shadow-sm);transition:box-shadow .2s;}
+.tool-card:hover{box-shadow:var(--ix-shadow-md);}
+.tool-card .tool-name{font-size:1.1rem;font-weight:800;color:var(--ix-ink);margin-bottom:2px;}
+.tool-card .tool-category{font-size:.72rem;font-weight:600;color:var(--ix-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.tool-card .tool-row{display:flex;justify-content:space-between;font-size:.85rem;padding:4px 0;border-bottom:1px solid var(--ix-border);}
+.tool-card .tool-row:last-child{border-bottom:none;}
+.tool-card .tool-row .lbl{color:var(--ix-muted);}
+.tool-card .tool-row .val{font-weight:700;color:var(--ix-ink);}
+.tool-card .tool-desc{font-size:.85rem;color:var(--ix-muted);margin-top:12px;line-height:1.55;}
+
+.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px;}
+.badge-green{background:var(--ix-green-bg);color:var(--ix-green-dark);}
+.badge-orange{background:#FEF3E2;color:var(--ix-warning);}
+.badge-red{background:#FDECEA;color:var(--ix-danger);}
+.badge-blue{background:#DBEAFE;color:#2563EB;}
+
+.roi-bar-wrap{margin:10px 0;}
+.roi-bar-label{font-size:.85rem;color:var(--ix-muted);margin-bottom:4px;display:flex;justify-content:space-between;}
+.roi-bar{background:var(--ix-border);border-radius:6px;height:24px;overflow:hidden;}
+.roi-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:.75rem;font-weight:700;color:white;transition:width .6s ease;}
+.roi-bar-fill.high{background:var(--ix-green);}
+.roi-bar-fill.mid{background:var(--ix-yellow);}
+
+.arch-container{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:32px;margin:16px 0;overflow-x:auto;}
+.arch-row{display:flex;gap:12px;align-items:stretch;margin:12px 0;flex-wrap:wrap;}
+.arch-box{background:var(--ix-bg);border:2px solid var(--ix-border);border-radius:var(--ix-radius-sm);padding:16px 20px;min-width:120px;flex:1;text-align:center;}
+.arch-box.primary{background:var(--ix-green);border-color:var(--ix-green);color:white;}
+.arch-box.primary .arch-label{color:rgba(255,255,255,.8);}
+.arch-box.secondary{background:var(--ix-green-tint);border-color:var(--ix-green-light);}
+.arch-box .arch-name{font-size:.95rem;font-weight:700;margin-bottom:2px;}
+.arch-box .arch-label{font-size:.7rem;color:var(--ix-muted);text-transform:uppercase;letter-spacing:1px;}
+.arch-arrow{display:flex;align-items:center;color:var(--ix-green);font-size:24px;font-weight:700;flex-shrink:0;}
+.connector{text-align:center;color:var(--ix-green);font-size:1.1rem;font-weight:700;padding:6px 0;}
+
+.config-block{background:#1E293B;border-radius:var(--ix-radius-sm);padding:20px 24px;margin:12px 0;font-family:var(--ix-font-mono);font-size:.82rem;color:#E2E8F0;overflow-x:auto;line-height:1.9;}
+.config-block .comment{color:#64748B;}
+.config-block .key{color:var(--ix-green-light);}
+.config-block .val{color:var(--ix-yellow);}
+
+.phase{display:flex;border-radius:var(--ix-radius-sm);overflow:hidden;margin:12px 0;box-shadow:var(--ix-shadow-sm);}
+.phase-label{background:var(--ix-green);color:white;padding:20px 16px;min-width:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.phase-label .num{font-size:1.2rem;font-weight:800;}
+.phase-label .period{font-size:.7rem;opacity:.8;margin-top:2px;}
+.phase-content{background:var(--ix-card-bg);padding:20px 24px;flex:1;border:1px solid var(--ix-border);border-left:none;}
+.phase-content h3{font-size:.95rem;font-weight:700;color:var(--ix-ink);margin:0 0 8px;text-transform:none;letter-spacing:0;}
+.phase-content li{font-size:.9rem;margin:4px 0;}
+
+td.pos{color:var(--ix-green-dark);font-weight:700;}
+td.neg{color:var(--ix-danger);font-weight:700;}
+
+@media(max-width:768px){
+  .tool-grid{grid-template-columns:1fr;}
+  .arch-row{flex-direction:column;}
+  .phase{flex-direction:column;}
+  .phase-label{flex-direction:row;min-width:auto;padding:12px 16px;gap:8px;}
+}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Plano de Automação 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="visao">Visão Geral</button>
+  <button type="button" class="tab-btn" data-tab="automacoes">Automações</button>
+  <button type="button" class="tab-btn" data-tab="stack">Stack & Config</button>
+  <button type="button" class="tab-btn" data-tab="roi">ROI por Feature</button>
+  <button type="button" class="tab-btn" data-tab="system-design">System Design</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">Roadmap 90 Dias</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 1: VISÃO GERAL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel active" data-tab="visao" role="tabpanel" aria-hidden="false">
+  <div class="report-header" data-ix-watermark="X">
+    <div class="hdr-brand">IMPACT <span class="x">X</span> · DOCUMENTO CONFIDENCIAL</div>
+    <div class="hdr-title">Plano de <em>Automação</em> Completo</div>
+    <div class="hdr-sub">Developer Staffing com Autonomia Máxima de IA — Modelo X-Team 100% Brasileiro</div>
+    <div class="hdr-meta">
+      <span>Março 2026</span>
+      <span>Rafael Camillo — CEO & Founder</span>
+      <span>5–15 devs em 90 dias</span>
+      <span>Autonomia: máxima</span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">~$1.325</div><div class="metric-label">Custo mensal total</div></div>
+      <div class="metric-card"><div class="metric-value">10.8x</div><div class="metric-label">ROI Ano 1</div></div>
+      <div class="metric-card"><div class="metric-value">5</div><div class="metric-label">Áreas automatizadas</div></div>
+      <div class="metric-card"><div class="metric-value">90d</div><div class="metric-label">Time to full auto</div></div>
+      <div class="metric-card"><div class="metric-value">12</div><div class="metric-label">Ferramentas integradas</div></div>
+    </div>
+
+    <h1>Contexto & Objetivo</h1>
+    <p><strong>Impact X</strong> é uma consultoria de staffing de desenvolvedores (modelo X-Team) 100% brasileira, com talentos BR/LATAM para clientes EUA/Europa. Time atual: Rafa (CEO/Tech), Pimenta (Head Comercial), Nicole (Head Ops), 1 Tech Recruiter freelance.</p>
+
+    <div class="callout info">
+      <div class="callout-text">
+        <div class="callout-title">Objetivo deste plano</div>
+        Definir <strong>quais automações realizar</strong>, com <strong>quais programas e planos ideais</strong>, e quais <strong>configurações e boas práticas</strong> implementar — para que a Impact X opere com <strong>autonomia máxima de IA</strong>, onde humanos só intervêm em exceções.
+      </div>
+    </div>
+
+    <h2>Princípio de Design: IA Progressiva</h2>
+    <p>O nível de autonomia desejado é <strong>máximo</strong>: a IA faz tudo que puder sozinha, escalando apenas exceções.</p>
+    <table>
+      <thead><tr><th>Nível</th><th>O que a IA faz</th><th>Quando humano intervém</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-green">Automático</span></td><td>Prospecção, outreach inicial, triagem de CVs, scheduling, invoicing, posts</td><td>Nunca — roda sozinho</td></tr>
+        <tr><td><span class="badge badge-orange">Semi-auto</span></td><td>Propostas, contratos, follow-ups de alto valor</td><td>Aprovação via Slack (1 clique)</td></tr>
+        <tr><td><span class="badge badge-red">Humano</span></td><td>N/A</td><td>Negociação final, decisões estratégicas, calls com C-level</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Stack Ativa Atual vs. Planejada</h2>
+    <table>
+      <thead><tr><th>Ferramenta</th><th>Status atual</th><th>Status planejado</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Linear</strong></td><td><span class="badge badge-green">Ativo</span></td><td>Mantém — gestão de projetos</td></tr>
+        <tr><td><strong>Notion</strong></td><td><span class="badge badge-green">Ativo</span></td><td>Mantém — docs, ATS inicial, editorial</td></tr>
+        <tr><td><strong>Slack</strong></td><td><span class="badge badge-green">Ativo</span></td><td>Hub de notificações + aprovações IA</td></tr>
+        <tr><td><strong>n8n Cloud</strong></td><td><span class="badge badge-green">Ativo</span></td><td>Cérebro central — orquestra tudo</td></tr>
+        <tr><td><strong>Claude</strong></td><td><span class="badge badge-green">Ativo</span></td><td>LLM principal via API + Desktop</td></tr>
+        <tr><td><strong>Fathom</strong></td><td><span class="badge badge-green">Ativo (Teams)</span></td><td>Recording + summary automático</td></tr>
+        <tr><td><strong>Oracle VPS</strong></td><td><span class="badge badge-green">Ativo</span></td><td>Hosting n8n self-hosted + serviços</td></tr>
+        <tr><td><strong>HubSpot CRM</strong></td><td><span class="badge badge-red">Não existe</span></td><td><span class="badge badge-blue">Implementar</span> — Free → Starter</td></tr>
+        <tr><td><strong>Apollo.io</strong></td><td><span class="badge badge-red">Não existe</span></td><td><span class="badge badge-blue">Implementar</span> — Professional</td></tr>
+        <tr><td><strong>Instantly</strong></td><td><span class="badge badge-red">Não existe</span></td><td><span class="badge badge-blue">Implementar</span> — Growth</td></tr>
+        <tr><td><strong>PandaDoc</strong></td><td><span class="badge badge-red">Não existe</span></td><td><span class="badge badge-blue">Implementar</span> — Business</td></tr>
+        <tr><td><strong>Buffer</strong></td><td><span class="badge badge-red">Não existe</span></td><td><span class="badge badge-blue">Implementar</span> — Essentials</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 2: AUTOMAÇÕES POR ÁREA -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="automacoes" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>1. Sales & Pipeline</h1>
+    <p>Fluxo completo: <strong>Prospecção → Outreach → Qualificação → Proposta → Contrato → Onboarding</strong></p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-category">CRM</div>
+        <div class="tool-name">HubSpot CRM</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Free → Starter ($20/user/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$0–60</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★★ Nativo</span></div>
+        <div class="tool-desc"><strong>Por quê HubSpot:</strong> Integração nativa com Fathom (já ativo). Free tier robusto (até 1M contatos). Melhor ecossistema de integrações. Quando escalar: Starter $20/user com sequences e automation.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Prospecção</div>
+        <div class="tool-name">Apollo.io</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Professional ($99/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$99</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★ API + Webhooks</span></div>
+        <div class="tool-desc">Database de 275M+ contatos B2B. Filtro por cargo, empresa, tech stack. 30k credits/ano. Sequences multi-canal (email + LinkedIn). Ideal pra encontrar CTOs e VP Engineering.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Email Outreach</div>
+        <div class="tool-name">Instantly</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Growth ($37/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$37</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★ API</span></div>
+        <div class="tool-desc">Unlimited email accounts, warmup automático. 5k emails/mês. Apollo encontra os leads, Instantly dispara o volume. AI personalization por lead.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">LinkedIn</div>
+        <div class="tool-name">HeyReach</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Growth ($79/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$79</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★★ Webhooks nativos</span></div>
+        <div class="tool-desc">Automação LinkedIn: visita perfil → connect → DM → follow-up. Multi-step sequences. 20+ webhook events pra n8n. Ideal pra Pimenta operar.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Propostas</div>
+        <div class="tool-name">PandaDoc</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Business ($49/user/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$49</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★ Webhooks</span></div>
+        <div class="tool-desc">Templates de proposta branded. Assinatura digital. Quote-to-contract automático. Integra com Stripe/PayPal pra billing USD. Synca com HubSpot.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-text">
+        <div class="callout-title">Automação do fluxo</div>
+        <strong>Apollo</strong> (encontra lead) → <strong>n8n</strong> (enriquece com Claude) → <strong>Instantly</strong> (email) + <strong>HeyReach</strong> (LinkedIn) → resposta positiva → <strong>HubSpot</strong> (cria deal) → call agendada → <strong>Fathom</strong> (grava + summary) → <strong>PandaDoc</strong> (proposta) → assinatura → <strong>Slack</strong> (notifica time)
+      </div>
+    </div>
+
+    <h1>2. Recrutamento de Devs</h1>
+    <p>Fluxo: <strong>Sourcing → Triagem IA → Screening → Technical Assessment → Onboarding</strong></p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-category">ATS</div>
+        <div class="tool-name">Notion (ATS Interno)</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Já ativo (Team)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$0 adicional</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★★ Nativo</span></div>
+        <div class="tool-desc">Database "Candidates" no Notion com Kanban pipeline. Automação via n8n: form → Notion → triagem IA → Slack. Migrar pra Ashby ($400/mês) quando tiver 50+ candidatos/mês.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Triagem IA</div>
+        <div class="tool-name">Claude API + n8n</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Pay-as-you-go (Haiku)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">~$20–50</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★★ Nó nativo Claude</span></div>
+        <div class="tool-desc">CV chega → n8n extrai texto → Claude Haiku avalia: skills match, seniority, English level, red flags. Score 0–100. Acima de 70 → avança automático. Abaixo → rejeita com email personalizado.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Screening técnico</div>
+        <div class="tool-name">Codility / TestGorilla</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Starter (~$100/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$100</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★ Webhook</span></div>
+        <div class="tool-desc">Testes técnicos automatizados. Dev recebe link → resolve → score automático → n8n atualiza Notion. Elimina 80% das entrevistas técnicas manuais.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Sourcing</div>
+        <div class="tool-name">nagringa.dev + Apollo + LinkedIn</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Pool existente</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$0 (pool próprio)</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★ Custom</span></div>
+        <div class="tool-desc">Pool de 300+ devs nagringa.dev = vantagem competitiva. HeyReach busca no LinkedIn, Apollo enriquece dados, n8n + Claude qualifica e prioriza automaticamente.</div>
+      </div>
+    </div>
+
+    <h1>3. Ops & Admin</h1>
+    <p>Fluxo: <strong>Contrato → Onboarding Dev → Timesheet → Invoicing → Pagamento</strong></p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-category">Contratos</div>
+        <div class="tool-name">PandaDoc (reuso)</div>
+        <div class="tool-row"><span class="lbl">Custo</span><span class="val">$0 adicional (já na stack)</span></div>
+        <div class="tool-desc">Template PJ + NDA + SOW. Dev aprovado → n8n gera contrato via PandaDoc API → dev assina digitalmente → status atualiza no Notion.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Timesheet</div>
+        <div class="tool-name">Toggl Track</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Starter ($10/user/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$50–150 (5-15 devs)</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★ API completa</span></div>
+        <div class="tool-desc">Devs logam horas → n8n consolida semanalmente → gera relatório pro cliente → alerta se dev não logou horas em 24h.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Invoicing</div>
+        <div class="tool-name">Wise Business</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Free (taxas por transação)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">~$15 em taxas</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★ API limitada</span></div>
+        <div class="tool-desc">Conta multi-currency (USD/BRL/EUR). Recebe do cliente em USD, paga dev em BRL. Câmbio real sem markup. Invoice nativo.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Onboarding</div>
+        <div class="tool-name">Notion + n8n (automação)</div>
+        <div class="tool-row"><span class="lbl">Custo</span><span class="val">$0 adicional</span></div>
+        <div class="tool-desc">Checklist de onboarding no Notion. n8n: deal fechado → cria checklist → convida dev no Slack → envia docs → agenda intro call → atualiza status. Zero toque humano.</div>
+      </div>
+    </div>
+
+    <h1>4. Conteúdo & Marketing</h1>
+    <p>Fluxo: <strong>Pesquisa → Copy → Revisão → Agendamento → Publicação → Analytics</strong></p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-category">Content AI</div>
+        <div class="tool-name">Claude API (Sonnet)</div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">~$30–50</span></div>
+        <div class="tool-desc">Brand voice IX injetada no system prompt. Gera: LinkedIn posts, artigos, carousel copy, case studies. n8n agenda: toda segunda gera 3 posts da semana → Buffer → Slack pra review.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Scheduling</div>
+        <div class="tool-name">Buffer</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Essentials ($6/canal/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$12</span></div>
+        <div class="tool-row"><span class="lbl">n8n</span><span class="val">★★★★ API</span></div>
+        <div class="tool-desc">2 canais (LinkedIn Rafa + LinkedIn IX). AI nativo ilimitado. Claude gera → n8n envia pra Buffer → publica nos horários ideais.</div>
+      </div>
+    </div>
+
+    <h1>5. Micro-SaaS Development (Project Seed)</h1>
+    <p>Fluxo: <strong>Template → Customização → CI/CD → Monitoring → Analytics</strong></p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-category">CI/CD</div>
+        <div class="tool-name">GitHub Actions + Vercel</div>
+        <div class="tool-row"><span class="lbl">Custo</span><span class="val">$0 (free tiers)</span></div>
+        <div class="tool-desc">Push → GitHub Actions (lint, test, type-check) → Vercel deploy preview → merge main → produção. Webhook n8n notifica Slack.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Monitoring</div>
+        <div class="tool-name">Sentry</div>
+        <div class="tool-row"><span class="lbl">Plano</span><span class="val">Team ($29/mês)</span></div>
+        <div class="tool-row"><span class="lbl">Custo mensal</span><span class="val">$29</span></div>
+        <div class="tool-desc">Error tracking real-time. Session replay. Slack alerts pra erros críticos via n8n. Performance monitoring.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Payments</div>
+        <div class="tool-name">Stripe</div>
+        <div class="tool-row"><span class="lbl">Custo</span><span class="val">2.9% + $0.30/tx</span></div>
+        <div class="tool-desc">Billing, subscriptions, invoices pra clientes. Webhook → n8n → atualiza status no Notion + Slack. Stripe Billing portal self-service.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-category">Analytics</div>
+        <div class="tool-name">Plausible / PostHog</div>
+        <div class="tool-row"><span class="lbl">Custo</span><span class="val">$9–19/mês</span></div>
+        <div class="tool-desc">Plausible: analytics simples, GDPR-friendly. PostHog: product analytics + feature flags + session recording. Escolha depende do micro-SaaS.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 3: STACK & CONFIGURAÇÃO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="stack" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Stack Completa & Planos Recomendados</h1>
+
+    <table>
+      <thead><tr><th>Ferramenta</th><th>Plano</th><th>USD/mês</th><th>BRL/mês*</th><th>Categoria</th></tr></thead>
+      <tbody>
+        <tr><td><strong>HubSpot CRM</strong></td><td>Free → Starter</td><td>$0–60</td><td>R$0–350</td><td>Sales</td></tr>
+        <tr><td><strong>Apollo.io</strong></td><td>Professional</td><td>$99</td><td>R$575</td><td>Sales</td></tr>
+        <tr><td><strong>Instantly</strong></td><td>Growth</td><td>$37</td><td>R$215</td><td>Sales</td></tr>
+        <tr><td><strong>HeyReach</strong></td><td>Growth</td><td>$79</td><td>R$460</td><td>Sales</td></tr>
+        <tr><td><strong>PandaDoc</strong></td><td>Business (1 user)</td><td>$49</td><td>R$285</td><td>Sales + Ops</td></tr>
+        <tr><td><strong>n8n</strong></td><td>Cloud Starter → VPS</td><td>$24–67</td><td>R$140–390</td><td>Orquestração</td></tr>
+        <tr><td><strong>Claude API</strong></td><td>Pay-as-you-go</td><td>$50–200</td><td>R$290–1.160</td><td>IA</td></tr>
+        <tr><td><strong>Fathom</strong></td><td>Teams (já ativo)</td><td>$32</td><td>R$186</td><td>Calls</td></tr>
+        <tr><td><strong>Toggl Track</strong></td><td>Starter (5–15 users)</td><td>$50–150</td><td>R$290–870</td><td>Ops</td></tr>
+        <tr><td><strong>Wise Business</strong></td><td>Free + taxas</td><td>~$15</td><td>~R$87</td><td>Finance</td></tr>
+        <tr><td><strong>Buffer</strong></td><td>Essentials (2 canais)</td><td>$12</td><td>R$70</td><td>Marketing</td></tr>
+        <tr><td><strong>Sentry</strong></td><td>Team</td><td>$29</td><td>R$168</td><td>Dev</td></tr>
+        <tr><td><strong>Codility/TestGorilla</strong></td><td>Starter</td><td>~$100</td><td>~R$580</td><td>Recruit</td></tr>
+        <tr><td><strong>Plausible</strong></td><td>Growth</td><td>$9</td><td>R$52</td><td>Dev</td></tr>
+        <tr style="background:var(--ix-green-tint) !important;"><td><strong>TOTAL</strong></td><td></td><td><strong>$585–1.007</strong></td><td><strong>R$3.400–5.850</strong></td><td></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.85rem;color:var(--ix-muted);">* Câmbio R$5,80. Valor varia com uso de Claude API e número de devs no Toggl.</p>
+
+    <div class="callout info">
+      <div class="callout-text">
+        <div class="callout-title">Decisão CRM: HubSpot vs Attio</div>
+        <strong>Recomendação: HubSpot Free → Starter.</strong> Motivos: (1) Integração nativa com Fathom (já ativo) — call summaries vão direto pro deal. (2) Free tier mais robusto (1M contatos vs Attio's 25k). (3) Maior ecossistema de integrações. (4) Starter a $20/user quando precisar de sequences. Attio é melhor pra quem quer API-first, mas HubSpot ganha em ecossistema e Fathom sync.
+      </div>
+    </div>
+
+    <h1>Boas Práticas & Configurações</h1>
+
+    <h2>n8n — Cérebro Central</h2>
+    <div class="config-block">
+<span class="comment">// Estrutura de workflows recomendada no n8n</span><br><br>
+<span class="key">📁 Sales/</span><br>
+&nbsp;&nbsp;<span class="val">→ apollo-lead-enrichment</span> <span class="comment">// Apollo → Claude enrich → HubSpot</span><br>
+&nbsp;&nbsp;<span class="val">→ instantly-reply-handler</span> <span class="comment">// Reply positiva → cria deal HubSpot</span><br>
+&nbsp;&nbsp;<span class="val">→ heyreach-linkedin-sync</span> <span class="comment">// LinkedIn connect → HubSpot contato</span><br>
+&nbsp;&nbsp;<span class="val">→ pandadoc-contract-flow</span> <span class="comment">// Deal won → gera proposta → assinatura</span><br><br>
+<span class="key">📁 Recruitment/</span><br>
+&nbsp;&nbsp;<span class="val">→ cv-intake-screening</span> <span class="comment">// Form/email → Claude triagem → Notion</span><br>
+&nbsp;&nbsp;<span class="val">→ technical-test-trigger</span> <span class="comment">// Aprovado triagem → envia Codility</span><br>
+&nbsp;&nbsp;<span class="val">→ candidate-onboarding</span> <span class="comment">// Aprovado → contrato → Slack → setup</span><br><br>
+<span class="key">📁 Ops/</span><br>
+&nbsp;&nbsp;<span class="val">→ timesheet-weekly-report</span> <span class="comment">// Toggl → consolida → email cliente</span><br>
+&nbsp;&nbsp;<span class="val">→ invoice-generator</span> <span class="comment">// Final do mês → Wise invoice → cliente</span><br>
+&nbsp;&nbsp;<span class="val">→ no-hours-alert</span> <span class="comment">// Dev não logou 24h → Slack alert</span><br><br>
+<span class="key">📁 Content/</span><br>
+&nbsp;&nbsp;<span class="val">→ weekly-content-generator</span> <span class="comment">// Seg 8h → Claude gera 3 posts → Buffer</span><br>
+&nbsp;&nbsp;<span class="val">→ notion-calendar-sync</span> <span class="comment">// Buffer status → Notion calendar update</span><br><br>
+<span class="key">📁 Monitoring/</span><br>
+&nbsp;&nbsp;<span class="val">→ sentry-critical-alert</span> <span class="comment">// Erro P0 → Slack + Linear ticket</span><br>
+&nbsp;&nbsp;<span class="val">→ daily-health-check</span> <span class="comment">// Pinga endpoints → alerta se down</span>
+    </div>
+
+    <h2>Claude API — Configuração</h2>
+    <div class="config-block">
+<span class="comment">// System prompt padrão pra workflows n8n da IX</span><br><br>
+<span class="key">Model:</span> <span class="val">claude-haiku-4-5</span> <span class="comment">// Triagem, classificação, extração</span><br>
+<span class="key">Model:</span> <span class="val">claude-sonnet-4-6</span> <span class="comment">// Outreach, content, análise</span><br>
+<span class="key">Model:</span> <span class="val">claude-opus-4-6</span> <span class="comment">// Propostas, decisões estratégicas</span><br><br>
+<span class="comment">// Prompt caching: ativar pra brand voice (90% economia)</span><br>
+<span class="key">cache_control:</span> <span class="val">{"type": "ephemeral"}</span><br><br>
+<span class="comment">// Batch API pra tasks não-urgentes (50% desconto)</span><br>
+<span class="key">batch_mode:</span> <span class="val">true</span> <span class="comment">// Content generation, CV screening bulk</span>
+    </div>
+
+    <h2>HubSpot — Setup Inicial</h2>
+    <div class="config-block">
+<span class="comment">// Pipeline customizado pra staffing</span><br><br>
+<span class="key">Pipeline "Staffing Deals":</span><br>
+&nbsp;&nbsp;<span class="val">1. Lead Identificado</span> <span class="comment">// Apollo/LinkedIn</span><br>
+&nbsp;&nbsp;<span class="val">2. Outreach Enviado</span> <span class="comment">// Instantly/HeyReach</span><br>
+&nbsp;&nbsp;<span class="val">3. Resposta Positiva</span> <span class="comment">// Auto-detectada</span><br>
+&nbsp;&nbsp;<span class="val">4. Call Agendada</span> <span class="comment">// Calendly/HubSpot meetings</span><br>
+&nbsp;&nbsp;<span class="val">5. Proposta Enviada</span> <span class="comment">// PandaDoc</span><br>
+&nbsp;&nbsp;<span class="val">6. Negociação</span> <span class="comment">// Humano</span><br>
+&nbsp;&nbsp;<span class="val">7. Contrato Assinado</span> <span class="comment">// PandaDoc e-sign</span><br>
+&nbsp;&nbsp;<span class="val">8. Dev Alocado</span> <span class="comment">// Onboarding iniciado</span><br><br>
+<span class="key">Custom Properties:</span><br>
+&nbsp;&nbsp;<span class="val">devs_needed</span> <span class="comment">// Número (quantos devs o cliente quer)</span><br>
+&nbsp;&nbsp;<span class="val">tech_stack</span> <span class="comment">// Multi-select (React, Node, Python, etc)</span><br>
+&nbsp;&nbsp;<span class="val">rate_per_hour</span> <span class="comment">// Currency USD</span><br>
+&nbsp;&nbsp;<span class="val">source</span> <span class="comment">// Dropdown (Apollo, LinkedIn, Referral, G2I)</span>
+    </div>
+
+    <h2>Notion — Databases Necessários</h2>
+    <div class="config-block">
+<span class="key">📋 Candidates</span> <span class="comment">// ATS</span><br>
+&nbsp;&nbsp;Properties: Name, Email, LinkedIn, Tech Stack (multi-select),<br>
+&nbsp;&nbsp;Seniority (select), English Level (select), AI Score (number),<br>
+&nbsp;&nbsp;Status (Kanban: Applied → Screening → Test → Interview → Offer → Active),<br>
+&nbsp;&nbsp;Source (nagringa/LinkedIn/Referral), Salary Expectation, Notes<br><br>
+<span class="key">📋 Content Calendar</span> <span class="comment">// Editorial</span><br>
+&nbsp;&nbsp;Properties: Title, Platform (LinkedIn/Twitter/Blog), Status (Draft → Review → Scheduled → Published),<br>
+&nbsp;&nbsp;Publish Date, Author (Rafa/IX), Topic, Buffer URL, Engagement (after publish)<br><br>
+<span class="key">📋 Dev Onboarding</span> <span class="comment">// Checklist por dev</span><br>
+&nbsp;&nbsp;Properties: Dev (relation → Candidates), Client, Start Date,<br>
+&nbsp;&nbsp;Checklist (Contract ✓, Slack ✓, Toggl ✓, Client Intro ✓, First Day ✓)
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 4: ROI POR FEATURE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="roi" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>ROI por Feature de Automação</h1>
+    <p>Cada automação calculada com: <strong>custo mensal</strong> vs <strong>horas economizadas × custo/hora</strong> do time. Base: hora Rafa = $50, Pimenta = $30, Nicole = $15, Recruiter = $10.</p>
+
+    <table>
+      <thead><tr><th>Automação</th><th>Custo/mês</th><th>Horas salvas</th><th>Valor salvo</th><th>ROI</th><th>Payback</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CV Screening IA</strong><br><small>Claude Haiku auto-triagem</small></td><td>$20</td><td>40h</td><td>$400</td><td class="pos">20x</td><td><span class="badge badge-green">&lt; 1 sem</span></td></tr>
+        <tr><td><strong>Email Outreach Auto</strong><br><small>Apollo + Instantly + Claude</small></td><td>$136</td><td>30h</td><td>$900</td><td class="pos">6.6x</td><td><span class="badge badge-green">5 dias</span></td></tr>
+        <tr><td><strong>LinkedIn Automation</strong><br><small>HeyReach sequences</small></td><td>$79</td><td>20h</td><td>$600</td><td class="pos">7.6x</td><td><span class="badge badge-green">4 dias</span></td></tr>
+        <tr><td><strong>Content Generation</strong><br><small>Claude + Buffer pipeline</small></td><td>$62</td><td>15h</td><td>$750</td><td class="pos">12x</td><td><span class="badge badge-green">3 dias</span></td></tr>
+        <tr><td><strong>Proposta Automática</strong><br><small>PandaDoc templates</small></td><td>$49</td><td>8h</td><td>$400</td><td class="pos">8.2x</td><td><span class="badge badge-green">4 dias</span></td></tr>
+        <tr><td><strong>Timesheet + Invoicing</strong><br><small>Toggl + Wise automação</small></td><td>$65</td><td>12h</td><td>$180</td><td class="pos">2.8x</td><td><span class="badge badge-green">11 dias</span></td></tr>
+        <tr><td><strong>Dev Onboarding Auto</strong><br><small>n8n + Notion + Slack</small></td><td>$0</td><td>6h</td><td>$90</td><td class="pos">∞</td><td><span class="badge badge-green">Imediato</span></td></tr>
+        <tr><td><strong>CRM Pipeline Auto</strong><br><small>HubSpot + n8n workflows</small></td><td>$0–60</td><td>10h</td><td>$300</td><td class="pos">5x+</td><td><span class="badge badge-green">6 dias</span></td></tr>
+        <tr><td><strong>Technical Screening</strong><br><small>Codility automático</small></td><td>$100</td><td>20h</td><td>$1.000</td><td class="pos">10x</td><td><span class="badge badge-green">3 dias</span></td></tr>
+        <tr><td><strong>Fathom → CRM sync</strong><br><small>Call notes automáticas</small></td><td>$0</td><td>5h</td><td>$150</td><td class="pos">∞</td><td><span class="badge badge-green">Imediato</span></td></tr>
+        <tr style="background:var(--ix-green-tint) !important;"><td><strong>TOTAL</strong></td><td><strong>$511–631</strong></td><td><strong>166h/mês</strong></td><td><strong>$4.770</strong></td><td class="pos"><strong>7.6–9.3x</strong></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <div class="callout-text">
+        <div class="callout-title">Resumo ROI</div>
+        Investimento total: <strong>~$600/mês</strong> em ferramentas. Retorno: <strong>~$4.770/mês</strong> em horas economizadas (166h). Isso equivale a <strong>1 pessoa full-time</strong> que você NÃO precisa contratar. ROI anual: <strong>$57.240 economizados</strong> com investimento de <strong>$7.200</strong> = <strong>7.9x ROI</strong>.
+      </div>
+    </div>
+
+    <h2>Impacto Visual por Área</h2>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>CV Screening IA</span><span>20x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill high" style="width:100%">$400 saved / $20 cost</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>Content Generation</span><span>12x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill high" style="width:60%">$750 / $62</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>Technical Screening</span><span>10x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill high" style="width:50%">$1000 / $100</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>Proposta Automática</span><span>8.2x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill high" style="width:41%">$400 / $49</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>LinkedIn Automation</span><span>7.6x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill high" style="width:38%">$600 / $79</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>Email Outreach</span><span>6.6x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill high" style="width:33%">$900 / $136</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>CRM Pipeline</span><span>5x+ ROI</span></div><div class="roi-bar"><div class="roi-bar-fill mid" style="width:25%">$300 / $0–60</div></div></div>
+    <div class="roi-bar-wrap"><div class="roi-bar-label"><span>Timesheet + Invoice</span><span>2.8x ROI</span></div><div class="roi-bar"><div class="roi-bar-fill mid" style="width:14%">$180 / $65</div></div></div>
+
+    <h2>ROI por Cenário de Escala</h2>
+    <table>
+      <thead><tr><th>Cenário</th><th>Devs</th><th>Revenue/mês</th><th>Custo tools</th><th>% do revenue</th></tr></thead>
+      <tbody>
+        <tr><td>Mínimo</td><td>5 devs</td><td>$50.000</td><td>$600</td><td class="pos">1.2%</td></tr>
+        <tr><td>Moderado</td><td>10 devs</td><td>$100.000</td><td>$800</td><td class="pos">0.8%</td></tr>
+        <tr><td>Agressivo</td><td>15 devs</td><td>$150.000</td><td>$1.000</td><td class="pos">0.7%</td></tr>
+      </tbody>
+    </table>
+    <p>Em todos os cenários, o custo de automação é <strong>menos de 1.5% do revenue</strong>.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 5: SYSTEM DESIGN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="system-design" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>System Design — Arquitetura de Automação</h1>
+
+    <h2>Diagrama de Alto Nível</h2>
+    <div class="arch-container">
+      <h3 style="text-align:center;margin-bottom:16px;">CAMADA DE AQUISIÇÃO (Input)</h3>
+      <div class="arch-row">
+        <div class="arch-box"><div class="arch-name">Apollo.io</div><div class="arch-label">Prospecção B2B</div></div>
+        <div class="arch-box"><div class="arch-name">HeyReach</div><div class="arch-label">LinkedIn Auto</div></div>
+        <div class="arch-box"><div class="arch-name">Instantly</div><div class="arch-label">Cold Email</div></div>
+        <div class="arch-box"><div class="arch-name">nagringa.dev</div><div class="arch-label">Pool de Devs</div></div>
+        <div class="arch-box"><div class="arch-name">WhatsApp</div><div class="arch-label">Inbound</div></div>
+      </div>
+
+      <div class="connector">↓ Webhooks + APIs ↓</div>
+
+      <h3 style="text-align:center;margin-bottom:16px;">CAMADA DE ORQUESTRAÇÃO (Brain)</h3>
+      <div class="arch-row">
+        <div class="arch-box primary" style="flex:3;"><div class="arch-name">n8n</div><div class="arch-label">Cérebro Central — Orquestra todos os workflows</div></div>
+      </div>
+      <div class="arch-row" style="justify-content:center;">
+        <div class="arch-box secondary" style="flex:1;"><div class="arch-name">Claude API</div><div class="arch-label">Haiku: triagem · Sonnet: content · Opus: estratégia</div></div>
+      </div>
+
+      <div class="connector">↓ Triggers + Actions ↓</div>
+
+      <h3 style="text-align:center;margin-bottom:16px;">CAMADA DE DADOS (Storage)</h3>
+      <div class="arch-row">
+        <div class="arch-box"><div class="arch-name">HubSpot</div><div class="arch-label">CRM · Deals · Contatos</div></div>
+        <div class="arch-box"><div class="arch-name">Notion</div><div class="arch-label">ATS · Docs · Calendar</div></div>
+        <div class="arch-box"><div class="arch-name">Linear</div><div class="arch-label">Projetos · Tickets</div></div>
+        <div class="arch-box"><div class="arch-name">Toggl</div><div class="arch-label">Timesheets</div></div>
+      </div>
+
+      <div class="connector">↓ Notificações + Aprovações ↓</div>
+
+      <h3 style="text-align:center;margin-bottom:16px;">CAMADA DE INTERFACE (Output)</h3>
+      <div class="arch-row">
+        <div class="arch-box"><div class="arch-name">Slack</div><div class="arch-label">Notificações · Aprovações</div></div>
+        <div class="arch-box"><div class="arch-name">PandaDoc</div><div class="arch-label">Propostas · Contratos</div></div>
+        <div class="arch-box"><div class="arch-name">Buffer</div><div class="arch-label">Social Publishing</div></div>
+        <div class="arch-box"><div class="arch-name">Wise</div><div class="arch-label">Invoicing · Payments</div></div>
+        <div class="arch-box"><div class="arch-name">Fathom</div><div class="arch-label">Call Recording → CRM</div></div>
+      </div>
+    </div>
+
+    <h2>Fluxo de Dados por Área</h2>
+
+    <h3>Sales Pipeline (Automático)</h3>
+    <div class="arch-container">
+      <div class="arch-row">
+        <div class="arch-box"><div class="arch-name">1. Apollo</div><div class="arch-label">Busca leads</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box secondary"><div class="arch-name">2. n8n + Claude</div><div class="arch-label">Enriquece</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">3. Instantly</div><div class="arch-label">Cold email</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">4. HubSpot</div><div class="arch-label">Cria deal</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">5. PandaDoc</div><div class="arch-label">Proposta</div></div>
+      </div>
+    </div>
+
+    <h3>Recruitment Pipeline (Automático)</h3>
+    <div class="arch-container">
+      <div class="arch-row">
+        <div class="arch-box"><div class="arch-name">1. Form</div><div class="arch-label">Dev aplica</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box secondary"><div class="arch-name">2. Claude Haiku</div><div class="arch-label">Score 0-100</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">3. Notion</div><div class="arch-label">Pipeline</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">4. Codility</div><div class="arch-label">Teste técnico</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">5. Slack</div><div class="arch-label">Notifica</div></div>
+      </div>
+    </div>
+
+    <h3>Content Pipeline (Automático)</h3>
+    <div class="arch-container">
+      <div class="arch-row">
+        <div class="arch-box"><div class="arch-name">1. Cron seg 8h</div><div class="arch-label">n8n trigger</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box secondary"><div class="arch-name">2. Claude Sonnet</div><div class="arch-label">Gera 3 posts</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">3. Notion</div><div class="arch-label">Calendar</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">4. Slack</div><div class="arch-label">Review</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box"><div class="arch-name">5. Buffer</div><div class="arch-label">Publica</div></div>
+      </div>
+    </div>
+
+    <h2>Trade-offs</h2>
+    <table>
+      <thead><tr><th>Decisão</th><th>Escolhido</th><th>Alternativa</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td>CRM</td><td><strong>HubSpot</strong></td><td>Attio</td><td>Fathom integration + free tier superior + ecossistema</td></tr>
+        <tr><td>ATS</td><td><strong>Notion</strong> (inicial)</td><td>Ashby ($400)</td><td>Zero custo. Migrar com 50+ candidatos/mês</td></tr>
+        <tr><td>Outreach</td><td><strong>Apollo + Instantly</strong></td><td>Lemlist</td><td>Apollo = data. Instantly = volume. Juntos > Lemlist</td></tr>
+        <tr><td>LLM</td><td><strong>Claude API</strong></td><td>OpenAI GPT-5</td><td>Prompt caching, context 1M, batch API, já na stack</td></tr>
+        <tr><td>Orquestração</td><td><strong>n8n</strong></td><td>Make/Zapier</td><td>Self-hostable, mais barato em escala, AI nodes</td></tr>
+        <tr><td>Timesheet</td><td><strong>Toggl Track</strong></td><td>Harvest</td><td>API melhor, UI mais simples, preço menor</td></tr>
+        <tr><td>Invoicing</td><td><strong>Wise Business</strong></td><td>Payoneer</td><td>Câmbio real, multi-currency, free account</td></tr>
+        <tr><td>Content</td><td><strong>Claude + Buffer</strong></td><td>Jasper + Hootsuite</td><td>Claude já na stack, Buffer mais barato</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Riscos Técnicos & Mitigações</h2>
+    <table>
+      <thead><tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigação</th></tr></thead>
+      <tbody>
+        <tr><td>LinkedIn bane conta</td><td><span class="badge badge-orange">Médio</span></td><td><span class="badge badge-red">Alto</span></td><td>HeyReach warm-up. Limite 50 connects/dia. Múltiplas contas.</td></tr>
+        <tr><td>Claude API fora do ar</td><td><span class="badge badge-green">Baixo</span></td><td><span class="badge badge-orange">Médio</span></td><td>Fallback pra OpenAI no n8n. IF/ELSE + retry.</td></tr>
+        <tr><td>n8n Cloud instável</td><td><span class="badge badge-green">Baixo</span></td><td><span class="badge badge-red">Alto</span></td><td>Migrar pra Oracle VPS. Docker + auto-restart. Backup diário.</td></tr>
+        <tr><td>Email em spam</td><td><span class="badge badge-orange">Médio</span></td><td><span class="badge badge-orange">Médio</span></td><td>Instantly warmup. SPF/DKIM/DMARC. Volume gradual.</td></tr>
+        <tr><td>Over-automation</td><td><span class="badge badge-orange">Médio</span></td><td><span class="badge badge-orange">Médio</span></td><td>Claude personaliza cada msg. Humano em follow-ups de alto valor.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Modelo de Dados</h2>
+    <div class="config-block">
+<span class="comment">// Entidades e relações (Notion + HubSpot)</span><br><br>
+<span class="key">Company</span> (HubSpot) {<br>
+&nbsp;&nbsp;<span class="val">name</span>, <span class="val">domain</span>, <span class="val">industry</span>, <span class="val">size</span>, <span class="val">tech_stack[]</span>,<br>
+&nbsp;&nbsp;<span class="val">source</span>, <span class="val">icp_score</span> <span class="comment">// calculado por Claude</span><br>
+}<br><br>
+<span class="key">Contact</span> (HubSpot) → belongs_to Company {<br>
+&nbsp;&nbsp;<span class="val">name</span>, <span class="val">email</span>, <span class="val">title</span>, <span class="val">linkedin</span>,<br>
+&nbsp;&nbsp;<span class="val">outreach_status</span> <span class="comment">// not_contacted → contacted → replied → meeting</span><br>
+}<br><br>
+<span class="key">Deal</span> (HubSpot) → belongs_to Company {<br>
+&nbsp;&nbsp;<span class="val">stage</span>, <span class="val">devs_needed</span>, <span class="val">tech_stack[]</span>,<br>
+&nbsp;&nbsp;<span class="val">rate_per_hour</span>, <span class="val">estimated_revenue</span><br>
+}<br><br>
+<span class="key">Candidate</span> (Notion) {<br>
+&nbsp;&nbsp;<span class="val">name</span>, <span class="val">email</span>, <span class="val">linkedin</span>, <span class="val">github</span>,<br>
+&nbsp;&nbsp;<span class="val">tech_stack[]</span>, <span class="val">seniority</span>, <span class="val">english_level</span>,<br>
+&nbsp;&nbsp;<span class="val">ai_score</span> <span class="comment">// 0-100 from Claude</span>,<br>
+&nbsp;&nbsp;<span class="val">status</span>, <span class="val">assigned_deal</span><br>
+}<br><br>
+<span class="key">Placement</span> (Notion) → links Candidate + Deal {<br>
+&nbsp;&nbsp;<span class="val">start_date</span>, <span class="val">rate</span>, <span class="val">status</span>,<br>
+&nbsp;&nbsp;<span class="val">toggl_project_id</span>, <span class="val">monthly_hours</span><br>
+}
+    </div>
+
+    <h2>Segurança & Compliance</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Implementação</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>API keys</td><td>n8n Credentials vault (encrypted at rest)</td><td><span class="badge badge-green">Built-in</span></td></tr>
+        <tr><td>GDPR/LGPD</td><td>Opt-out em todos os outreach. Dados deletáveis. Notion retention.</td><td><span class="badge badge-orange">Configurar</span></td></tr>
+        <tr><td>Email compliance</td><td>SPF + DKIM + DMARC no domínio. Unsubscribe link.</td><td><span class="badge badge-orange">Configurar</span></td></tr>
+        <tr><td>Backup</td><td>n8n: export workflows → GitHub. Notion: backup semanal.</td><td><span class="badge badge-orange">Configurar</span></td></tr>
+        <tr><td>Access control</td><td>Nicole: Ops. Pimenta: Sales. Rafa: Admin.</td><td><span class="badge badge-orange">Configurar</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 6: ROADMAP 90 DIAS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Roadmap de Implementação — 90 Dias</h1>
+
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-value">5</div><div class="metric-label">Fases</div></div>
+      <div class="metric-card"><div class="metric-value">2 sem</div><div class="metric-label">Por fase</div></div>
+      <div class="metric-card"><div class="metric-value">6h/dia</div><div class="metric-label">Max Rafa</div></div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label"><div class="num">F1</div><div class="period">Sem 1–2</div></div>
+      <div class="phase-content">
+        <h3>Fundação CRM + Outreach</h3>
+        <ul>
+          <li><strong>HubSpot</strong>: criar conta free, configurar pipeline "Staffing Deals", custom properties</li>
+          <li><strong>Apollo</strong>: conta Professional, definir ICP filters (CTOs, VP Eng, USA/EU, tech 50-500)</li>
+          <li><strong>Instantly</strong>: conta Growth, conectar emails, configurar warmup (2 semanas)</li>
+          <li><strong>Fathom → HubSpot</strong>: ativar integração nativa</li>
+          <li><strong>n8n</strong>: workflow "apollo-to-hubspot"</li>
+          <li><strong>Pimenta</strong>: treinamento Apollo + HubSpot (2h)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label"><div class="num">F2</div><div class="period">Sem 3–4</div></div>
+      <div class="phase-content">
+        <h3>Recrutamento + LinkedIn</h3>
+        <ul>
+          <li><strong>Notion ATS</strong>: database "Candidates" com properties, views Kanban + Gallery</li>
+          <li><strong>Claude screening</strong>: n8n workflow "cv-intake" (form → Claude Haiku → score → Notion)</li>
+          <li><strong>HeyReach</strong>: conta Growth, conectar LinkedIn Pimenta, primeira sequence</li>
+          <li><strong>Codility/TestGorilla</strong>: conta Starter, test templates React/Node/Python</li>
+          <li><strong>n8n</strong>: workflow "approved-to-test" (score > 70 → envia Codility)</li>
+          <li><strong>Recruiter</strong>: treinar no flow Notion + status updates</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label"><div class="num">F3</div><div class="period">Sem 5–6</div></div>
+      <div class="phase-content">
+        <h3>Ops + Finance Automation</h3>
+        <ul>
+          <li><strong>PandaDoc</strong>: conta Business, templates (Proposta, PJ Contract, NDA, SOW)</li>
+          <li><strong>Toggl Track</strong>: conta Starter, projetos por cliente, convidar devs</li>
+          <li><strong>Wise Business</strong>: conta multi-currency (USD + BRL + EUR)</li>
+          <li><strong>n8n</strong>: workflow "deal-won-to-contract" + "onboarding-checklist"</li>
+          <li><strong>Nicole</strong>: treinamento PandaDoc + Toggl + Wise (3h)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label"><div class="num">F4</div><div class="period">Sem 7–8</div></div>
+      <div class="phase-content">
+        <h3>Content Engine + Monitoring</h3>
+        <ul>
+          <li><strong>Buffer</strong>: conta Essentials, conectar LinkedIn Rafa + LinkedIn IX</li>
+          <li><strong>Claude content</strong>: n8n workflow "weekly-content" (cron seg 8h → Claude → Notion → Slack)</li>
+          <li><strong>Sentry</strong>: conta Team, configurar nos projetos do Project Seed</li>
+          <li><strong>n8n</strong>: workflow "sentry-alert" (erro P0 → Slack + Linear)</li>
+          <li><strong>Rafa</strong>: ajustar brand voice prompts do Claude (1h)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label"><div class="num">F5</div><div class="period">Sem 9–12</div></div>
+      <div class="phase-content">
+        <h3>Otimização + Escala</h3>
+        <ul>
+          <li><strong>n8n → Oracle VPS</strong>: migrar do Cloud pra self-hosted (~$50/mês economia)</li>
+          <li><strong>Métricas</strong>: dashboard Notion com KPIs</li>
+          <li><strong>A/B test outreach</strong>: Claude gera variações, Instantly testa, n8n reporta</li>
+          <li><strong>Voice AI</strong> (opcional): testar Plivo/Bland.ai pra screening calls</li>
+          <li><strong>WhatsApp Business API</strong>: conectar ao n8n pra inbound de devs BR</li>
+          <li><strong>Avaliar Ashby</strong>: se volume > 50 candidatos/mês</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-text">
+        <div class="callout-title">Regra anti-burnout</div>
+        Rafa: máx <strong>6h/dia</strong> de trabalho cognitivo. Cada fase tem no máximo <strong>2-3h de setup do Rafa</strong> — o resto é config que Nicole ou Pimenta podem fazer com as instruções do n8n. Weekly de 30min às segundas. Se uma fase atrasar, NÃO comprimir — desloca a próxima.
+      </div>
+    </div>
+
+    <h2>Checklist de Go-Live</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Responsável</th><th>Fase</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>HubSpot pipeline configurado</td><td>Rafa</td><td>F1</td><td>○</td></tr>
+        <tr><td>Apollo ICP filters definidos</td><td>Pimenta</td><td>F1</td><td>○</td></tr>
+        <tr><td>Instantly warmup completo</td><td>Auto</td><td>F1</td><td>○</td></tr>
+        <tr><td>Fathom ↔ HubSpot ativo</td><td>Rafa</td><td>F1</td><td>○</td></tr>
+        <tr><td>Notion ATS operacional</td><td>Nicole</td><td>F2</td><td>○</td></tr>
+        <tr><td>Claude screening workflow</td><td>Rafa</td><td>F2</td><td>○</td></tr>
+        <tr><td>HeyReach primeira sequence</td><td>Pimenta</td><td>F2</td><td>○</td></tr>
+        <tr><td>PandaDoc templates prontos</td><td>Nicole</td><td>F3</td><td>○</td></tr>
+        <tr><td>Toggl projetos criados</td><td>Nicole</td><td>F3</td><td>○</td></tr>
+        <tr><td>Wise conta ativa</td><td>Rafa</td><td>F3</td><td>○</td></tr>
+        <tr><td>Buffer + primeiro post</td><td>Rafa</td><td>F4</td><td>○</td></tr>
+        <tr><td>Sentry configurado</td><td>Rafa</td><td>F4</td><td>○</td></tr>
+        <tr><td>n8n migrado pra VPS</td><td>Rafa</td><td>F5</td><td>○</td></tr>
+        <tr><td>Dashboard KPIs Notion</td><td>Nicole</td><td>F5</td><td>○</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

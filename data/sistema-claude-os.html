@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude OS — Sistema Produtivo Impact X</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../assets/css/report.css">
+</head>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Claude OS — Sistema Produtivo Impact X</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="sec1" role="tab">Inventário Atual — Skills, MCPs & Cone…</button>
+  <button type="button" class="tab-btn" data-tab="sec2" role="tab">Diagnóstico — O que funciona, o que fa…</button>
+  <button type="button" class="tab-btn" data-tab="sec3" role="tab">Arquitetura de Fluxos Encadeados</button>
+  <button type="button" class="tab-btn" data-tab="sec4" role="tab">Skills Novas Propostas</button>
+  <button type="button" class="tab-btn" data-tab="sec5" role="tab">Scheduled Tasks & Automações n8n</button>
+  <button type="button" class="tab-btn" data-tab="sec6" role="tab">Roadmap de Implementação</button>
+  <button type="button" class="tab-btn" data-tab="sec7" role="tab">Conceito-Chave: Por que encadear skill…</button>
+</nav>
+
+<div class="report-header">
+  <div class="brand-tag">IMPACT <span>X</span> — RELATÓRIO INTERNO</div>
+  <div class="report-title">Claude OS — Sistema Produtivo Impact X</div>
+  <div class="report-subtitle">Auditoria completa + arquitetura de skills encadeadas para consultoria</div>
+  <div class="report-meta">
+    <span>📅 18 de Março de 2026</span>
+    <span>👤 Rafael Camillo</span>
+    <span>🔒 Uso Interno</span>
+  </div>
+</div>
+<div class="tab-panel active" data-tab="sec1" id="panel-sec1" role="tabpanel" aria-hidden="false">
+<div class="content">
+<section id="sec1">
+  <h1>1. Inventário Atual — Skills, MCPs & Conexões</h1>
+
+  <h2>Skills Customizadas (20 instaladas)</h2>
+  <table>
+    <thead>
+      <tr><th>Skill</th><th>Categoria</th><th>Status</th><th>Uso real</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>contexto-impact-x</strong></td><td>Core / Identidade</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Carrega em toda sessão — brand voice, pessoas, projetos</td></tr>
+      <tr><td><strong>rafa-mentor</strong></td><td>Aprendizado</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Ensina conceitos, reduz dependência de IA</td></tr>
+      <tr><td><strong>impact-x-report</strong></td><td>Output / Relatórios</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Gera HTML branded — usado em propostas Pimenta, etc.</td></tr>
+      <tr><td><strong>deploy-reports</strong></td><td>Infra / Deploy</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Publica em reports.rafaelcamillo.com via GitHub</td></tr>
+      <tr><td><strong>automation-architect</strong></td><td>Automação</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Boa skill, mas usada isoladamente — sem encadear</td></tr>
+      <tr><td><strong>architecture-decision</strong></td><td>Engenharia</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Framework sólido, mas não conecta com Linear/tickets</td></tr>
+      <tr><td><strong>linear-ticket-writer</strong></td><td>Engenharia</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Cria tickets bem estruturados no Linear</td></tr>
+      <tr><td><strong>startup-validator</strong></td><td>Comercial / Produto</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Bom framework mas não conecta com pesquisa de mercado</td></tr>
+      <tr><td><strong>ship-learn-next</strong></td><td>Aprendizado</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Transforma conteúdo em ação — bom para Rafa pessoal</td></tr>
+      <tr><td><strong>doc-coauthoring</strong></td><td>Documentação</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Ótima skill, mas longa — precisa de contexto pra ativar</td></tr>
+      <tr><td><strong>skill-creator</strong></td><td>Meta / Ferramental</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Cria e melhora skills com evals</td></tr>
+      <tr><td><strong>mcp-builder</strong></td><td>Meta / Ferramental</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Bom pra futuro, não urgente agora</td></tr>
+      <tr><td><strong>schedule</strong></td><td>Automação</td><td><span class="status-badge badge-danger">Sem uso</span></td><td>Scheduled tasks existem mas nenhuma configurada</td></tr>
+      <tr><td><strong>canvas-design</strong></td><td>Design</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Gera arte visual — potencial pra presença digital</td></tr>
+      <tr><td><strong>brand-guidelines</strong></td><td>Design</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Anthropic brand — não IX. Irrelevante pra IX.</td></tr>
+      <tr><td><strong>internal-comms</strong></td><td>Comunicação</td><td><span class="status-badge badge-warn">Subutilizada</span></td><td>Status reports internos — útil quando time crescer</td></tr>
+      <tr><td><strong>pdf</strong></td><td>Utilitário</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Manipulação de PDFs</td></tr>
+      <tr><td><strong>pptx</strong></td><td>Utilitário</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Criação de apresentações — usado em Pimenta</td></tr>
+      <tr><td><strong>docx</strong></td><td>Utilitário</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Word docs</td></tr>
+      <tr><td><strong>xlsx</strong></td><td>Utilitário</td><td><span class="status-badge badge-ok">Ativo</span></td><td>Planilhas</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Plugins Instalados (6 plugins)</h2>
+  <table>
+    <thead>
+      <tr><th>Plugin</th><th>Skills incluídas</th><th>Relevância pra IX</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>enterprise-search</strong></td><td>search-strategy, knowledge-synthesis, source-management, search, digest</td><td><span class="status-badge badge-ok">Alta</span> — busca cross-source</td></tr>
+      <tr><td><strong>productivity</strong></td><td>memory-management, task-management, start, update</td><td><span class="status-badge badge-ok">Alta</span> — memória persistente</td></tr>
+      <tr><td><strong>product-management</strong></td><td>feature-spec, roadmap, metrics, stakeholder-comms, research-synthesis</td><td><span class="status-badge badge-ok">Alta</span> — produto pra clientes</td></tr>
+      <tr><td><strong>marketing</strong></td><td>content-creation, campaign-planning, competitive-analysis, brand-voice, SEO</td><td><span class="status-badge badge-ok">Alta</span> — presença digital IX</td></tr>
+      <tr><td><strong>sales</strong></td><td>account-research, call-prep, outreach, competitive-intel, daily-briefing</td><td><span class="status-badge badge-ok">Alta</span> — pipeline G2I + novos</td></tr>
+      <tr><td><strong>finance</strong></td><td>financial-statements, journal-entry, reconciliation, variance-analysis</td><td><span class="status-badge badge-warn">Média</span> — útil quando faturar</td></tr>
+      <tr><td><strong>legal</strong></td><td>contract-review, NDA-triage, compliance, canned-responses</td><td><span class="status-badge badge-warn">Média</span> — contratos G2I</td></tr>
+      <tr><td><strong>cowork-plugin-management</strong></td><td>create-plugin, plugin-customizer</td><td><span class="status-badge badge-ok">Alta</span> — meta-ferramenta</td></tr>
+    </tbody>
+  </table>
+
+  <h2>MCPs Conectados (12)</h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-value">12</div><div class="metric-label">MCPs Ativos</div></div>
+    <div class="metric-card"><div class="metric-value">20</div><div class="metric-label">Skills Custom</div></div>
+    <div class="metric-card"><div class="metric-value">6</div><div class="metric-label">Plugins</div></div>
+    <div class="metric-card"><div class="metric-value">0</div><div class="metric-label">Scheduled Tasks</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>MCP</th><th>Ferramentas</th><th>Uso principal IX</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Linear</td><td>issues, projects, cycles, docs, labels</td><td>Gestão de projetos/engenharia</td></tr>
+      <tr><td>Notion</td><td>search, create/update pages, databases, views</td><td>Docs, ATS candidatos, calendário editorial</td></tr>
+      <tr><td>Slack</td><td>messages, channels, search, canvas</td><td>Comunicação interna</td></tr>
+      <tr><td>Gmail</td><td>search, read, create drafts</td><td>Email comercial</td></tr>
+      <tr><td>Google Calendar</td><td>events, free time, create/update</td><td>Agenda, calls</td></tr>
+      <tr><td>Google Drive</td><td>search, fetch files</td><td>Documentos compartilhados</td></tr>
+      <tr><td>Supabase</td><td>SQL, migrations, edge functions, branches</td><td>Backend de projetos</td></tr>
+      <tr><td>Cloudflare</td><td>Workers, D1, KV, R2</td><td>Infra de projetos</td></tr>
+      <tr><td>Vercel</td><td>deployments, projects, domains</td><td>Deploy + reports.rafaelcamillo.com</td></tr>
+      <tr><td>GitHub</td><td>repos, issues, PRs, code search</td><td>Código + CI/CD</td></tr>
+      <tr><td>Netlify</td><td>deploy, project services</td><td>Deploy alternativo</td></tr>
+      <tr><td>Claude in Chrome</td><td>browser automation, screenshots</td><td>Automação web</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SEÇÃO 2 ═══════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec2" id="panel-sec2" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec2">
+  <h1>2. Diagnóstico — O que funciona, o que falta, o que sobra</h1>
+
+  <div class="callout success">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <div class="callout-title">O que está BOM</div>
+      <div class="callout-text">
+        <strong>Stack de MCPs é excelente</strong> — 12 conexões cobrindo email, calendário, projeto, código, infra, banco, deploy. Pouquíssimas consultorias do teu tamanho têm isso.<br>
+        <strong>Skills de output são fortes</strong> — report HTML, pptx, deploy automático, Linear tickets. A "última milha" (gerar entregável) funciona.<br>
+        <strong>Brand voice documentada</strong> — contexto-impact-x é ouro. Toda skill pode herdar a voz IX automaticamente.<br>
+        <strong>Meta-ferramentas prontas</strong> — skill-creator + mcp-builder = podes criar qualquer skill nova sem ajuda externa.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-icon">🚨</div>
+    <div class="callout-body">
+      <div class="callout-title">Problema central: Skills funcionam ISOLADAS</div>
+      <div class="callout-text">
+        Hoje cada skill é uma ilha. Tu usas <code>startup-validator</code> num dia, <code>marketing:content-creation</code> noutro, mas o output de uma não alimenta a outra. O resultado: <strong>retrabalho manual</strong> de contexto a cada sessão. O ROI por hora de uso do Claude fica limitado porque tu és o "middleware humano" entre as skills.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">Gaps identificados</div>
+      <div class="callout-text">
+        <strong>1. Zero Scheduled Tasks</strong> — Tudo é reativo. Claude só trabalha quando tu pedes.<br>
+        <strong>2. Projeto "Automacoes" vazio</strong> — Criado mas sem conteúdo. Sem docs, sem files.<br>
+        <strong>3. Sem skill de prospecção/outreach IX</strong> — sales:draft-outreach é genérica, não tem a voz IX.<br>
+        <strong>4. Sem pipeline encadeado</strong> — pesquisa → posicionamento → copy → campanha não existe como fluxo.<br>
+        <strong>5. brand-guidelines é da Anthropic</strong> — Não da IX. Irrelevante e potencialmente confusa.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">ℹ️</div>
+    <div class="callout-body">
+      <div class="callout-title">Skills subutilizadas que têm MUITO potencial</div>
+      <div class="callout-text">
+        <strong>marketing:*</strong> — 7 skills de marketing instaladas via plugin. Nenhuma configurada pra IX.<br>
+        <strong>sales:*</strong> — 6 skills de vendas. account-research + call-prep são perfeitas pra G2I.<br>
+        <strong>product-management:*</strong> — feature-spec + roadmap. Útil pra entregar valor a clientes.<br>
+        <strong>enterprise-search:*</strong> — Busca cross-source (Slack + Notion + Gmail). Não está sendo usada.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SEÇÃO 3 ═══════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec3" id="panel-sec3" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec3">
+  <h1>3. Arquitetura de Fluxos Encadeados</h1>
+
+  <p>A ideia central: <strong>skills viram sistema quando o output de uma é o input da próxima</strong>. Abaixo estão os 4 fluxos que cobrem operação, comercial, conteúdo e engenharia da Impact X.</p>
+
+  <h2>🔴 Fluxo 1: Pipeline Comercial (G2I + Novos Leads)</h2>
+  <div class="flow-diagram">
+    <div class="flow-label">Trigger: Novo lead identificado ou reunião agendada</div>
+    <div class="flow-row">
+      <div class="flow-step">sales:account-research<br><small>Pesquisa empresa + pessoas</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">startup-validator<br><small>Avalia fit + oportunidade</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">sales:call-prep<br><small>Prepara agenda + talking points</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">sales:draft-outreach<br><small>Email com brand voice IX</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-arrow">↓ Pós-call</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">sales:call-summary<br><small>Resume + action items</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">linear-ticket-writer<br><small>Cria tickets das ações</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">impact-x-report<br><small>Proposta branded</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Proposta + Follow-up</div>
+    </div>
+  </div>
+
+  <h2>🟣 Fluxo 2: Presença Digital (Conteúdo Encadeado)</h2>
+  <div class="flow-diagram">
+    <div class="flow-label">Trigger: Início de semana ou novo insight</div>
+    <div class="flow-row">
+      <div class="flow-step">marketing:competitive-analysis<br><small>Pesquisa mercado/concorrentes</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">marketing:brand-voice<br><small>Aplica posicionamento IX</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">marketing:content-creation<br><small>Gera copy LinkedIn/Insta</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-arrow">↓ Publicação</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">marketing:campaign-plan<br><small>Calendário + cadência</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">canvas-design<br><small>Visual para posts</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">3 posts/semana prontos</div>
+    </div>
+  </div>
+
+  <h2>🔵 Fluxo 3: Operação de Projeto (Engenharia)</h2>
+  <div class="flow-diagram">
+    <div class="flow-label">Trigger: Novo projeto ou sprint</div>
+    <div class="flow-row">
+      <div class="flow-step">product-management:write-spec<br><small>PRD do feature</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">architecture-decision<br><small>Decisão técnica</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">linear-ticket-writer<br><small>Tickets no Linear</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-arrow">↓ Execução</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">Code + Deploy<br><small>GitHub → Vercel/Cloudflare</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">product-management:stakeholder-update<br><small>Update pro cliente</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Entrega + Comunicação</div>
+    </div>
+  </div>
+
+  <h2>🟢 Fluxo 4: Dia-a-Dia Operacional</h2>
+  <div class="flow-diagram">
+    <div class="flow-label">Trigger: Automático (scheduled) ou manual</div>
+    <div class="flow-row">
+      <div class="flow-step">Morning Briefing<br><small>Gmail + Calendar + Linear</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">enterprise-search<br><small>Busca cross-source</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">productivity:task-management<br><small>Prioriza o dia</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-arrow">↓ Fim da semana</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">Weekly Review<br><small>Linear tickets fechados</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">rafa-mentor<br><small>1 conceito pra estudar</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-output">Retrospectiva + Aprendizado</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SEÇÃO 4 ═══════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec4" id="panel-sec4" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec4">
+  <h1>4. Skills Novas Propostas</h1>
+
+  <p>Para que os fluxos acima funcionem como sistema, precisamos criar 3 skills novas e ajustar 1 existente.</p>
+
+  <table>
+    <thead>
+      <tr><th>Skill</th><th>O que faz</th><th>Por que</th><th>Prioridade</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ix-sales-pipeline</strong> <span class="status-badge badge-new">Nova</span></td>
+        <td>Orquestra o Fluxo 1 inteiro: pesquisa → prep → call → follow-up → proposta. Usa brand voice IX, salva contexto no Notion, cria tickets no Linear.</td>
+        <td>Hoje cada etapa comercial é manual e desconectada. Essa skill é o "CRM inteligente" da IX.</td>
+        <td><span class="status-badge badge-danger">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>ix-content-engine</strong> <span class="status-badge badge-new">Nova</span></td>
+        <td>Orquestra o Fluxo 2: pesquisa competitiva → posicionamento → copy → visual → calendário. Output: posts prontos para Buffer.</td>
+        <td>Presença digital é prioridade mas falta sistema. Hoje é ad-hoc.</td>
+        <td><span class="status-badge badge-danger">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>ix-project-kickoff</strong> <span class="status-badge badge-new">Nova</span></td>
+        <td>Orquestra o Fluxo 3: recebe briefing → gera PRD → decisão arquitetura → tickets Linear → setup repo.</td>
+        <td>Quando fechar G2I, vai precisar onboardar projetos rápido. Essa skill é o "turbo" do kickoff.</td>
+        <td><span class="status-badge badge-warn">P1</span></td>
+      </tr>
+      <tr>
+        <td><strong>contexto-impact-x</strong> <span class="status-badge badge-ok">Ajuste</span></td>
+        <td>Adicionar: pipeline de deals ativo (com status G2I), métricas atuais, shortcuts ("prep G2I", "post IX", "kickoff").</td>
+        <td>Skill carrega em toda sessão — precisa ser o "state" da empresa atualizado.</td>
+        <td><span class="status-badge badge-danger">P0</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SEÇÃO 5 ═══════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec5" id="panel-sec5" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec5">
+  <h1>5. Scheduled Tasks & Automações n8n</h1>
+
+  <h2>Scheduled Tasks no Claude (imediato)</h2>
+  <table>
+    <thead>
+      <tr><th>Task</th><th>Cron</th><th>O que faz</th><th>Skills envolvidas</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Morning Briefing</strong></td>
+        <td>Seg–Sex 8h</td>
+        <td>Gmail prioritário + Calendar do dia + Linear in-progress → 3 prioridades</td>
+        <td>Gmail MCP, GCal MCP, Linear MCP</td>
+      </tr>
+      <tr>
+        <td><strong>Weekly Review</strong></td>
+        <td>Sex 17h</td>
+        <td>Tickets fechados + pendentes + 1 conceito pra estudar</td>
+        <td>Linear MCP, rafa-mentor</td>
+      </tr>
+      <tr>
+        <td><strong>Content Calendar Check</strong></td>
+        <td>Dom 20h</td>
+        <td>Verifica se posts da semana estão prontos no Notion. Alerta se faltam.</td>
+        <td>Notion MCP, Slack MCP</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline Pulse</strong></td>
+        <td>Seg 9h</td>
+        <td>Resume deals ativos no Notion/Attio + próximos follow-ups + deals parados &gt;7 dias</td>
+        <td>Notion MCP, Gmail MCP</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Automações n8n (médio prazo)</h2>
+  <table>
+    <thead>
+      <tr><th>Automação</th><th>Trigger</th><th>Fluxo</th><th>ROI estimado</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Email → Ticket</strong></td>
+        <td>Email com label "ação"</td>
+        <td>Gmail → clasifica → cria ticket Linear → notifica Slack</td>
+        <td>~2h/semana</td>
+      </tr>
+      <tr>
+        <td><strong>Novo Lead → Prep</strong></td>
+        <td>Novo contato no Attio</td>
+        <td>Attio → pesquisa Apollo → cria card Notion → Slack</td>
+        <td>~1h/lead</td>
+      </tr>
+      <tr>
+        <td><strong>Deploy Alert</strong></td>
+        <td>Vercel deploy status</td>
+        <td>Webhook Vercel → Slack com status + URL</td>
+        <td>Monitoramento passivo</td>
+      </tr>
+      <tr>
+        <td><strong>Content → Buffer</strong></td>
+        <td>Post aprovado no Notion</td>
+        <td>Notion webhook → formata → agenda no Buffer</td>
+        <td>~30min/post</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SEÇÃO 6 ═══════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec6" id="panel-sec6" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec6">
+  <h1>6. Roadmap de Implementação</h1>
+
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">F1</div>
+      <div class="phase-period">Semana 1</div>
+    </div>
+    <div class="phase-content">
+      <h3>Fundação — Scheduled Tasks + Contexto</h3>
+      <ul>
+        <li><strong>Criar 4 scheduled tasks</strong> (morning briefing, weekly review, content check, pipeline pulse)</li>
+        <li><strong>Atualizar contexto-impact-x</strong> com pipeline deals, métricas, shortcuts</li>
+        <li><strong>Inicializar productivity:memory-management</strong> → CLAUDE.md com estado IX</li>
+        <li><strong>Preencher projeto "Automacoes"</strong> com docs dos fluxos encadeados</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">F2</div>
+      <div class="phase-period">Semana 2–3</div>
+    </div>
+    <div class="phase-content">
+      <h3>Skills de Sistema — Comercial + Conteúdo</h3>
+      <ul>
+        <li><strong>Criar ix-sales-pipeline</strong> — skill que orquestra todo o fluxo comercial</li>
+        <li><strong>Criar ix-content-engine</strong> — skill que orquestra presença digital</li>
+        <li><strong>Testar com caso real</strong> — usar G2I como primeiro teste do pipeline comercial</li>
+        <li><strong>Configurar Notion</strong> como hub: databases de deals, calendário editorial, candidatos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">F3</div>
+      <div class="phase-period">Semana 4–5</div>
+    </div>
+    <div class="phase-content">
+      <h3>Engenharia + Automações n8n</h3>
+      <ul>
+        <li><strong>Criar ix-project-kickoff</strong> — skill pra onboarding de projetos</li>
+        <li><strong>Configurar n8n</strong> — Email→Ticket + Novo Lead→Prep como primeiras automações</li>
+        <li><strong>Testar fluxo engenharia</strong> — PRD → arquitetura → tickets → deploy num projeto real</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">F4</div>
+      <div class="phase-period">Semana 6+</div>
+    </div>
+    <div class="phase-content">
+      <h3>Agente Autônomo — Otimização Contínua</h3>
+      <ul>
+        <li><strong>Pipeline completo</strong>: Gmail tria → cria tickets → alerta Slack automaticamente</li>
+        <li><strong>Content → Buffer automatizado</strong> via n8n (post aprovado → agenda)</li>
+        <li><strong>Learning tracker</strong>: coleta conceitos que Rafa pergunta → gera plano semanal</li>
+        <li><strong>Alertas proativos</strong>: ticket parado 3 dias → Slack, deal sem follow-up 7 dias → email draft</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SEÇÃO 7 ═══════════════ -->
+</div>
+</div>
+
+<div class="tab-panel" data-tab="sec7" id="panel-sec7" role="tabpanel" aria-hidden="true">
+<div class="content">
+<section id="sec7">
+  <h1>7. Conceito-Chave: Por que encadear skills muda tudo</h1>
+
+  <h2>O modelo mental</h2>
+  <p>Pensa assim: cada skill isolada é uma <strong>ferramenta</strong>. Um martelo. Uma serra. Útil, mas tu precisas pegar, usar, guardar, pegar outra. Skills encadeadas são uma <strong>linha de montagem</strong>. O material entra numa ponta e sai produto na outra.</p>
+
+  <h2>Skills isoladas vs. Sistema</h2>
+  <table>
+    <thead>
+      <tr><th>Aspecto</th><th>Skills isoladas (hoje)</th><th>Skills encadeadas (proposta)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Contexto</td><td>Tu repetes contexto toda sessão</td><td>Contexto flui entre skills automaticamente</td></tr>
+      <tr><td>Output</td><td>1 artefato por vez</td><td>Pipeline completo: pesquisa → entregável final</td></tr>
+      <tr><td>Consistência</td><td>Depende de tu lembrar do brand voice</td><td>Brand voice aplicado automaticamente em todo output</td></tr>
+      <tr><td>ROI/hora</td><td>~2x produtividade</td><td>~5-10x produtividade (menos retrabalho)</td></tr>
+      <tr><td>Escalabilidade</td><td>Limitado ao teu tempo de prompt</td><td>Scheduled tasks trabalham mesmo sem tu pedir</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <div class="callout-title">A fórmula</div>
+      <div class="callout-text">
+        <strong>Pesquisa</strong> (dados reais) → <strong>Posicionamento</strong> (brand voice IX) → <strong>Copy</strong> (content-creation) → <strong>Campanha</strong> (campaign-plan) → <strong>Entregável</strong> (report/pptx/post)<br><br>
+        Cada etapa herda o output da anterior. Tu intervéns só nos pontos de decisão. O resto é sistema.
+      </div>
+    </div>
+  </div>
+
+  <h2>Pra não esquecer (conceito SSG/ISR/SSR adaptado)</h2>
+  <p>Tu mencionaste que esquece conceitos básicos. O sistema de skills encadeadas funciona igual renderização:</p>
+  <table>
+    <thead>
+      <tr><th>Conceito</th><th>No Next.js</th><th>No Claude OS</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>SSG</strong> (Static)</td><td>Gera HTML no build time</td><td><strong>Scheduled Tasks</strong> — briefing gerado automaticamente toda manhã, pronto quando tu acorda</td></tr>
+      <tr><td><strong>ISR</strong> (Incremental)</td><td>Revalida após X tempo</td><td><strong>Pipeline Pulse</strong> — atualiza estado dos deals semanalmente, revalida o que mudou</td></tr>
+      <tr><td><strong>SSR</strong> (Server)</td><td>Gera no request</td><td><strong>Skills on-demand</strong> — "prep G2I" e Claude gera tudo na hora, sob demanda</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</div>
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span> — Rafael Camillo</div>
+  <div>Feito por Impact <span style="color:#9B59D4;font-weight:700">X</span> — Rafael Camillo · Março 2026 · Confidencial</div>
+</footer>
+
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

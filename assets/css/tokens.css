@@ -1,0 +1,75 @@
+/* ─── IX Reports Hub — Design Tokens ─── */
+
+:root {
+  /* Base palette */
+  --ix-ink: #1a1d21;
+  --ix-ink-secondary: #374151;
+  --ix-muted: #6b7280;
+  --ix-green: #11c76f;
+  --ix-green-hover: #0eb863;
+  --ix-green-dark: #059669;
+  --ix-green-light: #d1fae5;
+  --ix-green-tint: #ecfdf5;
+  --ix-bg: #f4f6f9;
+  --ix-surface: #ffffff;
+  --ix-surface-2: #f0f2f5;
+  --ix-surface-3: #e5e7eb;
+  --ix-border: #e8ecf1;
+
+  /* Client colors */
+  --client-impact-x: #11C76F;
+  --client-kumon: #3B82F6;
+  --client-g2i: #8B5CF6;
+  --client-pessoal: #F59E0B;
+
+  /* Spacing */
+  --ix-topbar-h: 56px;
+  --ix-sidebar-w: 280px;
+  --ix-sidebar-collapsed: 60px;
+
+  /* Radii */
+  --ix-radius-xs: 6px;
+  --ix-radius-sm: 10px;
+  --ix-radius-md: 16px;
+  --ix-radius-lg: 22px;
+  --ix-radius-pill: 100px;
+
+  /* Shadows */
+  --ix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --ix-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --ix-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --ix-shadow-lg: 0 12px 40px rgba(15, 23, 42, 0.12);
+
+  /* Typography */
+  --ix-font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --ix-font-mono: "Roboto Mono", ui-monospace, monospace;
+
+  /* Z-index scale */
+  --ix-z-sidebar: 80;
+  --ix-z-overlay: 90;
+  --ix-z-topbar: 100;
+  --ix-z-modal: 200;
+  --ix-z-toast: 300;
+
+  color-scheme: light dark;
+}
+
+[data-theme="dark"] {
+  --ix-ink: #e1e1e6;
+  --ix-ink-secondary: #a8a8b3;
+  --ix-muted: #7c7c8a;
+  --ix-green: #04d361;
+  --ix-green-hover: #04c258;
+  --ix-green-dark: #04d361;
+  --ix-green-light: rgba(4, 211, 97, 0.1);
+  --ix-green-tint: rgba(4, 211, 97, 0.05);
+  --ix-bg: #121214;
+  --ix-surface: #1c1c1f;
+  --ix-surface-2: #29292e;
+  --ix-surface-3: #323238;
+  --ix-border: #323238;
+  --ix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --ix-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --ix-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.2);
+  --ix-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
