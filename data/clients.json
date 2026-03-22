@@ -1,0 +1,42 @@
+{
+  "impact-x": {
+    "name": "Impact X",
+    "color": "#11C76F",
+    "icon": "lightning",
+    "projects": {
+      "diagnostico-2026": { "name": "Diagnostico 2026" },
+      "vto-eos": { "name": "VTO/EOS" },
+      "institucional": { "name": "Institucional" },
+      "automacao": { "name": "Automacao" },
+      "coworking": { "name": "Coworking" },
+      "concurso-ai": { "name": "Concurso AI" },
+      "conexoes-profundas": { "name": "Conexoes Profundas" },
+      "skills-v2": { "name": "Skills v2" }
+    }
+  },
+  "kumon": {
+    "name": "Kumon",
+    "color": "#3B82F6",
+    "icon": "book",
+    "projects": {
+      "ingles-kumon": { "name": "Ingles Kumon" }
+    }
+  },
+  "g2i": {
+    "name": "G2i",
+    "color": "#8B5CF6",
+    "icon": "code-slash",
+    "projects": {
+      "g2i-interview": { "name": "G2i Interview" },
+      "diagnostico-2026": { "name": "Diagnostico 2026" }
+    }
+  },
+  "pessoal": {
+    "name": "Pessoal",
+    "color": "#F59E0B",
+    "icon": "person",
+    "projects": {
+      "espiritualidade": { "name": "Espiritualidade" }
+    }
+  }
+}

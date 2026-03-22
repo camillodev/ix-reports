@@ -1,0 +1,27 @@
+{
+  "redirects": [
+    { "source": "/ImpactX_GuiaOri_202603.html", "destination": "/data/guia-ori.html", "permanent": true },
+    { "source": "/data/ImpactX_VTO_EOS_202603.html", "destination": "/data/vto-eos.html", "permanent": true },
+    { "source": "/data/ImpactX_Manifesto_202603.html", "destination": "/data/manifesto.html", "permanent": true },
+    { "source": "/data/ImpactX_MissaoVisaoValores_202603.html", "destination": "/data/missao-visao-valores.html", "permanent": true },
+    { "source": "/data/ImpactX_CulturaePeople_202603.html", "destination": "/data/cultura-e-people.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_00_Index_202603.html", "destination": "/data/diagnostico-00-index.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_01_ModeloNegocio_202603.html", "destination": "/data/diagnostico-01-modelo-negocio.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_02_ProjecaoFinanceira_202603.html", "destination": "/data/diagnostico-02-projecao-financeira.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_05_EstrategiaComercial_202603.html", "destination": "/data/diagnostico-05-estrategia-comercial.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_06_Metricas_202603.html", "destination": "/data/diagnostico-06-metricas.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_07_TimeMinimo_202603.html", "destination": "/data/diagnostico-07-time-minimo.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_08_Roadmap2026_202603.html", "destination": "/data/diagnostico-08-roadmap-2026.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_09_ActionItems_202603.html", "destination": "/data/diagnostico-09-action-items.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_10_G2iEntrevista_202603.html", "destination": "/data/diagnostico-10-g2i-entrevista.html", "permanent": true },
+    { "source": "/data/ImpactX_Diagnostico_11_ProcessoComercialMVP_202603.html", "destination": "/data/diagnostico-11-processo-comercial-mvp.html", "permanent": true },
+    { "source": "/data/ImpactX_ProjetoInglesKumon_202603.html", "destination": "/data/projeto-ingles-kumon.html", "permanent": true },
+    { "source": "/data/ImpactX_G2i_InterviewPrep_202603.html", "destination": "/data/g2i-interview-prep.html", "permanent": true },
+    { "source": "/data/ImpactX_SkillsV2_MapaCompleto_202603.html", "destination": "/data/skills-v2-mapa-completo.html", "permanent": true },
+    { "source": "/data/ImpactX_SistemaClaudeOS_202603.html", "destination": "/data/sistema-claude-os.html", "permanent": true },
+    { "source": "/data/ImpactX_SistemaDeVidaMaster_202603.html", "destination": "/data/sistema-de-vida-master.html", "permanent": true },
+    { "source": "/data/ImpactX_PlanoAutomacao_202603.html", "destination": "/data/plano-automacao.html", "permanent": true },
+    { "source": "/data/ImpactX_AnaliseFinanceiraKumon_202606.html", "destination": "/data/analise-financeira-kumon.html", "permanent": true },
+    { "source": "/data/ImpactX_CafeCoworkingLavanderia_202603.html", "destination": "/data/cafe-coworking-lavanderia.html", "permanent": true }
+  ]
+}

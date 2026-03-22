@@ -1,0 +1,70 @@
+/* ─── IX Reports Hub — Design Tokens ─── */
+
+:root {
+  /* Base palette */
+  --ix-ink: #1a1d21;
+  --ix-ink-secondary: #374151;
+  --ix-muted: #6b7280;
+  --ix-green: #11c76f;
+  --ix-green-hover: #0eb863;
+  --ix-green-dark: #059669;
+  --ix-green-light: #d1fae5;
+  --ix-green-tint: #ecfdf5;
+  --ix-bg: #f4f6f9;
+  --ix-surface: #ffffff;
+  --ix-surface-2: #f0f2f5;
+  --ix-surface-3: #e5e7eb;
+  --ix-border: #e8ecf1;
+
+  /* Client colors */
+  --client-impact-x: #11C76F;
+  --client-kumon: #3B82F6;
+  --client-g2i: #8B5CF6;
+  --client-pessoal: #F59E0B;
+
+  /* Spacing */
+  --ix-topbar-h: 56px;
+  --ix-sidebar-w: 280px;
+  --ix-sidebar-collapsed: 60px;
+
+  /* Radii */
+  --ix-radius-xs: 6px;
+  --ix-radius-sm: 10px;
+  --ix-radius-md: 16px;
+  --ix-radius-lg: 22px;
+  --ix-radius-pill: 100px;
+
+  /* Shadows */
+  --ix-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --ix-shadow-md: 0 8px 30px rgba(15, 23, 42, 0.08);
+  --ix-shadow-lg: 0 12px 40px rgba(15, 23, 42, 0.12);
+
+  /* Typography */
+  --ix-font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --ix-font-mono: "Roboto Mono", ui-monospace, monospace;
+
+  /* Z-index scale */
+  --ix-z-sidebar: 80;
+  --ix-z-overlay: 90;
+  --ix-z-topbar: 100;
+  --ix-z-modal: 200;
+  --ix-z-toast: 300;
+
+  color-scheme: light dark;
+}
+
+[data-theme="dark"] {
+  --ix-ink: #e2e8f0;
+  --ix-ink-secondary: #cbd5e1;
+  --ix-muted: #94a3b8;
+  --ix-green-light: #134e35;
+  --ix-green-tint: #0f3d2c;
+  --ix-bg: #0f172a;
+  --ix-surface: #1e293b;
+  --ix-surface-2: #273548;
+  --ix-surface-3: #334155;
+  --ix-border: #334155;
+  --ix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --ix-shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
+  --ix-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+}

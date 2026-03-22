@@ -1,705 +1,178 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-bs-theme="light">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Reports</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="assets/css/tokens.css" rel="stylesheet">
 <link href="assets/css/hub.css" rel="stylesheet">
-<script>
-(function(){var t=localStorage.getItem('ix-theme');if(t)document.documentElement.setAttribute('data-bs-theme',t);})();
-</script>
+<link href="assets/css/cmd-k.css" rel="stylesheet">
+<link href="assets/css/timeline.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- Topbar -->
 <header class="topbar">
   <div class="topbar-left">
+    <button class="icon-btn hamburger" id="hamburger" aria-label="Menu">
+      <i class="bi bi-list"></i>
+    </button>
     <a href="#" class="brand">IMPACT <span class="x">X</span></a>
     <span class="topbar-badge">Reports Hub</span>
   </div>
   <div class="topbar-right">
-    <div class="search-bar">
+    <button class="cmdk-trigger" id="cmdk-trigger" type="button">
       <i class="bi bi-search"></i>
-      <input type="text" id="search-input" placeholder="Buscar relatórios..." autocomplete="off">
-    </div>
-    <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+      <span>Buscar...</span>
+      <span class="shortcut">&#8984;K</span>
+    </button>
+    <button class="icon-btn" id="theme-toggle" title="Alternar tema">
       <i class="bi bi-moon-fill" id="theme-icon"></i>
     </button>
   </div>
 </header>
 
+<!-- Sidebar overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
 <!-- Layout -->
 <div class="app-layout">
 
   <!-- Sidebar -->
-  <nav class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-label">Clientes</div>
-      <button class="nav-item-filter active" data-client="all">
-        <span class="nav-icon"><i class="bi bi-grid-3x3-gap"></i></span> Todos
-        <span class="nav-count" id="count-all">29</span>
-      </button>
-      <button class="nav-item-filter" data-client="impact-x">
-        <span class="nav-icon"><i class="bi bi-lightning"></i></span> Impact X
-        <span class="nav-count">0</span>
-      </button>
-      <button class="nav-item-filter" data-client="kumon">
-        <span class="nav-icon"><i class="bi bi-book"></i></span> Kumon
-        <span class="nav-count">0</span>
-      </button>
-      <button class="nav-item-filter" data-client="g2i">
-        <span class="nav-icon"><i class="bi bi-code-slash"></i></span> G2i
-        <span class="nav-count">0</span>
-      </button>
-      <button class="nav-item-filter" data-client="pessoal">
-        <span class="nav-icon"><i class="bi bi-person"></i></span> Pessoal
-        <span class="nav-count">0</span>
-      </button>
-    </div>
+  <nav class="sidebar" id="sidebar">
+    <button class="new-report-btn" id="new-report-btn" type="button">
+      <i class="bi bi-plus-lg"></i> Novo Relatorio
+    </button>
 
     <div class="sidebar-section">
-      <div class="sidebar-label">Projetos</div>
-      <div id="projectFilters">
-        <span class="filter-tag" data-tag="diagnostico-2026">Diagnóstico 2026</span>
-        <span class="filter-tag" data-tag="vto-eos">VTO/EOS</span>
-        <span class="filter-tag" data-tag="institucional">Institucional</span>
-        <span class="filter-tag" data-tag="ingles-kumon">Inglês Kumon</span>
-        <span class="filter-tag" data-tag="g2i-interview">G2i Interview</span>
-        <span class="filter-tag" data-tag="skills-v2">Skills v2</span>
-        <span class="filter-tag" data-tag="automacao">Automação</span>
-        <span class="filter-tag" data-tag="coworking">Coworking</span>
-        <span class="filter-tag" data-tag="concurso-ai">Concurso AI</span>
-        <span class="filter-tag" data-tag="conexoes-profundas">Conexões Profundas</span>
-        <span class="filter-tag" data-tag="espiritualidade">Espiritualidade</span>
-      </div>
+      <div class="sidebar-label">Clientes</div>
+      <button class="tree-all-btn active" id="tree-all-btn" data-filter="all">
+        <i class="bi bi-grid-3x3-gap"></i> Todos
+        <span class="tree-count" id="count-all">0</span>
+      </button>
+      <div id="sidebar-tree"></div>
     </div>
 
     <div class="sidebar-section">
       <div class="sidebar-label">Tags</div>
-      <div id="tagFilters">
-        <span class="filter-tag" data-tag="estrategia">Estratégia</span>
-        <span class="filter-tag" data-tag="financeiro">Financeiro</span>
-        <span class="filter-tag" data-tag="people">People</span>
-        <span class="filter-tag" data-tag="operacoes">Operações</span>
-        <span class="filter-tag" data-tag="comercial">Comercial</span>
-        <span class="filter-tag" data-tag="cultura">Cultura</span>
-        <span class="filter-tag" data-tag="legal">Legal</span>
-        <span class="filter-tag" data-tag="tech">Tech</span>
-        <span class="filter-tag" data-tag="ritual">Ritual</span>
-      </div>
+      <div class="sidebar-tags" id="tag-filters"></div>
     </div>
 
-    <div class="sidebar-section d-none active-filters-bar" id="active-filters">
-      <small class="text-body-secondary" id="result-count"></small>
-      <button class="filter-tag" id="clear-filters" style="font-size:11px;margin-top:4px">Limpar filtros</button>
+    <div class="active-filters-bar hidden" id="active-filters">
+      <small id="result-count"></small>
+      <button class="clear-filters-btn" id="clear-filters">Limpar</button>
     </div>
   </nav>
 
   <!-- Main -->
   <main class="main-content">
-    <div class="main-header">
-      <div class="main-header-inner">
-        <span class="hub-mascot" aria-hidden="true">📑</span>
-        <div class="main-header-text">
-          <div class="main-title">Relatórios</div>
-          <div class="main-subtitle"><span id="total-count">29</span> documentos publicados</div>
+    <div class="main-toolbar">
+      <div class="main-toolbar-left">
+        <div class="main-title" id="main-title">Relatorios</div>
+        <div class="main-count"><span id="total-count">0</span> documentos</div>
+      </div>
+      <div class="main-toolbar-right">
+        <div class="view-toggle">
+          <button class="view-toggle-btn active" data-view="list" title="Lista"><i class="bi bi-list-ul"></i></button>
+          <button class="view-toggle-btn" data-view="timeline" title="Timeline"><i class="bi bi-clock-history"></i></button>
+          <button class="view-toggle-btn" data-view="dashboard" title="Dashboard"><i class="bi bi-bar-chart"></i></button>
         </div>
       </div>
     </div>
 
-    <div class="reports-list" id="reports-list">
-
-      <a class="report-row" href="ImpactX_GuiaOri_202603.html" data-tags="pessoal,espiritualidade,ritual">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Guia de Fortalecimento do Ori — Iemanjá &amp; Oxossi</div>
-          <div class="rr-meta">20 Mar 2026 · Cabo Frio · Tradições Yorubá, Candomblé e Umbanda</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Pessoal</span>
-          <span class="rr-tag rr-tag-projeto">Espiritualidade</span>
-          <span class="rr-tag rr-tag-area">Ritual</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_VTO_EOS_202603.html" data-tags="impact-x,vto-eos,estrategia">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">VTO — Vision/Traction Organizer</div>
-          <div class="rr-meta">19 Mar 2026 · Core Values, Targets 1/3/10 anos, Marketing, Rocks 90d</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">VTO/EOS</span>
-          <span class="rr-tag rr-tag-area">Estratégia</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Manifesto_202603.html" data-tags="impact-x,institucional,cultura">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Manifesto Impact X (PT/EN)</div>
-          <div class="rr-meta">19 Mar 2026 · Público · O que acreditamos, por que construímos e para quem vivemos</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Institucional</span>
-          <span class="rr-tag rr-tag-area">Cultura</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_MissaoVisaoValores_202603.html" data-tags="impact-x,institucional,cultura">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Missão, Visão e Valores</div>
-          <div class="rr-meta">19 Mar 2026 · Interno · Core Purpose, Horizontes de Visão, 8 Valores Fundamentais</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Institucional</span>
-          <span class="rr-tag rr-tag-area">Cultura</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_CulturaePeople_202603.html" data-tags="impact-x,institucional,people,cultura">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Cultura &amp; People</div>
-          <div class="rr-meta">19 Mar 2026 · Interno · Remote-first, Dengos, Diversidade, Benefícios</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Institucional</span>
-          <span class="rr-tag rr-tag-area">People</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_00_Index_202603.html" data-tags="impact-x,diagnostico-2026,estrategia">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">00</span>Índice Master — Diagnóstico Executivo</div>
-          <div class="rr-meta">19 Mar 2026 · Índice de todos os 9 relatórios com resumo executivo</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_01_ModeloNegocio_202603.html" data-tags="impact-x,kumon,diagnostico-2026,estrategia,financeiro">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">01</span>Modelo de Negócio</div>
-          <div class="rr-meta">19 Mar 2026 · Impact X + Kumon · Revenue model, unit economics, equipe</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Financeiro</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_02_ProjecaoFinanceira_202603.html" data-tags="impact-x,diagnostico-2026,financeiro">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">02</span>Projeção Financeira 2026</div>
-          <div class="rr-meta">19 Mar 2026 · 3 cenários (conservador/moderado/otimista), DRE, break-even</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Financeiro</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_05_EstrategiaComercial_202603.html" data-tags="impact-x,g2i,diagnostico-2026,comercial,estrategia">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">05</span>Estratégia Comercial</div>
-          <div class="rr-meta">19 Mar 2026 · G2i como canal, diversificação, pipeline, playbook</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Comercial</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_06_Metricas_202603.html" data-tags="impact-x,diagnostico-2026,financeiro,comercial">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">06</span>Métricas do Negócio</div>
-          <div class="rr-meta">19 Mar 2026 · Pipeline, conversão, MRR, unit economics, CAC, LTV, KPIs</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Financeiro</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_07_TimeMinimo_202603.html" data-tags="impact-x,diagnostico-2026,people,operacoes">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">07</span>Time Mínimo Recomendado</div>
-          <div class="rr-meta">19 Mar 2026 · Organograma, gaps, OPEX, regras de contratação, fases</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">People</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_08_Roadmap2026_202603.html" data-tags="impact-x,diagnostico-2026,estrategia">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">08</span>Roadmap 2026</div>
-          <div class="rr-meta">19 Mar 2026 · Q2/Q3/Q4 · Objetivos, entregas, Go/No-Go, riscos</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Estratégia</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_09_ActionItems_202603.html" data-tags="impact-x,diagnostico-2026,operacoes,estrategia">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">09</span>Action Items</div>
-          <div class="rr-meta">19 Mar 2026 · Decisões tomadas, ações urgentes (A1-A10), backlog</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Operações</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_10_G2iEntrevista_202603.html" data-tags="g2i,diagnostico-2026,comercial">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">10</span>Estratégia G2i — Entrevista</div>
-          <div class="rr-meta">19 Mar 2026 · Interview prep Rafa + playbook comercial Pimenta</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">G2i</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Comercial</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_Diagnostico_11_ProcessoComercialMVP_202603.html" data-tags="impact-x,diagnostico-2026,comercial,operacoes">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title"><span class="rr-num">11</span>Processo Comercial MVP</div>
-          <div class="rr-meta">19 Mar 2026 · Funil simplificado, timeline 30-45 dias, workflow</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Diagnóstico 2026</span>
-          <span class="rr-tag rr-tag-area">Comercial</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_ProjetoInglesKumon_202603.html" data-tags="kumon,ingles-kumon,comercial,operacoes">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Projeto Inglês — Kumon &amp; Comercial</div>
-          <div class="rr-meta">19 Mar 2026 · Will Pena · Estratégia, Guia do Professor, OKRs</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Kumon</span>
-          <span class="rr-tag rr-tag-projeto">Inglês Kumon</span>
-          <span class="rr-tag rr-tag-area">Comercial</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_G2i_InterviewPrep_202603.html" data-tags="g2i,g2i-interview,comercial">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">G2i Interview Prep — EN Version</div>
-          <div class="rr-meta">19 Mar 2026 · RLHF Intelligence, High Agency Framework, STAR Stories</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">G2i</span>
-          <span class="rr-tag rr-tag-projeto">G2i Interview</span>
-          <span class="rr-tag rr-tag-area">Comercial</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_SkillsV2_MapaCompleto_202603.html" data-tags="impact-x,skills-v2,people,tech">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Sistema de Skills v2 — Mapa Completo</div>
-          <div class="rr-meta">18 Mar 2026 · Interno</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Skills v2</span>
-          <span class="rr-tag rr-tag-area">Tech</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_SistemaClaudeOS_202603.html" data-tags="impact-x,automacao,tech">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Claude OS — Sistema Produtivo</div>
-          <div class="rr-meta">Mar 2026 · Interno · Automação, ferramentas, workflows produtivos</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Automação</span>
-          <span class="rr-tag rr-tag-area">Tech</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_SistemaDeVidaMaster_202603.html" data-tags="pessoal,estrategia,operacoes">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Sistema de Vida — Master 2026</div>
-          <div class="rr-meta">Mar 2026 · Pessoal · Rotinas, hábitos, planejamento pessoal</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Pessoal</span>
-          <span class="rr-tag rr-tag-area">Estratégia</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_AnaliseFinanceiraKumon_202606.html" data-tags="kumon,financeiro">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Análise Financeira — Unidade Kumon</div>
-          <div class="rr-meta">Jun 2025 · Kumon Caemargos · Receitas, custos, projeções</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Kumon</span>
-          <span class="rr-tag rr-tag-area">Financeiro</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/ImpactX_CafeCoworkingLavanderia_202603.html" data-tags="impact-x,coworking,estrategia,financeiro">
-        <span class="rr-icon"><i class="bi bi-file-earmark-text"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Café · Coworking · Lavanderia — Análise por Cidade</div>
-          <div class="rr-meta">Mar 2026 · Estudo de viabilidade, comparativo cidades</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Coworking</span>
-          <span class="rr-tag rr-tag-area">Estratégia</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/PRD-ConcursoAI.md" data-tags="impact-x,concurso-ai,tech,estrategia">
-        <span class="rr-icon"><i class="bi bi-file-earmark-code"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">PRD — ConcursoAI</div>
-          <div class="rr-meta">Mar 2026 · Plataforma IA para estudo de concursos · PRD Markdown</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Concurso AI</span>
-          <span class="rr-tag rr-tag-area">Tech</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/ImpactX_PlanoGamificadoRecuperacao_TDAH.pdf" data-tags="pessoal,operacoes" target="_blank">
-        <span class="rr-icon"><i class="bi bi-file-earmark-pdf"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Plano Gamificado de Recuperação (TDAH-proof)</div>
-          <div class="rr-meta">PDF · Plano pessoal gamificado</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Pessoal</span>
-          <span class="rr-tag rr-tag-area">Operações</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/ImpactX_AICostReport_v3.pdf" data-tags="impact-x,automacao,financeiro,tech" target="_blank">
-        <span class="rr-icon"><i class="bi bi-file-earmark-pdf"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">AI Cost Report v3</div>
-          <div class="rr-meta">PDF · Custos de infraestrutura IA</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Automação</span>
-          <span class="rr-tag rr-tag-area">Financeiro</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/OpenClaw_TokenOptimizationGuide.pdf" data-tags="impact-x,automacao,tech" target="_blank">
-        <span class="rr-icon"><i class="bi bi-file-earmark-pdf"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">OpenClaw — Token Optimization Guide</div>
-          <div class="rr-meta">PDF · Guia de otimização de tokens</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Automação</span>
-          <span class="rr-tag rr-tag-area">Tech</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/ConexoesProfundas_CompetitorAnalysis.pdf" data-tags="impact-x,conexoes-profundas,comercial,estrategia" target="_blank">
-        <span class="rr-icon"><i class="bi bi-file-earmark-pdf"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">Conexões Profundas — Competitor Analysis</div>
-          <div class="rr-meta">PDF · Análise competitiva do projeto Conexões Profundas</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Impact X</span>
-          <span class="rr-tag rr-tag-projeto">Conexões Profundas</span>
-          <span class="rr-tag rr-tag-area">Comercial</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/PRD_JogoEchoville.md" data-tags="pessoal,tech">
-        <span class="rr-icon"><i class="bi bi-file-earmark-code"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">PRD — Jogo Echoville (3 Atos)</div>
-          <div class="rr-meta">Markdown · PRD completo do jogo RPG Echoville</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Pessoal</span>
-          <span class="rr-tag rr-tag-area">Tech</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
-      <a class="report-row" href="data/downloads/RPG_Echoville_Cenario.md" data-tags="pessoal,tech">
-        <span class="rr-icon"><i class="bi bi-file-earmark-code"></i></span>
-        <div class="rr-info">
-          <div class="rr-title">RPG Echoville — Cenário &amp; Personagens</div>
-          <div class="rr-meta">Markdown · Cenário, personagens e regras do RPG</div>
-        </div>
-        <div class="rr-tags d-none d-md-flex">
-          <span class="rr-tag rr-tag-empresa">Pessoal</span>
-          <span class="rr-tag rr-tag-area">Tech</span>
-        </div>
-        <span class="rr-arrow">&#x203A;</span>
-      </a>
-
+    <!-- Dashboard charts area -->
+    <div class="dashboard-area hidden" id="dashboard-area">
+      <div class="chart-card">
+        <div class="chart-card-title">Reports por Mes</div>
+        <div id="chart-monthly" style="width:100%;height:220px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Por Cliente</div>
+        <div id="chart-client" style="width:100%;height:220px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Por Tag</div>
+        <div id="chart-tags" style="width:100%;height:220px"></div>
+      </div>
     </div>
 
-    <div class="empty-state d-none" id="empty-state">
-      <div style="font-size:40px;margin-bottom:12px"><i class="bi bi-search"></i></div>
-      <p>Nenhum relatório encontrado para esse filtro.</p>
+    <!-- List view -->
+    <div class="reports-list" id="reports-list"></div>
+
+    <!-- Timeline view -->
+    <div class="timeline-view" id="timeline-view"></div>
+
+    <div class="empty-state hidden" id="empty-state">
+      <div style="font-size:36px;margin-bottom:12px"><i class="bi bi-search"></i></div>
+      <p>Nenhum relatorio encontrado para esse filtro.</p>
     </div>
 
-    <nav aria-label="Paginação dos relatórios" class="mt-4" id="pagination-nav">
-      <ul class="pagination pagination-sm justify-content-center" id="pagination"></ul>
+    <nav aria-label="Paginacao" class="mt-4" id="pagination-nav">
+      <ul class="pagination" id="pagination"></ul>
     </nav>
   </main>
 
 </div>
 
-<footer class="text-center py-3 border-top app-footer text-body-secondary">
-  Impact <span class="x-mark">X</span> — Rafael Camillo · <span id="footer-count">29</span> reports
+<footer class="app-footer">
+  Impact <span class="x-mark">X</span> — Rafael Camillo · <span id="footer-count">0</span> reports
 </footer>
 
-<script>
-(function () {
-  var PAGE_SIZE = 10;
-  var currentPage = 1;
-  var searchInput = document.getElementById('search-input');
-  var rows = document.querySelectorAll('.report-row');
-  var navItems = document.querySelectorAll('.nav-item-filter');
-  var filterTags = document.querySelectorAll('.filter-tag:not(#clear-filters)');
-  var emptyState = document.getElementById('empty-state');
-  var activeFiltersBar = document.getElementById('active-filters');
-  var resultCount = document.getElementById('result-count');
-  var clearBtn = document.getElementById('clear-filters');
-  var paginationEl = document.getElementById('pagination');
-  var totalCountEl = document.getElementById('total-count');
-  var footerCountEl = document.getElementById('footer-count');
-  var themeToggle = document.getElementById('theme-toggle');
-  var themeIcon = document.getElementById('theme-icon');
+<!-- New Report Modal -->
+<div class="modal-overlay" id="new-report-modal">
+  <div class="modal-box">
+    <div class="modal-title">Novo Relatorio</div>
+    <div class="modal-field">
+      <label for="nr-title">Titulo</label>
+      <input type="text" id="nr-title" placeholder="Ex: Analise Q2 2026">
+    </div>
+    <div class="modal-field">
+      <label for="nr-client">Cliente</label>
+      <select id="nr-client"></select>
+    </div>
+    <div class="modal-field">
+      <label for="nr-project">Projeto</label>
+      <select id="nr-project"><option value="">Nenhum</option></select>
+    </div>
+    <div class="modal-field">
+      <label for="nr-desc">Descricao</label>
+      <textarea id="nr-desc" rows="3" placeholder="Breve descricao do relatorio..."></textarea>
+    </div>
+    <div class="cmd-output hidden" id="nr-output">
+      <button class="cmd-copy-btn" id="nr-copy">Copiar</button>
+      <code id="nr-command"></code>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="nr-cancel">Cancelar</button>
+      <button class="btn-primary" id="nr-generate">Gerar Comando</button>
+    </div>
+  </div>
+</div>
 
-  var activeClient = 'all';
-  var activeTags = new Set();
+<!-- Cmd+K Palette -->
+<div class="cmdk-overlay" id="cmdk-overlay">
+  <div class="cmdk-box">
+    <div class="cmdk-input-wrap">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" class="cmdk-input" id="cmdk-input" placeholder="Buscar relatorios, projetos, acoes..." autocomplete="off">
+    </div>
+    <div class="cmdk-results" id="cmdk-results"></div>
+    <div class="cmdk-footer">
+      <span><kbd>↑↓</kbd> navegar</span>
+      <span><kbd>↵</kbd> abrir</span>
+      <span><kbd>esc</kbd> fechar</span>
+    </div>
+  </div>
+</div>
 
-  totalCountEl.textContent = rows.length;
-  footerCountEl.textContent = rows.length;
-  updateThemeIcon();
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-  // Compute nav-item counts from data-tags
-  navItems.forEach(function (item) {
-    var client = item.dataset.client;
-    var countEl = item.querySelector('.nav-count');
-    if (!countEl) return;
-    if (client === 'all') { countEl.textContent = rows.length; return; }
-    var n = 0;
-    rows.forEach(function (r) { if ((r.dataset.tags || '').split(',').indexOf(client) !== -1) n++; });
-    countEl.textContent = n;
-  });
-
-  // Theme toggle
-  themeToggle.addEventListener('click', function () {
-    var html = document.documentElement;
-    var current = html.getAttribute('data-bs-theme');
-    var next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-bs-theme', next);
-    localStorage.setItem('ix-theme', next);
-    updateThemeIcon();
-  });
-
-  function updateThemeIcon() {
-    var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
-    themeIcon.className = isDark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
-  }
-
-  // Nav item clicks (client filter - radio)
-  navItems.forEach(function (item) {
-    item.addEventListener('click', function () {
-      navItems.forEach(function (n) { n.classList.remove('active'); });
-      item.classList.add('active');
-      activeClient = item.dataset.client;
-      currentPage = 1;
-      applyFilters();
-    });
-  });
-
-  // Filter tag clicks (project/tag - toggle)
-  filterTags.forEach(function (tag) {
-    tag.addEventListener('click', function () {
-      var t = tag.dataset.tag;
-      if (activeTags.has(t)) { activeTags.delete(t); tag.classList.remove('active'); }
-      else { activeTags.add(t); tag.classList.add('active'); }
-      currentPage = 1;
-      applyFilters();
-    });
-  });
-
-  searchInput.addEventListener('input', function () {
-    currentPage = 1;
-    applyFilters();
-  });
-
-  clearBtn.addEventListener('click', function () {
-    activeClient = 'all';
-    activeTags.clear();
-    searchInput.value = '';
-    navItems.forEach(function (n) { n.classList.remove('active'); });
-    document.querySelector('[data-client="all"]').classList.add('active');
-    filterTags.forEach(function (t) { t.classList.remove('active'); });
-    currentPage = 1;
-    applyFilters();
-  });
-
-  function applyFilters() {
-    var query = searchInput.value.toLowerCase().trim();
-    var hasFilters = query.length > 0 || activeClient !== 'all' || activeTags.size > 0;
-
-    rows.forEach(function (row) {
-      var title = row.querySelector('.rr-title').textContent.toLowerCase();
-      var meta = row.querySelector('.rr-meta').textContent.toLowerCase();
-      var rowTags = (row.dataset.tags || '').split(',');
-
-      var matchesSearch = !query || title.indexOf(query) !== -1 || meta.indexOf(query) !== -1;
-      var matchesClient = activeClient === 'all' || rowTags.indexOf(activeClient) !== -1;
-      var matchesTags = activeTags.size === 0 || rowTags.some(function (t) { return activeTags.has(t); });
-
-      row.classList.toggle('filter-hidden', !(matchesSearch && matchesClient && matchesTags));
-      row.classList.remove('page-hidden');
-    });
-
-    paginate();
-
-    var visibleCount = Array.from(rows).filter(function (r) { return !r.classList.contains('filter-hidden'); }).length;
-
-    if (visibleCount === 0) { emptyState.classList.remove('d-none'); }
-    else { emptyState.classList.add('d-none'); }
-
-    if (hasFilters) {
-      activeFiltersBar.classList.remove('d-none');
-      resultCount.textContent = visibleCount + ' de ' + rows.length + ' relatórios';
-    } else {
-      activeFiltersBar.classList.add('d-none');
-    }
-  }
-
-  function paginate() {
-    var visible = Array.from(rows).filter(function (r) { return !r.classList.contains('filter-hidden'); });
-    var totalPages = Math.ceil(visible.length / PAGE_SIZE);
-    if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-
-    visible.forEach(function (row, i) {
-      row.classList.toggle('page-hidden', i < (currentPage - 1) * PAGE_SIZE || i >= currentPage * PAGE_SIZE);
-    });
-
-    renderPagination(totalPages);
-  }
-
-  function renderPagination(totalPages) {
-    while (paginationEl.firstChild) { paginationEl.removeChild(paginationEl.firstChild); }
-    if (totalPages <= 1) return;
-
-    addPageItem('\u2039', currentPage > 1, function () { currentPage--; applyFilters(); scrollToList(); });
-
-    for (var i = 1; i <= totalPages; i++) {
-      (function (page) {
-        addPageItem(String(page), true, function () { currentPage = page; applyFilters(); scrollToList(); }, page === currentPage);
-      })(i);
-    }
-
-    addPageItem('\u203A', currentPage < totalPages, function () { currentPage++; applyFilters(); scrollToList(); });
-  }
-
-  function addPageItem(label, enabled, onClick, active) {
-    var li = document.createElement('li');
-    li.className = 'page-item' + (!enabled ? ' disabled' : '') + (active ? ' active' : '');
-    var a = document.createElement('a');
-    a.className = 'page-link';
-    a.href = '#';
-    a.textContent = label;
-    if (enabled && !active) {
-      a.addEventListener('click', function (e) { e.preventDefault(); onClick(); });
-    } else {
-      a.addEventListener('click', function (e) { e.preventDefault(); });
-    }
-    li.appendChild(a);
-    paginationEl.appendChild(li);
-  }
-
-  function scrollToList() {
-    document.getElementById('reports-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  applyFilters();
-})();
-</script>
+<script src="assets/js/hub.js"></script>
+<script src="assets/js/cmd-k.js"></script>
+<script src="assets/js/timeline.js"></script>
+<script defer src="assets/js/charts.js"></script>
 </body>
 </html>
