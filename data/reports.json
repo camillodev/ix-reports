@@ -1,5 +1,17 @@
 [
   {
+    "title": "PRD — Health Bot OpenClaw v2",
+    "slug": "prd-healthbot-openclaw-v2",
+    "file": "ImpactX_PRD_HealthBot_OpenClaw_v2_202603.html",
+    "date": "2026-03-22",
+    "meta": "22 Mar 2026 · OpenClaw + Claude Sonnet 4.6 + Telegram + Supabase · Spec completa para Claude Code",
+    "client": "pessoal",
+    "project": null,
+    "tags": ["tech", "operacoes"],
+    "icon": "file-earmark-text",
+    "type": "html"
+  },
+  {
     "title": "Plano de Automação Completo 2026",
     "slug": "plano-automacao",
     "file": "plano-automacao.html",

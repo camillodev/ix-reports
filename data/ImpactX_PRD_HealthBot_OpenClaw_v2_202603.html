@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — PRD Health Bot OpenClaw v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+/* report-specific overrides only */
+.code-block{background:#1A1D21;color:#A8FF78;font-family:'Roboto Mono',monospace;font-size:13px;padding:20px 24px;border-radius:var(--ix-radius-sm);overflow-x:auto;line-height:1.75;margin:16px 0;white-space:pre}
+.code-block .cm{color:#6B7280}
+.code-block .kw{color:#FBBF24}
+.code-block .st{color:#34D399}
+.file-tree{background:#1A1D21;color:#E2E8F0;font-family:'Roboto Mono',monospace;font-size:13px;padding:20px 24px;border-radius:var(--ix-radius-sm);overflow-x:auto;line-height:1.9;margin:16px 0}
+.file-tree .dir{color:#FBBF24}
+.file-tree .kw{color:var(--ix-green-light)}
+.file-tree .cm{color:#6B7280}
+.skill-card{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:22px;margin-bottom:18px;border-left:4px solid var(--ix-green)}
+.skill-card.critical{border-left-color:var(--ix-danger)}
+.skill-badge{display:inline-block;background:var(--ix-green);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.skill-badge.danger{background:var(--ix-danger)}
+.skill-title{font-size:16px;font-weight:700;color:var(--ix-ink);margin-left:10px}
+.skill-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.skill-card p{font-size:14px;color:var(--ix-muted);margin-bottom:14px}
+.skill-list{list-style:none;padding:0}
+.skill-list li{font-size:13px;padding:5px 0;display:flex;gap:8px;border-bottom:1px solid var(--ix-border)}
+.skill-list li:last-child{border-bottom:none}
+.skill-arrow{color:var(--ix-green);font-weight:700;flex-shrink:0}
+.prio-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.prio-p0{background:var(--ix-green);color:#fff}
+.prio-p1{background:#FBBF24;color:#1A1D21}
+.prio-p2{background:var(--ix-border);color:var(--ix-muted)}
+.risk-high{background:#FDEDEC;color:var(--ix-danger);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.risk-med{background:#FEF9E7;color:var(--ix-warning);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.risk-low{background:var(--ix-green-bg);color:var(--ix-green-dark);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}}
+.col-title{font-size:13px;font-weight:700;color:var(--ix-green);margin-bottom:8px;padding:7px 12px;background:var(--ix-green-bg);border-radius:6px}
+.col-list{padding-left:18px;font-size:14px;line-height:2}
+.phase-row{display:grid;grid-template-columns:90px 1fr auto;gap:14px;align-items:center;background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-sm);padding:14px 18px;margin-bottom:10px}
+.phase-label{background:#1A1D21;color:#FBBF24;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;text-align:center}
+.phase-label.critical{background:var(--ix-danger)}
+.phase-label.spike{background:var(--ix-warning)}
+.phase-time{font-size:13px;font-weight:700;color:var(--ix-green);white-space:nowrap}
+.phase-row small{color:var(--ix-muted);font-size:12px;display:block}
+.sec-num{background:var(--ix-green);color:#fff;font-size:12px;font-weight:700;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:8px}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">PRD Health Bot · OpenClaw v2</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="visao">Visão Geral</button>
+  <button type="button" class="tab-btn" data-tab="arquitetura">Arquitetura</button>
+  <button type="button" class="tab-btn" data-tab="personalidade">Personalidade</button>
+  <button type="button" class="tab-btn" data-tab="skills">Skills</button>
+  <button type="button" class="tab-btn" data-tab="features">Features</button>
+  <button type="button" class="tab-btn" data-tab="banco">Banco & Prompts</button>
+  <button type="button" class="tab-btn" data-tab="infra">Infra & Rules</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">Roadmap & KPIs</button>
+</nav>
+
+<!-- TAB 1: VISÃO GERAL -->
+<div class="tab-panel active" data-tab="visao" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">PRD para Claude Code — Spec Completa v2.0</div>
+      <h1 class="hdr-title">Health Bot — <em>OpenClaw</em></h1>
+      <p class="hdr-sub">Personal assistant de saúde mental · TDAH + TEA Nível 1 + TAG + TDM · Build spec para Claude Code</p>
+      <div class="hdr-meta">
+        <span><strong>Versão</strong> 2.0</span>
+        <span><strong>Data</strong> Março 2026</span>
+        <span><strong>Stack</strong> OpenClaw + Claude Sonnet 4.6 + Telegram + Supabase + VPS</span>
+        <span><strong>Alvo</strong> Claude Code CLI</span>
+      </div>
+    </div>
+
+    <h2><span class="sec-num">1</span> Contexto Clínico — Base para Todas as Decisões</h2>
+
+    <table>
+      <thead><tr><th>Diagnóstico</th><th>Dado Clínico</th><th>Regra de Engenharia</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TDAH Combinado</strong></td><td>Atenção alternada P1 · concentrada P10 · memória de trabalho comprometida</td><td>Push não pull · 1 pergunta/msg · msg ≤4 linhas · zero listas</td></tr>
+        <tr><td><strong>TEA Nível 1</strong></td><td>SRS-2 positivo · mascaramento · hiperfoco · comunicação literal</td><td>Linguagem direta e previsível · sem metáforas · estrutura fixa · resposta determinística</td></tr>
+        <tr><td><strong>TAG</strong></td><td>Pensamentos preocupantes P95 · ansiedade geral P85</td><td>Nunca amplificar preocupação · 1 ação concreta · detectar escalada antes de virar crise</td></tr>
+        <tr><td><strong>TDM Recorrente</strong></td><td>Episódios com ideação em perdas significativas</td><td>Mood &lt;2 por 2 dias → crisis_tool SEMPRE · nunca ignorar · escalar para humano</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning">
+      <strong>Premissa de design:</strong> O bot é suporte operacional externo à cognição do Rafael. Reduz carga, nunca adiciona. Não é terapia e nunca deve agir como tal.
+    </div>
+
+    <h2><span class="sec-num">2</span> Por que OpenClaw (não n8n)</h2>
+
+    <table>
+      <thead><tr><th>Critério</th><th>OpenClaw ✅</th><th>n8n ❌</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Custo</strong></td><td>Gratuito — só VPS + Claude API</td><td>n8n Cloud pago em volume; self-hosted custo igual</td></tr>
+        <tr><td><strong>Memória nativa</strong></td><td>ConversationSummaryBufferMemory built-in</td><td>Implementar pgvector manualmente</td></tr>
+        <tr><td><strong>RAG built-in</strong></td><td>VectorStore + DocumentLoader nativos</td><td>Pipeline custom sem abstração</td></tr>
+        <tr><td><strong>Tools/Actions</strong></td><td>Cada módulo = @tool registrada no agente</td><td>Nodes visuais com limitações de lógica</td></tr>
+        <tr><td><strong>Agentes autônomos</strong></td><td>ReAct, plan-and-execute nativos</td><td>Não nativo</td></tr>
+        <tr><td><strong>Controle</strong></td><td>Python puro — sênior controla 100%</td><td>Visual node com limitações de código</td></tr>
+        <tr><td><strong>Velocidade de build</strong></td><td>Menos boilerplate com abstrações nativas</td><td>Mais config por ser genérico</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- TAB 2: ARQUITETURA -->
+<div class="tab-panel" data-tab="arquitetura" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">3</span> Arquitetura do Sistema</h2>
+
+    <div class="code-block"><span class="cm">┌──────────────────────────────────────────────────────┐
+│            HEALTH BOT — SYSTEM DESIGN               │
+└──────────────────────────────────────────────────────┘</span>
+
+<span class="kw">ENTRADA</span>
+  Telegram (mensagem ou comando)
+       │
+       ▼
+<span class="kw">GATEWAY</span> — telegram/handler.py
+  • Recebe webhook do Telegram
+  • Roteamento: mensagem livre | comando /x | resposta check-in
+  • Rate limit: 1 msg/3s por usuário
+  • Whitelist: só processa TELEGRAM_USER_ID
+       │
+       ▼
+<span class="kw">AGENTE PRINCIPAL</span> — HealthAgent (OpenClaw AgentExecutor)
+  • LLM: Claude Sonnet 4.6
+  • Memory: ConversationSummaryBufferMemory (últimas 20 msgs + summary)
+  • Tools: [checkin, journal, pattern, motivation, crisis, summary]
+  • RAG: context injetado via retriever por similaridade
+  • System prompt: perfil clínico + hard rules
+       │
+  ┌────┴───────────────────────────────┐
+  │                                    │
+  ▼                                    ▼
+<span class="kw">TOOLS</span>                           <span class="kw">RAG PIPELINE</span>
+  checkin_tool                  DocumentLoader (laudos PDF)
+  journal_tool                  embedder.py → pgvector
+  pattern_tool                  retriever.py → SimilaritySearch
+  motivation_tool               Injeta contexto relevante no prompt
+  crisis_tool  ← hardcoded
+  summary_tool
+       │
+       ▼
+<span class="kw">SUPABASE</span> — PostgreSQL + pgvector
+  health_checkins · emotional_journal · bot_conversations
+  act_exercises · pattern_events · document_chunks · apple_health_data
+       │
+       ▼
+<span class="kw">SCHEDULER</span> — APScheduler
+  08:00 → check-in manhã
+  18:00 → check-in tarde
+  21:30 → check-in noite
+  domingo 18:00 → weekly report
+  loop 1h → pattern detection async
+       │
+       ▼
+<span class="kw">SAÍDA</span>
+  Telegram send_message (≤4 linhas, sem markdown pesado)
+  Notion (weekly report opcional)
+  Composio → Apple Health (v2, read-only)</div>
+
+    <h2><span class="sec-num">4</span> Estrutura de Arquivos</h2>
+
+    <div class="file-tree"><span class="dir">health-bot/</span>
+├── <span class="dir">agent/</span>
+│   ├── <span class="kw">__init__.py</span>
+│   ├── <span class="kw">health_agent.py</span>         <span class="cm"># AgentExecutor principal — OpenClaw</span>
+│   ├── <span class="kw">memory.py</span>               <span class="cm"># ConversationSummaryBufferMemory config</span>
+│   └── <span class="kw">router.py</span>               <span class="cm"># Lógica de roteamento de mensagens</span>
+├── <span class="dir">tools/</span>
+│   ├── <span class="kw">__init__.py</span>
+│   ├── <span class="kw">checkin_tool.py</span>         <span class="cm"># Salva e lê check-ins diários</span>
+│   ├── <span class="kw">journal_tool.py</span>         <span class="cm"># Diário emocional CRUD</span>
+│   ├── <span class="kw">pattern_tool.py</span>         <span class="cm"># Detecta padrões negativos</span>
+│   ├── <span class="kw">motivation_tool.py</span>      <span class="cm"># Nudges e exercícios ACT</span>
+│   ├── <span class="kw">crisis_tool.py</span>          <span class="cm"># Protocolo de crise — script hardcoded</span>
+│   └── <span class="kw">summary_tool.py</span>         <span class="cm"># Gera weekly report</span>
+├── <span class="dir">rag/</span>
+│   ├── <span class="kw">__init__.py</span>
+│   ├── <span class="kw">loader.py</span>               <span class="cm"># Carrega e chunka os laudos PDF</span>
+│   ├── <span class="kw">embedder.py</span>             <span class="cm"># Gera embeddings via Claude</span>
+│   └── <span class="kw">retriever.py</span>            <span class="cm"># SimilaritySearch no pgvector</span>
+├── <span class="dir">scheduler/</span>
+│   ├── <span class="kw">__init__.py</span>
+│   ├── <span class="kw">jobs.py</span>                 <span class="cm"># Define todos os cron jobs</span>
+│   └── <span class="kw">pattern_loop.py</span>         <span class="cm"># Loop async de detecção de padrões (1h)</span>
+├── <span class="dir">telegram/</span>
+│   ├── <span class="kw">__init__.py</span>
+│   ├── <span class="kw">handler.py</span>              <span class="cm"># Webhook receiver + dispatcher</span>
+│   └── <span class="kw">sender.py</span>               <span class="cm"># send_message com formatting rules (≤4 linhas)</span>
+├── <span class="dir">db/</span>
+│   ├── <span class="kw">__init__.py</span>
+│   ├── <span class="kw">client.py</span>               <span class="cm"># Supabase client singleton</span>
+│   ├── <span class="kw">migrations.py</span>           <span class="cm"># DDL SQL — rodar na primeira vez</span>
+│   └── <span class="kw">queries.py</span>              <span class="cm"># Queries typed (sem ORM)</span>
+├── <span class="dir">prompts/</span>
+│   ├── <span class="kw">system_prompt.py</span>        <span class="cm"># System prompt principal do agente</span>
+│   ├── <span class="kw">checkin_prompts.py</span>      <span class="cm"># Templates dos 3 check-ins diários</span>
+│   ├── <span class="kw">pattern_prompts.py</span>      <span class="cm"># Prompts dos nudges por padrão detectado</span>
+│   └── <span class="kw">crisis_prompt.py</span>        <span class="cm"># Script de crise — NÃO EDITAR</span>
+├── <span class="dir">data/</span>
+│   ├── <span class="kw">laudos/</span>                 <span class="cm"># PDFs: Ferreira2025, Gouvea2026</span>
+│   └── <span class="kw">act_exercises.json</span>      <span class="cm"># 15 exercícios ACT seed data</span>
+├── <span class="dir">config/</span>
+│   ├── <span class="kw">settings.py</span>             <span class="cm"># Pydantic Settings — env vars</span>
+│   └── <span class="kw">.env.example</span>            <span class="cm"># Template de variáveis de ambiente</span>
+├── <span class="dir">tests/</span>
+│   ├── <span class="kw">test_tools.py</span>
+│   ├── <span class="kw">test_patterns.py</span>
+│   └── <span class="kw">test_crisis.py</span>          <span class="cm"># CRÍTICO — testar protocolo de crise</span>
+├── <span class="kw">main.py</span>                     <span class="cm"># Entrypoint — inicia bot + scheduler</span>
+├── <span class="kw">Dockerfile</span>
+├── <span class="kw">docker-compose.yml</span>
+├── <span class="kw">requirements.txt</span>
+└── <span class="kw">README.md</span></div>
+
+  </div>
+</div>
+
+<!-- TAB 3: PERSONALIDADE -->
+<div class="tab-panel" data-tab="personalidade" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">5</span> Personalidade do Bot</h2>
+
+    <div class="callout success">
+      <strong>Nome:</strong> O bot não tem nome. Se perguntado, responde: "Sou seu assistente. Sem nome." — evita antropomorfização que cria dependência.
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="col-title">✅ É assim que o bot fala</div>
+        <ul class="col-list">
+          <li><strong>Direto e literal</strong> — "Humor de 1 a 5?" não "Como você está?"</li>
+          <li><strong>Curto</strong> — máx 4 linhas por mensagem, sempre</li>
+          <li><strong>Uma coisa por vez</strong> — nunca lista de perguntas</li>
+          <li><strong>Propositivo</strong> — sempre termina com 1 ação ou 1 pergunta</li>
+          <li><strong>Factual nas celebrações</strong> — "5 dias seguidos. Teu cérebro gravou isso."</li>
+          <li><strong>Neutro no tom</strong> — nem frio nem excessivamente caloroso</li>
+          <li><strong>Consistente</strong> — mesma estrutura de resposta sempre</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">🚫 O bot nunca faz isso</div>
+        <ul class="col-list">
+          <li>Metáforas ou ironia</li>
+          <li>"Como você está se sentindo hoje?"</li>
+          <li>Listas de opções ou sugestões múltiplas</li>
+          <li>Pressionar ou cobrar respostas</li>
+          <li>Mais de 1 lembrete por check-in</li>
+          <li>Julgar ou comentar comportamento</li>
+          <li>Diagnóstico ou conselho médico</li>
+          <li>Fingir ser humano quando perguntado</li>
+          <li>Variar o padrão estrutural por humor do usuário</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:20px">
+      <strong>Princípio central:</strong> O bot é previsível por design. Rafael tem TEA — previsibilidade é segurança. Cada interação deve ter o mesmo padrão estrutural independente do conteúdo.
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB 4: SKILLS -->
+<div class="tab-panel" data-tab="skills" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">6</span> Skills do Agente — OpenClaw @tools</h2>
+
+    <div class="skill-card">
+      <div class="skill-header"><span class="skill-badge">SKILL 01</span><span class="skill-title">checkin_tool — Registro de Hábitos</span></div>
+      <p>Salva e recupera dados dos check-ins diários. Chamada automaticamente pelo scheduler e quando Rafael responde a um check-in.</p>
+      <div class="code-block"><span class="kw">@tool</span>
+<span class="kw">def</span> <span class="st">checkin_tool</span>(data: CheckinInput) -> CheckinResult:
+  <span class="cm">"""Salva check-in diário. Campos: date, medication_taken,
+  sleep_quality(1-5), exercised, nutrition_ok, mood(1-5),
+  top_task_done, had_social_contact, notes.
+  Upsert no Supabase health_checkins (UNIQUE date).
+  Retorna confirmação + streak atual se relevante."""</span></div>
+      <ul class="skill-list">
+        <li><span class="skill-arrow">→</span> Input: dict com campos do check-in (aceita parcial)</li>
+        <li><span class="skill-arrow">→</span> Output: confirmação + streak do hábito registrado</li>
+        <li><span class="skill-arrow">→</span> Trigger: scheduler (automático) + resposta do usuário</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-header"><span class="skill-badge">SKILL 02</span><span class="skill-title">journal_tool — Diário Emocional</span></div>
+      <p>Guia o processo de expressão guiada. Ativada por palavras-chave. Gera resumo e salva entrada no diário com tags automáticas.</p>
+      <div class="code-block"><span class="kw">@tool</span>
+<span class="kw">def</span> <span class="st">journal_tool</span>(action: Literal["start","save","read"], text: str = "") -> str:
+  <span class="cm">"""Gerencia diário emocional.
+  start: inicia sessão de expressão guiada (1 pergunta por vez)
+  save: salva entrada com resumo gerado por LLM
+  read: recupera últimas N entradas
+
+  Trigger keywords: preciso falar, tô travado, tô mal,
+  /expressar, não tô bem, precisando falar"""</span></div>
+      <ul class="skill-list">
+        <li><span class="skill-arrow">→</span> Fluxo: 1 pergunta → escuta → 1 pergunta → resumo + 1 ação</li>
+        <li><span class="skill-arrow">→</span> Salva: raw_text + summary + action_suggested + emotion_tags</li>
+        <li><span class="skill-arrow">→</span> Nunca mais de 1 pergunta por mensagem no fluxo</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-header"><span class="skill-badge">SKILL 03</span><span class="skill-title">pattern_tool — Detecção de Padrões</span></div>
+      <p>Roda em loop async a cada 1h. Verifica padrões negativos nos últimos check-ins e dispara ações quando detectados.</p>
+      <div class="code-block"><span class="kw">@tool</span>
+<span class="kw">def</span> <span class="st">pattern_tool</span>(check_type: Literal["all","mood","exercise","medication"]) -> PatternResult:
+  <span class="cm">"""PADRÕES MONITORADOS:
+  mood &lt; 2 por 2+ dias consecutivos  → severity: CRITICAL → crisis_tool
+  sem exercício por 3+ dias          → severity: MEDIUM   → motivation_tool
+  sem remédio por 2+ dias            → severity: HIGH     → motivation_tool
+  streak 5+ dias de hábito           → severity: CELEBRATE → motivation_tool"""</span></div>
+      <ul class="skill-list">
+        <li><span class="skill-arrow">→</span> Roda: async loop a cada 60 minutos</li>
+        <li><span class="skill-arrow">→</span> Salva: pattern_events com severity e timestamp</li>
+        <li><span class="skill-arrow">→</span> Dispatcha: motivation_tool ou crisis_tool conforme severity</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-header"><span class="skill-badge">SKILL 04</span><span class="skill-title">motivation_tool — Nudges e ACT</span></div>
+      <p>Entrega nudges baseados em neurociência comportamental e exercícios de desfusão cognitiva (ACT). Nunca mais de 1 por dia.</p>
+      <div class="code-block"><span class="kw">@tool</span>
+<span class="kw">def</span> <span class="st">motivation_tool</span>(pattern_type: str, severity: str) -> str:
+  <span class="cm">"""Seleciona nudge ou exercício ACT adequado ao padrão.
+  Banco: 15 exercícios em act_exercises (seed: data/act_exercises.json)
+  Nunca usar mesmo exercício 2x na mesma semana.
+  Máx 1 nudge proativo por dia total.
+
+  Celebração (severity=CELEBRATE): mensagem factual curta.
+  Ex: "5 dias seguidos de exercício. Teu cérebro gravou isso." """</span></div>
+      <ul class="skill-list">
+        <li><span class="skill-arrow">→</span> Input: tipo de padrão + severidade</li>
+        <li><span class="skill-arrow">→</span> Output: mensagem de nudge ≤4 linhas</li>
+        <li><span class="skill-arrow">→</span> Restrição: max 1 nudge proativo por dia</li>
+      </ul>
+    </div>
+
+    <div class="skill-card critical">
+      <div class="skill-header"><span class="skill-badge danger">SKILL 05 · CRÍTICA</span><span class="skill-title">crisis_tool — Protocolo de Crise</span></div>
+      <p>Ativada quando mood &lt;2 por 2 dias OU keywords de ideação detectados. Script FIXO — o LLM NÃO improvisa aqui. Hardcoded na tool, não passa pelo AgentExecutor.</p>
+      <div class="code-block"><span class="kw">@tool</span>
+<span class="kw">def</span> <span class="st">crisis_tool</span>(trigger: Literal["low_mood","ideation_keywords","manual"]) -> str:
+  <span class="cm">"""PROTOCOLO FIXO — NÃO ALTERAR:
+  1. "Estou percebendo que pode estar difícil agora."
+  2. "Você está bem?"
+  3. Se negativo: fornece contatos + pergunta quem ligar
+     - CVV: 188 (24h)
+     - Psicólogo Rodrigo: (21) 97915-6525
+     - "Qual nome vem primeiro na sua cabeça?"
+  4. NÃO tenta resolver sozinho
+  5. Registra em pattern_events severity=CRITICAL
+
+  KEYWORDS TRIGGER: "não quero mais", "cansado de tudo",
+  "não adianta", "desaparecer", "sumir", "acabar""""</span></div>
+      <ul class="skill-list">
+        <li><span class="skill-arrow">→</span> Script é hardcoded — output não passa pelo LLM</li>
+        <li><span class="skill-arrow">→</span> Sempre registra em pattern_events + structured log</li>
+        <li><span class="skill-arrow">→</span> test_crisis.py deve cobrir todos os triggers</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-header"><span class="skill-badge">SKILL 06</span><span class="skill-title">summary_tool — Relatório Semanal</span></div>
+      <p>Roda todo domingo às 18h. Agrega dados da semana, calcula métricas, Claude gera 1 insight de correlação.</p>
+      <div class="code-block"><span class="kw">@tool</span>
+<span class="kw">def</span> <span class="st">summary_tool</span>(week_start: date, week_end: date) -> WeeklyReport:
+  <span class="cm">"""Relatório semanal:
+  - % adesão por hábito (remédio, exercício, sono, tarefa, conexão)
+  - humor médio da semana vs semana anterior
+  - 1 correlação identificada pelo LLM (só uma)
+  - streaks records
+  - celebração se algum hábito >= 80%
+
+  Métricas calculadas por código, não pelo LLM.
+  LLM só escreve o insight de correlação."""</span></div>
+      <ul class="skill-list">
+        <li><span class="skill-arrow">→</span> Formato: ≤12 linhas no Telegram</li>
+        <li><span class="skill-arrow">→</span> 1 insight de correlação — não lista</li>
+        <li><span class="skill-arrow">→</span> Trigger: domingo 18h (scheduler) ou /semana</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB 5: FEATURES -->
+<div class="tab-panel" data-tab="features" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">7</span> Features Completas — Lista Definitiva</h2>
+
+    <table>
+      <thead><tr><th>#</th><th>Feature</th><th>Descrição</th><th>Prio</th></tr></thead>
+      <tbody>
+        <tr><td>F01</td><td><strong>Bot Telegram base</strong></td><td>Webhook handler, dispatcher, whitelist por user_id, send_message com ≤4 linhas</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F02</td><td><strong>OpenClaw AgentExecutor</strong></td><td>Agente com 6 tools, memória SummaryBuffer, RAG integrado</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F03</td><td><strong>Check-in 08h</strong></td><td>Remédio + sono. Automático, aceita s/n/número/emoji, salva no banco</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F04</td><td><strong>Check-in 18h</strong></td><td>Exercício + tarefa principal do dia</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F05</td><td><strong>Check-in 21h30</strong></td><td>Humor 1-5 + conexão humana s/n</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F06</td><td><strong>Lembrete único (2h)</strong></td><td>Se não respondeu em 2h → "Oi. Ainda aqui." Uma vez. Nunca duas.</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F07</td><td><strong>RAG dos laudos</strong></td><td>PDFs chunkeados, embeddings, pgvector, recuperação por similaridade</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F08</td><td><strong>Protocolo de crise</strong></td><td>Script hardcoded. Mood &lt;2 por 2 dias OU keywords de ideação</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F09</td><td><strong>Memória de conversa</strong></td><td>ConversationSummaryBufferMemory — últimas 20 msgs + summary</td><td><span class="prio-badge prio-p0">P0</span></td></tr>
+        <tr><td>F10</td><td><strong>Expressão guiada</strong></td><td>Trigger por keywords, 1 pergunta por vez, resumo + 1 ação concreta</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F11</td><td><strong>Detecção de padrões</strong></td><td>Async loop 1h, detecta 4 padrões, dispara nudge/crise automaticamente</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F12</td><td><strong>Nudges proativos</strong></td><td>Mensagem não julgadora quando padrão detectado. Máx 1/dia.</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F13</td><td><strong>Banco ACT (15 exercícios)</strong></td><td>Seed JSON, sem repetição na mesma semana, filtro por trigger_pattern</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F14</td><td><strong>Celebração de streak</strong></td><td>5+ dias de hábito → mensagem factual de celebração</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F15</td><td><strong>Weekly report (dom 18h)</strong></td><td>% adesão por hábito + 1 insight Claude + comparação semana anterior</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F16</td><td><strong>Diário emocional</strong></td><td>CRUD de entradas com tags automáticas de emoção</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F17</td><td><strong>Comando /pausar</strong></td><td>Pausa todos os check-ins automáticos sem fricção</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F18</td><td><strong>Comando /retomar</strong></td><td>Reativa check-ins pausados</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F19</td><td><strong>Comando /semana</strong></td><td>Força geração do weekly report a qualquer momento</td><td><span class="prio-badge prio-p2">P2</span></td></tr>
+        <tr><td>F20</td><td><strong>Logging estruturado</strong></td><td>Structured logging, alertas de erro, uptime check na VPS</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F21</td><td><strong>Testes automatizados</strong></td><td>test_tools, test_patterns, test_crisis (bloqueante para deploy)</td><td><span class="prio-badge prio-p1">P1</span></td></tr>
+        <tr><td>F22</td><td><strong>Apple Watch (Composio)</strong></td><td>Sono, HRV, passos, FC. Spike de viabilidade antes de implementar.</td><td><span class="prio-badge prio-p2">P2 spike</span></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- TAB 6: BANCO & PROMPTS -->
+<div class="tab-panel" data-tab="banco" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">8</span> Schema do Banco (Supabase)</h2>
+
+    <div class="code-block"><span class="cm">-- === migrations.py — rodar na primeira vez ===</span>
+
+<span class="cm">-- pgvector para RAG</span>
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> vector;
+
+<span class="cm">-- Check-ins diários (coração do sistema)</span>
+<span class="kw">CREATE TABLE</span> health_checkins (
+  id                   UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  date                 DATE <span class="kw">NOT NULL UNIQUE</span>,  <span class="cm">-- 1 registro/dia, upsert</span>
+  medication_taken     BOOLEAN,
+  sleep_quality        INTEGER <span class="kw">CHECK</span> (sleep_quality <span class="kw">BETWEEN</span> 1 <span class="kw">AND</span> 5),
+  exercised            BOOLEAN,
+  nutrition_ok         BOOLEAN,
+  mood                 INTEGER <span class="kw">CHECK</span> (mood <span class="kw">BETWEEN</span> 1 <span class="kw">AND</span> 5),
+  top_task_done        BOOLEAN,
+  had_social_contact   BOOLEAN,
+  notes                TEXT,
+  created_at           TIMESTAMPTZ <span class="kw">DEFAULT</span> NOW()
+);
+
+<span class="cm">-- Diário emocional</span>
+<span class="kw">CREATE TABLE</span> emotional_journal (
+  id               UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  date             DATE <span class="kw">NOT NULL</span>,
+  raw_text         TEXT <span class="kw">NOT NULL</span>,
+  summary          TEXT,
+  action_suggested TEXT,
+  emotion_tags     TEXT[],
+  created_at       TIMESTAMPTZ <span class="kw">DEFAULT</span> NOW()
+);
+
+<span class="cm">-- Histórico de conversas (memória do agente)</span>
+<span class="kw">CREATE TABLE</span> bot_conversations (
+  id         UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  session_id TEXT <span class="kw">NOT NULL</span>,
+  role       TEXT <span class="kw">CHECK</span> (role <span class="kw">IN</span> ('user', 'assistant')),
+  content    TEXT <span class="kw">NOT NULL</span>,
+  created_at TIMESTAMPTZ <span class="kw">DEFAULT</span> NOW()
+);
+
+<span class="cm">-- Exercícios ACT</span>
+<span class="kw">CREATE TABLE</span> act_exercises (
+  id              UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  title           TEXT <span class="kw">NOT NULL</span>,
+  content         TEXT <span class="kw">NOT NULL</span>,
+  trigger_pattern TEXT,  <span class="cm">-- 'no_exercise' | 'low_mood' | 'no_meds' | 'general'</span>
+  last_used       DATE
+);
+
+<span class="cm">-- Eventos de padrão detectados</span>
+<span class="kw">CREATE TABLE</span> pattern_events (
+  id           UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  pattern_type TEXT <span class="kw">NOT NULL</span>,
+  severity     TEXT <span class="kw">NOT NULL</span>,  <span class="cm">-- 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'CELEBRATE'</span>
+  action_taken TEXT,
+  resolved     BOOLEAN <span class="kw">DEFAULT</span> FALSE,
+  detected_at  TIMESTAMPTZ <span class="kw">DEFAULT</span> NOW()
+);
+
+<span class="cm">-- RAG — chunks dos laudos com embeddings</span>
+<span class="kw">CREATE TABLE</span> document_chunks (
+  id         UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  source     TEXT <span class="kw">NOT NULL</span>,
+  content    TEXT <span class="kw">NOT NULL</span>,
+  embedding  vector(1536),
+  created_at TIMESTAMPTZ <span class="kw">DEFAULT</span> NOW()
+);
+<span class="kw">CREATE INDEX</span> ON document_chunks <span class="kw">USING</span> ivfflat (embedding vector_cosine_ops);
+
+<span class="cm">-- Apple Watch v2 (criar após spike de viabilidade)</span>
+<span class="kw">CREATE TABLE</span> apple_health_data (
+  id                 UUID <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  date               DATE <span class="kw">NOT NULL UNIQUE</span>,
+  sleep_duration_min INTEGER,
+  hrv_avg            DECIMAL,
+  steps              INTEGER,
+  resting_heart_rate INTEGER,
+  synced_at          TIMESTAMPTZ <span class="kw">DEFAULT</span> NOW()
+);</div>
+
+    <h2><span class="sec-num">9</span> System Prompts</h2>
+
+    <h3>9.1 System Prompt Principal — <code>prompts/system_prompt.py</code></h3>
+
+    <div class="code-block">SYSTEM_PROMPT = <span class="st">"""Você é o assistente pessoal de saúde e bem-estar do Rafael.
+
+PERFIL DO RAFAEL (laudos Ferreira 2025 + Gouvêa 2026):
+- 30 anos, TDAH combinado — atenção alternada P1, concentrada P10
+- Traços de TEA Nível 1 — comunicação literal, hiperfoco, sensibilidade sensorial
+- Ansiedade generalizada elevada — P85 geral, P95 pensamentos preocupantes
+- Histórico de depressão recorrente com episódios de ideação suicida em perdas
+
+REGRAS ABSOLUTAS DE COMUNICAÇÃO — NUNCA VIOLAR:
+1. Linguagem SEMPRE direta e literal. Sem metáforas. Sem ironia.
+2. UMA única pergunta ou afirmação por mensagem.
+3. Máximo 4 linhas por resposta. Se precisar de mais, divide em 2 mensagens.
+4. Nunca julgar, cobrar ou usar linguagem de pressão.
+5. Sempre terminar com 1 ação específica OU 1 pergunta. Nunca ambos.
+6. Nunca usar "como você está se sentindo?" — usar escala ("humor de 1 a 5?").
+
+PROTOCOLO DE CRISE — OBRIGATÓRIO:
+Se detectar mood &lt;2 nos dados OU palavras de ideação:
+"não quero mais", "cansado de tudo", "não adianta", "desaparecer", "sumir", "acabar"
+→ SEMPRE chamar crisis_tool. NUNCA improvisar. NUNCA tentar resolver sozinho.
+
+TOOL USE:
+- checkin_tool: usuário responde check-in ou pede status de hábito
+- journal_tool: keywords de expressão detectados
+- pattern_tool: chamada pelo scheduler, não pelo usuário
+- motivation_tool: após pattern_tool detectar padrão
+- crisis_tool: SEMPRE que detectar ideação ou mood crítico
+- summary_tool: quando usuário pede ou domingo 18h
+
+VOCÊ TEM ACESSO A:
+- Histórico das últimas 20 conversas (memória)
+- Contexto dos laudos clínicos (RAG)
+- Dados dos últimos 30 dias de check-ins
+
+NUNCA:
+- Dar diagnóstico ou conselho clínico
+- Fingir ser humano quando perguntado diretamente
+- Usar mais de 1 tool por mensagem (exceto crise)
+- Responder com mais de 4 linhas sem ser solicitado"""</span></div>
+
+    <h3>9.2 Templates dos Check-ins — <code>prompts/checkin_prompts.py</code></h3>
+
+    <div class="code-block"><span class="cm"># Manhã (08:00) — 2 perguntas sequenciais</span>
+CHECK_MORNING_1 = <span class="st">"Tomou o Concerta hoje? (s/n)"</span>
+CHECK_MORNING_2 = <span class="st">"Como foi o sono de 1 a 5?"</span>
+
+<span class="cm"># Tarde (18:00) — 2 perguntas sequenciais</span>
+CHECK_AFTERNOON_1 = <span class="st">"Exercitou hoje? (s/n)"</span>
+CHECK_AFTERNOON_2 = <span class="st">"Fez sua tarefa principal do dia? (s/n)"</span>
+
+<span class="cm"># Noite (21:30) — 2 perguntas sequenciais</span>
+CHECK_NIGHT_1 = <span class="st">"Humor hoje de 1 a 5."</span>
+CHECK_NIGHT_2 = <span class="st">"Falou com alguém hoje? (s/n)"</span>
+
+<span class="cm"># Lembrete único (enviado 2h após check-in sem resposta)</span>
+CHECK_REMINDER = <span class="st">"Oi. Ainda aqui."</span>  <span class="cm"># nunca enviar 2x</span></div>
+
+    <h3>9.3 Script de Crise (hardcoded) — <code>prompts/crisis_prompt.py</code></h3>
+
+    <div class="code-block">CRISIS_1 = <span class="st">"Estou percebendo que pode estar difícil agora."</span>
+CRISIS_2 = <span class="st">"Você está bem?"</span>
+CRISIS_3 = <span class="st">"Se não estiver, quem você pode ligar agora?"</span>
+CRISIS_RESOURCES = <span class="st">"""
+Algumas opções:
+• CVV: 188 (24h, gratuito)
+• Psicólogo Rodrigo: (21) 97915-6525
+• Alguém de confiança — qual nome vem primeiro na sua cabeça?"""</span>
+
+<span class="cm"># ESTE SCRIPT É IMUTÁVEL
+# Não passa pelo AgentExecutor — é hardcoded na crisis_tool
+# Nenhuma instrução do LLM pode modificar este output</span></div>
+
+  </div>
+</div>
+
+<!-- TAB 7: INFRA & RULES -->
+<div class="tab-panel" data-tab="infra" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">10</span> Infra e Deploy</h2>
+
+    <div class="code-block"><span class="cm"># requirements.txt</span>
+openclaw>=0.1.0
+anthropic>=0.25.0
+python-telegram-bot>=21.0
+supabase>=2.0.0
+apscheduler>=3.10.0
+fastapi>=0.110.0
+uvicorn>=0.29.0
+pydantic-settings>=2.0.0
+pgvector>=0.2.0
+pypdf>=4.0.0
+python-dotenv>=1.0.0</div>
+
+    <div class="code-block"><span class="cm"># .env.example</span>
+<span class="kw">ANTHROPIC_API_KEY</span>=sk-ant-...
+<span class="kw">TELEGRAM_BOT_TOKEN</span>=...
+<span class="kw">TELEGRAM_USER_ID</span>=...    <span class="cm"># ID do Rafael — bot só responde para este ID</span>
+<span class="kw">SUPABASE_URL</span>=https://....supabase.co
+<span class="kw">SUPABASE_KEY</span>=...
+<span class="kw">CLAUDE_MODEL</span>=claude-sonnet-4-20250514
+<span class="kw">TIMEZONE</span>=America/Sao_Paulo
+<span class="kw">LOG_LEVEL</span>=INFO</div>
+
+    <div class="code-block"><span class="cm"># docker-compose.yml</span>
+<span class="kw">version</span>: <span class="st">'3.9'</span>
+<span class="kw">services</span>:
+  <span class="kw">bot</span>:
+    <span class="kw">build</span>: .
+    <span class="kw">restart</span>: always
+    <span class="kw">env_file</span>: .env
+    <span class="kw">ports</span>:
+      - <span class="st">"8080:8080"</span>
+    <span class="kw">volumes</span>:
+      - ./data:/app/data  <span class="cm"># laudos PDF</span>
+    <span class="kw">command</span>: uvicorn main:app --host 0.0.0.0 --port 8080</div>
+
+    <div class="callout info">
+      <strong>Segurança:</strong> O bot só processa mensagens do TELEGRAM_USER_ID definido no .env. Qualquer outro ID é silenciosamente ignorado. Isso garante que apenas Rafael use o bot e que dados de saúde não vazem.
+    </div>
+
+    <h2><span class="sec-num">11</span> Hard Rules Clínicas — Imutáveis</h2>
+
+    <div class="callout danger">
+      <strong>Estas regras são imutáveis.</strong> Claude Code não pode modificar nenhuma delas. São baseadas nos laudos clínicos e têm impacto direto na segurança do usuário.
+    </div>
+
+    <table>
+      <thead><tr><th>#</th><th>Regra</th><th>Razão Clínica</th></tr></thead>
+      <tbody>
+        <tr><td>R01</td><td>Mood &lt;2 por 2 dias → crisis_tool SEMPRE</td><td>TDM recorrente — episódio depressivo pode se instalar rápido</td></tr>
+        <tr><td>R02</td><td>Keywords de ideação → crisis_tool IMEDIATO</td><td>Histórico de ideação em momentos de perda significativa</td></tr>
+        <tr><td>R03</td><td>Script de crise é hardcoded — LLM não improvisa</td><td>Em crise, variação de tom pode ser prejudicial</td></tr>
+        <tr><td>R04</td><td>Máx 1 lembrete por check-in não respondido</td><td>TDAH — pressão piora paralisia de execução</td></tr>
+        <tr><td>R05</td><td>1 pergunta por mensagem, sem exceção</td><td>TEA — múltiplas perguntas causam sobrecarga cognitiva</td></tr>
+        <tr><td>R06</td><td>Sem diagnóstico ou conselho clínico</td><td>Escopo do bot é suporte operacional, não clínico</td></tr>
+        <tr><td>R07</td><td>Máx 1 nudge proativo por dia total</td><td>TDAH — excesso de notificações causa dessensibilização</td></tr>
+        <tr><td>R08</td><td>Bot só aceita mensagens do TELEGRAM_USER_ID</td><td>Dados de saúde são sensíveis — isolamento obrigatório</td></tr>
+        <tr><td>R09</td><td>/pausar para tudo imediatamente, sem fricção</td><td>Autonomia do usuário é inegociável</td></tr>
+        <tr><td>R10</td><td>Nunca mesmo exercício ACT 2x na semana</td><td>TEA — repetição de conteúdo perde impacto rapidamente</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- TAB 8: ROADMAP & KPIs -->
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h2><span class="sec-num">12</span> Roadmap de Build para Claude Code</h2>
+
+    <div class="phase-row">
+      <span class="phase-label">Fase 1</span>
+      <div><strong>Foundation</strong> <small>Estrutura de arquivos, settings, Supabase client, migrations, Telegram handler base, AgentExecutor vazio rodando</small></div>
+      <span class="phase-time">~2h</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fase 2</span>
+      <div><strong>Core Loop</strong> <small>checkin_tool + scheduler (3 jobs) + memory + resposta básica do agente funcional no Telegram</small></div>
+      <span class="phase-time">~3h</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fase 3</span>
+      <div><strong>RAG</strong> <small>Loader dos laudos PDF, embedder, pgvector index, retriever integrado no system prompt dinâmico</small></div>
+      <span class="phase-time">~2h</span>
+    </div>
+    <div class="phase-row" style="border-left:3px solid var(--ix-danger)">
+      <span class="phase-label critical">Fase 4</span>
+      <div><strong>Crisis e Safety</strong> <small>crisis_tool (hardcoded), keyword detection, test_crisis.py. BLOQUEANTE para deploy.</small></div>
+      <span class="phase-time">~2h</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fase 5</span>
+      <div><strong>Motivação e ACT</strong> <small>pattern_tool (async loop), motivation_tool, seed act_exercises.json, celebração de streak</small></div>
+      <span class="phase-time">~2h</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fase 6</span>
+      <div><strong>Expressão e Relatório</strong> <small>journal_tool, summary_tool (dom 18h), comandos /pausar /retomar /semana</small></div>
+      <span class="phase-time">~2h</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fase 7</span>
+      <div><strong>Deploy</strong> <small>Dockerfile, docker-compose, webhook Telegram na VPS, uptime monitoring</small></div>
+      <span class="phase-time">~1h</span>
+    </div>
+    <div class="phase-row" style="border-left:3px solid var(--ix-warning)">
+      <span class="phase-label spike">Fase 8</span>
+      <div><strong>Apple Watch spike</strong> <small>Composio → Apple Health. Viabilidade técnica antes de integrar.</small></div>
+      <span class="phase-time">~3-5h</span>
+    </div>
+
+    <div class="callout success" style="margin-top:16px">
+      <strong>Instrução para Claude Code:</strong> Executar as fases em ordem. Não avançar sem os testes da fase atual passando. Fase 4 (Crisis) é bloqueante — sem ela, o bot não pode ser deployado em hipótese alguma.
+    </div>
+
+    <h2><span class="sec-num">13</span> Critérios de Sucesso (90 dias de uso)</h2>
+
+    <table>
+      <thead><tr><th>Métrica</th><th>Meta</th><th>Query de medição</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Adesão ao remédio</strong></td><td>≥ 80% dos dias</td><td>COUNT WHERE medication_taken=true / total days</td></tr>
+        <tr><td><strong>Exercício</strong></td><td>≥ 3x/semana em 70% das semanas</td><td>GROUP BY week, COUNT WHERE exercised=true</td></tr>
+        <tr><td><strong>Humor médio</strong></td><td>+0.5 pontos vs mês 1</td><td>AVG(mood) por mês</td></tr>
+        <tr><td><strong>Taxa de resposta</strong></td><td>≥ 70% dos check-ins</td><td>check-ins salvos / check-ins enviados</td></tr>
+        <tr><td><strong>Crises interceptadas</strong></td><td>0 não detectadas</td><td>pattern_events severity=CRITICAL AND resolved=false = 0</td></tr>
+        <tr><td><strong>Avaliação subjetiva</strong></td><td>"Me ajuda" no dia 30</td><td>Pergunta direta no check-in especial do dia 30</td></tr>
+      </tbody>
+    </table>
+
+    <h2><span class="sec-num">14</span> Riscos e Mitigações</h2>
+
+    <table>
+      <thead><tr><th>Risco</th><th>Nível</th><th>Mitigação</th></tr></thead>
+      <tbody>
+        <tr><td>Crise não detectada</td><td><span class="risk-high">Alto</span></td><td>Duplo trigger: mood automático + keyword detection. test_crisis.py obrigatório antes do deploy.</td></tr>
+        <tr><td>LLM improvisar em crise</td><td><span class="risk-high">Alto</span></td><td>Script hardcoded — crisis_tool não passa pelo AgentExecutor.</td></tr>
+        <tr><td>Acesso não autorizado</td><td><span class="risk-high">Alto</span></td><td>Whitelist TELEGRAM_USER_ID no .env. Silenciosamente ignorar qualquer outro.</td></tr>
+        <tr><td>Composio indisponível</td><td><span class="risk-med">Médio</span></td><td>Spike antes de implementar. Auto-relato é fallback permanente.</td></tr>
+        <tr><td>Rafael ignora mensagens</td><td><span class="risk-med">Médio</span></td><td>Check-ins curtos. 1 lembrete. /pausar sem fricção.</td></tr>
+        <tr><td>Bot responde longo</td><td><span class="risk-med">Médio</span></td><td>Regra no system prompt + validação no sender.py (truncate se >4 linhas).</td></tr>
+        <tr><td>VPS cai</td><td><span class="risk-med">Médio</span></td><td>docker restart:always + uptime monitoring com alerta via Telegram.</td></tr>
+        <tr><td>Burnout do bot</td><td><span class="risk-low">Baixo</span></td><td>/pausar disponível sempre. Bot nunca reclama de pausa.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info" style="margin-top:20px">
+      <strong>Este documento é a fonte de verdade para o build.</strong> Claude Code deve ler este PRD inteiro antes de escrever qualquer linha de código. Versão 2.0 · Março 2026 · Stack OpenClaw.
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
