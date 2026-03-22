@@ -25,6 +25,26 @@
   .rank-1 { background: #FFD700; color: #1A1D21; }
   .rank-2 { background: #C0C0C0; color: #1A1D21; }
   .rank-3 { background: #CD7F32; color: white; }
+  .life-city{border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:28px;margin:24px 0;background:var(--ix-surface);box-shadow:var(--ix-shadow-sm)}
+  .life-city h2{margin:0 0 6px;font-size:22px}
+  .life-city .city-tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:16px}
+  .life-city.cabo .city-tag{background:#E0F2FE;color:#0077B6}
+  .life-city.itacare .city-tag{background:#D1FAE5;color:#059669}
+  .life-city.bh .city-tag{background:#EDE9FE;color:#7B2FBE}
+  .life-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+  .life-item{background:var(--ix-bg);border-radius:var(--ix-radius-sm);padding:14px;text-align:center}
+  .life-item .li-icon{font-size:28px;margin-bottom:6px}
+  .life-item .li-label{font-size:12px;color:var(--ix-muted);margin-bottom:2px}
+  .life-item .li-value{font-family:'Roboto Mono',monospace;font-size:16px;font-weight:700;color:var(--ix-ink)}
+  .life-item .li-note{font-size:11px;color:var(--ix-muted);margin-top:2px}
+  .surf-rating{display:flex;gap:4px;justify-content:center;margin:4px 0}
+  .surf-rating .wave{font-size:18px}
+  .surf-rating .wave.off{opacity:.2}
+  .routine-block{background:var(--ix-green-tint);border-radius:var(--ix-radius-md);padding:24px;margin:20px 0}
+  .routine-block h3{margin:0 0 12px;font-size:16px;color:var(--ix-green-dark)}
+  .routine-line{display:flex;gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--ix-green-bg)}
+  .routine-line:last-child{border:none}
+  .routine-time{font-family:'Roboto Mono',monospace;font-weight:600;color:var(--ix-green);min-width:56px}
 </style>
 </head>
 <body class="ix-report cafe-report">
@@ -41,6 +61,7 @@
   <button type="button" class="tab-btn" data-tab="roadmap">🗺️ Roadmap</button>
   <button type="button" class="tab-btn" data-tab="kpis">📊 KPIs & OKRs</button>
   <button type="button" class="tab-btn" data-tab="business">🔄 Business Model</button>
+  <button type="button" class="tab-btn" data-tab="lifestyle">🏄 Lifestyle</button>
 </nav>
 
 <!-- ═══════════════════════════════════ -->
@@ -613,6 +634,339 @@
 
     <div class="callout info">
       <strong>Break-even por módulo:</strong> Cafeteria ~15 cli/dia · Coworking ~4 mensalistas · Lavanderia ~8 ciclos/dia
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 6: LIFESTYLE                   -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="lifestyle" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span class="x">X</span></div>
+      <h1 class="hdr-title">Como seria <em>minha vida</em></h1>
+      <p class="hdr-sub">Custo de vida · Surf · Meditação (Wellhub) · Gerente na cafeteria — por cidade</p>
+      <div class="hdr-meta">
+        <span>📍 Cabo Frio · Itacaré · BH</span>
+        <span>🏄 Lifestyle-first analysis</span>
+      </div>
+    </div>
+
+    <!-- ──── CABO FRIO ──── -->
+    <div class="life-city cabo">
+      <h2>📍 Cabo Frio — RJ</h2>
+      <span class="city-tag">Costa do Sol · Equilíbrio</span>
+
+      <h3>Custo de Vida Pessoal</h3>
+      <div class="life-grid">
+        <div class="life-item">
+          <div class="li-icon">🏠</div>
+          <div class="li-label">Aluguel (2Q mobiliado)</div>
+          <div class="li-value">R$ 1.800</div>
+          <div class="li-note">Centro / Braga / Peró</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🛒</div>
+          <div class="li-label">Mercado + alimentação</div>
+          <div class="li-value">R$ 1.500</div>
+          <div class="li-note">Cozinhando + almoço fora 3x</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🚗</div>
+          <div class="li-label">Transporte</div>
+          <div class="li-value">R$ 400</div>
+          <div class="li-note">Gasolina/moto · cidade compacta</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">💡</div>
+          <div class="li-label">Contas (luz, água, internet)</div>
+          <div class="li-value">R$ 450</div>
+          <div class="li-note">Fibra 300Mbps disponível</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🏋️</div>
+          <div class="li-label">Wellhub (plano Silver)</div>
+          <div class="li-value">R$ 149,99</div>
+          <div class="li-note">Academia + yoga + meditação</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">📱</div>
+          <div class="li-label">Celular + streaming + outros</div>
+          <div class="li-value">R$ 200</div>
+          <div class="li-note">Plano 5G + serviços</div>
+        </div>
+      </div>
+
+      <div class="income-box">
+        <h3>💰 Resumo Mensal — Cabo Frio</h3>
+        <div class="income-row"><span>Custo de vida pessoal</span><span>R$ 4.500</span></div>
+        <div class="income-row"><span>Gerente cafeteria (CLT + encargos)</span><span>R$ 4.500</span></div>
+        <div class="income-row"><span>Total necessário/mês</span><span>R$ 9.000</span></div>
+        <div class="income-row"><span>Lucro líquido cafeteria MVP</span><span>R$ 23.700</span></div>
+        <div class="income-row"><span><strong>Sobra líquida</strong></span><span><strong>R$ 14.700</strong></span></div>
+      </div>
+
+      <h3>🏄 Surf</h3>
+      <table>
+        <thead><tr><th>Aspecto</th><th>Detalhe</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Praias principais</strong></td><td>Praia do Forte (7km) · Praia do Peró (7.2km, tubular) · Praia do Foguete</td></tr>
+          <tr><td><strong>Nível</strong></td><td>Iniciante a intermediário (ondas consistentes, beach break)</td></tr>
+          <tr><td><strong>Melhor época</strong></td><td>Out-Mar (swell sul + leste) · Funciona o ano todo</td></tr>
+          <tr><td><strong>Escola de surf</strong></td><td>Ribas Surf School (R$100/aula · 3 aulas R$240) · Master Surf · Costa do Sol</td></tr>
+          <tr><td><strong>Distância cafeteria → praia</strong></td><td>~5-10 min de carro/moto</td></tr>
+          <tr><td><strong>Crowd</strong></td><td>Moderado · Peró vazio em dias de semana</td></tr>
+        </tbody>
+      </table>
+      <div class="callout info">
+        <strong>Nota surf:</strong> Cabo Frio não é destino de surf world-class, mas tem ondas consistentes e acessíveis pra sessões diárias. A "Peroline" no Peró é lendária em dias clássicos — tubular e rápida.
+      </div>
+
+      <h3>🧘 Meditação + Bem-estar (Wellhub)</h3>
+      <p>Com o plano <strong>Silver (R$149,99/mês)</strong> você acessa academias locais, aulas de yoga presenciais, e apps de meditação guiada (Meditopia, Calm via Wellhub). Cabo Frio tem rede razoável de parceiros Wellhub — academia, pilates, funcional. Yoga na praia é comum e gratuito em grupos locais.</p>
+
+      <h3>👔 Contratar Gerente</h3>
+      <table>
+        <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Salário base gerente operacional</td><td>R$ 3.000 - R$ 3.500</td></tr>
+          <tr><td>Encargos CLT (~45%)</td><td>R$ 1.350 - R$ 1.575</td></tr>
+          <tr><td><strong>Custo total/mês</strong></td><td><strong>R$ 4.350 - R$ 5.075</strong></td></tr>
+          <tr><td>Disponibilidade mercado local</td><td>Boa — experiência em comércio turístico</td></tr>
+          <tr><td>Quando contratar</td><td>A partir do Mês 6 (Fase 2 — coworking ativo)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout success">
+        <strong>Veredicto Cabo Frio:</strong> Vida confortável com R$4.500/mês. Surf todos os dias (não excepcional mas consistente). Wellhub funciona bem. Gerente custa ~R$4.500 e sobra R$14.700/mês do lucro. <strong>Lifestyle score: 7/10</strong>
+      </div>
+    </div>
+
+    <!-- ──── ITACARÉ ──── -->
+    <div class="life-city itacare">
+      <h2>📍 Itacaré — BA</h2>
+      <span class="city-tag">Paraíso do Surf · Lifestyle Máximo</span>
+
+      <h3>Custo de Vida Pessoal</h3>
+      <div class="life-grid">
+        <div class="life-item">
+          <div class="li-icon">🏠</div>
+          <div class="li-label">Aluguel (2Q mobiliado)</div>
+          <div class="li-value">R$ 1.400</div>
+          <div class="li-note">Centro / Pituba · casas charmosas</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🛒</div>
+          <div class="li-label">Mercado + alimentação</div>
+          <div class="li-value">R$ 1.300</div>
+          <div class="li-note">Feira local + peixe fresco</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🚗</div>
+          <div class="li-label">Transporte</div>
+          <div class="li-value">R$ 200</div>
+          <div class="li-note">Tudo perto · bicicleta/a pé</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">💡</div>
+          <div class="li-label">Contas (luz, água, internet)</div>
+          <div class="li-value">R$ 400</div>
+          <div class="li-note">Internet pode ser instável</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🏋️</div>
+          <div class="li-label">Wellhub (plano Starter)</div>
+          <div class="li-value">R$ 39,99</div>
+          <div class="li-note">Menos parceiros · foco em apps</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">📱</div>
+          <div class="li-label">Celular + streaming + outros</div>
+          <div class="li-value">R$ 180</div>
+          <div class="li-note">4G/5G variável</div>
+        </div>
+      </div>
+
+      <div class="income-box">
+        <h3>💰 Resumo Mensal — Itacaré</h3>
+        <div class="income-row"><span>Custo de vida pessoal</span><span>R$ 3.520</span></div>
+        <div class="income-row"><span>Gerente cafeteria (CLT + encargos)</span><span>R$ 3.600</span></div>
+        <div class="income-row"><span>Total necessário/mês</span><span>R$ 7.120</span></div>
+        <div class="income-row"><span>Lucro líquido cafeteria MVP</span><span>R$ 24.350</span></div>
+        <div class="income-row"><span><strong>Sobra líquida</strong></span><span><strong>R$ 17.230</strong></span></div>
+      </div>
+
+      <h3>🏄 Surf</h3>
+      <table>
+        <thead><tr><th>Aspecto</th><th>Detalhe</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Praias principais</strong></td><td>Tiririca (competições) · Prainha (tubular, trilha 40min) · Havaizinho (reef) · Engenhoca (lefts/rights longos) · Resende (iniciante)</td></tr>
+          <tr><td><strong>Nível</strong></td><td>Todos os níveis — de Resende (flat) a Prainha (avançado tubular)</td></tr>
+          <tr><td><strong>Melhor época</strong></td><td>Mai-Set (ondas 1-3m, mais consistentes) · Funciona o ano todo</td></tr>
+          <tr><td><strong>Escola de surf</strong></td><td>Dezenas de instrutores locais · ~R$80-120/aula · Easy Surf, Itacaré Surf School</td></tr>
+          <tr><td><strong>Distância cafeteria → praia</strong></td><td>~2-5 min a pé (Tiririca é no centro)</td></tr>
+          <tr><td><strong>Crowd</strong></td><td>Moderado na Tiririca · Prainha e Havaizinho quase desertos</td></tr>
+        </tbody>
+      </table>
+      <div class="callout success">
+        <strong>Itacaré é paraíso de surf.</strong> 5+ praias com ondas diferentes, trilhas na mata atlântica, água quente o ano todo. Tiririca é a 2 min a pé. Prainha é top 10 do Brasil. Vida de surfista de verdade.
+      </div>
+
+      <h3>🧘 Meditação + Bem-estar (Wellhub)</h3>
+      <p>Rede de parceiros Wellhub é <strong>limitada em Itacaré</strong> — cidade pequena (~30k hab). Plano <strong>Starter (R$39,99)</strong> dá acesso a apps de meditação (Meditopia, Calm) e poucos estúdios locais. Mas a compensação é brutal: <strong>yoga na praia ao nascer do sol é cultura local</strong>, retiros de meditação frequentes, e a natureza em si é o melhor Wellhub que existe. Praticantes de yoga e meditação abundam na comunidade.</p>
+
+      <h3>👔 Contratar Gerente</h3>
+      <table>
+        <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Salário base gerente operacional</td><td>R$ 2.500 - R$ 3.000</td></tr>
+          <tr><td>Encargos CLT (~45%)</td><td>R$ 1.125 - R$ 1.350</td></tr>
+          <tr><td><strong>Custo total/mês</strong></td><td><strong>R$ 3.625 - R$ 4.350</strong></td></tr>
+          <tr><td>Disponibilidade mercado local</td><td>Média — pool menor, mas galera local confiável</td></tr>
+          <tr><td>Quando contratar</td><td>A partir do Mês 6</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout success">
+        <strong>Veredicto Itacaré:</strong> Custo de vida mais baixo (R$3.520/mês). Surf EXCEPCIONAL — praias world-class a pé. Meditação é o lifestyle da cidade. Gerente acessível (R$3.600). Sobra R$17.230/mês. <strong>Lifestyle score: 10/10</strong>
+      </div>
+    </div>
+
+    <!-- ──── BH ──── -->
+    <div class="life-city bh">
+      <h2>📍 Belo Horizonte — MG</h2>
+      <span class="city-tag">Capital · Urbano · Cultura</span>
+
+      <h3>Custo de Vida Pessoal</h3>
+      <div class="life-grid">
+        <div class="life-item">
+          <div class="li-icon">🏠</div>
+          <div class="li-label">Aluguel (2Q mobiliado)</div>
+          <div class="li-value">R$ 2.800</div>
+          <div class="li-note">Savassi / Funcionários / Lourdes</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🛒</div>
+          <div class="li-label">Mercado + alimentação</div>
+          <div class="li-value">R$ 1.800</div>
+          <div class="li-note">Cesta básica R$742 · almoço fora ~R$40</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🚗</div>
+          <div class="li-label">Transporte</div>
+          <div class="li-value">R$ 600</div>
+          <div class="li-note">Gasolina + estacionamento</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">💡</div>
+          <div class="li-label">Contas (luz, água, internet)</div>
+          <div class="li-value">R$ 500</div>
+          <div class="li-note">Fibra 500Mbps · infra excelente</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">🏋️</div>
+          <div class="li-label">Wellhub (plano Silver)</div>
+          <div class="li-value">R$ 149,99</div>
+          <div class="li-note">Muitos parceiros · yoga · pilates</div>
+        </div>
+        <div class="life-item">
+          <div class="li-icon">📱</div>
+          <div class="li-label">Celular + streaming + outros</div>
+          <div class="li-value">R$ 220</div>
+          <div class="li-note">5G pleno · todos os serviços</div>
+        </div>
+      </div>
+
+      <div class="income-box">
+        <h3>💰 Resumo Mensal — BH</h3>
+        <div class="income-row"><span>Custo de vida pessoal</span><span>R$ 6.070</span></div>
+        <div class="income-row"><span>Gerente cafeteria (CLT + encargos)</span><span>R$ 5.800</span></div>
+        <div class="income-row"><span>Total necessário/mês</span><span>R$ 11.870</span></div>
+        <div class="income-row"><span>Lucro líquido cafeteria MVP</span><span>R$ 12.150</span></div>
+        <div class="income-row"><span><strong>Sobra líquida</strong></span><span><strong>R$ 280</strong></span></div>
+      </div>
+
+      <h3>🏄 Surf</h3>
+      <table>
+        <thead><tr><th>Aspecto</th><th>Detalhe</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Praias mais próximas</strong></td><td>Guarapari (ES) ~5h · Arraial do Cabo (RJ) ~7h</td></tr>
+          <tr><td><strong>Nível</strong></td><td>Inexistente localmente</td></tr>
+          <tr><td><strong>Melhor época</strong></td><td>N/A — não é viável surfe diário</td></tr>
+          <tr><td><strong>Alternativa</strong></td><td>Piscina de ondas (se existir) · Surf trips de fim de semana</td></tr>
+          <tr><td><strong>Distância cafeteria → praia</strong></td><td>Mínimo 5h de carro</td></tr>
+          <tr><td><strong>Crowd</strong></td><td>N/A</td></tr>
+        </tbody>
+      </table>
+      <div class="callout danger">
+        <strong>Surf é inviável em BH.</strong> Capital sem litoral. Surfe só em viagens de fim de semana (~5-7h). Elimina completamente o lifestyle surf diário.
+      </div>
+
+      <h3>🧘 Meditação + Bem-estar (Wellhub)</h3>
+      <p>BH é onde o <strong>Wellhub brilha mais</strong> — rede ampla de academias, estúdios de yoga, pilates, meditação guiada, CrossFit. Plano <strong>Silver (R$149,99)</strong> acessa dezenas de parceiros. Estúdios de meditação dedicados na Savassi e Funcionários. Melhor infraestrutura de bem-estar das 3 cidades.</p>
+
+      <h3>👔 Contratar Gerente</h3>
+      <table>
+        <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Salário base gerente operacional</td><td>R$ 3.500 - R$ 4.500</td></tr>
+          <tr><td>Encargos CLT (~45%)</td><td>R$ 1.575 - R$ 2.025</td></tr>
+          <tr><td><strong>Custo total/mês</strong></td><td><strong>R$ 5.075 - R$ 6.525</strong></td></tr>
+          <tr><td>Disponibilidade mercado local</td><td>Excelente — muitos profissionais qualificados</td></tr>
+          <tr><td>Quando contratar</td><td>Difícil justificar — margem quase zera</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout danger">
+        <strong>Veredicto BH:</strong> Custo de vida alto (R$6.070/mês). Surf IMPOSSÍVEL no dia a dia. Wellhub excelente. Gerente caro (R$5.800) e come quase todo o lucro — sobra R$280/mês. Contratar gerente torna BH inviável financeiramente. <strong>Lifestyle score: 4/10</strong>
+      </div>
+    </div>
+
+    <!-- ──── COMPARATIVO FINAL ──── -->
+    <h1>Comparativo Final — Lifestyle</h1>
+
+    <table>
+      <thead><tr><th>Dimensão</th><th>📍 Cabo Frio</th><th>📍 Itacaré</th><th>📍 BH</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Custo de vida/mês</strong></td><td>R$ 4.500</td><td class="winner">R$ 3.520</td><td class="loser">R$ 6.070</td></tr>
+        <tr><td><strong>Custo gerente/mês</strong></td><td>R$ 4.500</td><td class="winner">R$ 3.600</td><td class="loser">R$ 5.800</td></tr>
+        <tr><td><strong>Total necessário/mês</strong></td><td>R$ 9.000</td><td class="winner">R$ 7.120</td><td class="loser">R$ 11.870</td></tr>
+        <tr><td><strong>Lucro cafeteria</strong></td><td>R$ 23.700</td><td class="winner">R$ 24.350</td><td class="loser">R$ 12.150</td></tr>
+        <tr><td><strong>Sobra líquida/mês</strong></td><td>R$ 14.700</td><td class="winner">R$ 17.230</td><td class="loser">R$ 280</td></tr>
+        <tr><td><strong>Qualidade do surf</strong></td><td>Bom (7/10)</td><td class="winner">Excepcional (10/10)</td><td class="loser">Inexistente (0/10)</td></tr>
+        <tr><td><strong>Wellhub/meditação</strong></td><td>Bom (7/10)</td><td>Limitado parceiros, mas lifestyle compensa (8/10)</td><td class="winner">Excelente (9/10)</td></tr>
+        <tr><td><strong>Viável contratar gerente?</strong></td><td class="winner">✅ Sim (sobra R$14.7k)</td><td class="winner">✅ Sim (sobra R$17.2k)</td><td class="loser">⚠️ Marginal (sobra R$280)</td></tr>
+        <tr><td><strong>Lifestyle Score</strong></td><td><strong>7/10</strong></td><td class="winner"><strong>10/10</strong></td><td class="loser"><strong>4/10</strong></td></tr>
+      </tbody>
+    </table>
+
+    <!-- ──── ROTINA IDEAL ──── -->
+    <h1>Um Dia na Vida — Itacaré (melhor cenário)</h1>
+
+    <div class="routine-block">
+      <h3>☀️ Rotina Diária — Rafa em Itacaré</h3>
+      <div class="routine-line"><span class="routine-time">05:30</span><span>Acordar · café em casa</span></div>
+      <div class="routine-line"><span class="routine-time">06:00</span><span>🏄 Surf na Tiririca (2 min a pé) — sessão dawn patrol</span></div>
+      <div class="routine-line"><span class="routine-time">07:30</span><span>🧘 Meditação na praia (Meditopia/Wellhub ou grupo local de yoga)</span></div>
+      <div class="routine-line"><span class="routine-time">08:00</span><span>Banho + café da manhã na própria cafeteria</span></div>
+      <div class="routine-line"><span class="routine-time">08:30</span><span>💻 Deep work — Impact X (coworking da sua cafeteria)</span></div>
+      <div class="routine-line"><span class="routine-time">12:00</span><span>Almoço (peixe fresco local ~R$25)</span></div>
+      <div class="routine-line"><span class="routine-time">13:00</span><span>💻 Impact X — calls, código, projetos</span></div>
+      <div class="routine-line"><span class="routine-time">16:00</span><span>🏄 Segundo surf (Engenhoca ou Havaizinho — trilha curta)</span></div>
+      <div class="routine-line"><span class="routine-time">17:30</span><span>Volta · check na cafeteria com gerente</span></div>
+      <div class="routine-line"><span class="routine-time">18:00</span><span>Tempo livre · pôr do sol · social</span></div>
+      <div class="routine-line"><span class="routine-time">21:00</span><span>Jantar · leitura · dormir</span></div>
+    </div>
+
+    <div class="callout success">
+      <strong>🏆 Conclusão Lifestyle:</strong> Itacaré é disparado o melhor cenário. Menor custo de vida + melhor surf do Brasil + meditação como cultura local + gerente acessível + maior sobra financeira (R$17.230/mês). Você surfa 2x por dia, medita, trabalha na sua própria cafeteria, e ainda sobra mais dinheiro do que em qualquer outra cidade. É o dream scenario.
+    </div>
+
+    <div class="callout info">
+      <strong>Cabo Frio é o plano B sólido</strong> — se a infraestrutura de Itacaré (internet, logística) for dealbreaker, Cabo Frio entrega 70% do lifestyle com infraestrutura melhor. BH só faz sentido como 2ª unidade sem a intenção de morar lá.
     </div>
 
   </div>
