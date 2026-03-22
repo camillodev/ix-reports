@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — ConcursoAI — Relatório Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+  .arch-diagram{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:24px;margin:20px 0;font-family:'Roboto Mono',monospace;font-size:14px;line-height:1.7;overflow-x:auto;white-space:pre}
+  .agent-box{display:inline-block;background:var(--ix-green-bg);border:1px solid var(--ix-green);border-radius:var(--ix-radius-sm);padding:8px 16px;margin:4px 0;font-weight:600;color:var(--ix-ink)}
+  .competitor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0}
+  .competitor-card{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:20px;box-shadow:var(--ix-shadow-sm)}
+  .competitor-card h3{margin:0 0 8px;font-size:18px;color:var(--ix-ink)}
+  .competitor-card .price{font-family:'Roboto Mono',monospace;color:var(--ix-green);font-weight:700;font-size:16px}
+  .competitor-card ul{padding-left:16px;margin:8px 0 0;color:var(--ix-muted)}
+  .funnel-step{display:flex;align-items:center;gap:16px;padding:16px;margin:8px 0;background:var(--ix-surface);border-left:4px solid var(--ix-green);border-radius:0 var(--ix-radius-sm) var(--ix-radius-sm) 0;box-shadow:var(--ix-shadow-sm)}
+  .funnel-step .step-num{font-family:'Roboto Mono',monospace;font-size:24px;font-weight:700;color:var(--ix-green);min-width:40px}
+  .funnel-step .step-body h4{margin:0;font-size:16px}
+  .funnel-step .step-body p{margin:4px 0 0;color:var(--ix-muted);font-size:14px}
+  .stack-table td:first-child{font-weight:600;white-space:nowrap}
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
+  .pricing-card{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:24px;text-align:center;box-shadow:var(--ix-shadow-sm)}
+  .pricing-card.featured{border-color:var(--ix-green);box-shadow:0 0 0 2px var(--ix-green-bg)}
+  .pricing-card .plan-name{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--ix-muted)}
+  .pricing-card .plan-price{font-family:'Roboto Mono',monospace;font-size:32px;font-weight:700;color:var(--ix-green);margin:8px 0}
+  .pricing-card .plan-price small{font-size:14px;color:var(--ix-muted);font-weight:400}
+  .pricing-card ul{text-align:left;padding-left:20px;color:var(--ix-muted);font-size:14px}
+  .swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+  .swot-box{background:var(--ix-surface);border-radius:var(--ix-radius-md);padding:20px;border:1px solid var(--ix-border)}
+  .swot-box h3{font-size:16px;margin:0 0 12px}
+  .swot-box ul{padding-left:16px;margin:0;color:var(--ix-muted);font-size:14px;line-height:1.8}
+  .timeline-row{display:flex;gap:16px;margin:8px 0}
+  .timeline-phase{flex:1;background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-sm);padding:16px;text-align:center;position:relative}
+  .timeline-phase.active{border-color:var(--ix-green);background:var(--ix-green-bg)}
+  .timeline-phase h4{margin:0;font-size:14px}
+  .timeline-phase p{margin:4px 0 0;font-size:12px;color:var(--ix-muted)}
+  @media(max-width:768px){.swot-grid,.timeline-row{grid-template-columns:1fr;flex-direction:column}}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">&larr; Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">ConcursoAI — Relatório Completo</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="visao-geral">Visao Geral</button>
+  <button type="button" class="tab-btn" data-tab="mercado">Mercado</button>
+  <button type="button" class="tab-btn" data-tab="prd">PRD</button>
+  <button type="button" class="tab-btn" data-tab="system-design">System Design</button>
+  <button type="button" class="tab-btn" data-tab="business">Business Plan</button>
+  <button type="button" class="tab-btn" data-tab="pre-venda">Pre-venda</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TAB 1: VISAO GERAL -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel active" data-tab="visao-geral" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span class="x">X</span></div>
+      <h1 class="hdr-title">ConcursoAI</h1>
+      <p class="hdr-sub">Plataforma inteligente de estudo para concursos publicos — powered by AI</p>
+      <div class="hdr-meta">Relatorio Completo · Marco 2026 · Fase: Validacao</div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Mercado Total (TAM)</div>
+        <div class="metric-value">R$ 30B+</div>
+        <div class="metric-sub">Preparacao concursos BR/ano</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Vagas Previstas 2026</div>
+        <div class="metric-value">163.802</div>
+        <div class="metric-sub">LOA 2026 sancionada</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Orcamento Federal</div>
+        <div class="metric-value">R$ 3,3B</div>
+        <div class="metric-sub">Destinado a concursos 2026</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">MRR Potencial (12m)</div>
+        <div class="metric-value">R$ 16.666</div>
+        <div class="metric-sub">~555 assinantes Pro</div>
+      </div>
+    </div>
+
+    <h2>Executive Summary</h2>
+    <p>O <strong>ConcursoAI</strong> e uma plataforma SaaS que usa inteligencia artificial para transformar editais e provas anteriores em planos de estudo personalizados, adaptados ao perfil, tempo disponivel e progresso do candidato.</p>
+
+    <div class="callout info">
+      <strong>Diferencial competitivo:</strong> Enquanto plataformas existentes (QConcursos, Estrategia, Gran) oferecem conteudo generico e bancos de questoes, o ConcursoAI usa agentes de IA especializados (Claude API) para criar uma experiencia verdadeiramente personalizada — do parsing do edital ate a adaptacao semanal do plano.
+    </div>
+
+    <h2>Problema</h2>
+    <p>Estudar para concurso publico no Brasil e caotico. O candidato precisa manualmente cruzar edital com provas anteriores, entender o perfil da banca, montar plano de estudo, e adaptar a estrategia ao longo do tempo. Isso consome centenas de horas e favorece quem pode pagar cursinho caro.</p>
+
+    <h2>Quem Afeta</h2>
+    <table>
+      <thead>
+        <tr><th>Persona</th><th>Dor Principal</th><th>Solucao ConcursoAI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Iniciante</strong></td><td>Nao sabe por onde comecar, overwhelmed com conteudo</td><td>Onboarding guiado + plano gerado automaticamente</td></tr>
+        <tr><td><strong>Experiente</strong></td><td>Quer otimizar tempo e focar nos gaps</td><td>Analise de banca + adaptacao semanal por progresso</td></tr>
+        <tr><td><strong>Low-budget</strong></td><td>Nao pode pagar cursinho de R$200+/mes</td><td>Plano Free funcional + Pro acessivel (R$29,90)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tese de Investimento</h2>
+    <div class="callout success">
+      <strong>Por que agora?</strong>
+      <ul>
+        <li>Governo Lula sancionou LOA 2026 com <strong>163.802 vagas</strong> e <strong>R$ 3,3B</strong> de orcamento</li>
+        <li>LLMs atingiram maturidade para analise de documentos juridicos (editais)</li>
+        <li>Ferramentas como NotebookLM e Anki provaram o modelo "AI + spaced repetition"</li>
+        <li>Nenhum player brasileiro combina IA generativa + personalizacao + edital parsing</li>
+        <li>Custo de IA caiu drasticamente — viavel manter R$ &lt;5/usuario/mes</li>
+      </ul>
+    </div>
+
+    <h2>Status Atual</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>PRD</td><td>Completo (v1)</td></tr>
+        <tr><td>Landing Page</td><td>Live em concursoai.rafaelcamillo.com</td></tr>
+        <tr><td>Pre-venda</td><td>Precisa ajuste de estrategia</td></tr>
+        <tr><td>MVP</td><td>Nao iniciado</td></tr>
+        <tr><td>Fase Notion</td><td>Validacao</td></tr>
+        <tr><td>Score Final</td><td>55% probabilidade sucesso (Notion)</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TAB 2: MERCADO -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="mercado" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Analise de Mercado</h1>
+
+    <h2>Tamanho do Mercado</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">TAM — Mercado Total</div>
+        <div class="metric-value">R$ 30B+</div>
+        <div class="metric-sub">Preparacao concursos/ano</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">SAM — Mercado Enderecavel</div>
+        <div class="metric-value">R$ 5B</div>
+        <div class="metric-sub">Plataformas digitais + cursinhos online</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">SOM — Mercado Obtivel</div>
+        <div class="metric-value">R$ 2,4M</div>
+        <div class="metric-sub">Meta Ano 1: ~6.700 assinantes</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Despesa Pessoal 2026</div>
+        <div class="metric-value">R$ 350,4B</div>
+        <div class="metric-sub">Orcamento federal (+11% YoY)</div>
+      </div>
+    </div>
+
+    <h2>Concorrentes Diretos</h2>
+
+    <div class="competitor-grid">
+      <div class="competitor-card">
+        <h3>QConcursos</h3>
+        <div class="price">R$ 29,90 - R$ 59,90/mes</div>
+        <ul>
+          <li>1M+ questoes, 100k comentadas</li>
+          <li>7.000+ videoaulas</li>
+          <li>Simulados com estatisticas</li>
+          <li>Folha Dirigida (noticias)</li>
+        </ul>
+        <p style="color:var(--ix-danger);font-size:13px;margin-top:8px"><strong>Fraqueza:</strong> Conteudo generico, sem personalizacao IA, sem parsing de edital</p>
+      </div>
+
+      <div class="competitor-card">
+        <h3>Estrategia Concursos</h3>
+        <div class="price">R$ 99 - R$ 299/mes</div>
+        <ul>
+          <li>2M+ questoes, 850k comentadas</li>
+          <li>Cursos completos por cargo</li>
+          <li>PDFs + videoaulas longas</li>
+          <li>Marca forte, professores famosos</li>
+        </ul>
+        <p style="color:var(--ix-danger);font-size:13px;margin-top:8px"><strong>Fraqueza:</strong> Caro, formato passivo (video), sem adaptatividade</p>
+      </div>
+
+      <div class="competitor-card">
+        <h3>Gran Cursos Online</h3>
+        <div class="price">R$ 79 - R$ 199/mes</div>
+        <ul>
+          <li>Cursos preparatorios completos</li>
+          <li>Gran Questoes (banco integrado)</li>
+          <li>App mobile</li>
+          <li>Parcerias com professores</li>
+        </ul>
+        <p style="color:var(--ix-danger);font-size:13px;margin-top:8px"><strong>Fraqueza:</strong> Mesmo modelo de cursinho tradicional digitalizado</p>
+      </div>
+
+      <div class="competitor-card">
+        <h3>TEC Concursos</h3>
+        <div class="price">A partir de R$ 1,33/dia</div>
+        <ul>
+          <li>Foco em questoes comentadas</li>
+          <li>Filtros avancados por banca/assunto</li>
+          <li>Estatisticas de desempenho</li>
+          <li>Interface tecnica/funcional</li>
+        </ul>
+        <p style="color:var(--ix-danger);font-size:13px;margin-top:8px"><strong>Fraqueza:</strong> Sem plano de estudo, sem IA, UX datada</p>
+      </div>
+    </div>
+
+    <h2>Ferramentas de Estudo Adjacentes</h2>
+
+    <div class="competitor-grid">
+      <div class="competitor-card">
+        <h3>Anki (Spaced Repetition)</h3>
+        <div class="price">Gratuito (desktop)</div>
+        <ul>
+          <li>Gold standard em spaced repetition</li>
+          <li>88% score medio vs 78% metodos tradicionais</li>
+          <li>80% retencao vs 60% cramming</li>
+          <li>Exige criar cards manualmente</li>
+        </ul>
+        <p style="color:var(--ix-green);font-size:13px;margin-top:8px"><strong>Oportunidade:</strong> Integrar spaced repetition automatizado no ConcursoAI</p>
+      </div>
+
+      <div class="competitor-card">
+        <h3>Google NotebookLM</h3>
+        <div class="price">Gratuito</div>
+        <ul>
+          <li>AI flashcards (Set 2025, Gemini 2.5 Flash)</li>
+          <li>Source-grounded: sem alucinacoes</li>
+          <li>130+ idiomas</li>
+          <li>Upload PDF, Docs, YouTube</li>
+        </ul>
+        <p style="color:var(--ix-green);font-size:13px;margin-top:8px"><strong>Oportunidade:</strong> Inspiracao para gerar resumos source-grounded com Claude</p>
+      </div>
+
+      <div class="competitor-card">
+        <h3>Descomplica</h3>
+        <div class="price">Variado (cursos + graduacao)</div>
+        <ul>
+          <li>Maior edtech BR (ENEM foco)</li>
+          <li>Algoritmo adaptativo de conteudo</li>
+          <li>Design moderno e inspirador</li>
+          <li>Nota 7.0-7.5 no Reclame Aqui</li>
+        </ul>
+        <p style="color:var(--ix-green);font-size:13px;margin-top:8px"><strong>Inspiracao:</strong> Design UX, onboarding gamificado, plano de estudo visual</p>
+      </div>
+    </div>
+
+    <h2>Analise SWOT — ConcursoAI</h2>
+    <div class="swot-grid">
+      <div class="swot-box" style="border-left:4px solid var(--ix-green)">
+        <h3 style="color:var(--ix-green)">Forcas</h3>
+        <ul>
+          <li>IA generativa personalizada (unico no mercado BR concursos)</li>
+          <li>Parsing automatico de edital (elimina trabalho manual)</li>
+          <li>Stack moderna (Next.js 15, Claude API, Supabase)</li>
+          <li>Preco acessivel vs cursinhos (R$29,90 vs R$200+)</li>
+          <li>Founder com 11+ anos dev + visao produto</li>
+        </ul>
+      </div>
+      <div class="swot-box" style="border-left:4px solid var(--ix-danger)">
+        <h3 style="color:var(--ix-danger)">Fraquezas</h3>
+        <ul>
+          <li>Sem base de usuarios (marca nova)</li>
+          <li>Dependencia de custo de tokens (Claude API)</li>
+          <li>Time de 1 pessoa (Rafa)</li>
+          <li>Sem conteudo proprio (video, material didatico)</li>
+          <li>Tracao = 1 (Notion score)</li>
+        </ul>
+      </div>
+      <div class="swot-box" style="border-left:4px solid #3B82F6">
+        <h3 style="color:#3B82F6">Oportunidades</h3>
+        <ul>
+          <li>163.802 vagas federais em 2026 (maior onda em decadas)</li>
+          <li>Nenhum player BR usa IA generativa pra concursos</li>
+          <li>Possivel B2B: universidades, cursinhos como white-label</li>
+          <li>Integracao Anki + spaced repetition = retencao 80%+</li>
+          <li>NotebookLM provou modelo de study guides com IA</li>
+        </ul>
+      </div>
+      <div class="swot-box" style="border-left:4px solid var(--ix-warning)">
+        <h3 style="color:var(--ix-warning)">Ameacas</h3>
+        <ul>
+          <li>QConcursos/Estrategia podem adicionar features de IA</li>
+          <li>Google NotebookLM pode pivotar pra concursos BR</li>
+          <li>Direitos autorais de provas anteriores</li>
+          <li>Custo de IA pode subir inesperadamente</li>
+          <li>Concurseiros resistentes a mudanca de ferramenta</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Posicionamento Competitivo</h2>
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>ConcursoAI</th><th>QConcursos</th><th>Estrategia</th><th>Gran</th><th>Anki</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Plano de estudo personalizado IA</td><td style="color:var(--ix-green);font-weight:700">SIM</td><td>Nao</td><td>Nao</td><td>Nao</td><td>Nao</td></tr>
+        <tr><td>Parsing automatico de edital</td><td style="color:var(--ix-green);font-weight:700">SIM</td><td>Nao</td><td>Nao</td><td>Nao</td><td>Nao</td></tr>
+        <tr><td>Analise de banca com IA</td><td style="color:var(--ix-green);font-weight:700">SIM</td><td>Manual</td><td>Manual</td><td>Manual</td><td>Nao</td></tr>
+        <tr><td>Adaptacao semanal por progresso</td><td style="color:var(--ix-green);font-weight:700">SIM</td><td>Nao</td><td>Nao</td><td>Nao</td><td>Parcial</td></tr>
+        <tr><td>Resumos IA com fontes</td><td style="color:var(--ix-green);font-weight:700">SIM</td><td>Nao</td><td>PDF manual</td><td>PDF manual</td><td>Manual</td></tr>
+        <tr><td>Spaced repetition</td><td>v2</td><td>Nao</td><td>Nao</td><td>Nao</td><td style="color:var(--ix-green);font-weight:700">SIM</td></tr>
+        <tr><td>Banco de questoes</td><td>v2 (provas reais)</td><td style="color:var(--ix-green);font-weight:700">1M+</td><td style="color:var(--ix-green);font-weight:700">2M+</td><td>SIM</td><td>Nao</td></tr>
+        <tr><td>Videoaulas</td><td>Fora de escopo</td><td>7.000+</td><td>SIM</td><td>SIM</td><td>Nao</td></tr>
+        <tr><td>Preco mensal</td><td><strong>R$29,90</strong></td><td>R$29-59</td><td>R$99-299</td><td>R$79-199</td><td>Gratis</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TAB 3: PRD -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="prd" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Product Requirements Document</h1>
+
+    <h2>Objetivo</h2>
+    <p>Criar uma plataforma SaaS que usa IA para transformar editais e provas anteriores em planos de estudo personalizados, adaptados ao perfil, tempo disponivel e progresso do candidato.</p>
+
+    <h2>User Stories</h2>
+
+    <h3>Onboarding & Perfil</h3>
+    <ul>
+      <li>Informar nivel de conhecimento por materia para plano ajustado</li>
+      <li>Informar tempo ate prova e horas/dia para plano realista</li>
+      <li>Escolher nivel de preparacao (passar / passar bem / gabaritar)</li>
+    </ul>
+
+    <h3>Analise de Edital & Banca</h3>
+    <ul>
+      <li>Upload de edital (PDF) ou selecao de base pre-populada</li>
+      <li>Cruzamento edital x provas anteriores da mesma banca/cargo</li>
+      <li>Visualizacao da analise da banca (estilo, pegadinhas, distribuicao)</li>
+    </ul>
+
+    <h3>Plano de Estudo</h3>
+    <ul>
+      <li>Plano semanal por IA: priorizacao por peso x frequencia x gap</li>
+      <li>Adaptacao semanal baseada em progresso real</li>
+      <li>Ajuste manual sem perder otimizacao</li>
+    </ul>
+
+    <h3>Conteudo & Revisao</h3>
+    <ul>
+      <li>Resumos por topico com fontes citadas</li>
+      <li>Aprovacao de fontes pelo usuario antes da geracao</li>
+      <li>Sistema de revisao espacada (v2)</li>
+    </ul>
+
+    <h2>Requisitos Funcionais</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>MVP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>RF-01</td><td>Upload e parsing de edital (PDF)</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-02</td><td>Base pre-populada de editais e provas</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP (seed)</td></tr>
+        <tr><td>RF-03</td><td>Cruzamento edital x provas da banca</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-04</td><td>Analise de perfil da banca</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-05</td><td>Onboarding adaptativo</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-06</td><td>Geracao de plano via IA (Claude API)</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-07</td><td>Dashboard de progresso</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-08</td><td>Resumos por topico com fontes</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-09</td><td>Aprovacao de fontes pelo usuario</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-10</td><td>Atualizacao semanal do plano</td><td>Must</td><td style="color:var(--ix-green);font-weight:700">MVP</td></tr>
+        <tr><td>RF-11</td><td>Spaced repetition</td><td>Should</td><td>v2</td></tr>
+        <tr><td>RF-12</td><td>Simulados com questoes reais</td><td>Should</td><td>v2</td></tr>
+        <tr><td>RF-13</td><td>Gamificacao (streaks, pontos)</td><td>Could</td><td>v3</td></tr>
+        <tr><td>RF-14</td><td>Modo offline (PWA)</td><td>Could</td><td>v3</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Requisitos Nao-Funcionais</h2>
+    <table>
+      <thead>
+        <tr><th>Requisito</th><th>Especificacao</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Performance</td><td>&lt; 3s geracao plano · &lt; 10s analise de edital</td></tr>
+        <tr><td>Seguranca</td><td>Auth via Clerk · Dados criptografados · Rate limiting</td></tr>
+        <tr><td>Escalabilidade</td><td>10k usuarios concorrentes MVP · Stateless</td></tr>
+        <tr><td>Acessibilidade</td><td>WCAG 2.1 AA · Mobile-first</td></tr>
+        <tr><td>Custo IA</td><td>&lt; R$5/usuario/mes · Cache agressivo</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Telas Principais (MVP)</h2>
+    <ol>
+      <li><strong>Landing Page</strong> — Proposta de valor, CTA</li>
+      <li><strong>Onboarding</strong> (multi-step) — Concurso → Edital → Perfil</li>
+      <li><strong>Dashboard</strong> — Progresso, plano semanal, proxima materia</li>
+      <li><strong>Analise do Edital</strong> — Materias x pesos x frequencia</li>
+      <li><strong>Plano de Estudo</strong> — Cronograma drag-and-drop</li>
+      <li><strong>Estudo</strong> — Resumo + fontes + marcador</li>
+      <li><strong>Revisao Semanal</strong> — Progresso vs planejado + novo plano</li>
+      <li><strong>Settings</strong> — Perfil, assinatura, preferencias</li>
+    </ol>
+
+    <h2>Fora de Escopo (MVP)</h2>
+    <div class="callout warning">
+      Videoaulas · Forum/comunidade · App nativo · Integracao cursinhos · Geracao de questoes originais · Concursos militares
+    </div>
+
+    <h2>Metricas de Sucesso</h2>
+    <table>
+      <thead>
+        <tr><th>Metrica</th><th>Baseline</th><th>Target 3m</th><th>Como</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cadastros</td><td>0</td><td>1.000</td><td>Clerk + PostHog</td></tr>
+        <tr><td>Retencao D7</td><td>0%</td><td>40%</td><td>PostHog cohorts</td></tr>
+        <tr><td>Planos gerados</td><td>0</td><td>3.000</td><td>DB count</td></tr>
+        <tr><td>NPS</td><td>-</td><td>&gt; 50</td><td>In-app survey</td></tr>
+        <tr><td>Conversao free→paid</td><td>0%</td><td>5%</td><td>Stripe + PostHog</td></tr>
+        <tr><td>Custo IA/usuario/mes</td><td>-</td><td>&lt; R$5</td><td>Token tracking</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TAB 4: SYSTEM DESIGN -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="system-design" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>System Design</h1>
+
+    <h2>Arquitetura de Alto Nivel</h2>
+    <div class="arch-diagram">
+┌──────────────────────────────────────────────────────────────────┐
+│                        FRONTEND (Next.js 15)                      │
+│  App Router · RSC · SSR/SSG · Tailwind + shadcn/ui · Clerk Auth  │
+└────────────────────────────┬─────────────────────────────────────┘
+                             │ API Routes / Server Actions
+                             ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                     BACKEND (Next.js API + Edge)                  │
+│  ┌─────────────┐  ┌─────────────┐  ┌──────────────┐             │
+│  │ Auth Layer  │  │ Rate Limiter│  │ Token Counter │             │
+│  │   (Clerk)   │  │  (Upstash)  │  │  (per-user)  │             │
+│  └─────────────┘  └─────────────┘  └──────────────┘             │
+│                             │                                     │
+│              ┌──────────────┼──────────────┐                     │
+│              ▼              ▼              ▼                      │
+│  ┌─────────────────┐ ┌───────────┐ ┌──────────────┐             │
+│  │ Agent Orchestr. │ │ DB Layer  │ │ Storage      │             │
+│  │  (Claude API)   │ │ (Drizzle) │ │ (Supabase)   │             │
+│  └────────┬────────┘ └─────┬─────┘ └──────────────┘             │
+└───────────┼────────────────┼────────────────────────────────────┘
+            │                │
+            ▼                ▼
+┌───────────────────┐  ┌──────────────┐
+│   Claude API      │  │  Supabase    │
+│  (5 Subagents)    │  │  PostgreSQL  │
+└───────────────────┘  └──────────────┘</div>
+
+    <h2>Pipeline de Agentes IA (Claude Subagents)</h2>
+    <p>O diferencial tecnico sao 5 agentes especializados que trabalham em pipeline:</p>
+
+    <div class="funnel-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Agent: Extrator de Edital</h4>
+        <p><strong>Input:</strong> PDF do edital · <strong>Output:</strong> JSON estruturado (materias, pesos, requisitos, banca, cargo) · <strong>Custo estimado:</strong> ~5k tokens</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Agent: Pesquisador de Banca</h4>
+        <p><strong>Input:</strong> Banca + cargo + edital · <strong>Output:</strong> Analise de frequencia por tema + estilo da banca · <strong>Custo estimado:</strong> ~10k tokens (web search + base)</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Agent: Estrategista de Estudo</h4>
+        <p><strong>Input:</strong> Edital + analise banca + perfil usuario · <strong>Output:</strong> Plano semanal otimizado (prioridade = peso x freq x gap) · <strong>Custo estimado:</strong> ~8k tokens</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Agent: Gerador de Conteudo</h4>
+        <p><strong>Input:</strong> Topico + nivel aluno · <strong>Output:</strong> Resumo adaptado com fontes citadas (pos-aprovacao) · <strong>Custo estimado:</strong> ~6k tokens/topico</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Agent: Adaptador Semanal</h4>
+        <p><strong>Input:</strong> Progresso semana + plano atual · <strong>Output:</strong> Plano atualizado + insights · <strong>Custo estimado:</strong> ~4k tokens</p>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Principio:</strong> O usuario SEMPRE aprova as fontes antes do conteudo ser gerado. Transparencia &gt; automacao cega.
+    </div>
+
+    <h2>Stack Tecnica</h2>
+    <table class="stack-table">
+      <thead>
+        <tr><th>Camada</th><th>Tecnologia</th><th>Justificativa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frontend</td><td>Next.js 15 + TypeScript</td><td>App Router, SSR/SSG, RSC</td></tr>
+        <tr><td>UI</td><td>Tailwind CSS + shadcn/ui</td><td>Rapido, acessivel, consistente</td></tr>
+        <tr><td>Auth</td><td>Clerk</td><td>Social login, free tier, pronto em minutos</td></tr>
+        <tr><td>Database</td><td>Supabase (PostgreSQL)</td><td>Real-time, storage, edge functions</td></tr>
+        <tr><td>ORM</td><td>Drizzle ORM</td><td>Type-safe, leve, melhor DX que Prisma</td></tr>
+        <tr><td>IA</td><td>Claude API (Anthropic)</td><td>tool_use + subagents, melhor raciocinio</td></tr>
+        <tr><td>Storage</td><td>Supabase Storage</td><td>Upload PDFs editais</td></tr>
+        <tr><td>Deploy</td><td>Vercel</td><td>Preview deploys, edge, Next.js native</td></tr>
+        <tr><td>Pagamento</td><td>Stripe</td><td>Checkout pronto, SaaS standard</td></tr>
+        <tr><td>Analytics</td><td>PostHog</td><td>Open source, feature flags, cohorts</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Modelo de Dados (Principais)</h2>
+    <div class="arch-diagram" style="font-size:13px">
+users ──────────────── 1:N ── user_knowledge
+  │                              │
+  ├── 1:N ── study_plans         │
+  │            │                 │
+  │            └── FK → exams    │
+  │                    │         │
+  │                    ├── 1:N ── exam_subjects
+  │                    │              │
+  │                    │              └── 1:N ── topics
+  │                    │                          │
+  │                    │                   ┌──────┴──────┐
+  └── 1:N ── study_progress              │              │
+  └── 1:N ── approved_sources    generated_summaries</div>
+
+    <h2>Estimativa de Custo IA por Usuario</h2>
+    <table>
+      <thead>
+        <tr><th>Operacao</th><th>Tokens</th><th>Frequencia/mes</th><th>Custo (Claude Sonnet)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Parsing edital</td><td>~5.000</td><td>1x (onboarding)</td><td>~R$0,08</td></tr>
+        <tr><td>Analise de banca</td><td>~10.000</td><td>1x</td><td>~R$0,15</td></tr>
+        <tr><td>Plano semanal</td><td>~8.000</td><td>4x</td><td>~R$0,48</td></tr>
+        <tr><td>Resumos (10 topicos)</td><td>~60.000</td><td>10x</td><td>~R$0,90</td></tr>
+        <tr><td>Adaptacao semanal</td><td>~4.000</td><td>4x</td><td>~R$0,24</td></tr>
+        <tr><td colspan="3"><strong>Total estimado/usuario/mes</strong></td><td><strong>~R$1,85</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>Dentro do budget:</strong> R$1,85/usuario/mes &lt;&lt; limite de R$5. Margem para cache agressivo + otimizacoes futuras. Com cache, pode cair para ~R$1,20.
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TAB 5: BUSINESS PLAN -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="business" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Business Plan</h1>
+
+    <h2>Modelo de Monetizacao</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">R$0</div>
+        <ul>
+          <li>1 concurso ativo</li>
+          <li>Analise de edital basica</li>
+          <li>Plano de estudo inicial</li>
+          <li>Dashboard simplificado</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">R$29,90 <small>/mes</small></div>
+        <ul>
+          <li>Concursos ilimitados</li>
+          <li>Resumos IA completos</li>
+          <li>Revisao semanal adaptativa</li>
+          <li>Todas as bancas</li>
+          <li>Analise avancada de banca</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">R$49,90 <small>/mes</small></div>
+        <ul>
+          <li>Tudo do Pro</li>
+          <li>Simulados (v2)</li>
+          <li>Spaced repetition (v2)</li>
+          <li>Prioridade na IA</li>
+          <li>Suporte prioritario</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Projecao Financeira — Ano 1</h2>
+    <table>
+      <thead>
+        <tr><th>Metrica</th><th>Conservador</th><th>Moderado</th><th>Otimista</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cadastros totais</td><td>3.000</td><td>6.000</td><td>12.000</td></tr>
+        <tr><td>Conversao free→paid</td><td>3%</td><td>5%</td><td>8%</td></tr>
+        <tr><td>Assinantes pagos</td><td>90</td><td>300</td><td>960</td></tr>
+        <tr><td>Ticket medio</td><td>R$29,90</td><td>R$35</td><td>R$40</td></tr>
+        <tr><td>MRR final Ano 1</td><td>R$2.691</td><td>R$10.500</td><td>R$38.400</td></tr>
+        <tr><td>ARR Ano 1</td><td>R$32.292</td><td>R$126.000</td><td>R$460.800</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Estrutura de Custos</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Custo Mensal</th><th>Notas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Vercel Pro</td><td>R$100</td><td>Deploy + edge</td></tr>
+        <tr><td>Supabase Pro</td><td>R$125</td><td>DB + storage</td></tr>
+        <tr><td>Claude API</td><td>R$185 - R$5.550</td><td>R$1,85 x usuarios pagos</td></tr>
+        <tr><td>Clerk</td><td>R$0 - R$125</td><td>Free ate 10k MAU</td></tr>
+        <tr><td>PostHog</td><td>R$0</td><td>Free tier generoso</td></tr>
+        <tr><td>Stripe fees</td><td>3,5% + R$0,40/tx</td><td>Padrao BR</td></tr>
+        <tr><td>Dominio + DNS</td><td>R$10</td><td>Cloudflare</td></tr>
+        <tr><td><strong>Total fixo (pre-revenue)</strong></td><td><strong>~R$235/mes</strong></td><td>Viavel como side project</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Unit Economics</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Ticket Medio</div>
+        <div class="metric-value">R$29,90</div>
+        <div class="metric-sub">Plano Pro (maioria)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Custo IA/usuario</div>
+        <div class="metric-value">R$1,85</div>
+        <div class="metric-sub">~6% do ticket</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Margem Bruta</div>
+        <div class="metric-value">~85%</div>
+        <div class="metric-sub">SaaS-grade</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Payback</div>
+        <div class="metric-value">18 meses</div>
+        <div class="metric-sub">Investimento R$40k</div>
+      </div>
+    </div>
+
+    <h2>Investimento Necessario</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Desenvolvimento MVP (4-6 semanas, Rafa)</td><td>R$0 (sweat equity)</td></tr>
+        <tr><td>Infra (6 meses pre-revenue)</td><td>R$1.410</td></tr>
+        <tr><td>Marketing / ads de lancamento</td><td>R$5.000</td></tr>
+        <tr><td>Design (freelancer ou AI-generated)</td><td>R$3.000</td></tr>
+        <tr><td>Reserva operacional</td><td>R$5.000</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>R$14.410</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>Nota:</strong> O Notion projeta investimento de R$40k e custo operacional de R$8k/mes. Esses numeros assumem time contratado. Como side project solo do Rafa, o investimento real e ~R$14k e o custo operacional ~R$235/mes.
+    </div>
+
+    <h2>Riscos e Mitigacoes</h2>
+    <table>
+      <thead>
+        <tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigacao</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Custo tokens explode</td><td style="color:var(--ix-danger)">Alta</td><td style="color:var(--ix-danger)">Alto</td><td>Cache agressivo, limites por plano, batch processing</td></tr>
+        <tr><td>Qualidade resumos inconsistente</td><td style="color:var(--ix-warning)">Media</td><td style="color:var(--ix-danger)">Alto</td><td>Fontes aprovadas pelo usuario, feedback loop</td></tr>
+        <tr><td>Scraping provas instavel</td><td style="color:var(--ix-danger)">Alta</td><td style="color:var(--ix-warning)">Medio</td><td>Hibrido: base manual + upload usuario</td></tr>
+        <tr><td>Concorrencia adiciona IA</td><td style="color:var(--ix-danger)">Alta</td><td style="color:var(--ix-warning)">Medio</td><td>First mover, UX superior, nicho deep</td></tr>
+        <tr><td>Direitos autorais provas</td><td style="color:var(--ix-warning)">Media</td><td style="color:var(--ix-danger)">Alto</td><td>Usar apenas provas publicas, citar fonte</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Timeline de Execucao</h2>
+    <div class="timeline-row">
+      <div class="timeline-phase active">
+        <h4>Semana 1</h4>
+        <p>PRD + Validacao</p>
+      </div>
+      <div class="timeline-phase">
+        <h4>Semana 2</h4>
+        <p>Prototipo Navegavel</p>
+      </div>
+      <div class="timeline-phase">
+        <h4>Sem 3-8</h4>
+        <p>MVP Dev (RF-01 a RF-10)</p>
+      </div>
+      <div class="timeline-phase">
+        <h4>Sem 9-10</h4>
+        <p>Beta Fechado (50 users)</p>
+      </div>
+      <div class="timeline-phase">
+        <h4>Sem 11</h4>
+        <p>Launch Publico</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TAB 6: PRE-VENDA -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="pre-venda" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Estrategia de Pre-venda</h1>
+
+    <div class="callout warning">
+      <strong>Contexto:</strong> Ja existe uma landing page live em concursoai.rafaelcamillo.com com uma promocao de pre-venda que precisa ser ajustada. Abaixo esta a estrategia completa para adaptar a LP.
+    </div>
+
+    <h2>Estrategia Recomendada: Waitlist + Early Bird</h2>
+    <p>Em vez de vender acesso a algo que nao existe ainda, a abordagem ideal e capturar interesse e validar demanda com commitment progressivo.</p>
+
+    <h3>Fase 1 — Waitlist (Agora → MVP pronto)</h3>
+    <div class="funnel-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Hero Section — Landing Page</h4>
+        <p><strong>Headline:</strong> "Pare de estudar errado. A IA que transforma seu edital em plano de estudo personalizado."<br>
+        <strong>Sub:</strong> "ConcursoAI analisa o edital, cruza com provas anteriores da banca, e gera seu plano semanal otimizado — adaptando toda semana ao seu progresso real."<br>
+        <strong>CTA:</strong> "Entrar na lista de espera (vagas limitadas)"</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Social Proof Section</h4>
+        <p><strong>Metricas de contexto:</strong> "163.802 vagas federais em 2026" · "R$ 3,3B orcamento concursos" · "0 plataformas com IA personalizada para concursos"<br>
+        <strong>Nota:</strong> Como nao temos usuarios ainda, use dados de mercado como prova social do timing.</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Feature Showcase — "Como funciona"</h4>
+        <p>3 steps visuais: <strong>(1)</strong> Upload seu edital ou escolha da base → <strong>(2)</strong> IA analisa banca + gera plano → <strong>(3)</strong> Estude com plano adaptativo semanal<br>
+        <strong>Design:</strong> Inspirar no Descomplica — cards coloridos, iconografia clean, mobile-first</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Comparativo "Antes vs Depois"</h4>
+        <p><strong>Antes:</strong> Estudar horas erradas, conteudo generico, sem saber o que a banca cobra, plano desatualizado<br>
+        <strong>Depois:</strong> Plano personalizado por IA, foco nos temas que mais caem, adaptacao semanal, confianca que esta estudando certo</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Pricing — Early Bird Lockado</h4>
+        <p>Mostrar os 3 planos (Free/Pro/Premium) mas com selo <strong>"Preco de lancamento — 50% off vitalicio para quem entrar na waitlist"</strong><br>
+        <strong>Pro Early Bird:</strong> R$14,95/mes (vs R$29,90)<br>
+        <strong>Premium Early Bird:</strong> R$24,95/mes (vs R$49,90)<br>
+        <strong>CTA:</strong> "Garantir meu desconto vitalicio" → formulario de email</p>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h4>Urgencia + Footer</h4>
+        <p><strong>Counter:</strong> "Vagas early bird restantes: [numero]" (pode comecar com 200)<br>
+        <strong>FAQ rapido:</strong> 3-4 perguntas (quando lanca? precisa pagar agora? quais concursos?)<br>
+        <strong>Footer:</strong> "Feito por Impact X — Rafael Camillo" · Links sociais</p>
+      </div>
+    </div>
+
+    <h3>Fase 2 — Early Access (MVP pronto → Beta)</h3>
+    <table>
+      <thead>
+        <tr><th>Acao</th><th>Detalhe</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Email para waitlist</td><td>"Voce esta entre os primeiros. Seu acesso esta pronto."</td></tr>
+        <tr><td>Onboarding personalizado</td><td>Video Loom do Rafa explicando como usar</td></tr>
+        <tr><td>Feedback loop</td><td>Typeform apos 7 dias + channel Slack/WhatsApp</td></tr>
+        <tr><td>Referral</td><td>"Convide 3 amigos e ganhe 1 mes gratis"</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Fase 3 — Launch Publico</h3>
+    <table>
+      <thead>
+        <tr><th>Canal</th><th>Acao</th><th>Budget</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Product Hunt</td><td>Launch com video demo</td><td>R$0</td></tr>
+        <tr><td>LinkedIn Rafa</td><td>Post thread "Por que criei o ConcursoAI"</td><td>R$0</td></tr>
+        <tr><td>Instagram/TikTok</td><td>Reels mostrando IA analisando edital</td><td>R$500</td></tr>
+        <tr><td>Google Ads</td><td>"plano de estudo concurso" + variantes</td><td>R$2.000</td></tr>
+        <tr><td>Parcerias</td><td>Micro-influencers concurseiros</td><td>R$1.500</td></tr>
+        <tr><td>SEO</td><td>Blog: "Como a IA pode otimizar seu estudo pra concurso"</td><td>R$0</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>R$4.000</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Ajustes Recomendados na Landing Page Atual</h2>
+    <div class="callout danger">
+      <strong>O que mudar AGORA na LP (concursoai.rafaelcamillo.com):</strong>
+      <ol>
+        <li><strong>Remover qualquer promessa de acesso imediato</strong> — deixar claro que e waitlist</li>
+        <li><strong>Trocar CTA de compra para captura de email</strong> — "Entrar na lista" em vez de "Comprar"</li>
+        <li><strong>Adicionar contador de vagas early bird</strong> — escassez real</li>
+        <li><strong>Adicionar secao "Como funciona"</strong> com 3 steps visuais</li>
+        <li><strong>Mostrar dados de mercado como social proof</strong> — 163k vagas, R$3,3B</li>
+        <li><strong>Adicionar pricing com selo early bird</strong> — 50% off vitalicio</li>
+        <li><strong>Inspirar design no Descomplica</strong> — cards coloridos, tipografia moderna, gradients suaves</li>
+        <li><strong>Mobile-first</strong> — concurseiros estudam muito pelo celular</li>
+      </ol>
+    </div>
+
+    <h2>Copy Sugerida — Hero Section</h2>
+    <div style="background:var(--ix-green-tint);border-radius:var(--ix-radius-md);padding:32px;margin:20px 0;text-align:center">
+      <p style="font-size:14px;color:var(--ix-green);font-weight:600;letter-spacing:1px;margin:0">PARA CONCURSEIROS QUE QUEREM ESTUDAR CERTO</p>
+      <h2 style="font-size:36px;margin:12px 0;line-height:1.2">Seu edital + IA = plano de estudo<br>que <span style="color:var(--ix-green)">se adapta toda semana</span></h2>
+      <p style="color:var(--ix-muted);font-size:18px;max-width:600px;margin:0 auto 20px">ConcursoAI analisa o edital, cruza com provas anteriores da banca, e gera um plano semanal personalizado — que evolui com o seu progresso.</p>
+      <div style="display:inline-block;background:var(--ix-green);color:#fff;padding:14px 32px;border-radius:var(--ix-radius-sm);font-weight:700;font-size:16px">Entrar na waitlist — vagas limitadas</div>
+      <p style="font-size:13px;color:var(--ix-muted);margin-top:12px">Pre-lancamento: 50% off vitalicio pra quem entrar agora</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
