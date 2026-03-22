@@ -5,196 +5,81 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impact X — Guia do Ori</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/report.css">
+<link href="../assets/css/report.css" rel="stylesheet">
 <style>
-  /* ── Ori-specific overrides only ── */
+/* ── Ori-specific overrides only ── */
+.orixa-badges{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;}
+.orixa-badge{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:var(--ix-radius-sm);font-weight:700;font-size:14px;}
+.orixa-badge .icon{font-size:22px;}
+.orixa-badge .sub-label{font-size:11px;color:var(--ix-muted);font-weight:400;}
+.orixa-badge.iemanja{background:#E0F2FE;border:1px solid #BAE6FD;color:#0077B6;}
+.orixa-badge.oxossi{background:#D1FAE5;border:1px solid #A7F3D0;color:#059669;}
 
-  /* Hero gradient (spiritual theme on dark variant) */
-  .ori-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1a3a2e 60%, #064e3b 100%);
-    color: #f1f5f9;
-    padding: 56px 48px 48px;
-    border-bottom: 3px solid var(--ix-green);
-    position: relative; overflow: hidden;
-  }
-  .ori-hero::before {
-    content: '🔱'; position: absolute; right: 48px; top: 40px;
-    font-size: 80px; opacity: 0.12; pointer-events: none;
-  }
-  .ori-hero .tag {
-    display: inline-block; background: var(--ix-green); color: #fff;
-    font-size: 11px; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; padding: 4px 14px; border-radius: 999px; margin-bottom: 20px;
-  }
-  .ori-hero h1 { font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 900; color: #f1f5f9; line-height: 1.2; margin-bottom: 8px; border: none; padding: 0; }
-  .ori-hero h1 .x { color: var(--ix-green); }
-  .ori-hero .subtitle { font-size: 1.05rem; color: #94a3b8; font-weight: 400; margin-bottom: 28px; }
+.orixa-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0;}
+.orixa-card{border-radius:var(--ix-radius-md);padding:28px;border:1px solid;}
+.orixa-card.iemanja{background:#F0F9FF;border-color:#BAE6FD;}
+.orixa-card.oxossi{background:#F0FDF4;border-color:#A7F3D0;}
+.orixa-card .oc-icon{font-size:36px;margin-bottom:12px;}
+.orixa-card .oc-name{font-size:1.2rem;font-weight:900;margin-bottom:4px;}
+.orixa-card.iemanja .oc-name{color:#0077B6;}
+.orixa-card.oxossi .oc-name{color:#059669;}
+.orixa-card .oc-role{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ix-muted);margin-bottom:16px;font-weight:600;}
+.orixa-card p{font-size:0.95rem;color:var(--ix-ink);line-height:1.7;}
 
-  /* Orixa badges */
-  .orixa-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
-  .orixa-badge { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: var(--ix-radius-sm); font-weight: 700; font-size: 14px; backdrop-filter: blur(4px); }
-  .orixa-badge .icon { font-size: 22px; }
-  .orixa-badge .sub-label { font-size: 11px; opacity: .7; font-weight: 400; }
-  .orixa-badge.iemanja { background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35); color: #7dd3fc; }
-  .orixa-badge.oxossi  { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.35); color: #6ee7b7; }
+.callout.iemanja{background:#F0F9FF;border-color:#0077B6;}
+.callout.iemanja .callout-title{color:#0077B6;}
+.callout.oxossi{background:#F0FDF4;border-color:#059669;}
+.callout.oxossi .callout-title{color:#059669;}
 
-  .ori-hero .report-meta {
-    display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: #94a3b8;
-    border-top: 1px solid rgba(148,163,184,0.15); padding-top: 20px;
-  }
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.three-card{background:var(--ix-surface);border:1px solid var(--ix-border);border-top:3px solid var(--ix-green);border-radius:var(--ix-radius-sm);padding:20px;text-align:center;}
+.three-card .tc-icon{font-size:30px;margin-bottom:10px;}
+.three-card .tc-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ix-muted);margin-bottom:8px;}
+.three-card .tc-title{font-size:1rem;font-weight:700;color:var(--ix-ink);margin-bottom:8px;}
+.three-card .tc-desc{font-size:0.9rem;color:var(--ix-muted);line-height:1.6;}
 
-  /* Dark variant: body text tuning for readability */
-  body.ix-report.ix-report-dark .body-text { color: #cbd5e1; line-height: 1.8; margin-bottom: 16px; }
-  body.ix-report.ix-report-dark .section-label {
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--ix-green); font-weight: 700; margin-bottom: 8px;
-  }
-  body.ix-report.ix-report-dark .section-title {
-    font-size: 1.5rem; font-weight: 900; color: #f1f5f9; margin-bottom: 20px;
-    line-height: 1.2; border: none; padding: 0;
-  }
-  body.ix-report.ix-report-dark .sub-title {
-    font-size: 1rem; font-weight: 700; color: var(--ix-green-light);
-    margin: 28px 0 12px; padding-bottom: 6px;
-    border-bottom: 1px solid rgba(148,163,184,0.15);
-    text-transform: none; letter-spacing: 0;
-  }
+.quote-block{border-left:3px solid var(--ix-green);padding:16px 24px;margin:24px 0;background:var(--ix-green-tint);border-radius:0 var(--ix-radius-sm) var(--ix-radius-sm) 0;}
+.quote-block p{font-size:1.1rem;font-style:italic;color:var(--ix-ink);font-weight:400;margin:0;}
+.quote-block .author{font-size:12px;color:var(--ix-muted);margin-top:8px;}
 
-  /* Orixa cards (two-column) */
-  .orixa-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
-  .orixa-card { border-radius: var(--ix-radius-md); padding: 28px; border: 1px solid; }
-  .orixa-card.iemanja { background: rgba(56,189,248,0.06); border-color: rgba(56,189,248,0.25); }
-  .orixa-card.oxossi  { background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.25); }
-  .orixa-card .oc-icon { font-size: 36px; margin-bottom: 12px; }
-  .orixa-card .oc-name { font-size: 1.2rem; font-weight: 900; margin-bottom: 4px; }
-  .orixa-card.iemanja .oc-name { color: #7dd3fc; }
-  .orixa-card.oxossi .oc-name  { color: #6ee7b7; }
-  .orixa-card .oc-role { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #94a3b8; margin-bottom: 16px; font-weight: 600; }
-  .orixa-card p { font-size: 0.95rem; color: #cbd5e1; line-height: 1.7; }
+.protocol-grid{display:flex;flex-direction:column;gap:16px;margin:20px 0;}
+.protocol-day{background:var(--ix-surface);border:1px solid var(--ix-border);border-left:4px solid var(--ix-green);border-radius:var(--ix-radius-sm);overflow:hidden;}
+.protocol-day-header{background:var(--ix-green-tint);padding:12px 20px;display:flex;align-items:center;gap:12px;}
+.day-num{background:var(--ix-green);color:#fff;font-weight:900;font-size:13px;padding:3px 12px;border-radius:999px;font-family:var(--ix-font-mono);}
+.day-title{font-weight:700;color:var(--ix-ink);font-size:1rem;}
+.day-tag{font-size:11px;color:var(--ix-muted);margin-left:auto;letter-spacing:1px;text-transform:uppercase;}
+.protocol-day-body{padding:16px 20px;}
+.protocol-row{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--ix-border);align-items:flex-start;}
+.protocol-row:last-child{border-bottom:none;}
+.prow-time{min-width:130px;font-size:0.82rem;color:var(--ix-green-dark);font-weight:700;font-family:var(--ix-font-mono);padding-top:2px;}
+.prow-text{font-size:0.95rem;color:var(--ix-ink);line-height:1.7;}
 
-  /* Dark callout overrides */
-  body.ix-report.ix-report-dark .callout { border-radius: var(--ix-radius-sm); padding: 20px 24px; margin: 20px 0; border-left: 4px solid; }
-  body.ix-report.ix-report-dark .callout.info    { background: rgba(17,199,111,0.08); border-color: var(--ix-green); }
-  body.ix-report.ix-report-dark .callout.iemanja { background: rgba(56,189,248,0.08); border-color: #38bdf8; }
-  body.ix-report.ix-report-dark .callout.oxossi  { background: rgba(52,211,153,0.08); border-color: #34d399; }
-  body.ix-report.ix-report-dark .callout.warning  { background: rgba(212,130,10,0.08); border-color: var(--ix-warning); }
-  body.ix-report.ix-report-dark .callout.danger   { background: rgba(192,57,43,0.08); border-color: var(--ix-danger); }
-  body.ix-report.ix-report-dark .callout .callout-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-  body.ix-report.ix-report-dark .callout.info .callout-title    { color: var(--ix-green-light); }
-  body.ix-report.ix-report-dark .callout.iemanja .callout-title { color: #7dd3fc; }
-  body.ix-report.ix-report-dark .callout.oxossi .callout-title  { color: #6ee7b7; }
-  body.ix-report.ix-report-dark .callout.warning .callout-title { color: var(--ix-warning); }
-  body.ix-report.ix-report-dark .callout.danger .callout-title  { color: var(--ix-danger); }
-  body.ix-report.ix-report-dark .callout p { color: #cbd5e1; font-size: 0.95rem; margin: 0; }
+ul.styled{list-style:none;padding:0;margin:12px 0;}
+ul.styled li{padding:10px 0 10px 24px;border-bottom:1px solid var(--ix-border);font-size:0.95rem;color:var(--ix-ink);position:relative;line-height:1.7;}
+ul.styled li::before{content:'›';color:var(--ix-green);position:absolute;left:4px;font-weight:700;font-size:1.1em;}
+ul.styled li:last-child{border-bottom:none;}
+ol.styled{padding-left:24px;margin:12px 0;}
+ol.styled li{padding:6px 0 6px 8px;font-size:0.95rem;color:var(--ix-ink);line-height:1.7;margin-bottom:4px;}
+ol.styled li::marker{color:var(--ix-green);font-weight:700;}
 
-  /* Dark metric cards */
-  body.ix-report.ix-report-dark .metric-card {
-    background: #1e293b; border: 1px solid rgba(148,163,184,0.15);
-    border-radius: var(--ix-radius-md); box-shadow: none;
-  }
-  body.ix-report.ix-report-dark .metric-card::before { background: var(--ix-green); }
-  body.ix-report.ix-report-dark .metric-card .metric-icon { font-size: 28px; margin-bottom: 8px; }
-  body.ix-report.ix-report-dark .metric-card .metric-label { color: #94a3b8; }
-  body.ix-report.ix-report-dark .metric-card .metric-value { color: var(--ix-green); }
-  body.ix-report.ix-report-dark .metric-card .metric-sub  { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+td.highlight{color:var(--ix-green-dark);font-weight:700;}
+td.tag-hoje{color:var(--ix-danger);font-weight:700;}
+td.tag-amanha{color:var(--ix-warning);}
+td.tag-semana{color:var(--ix-muted);}
+td.tag-iemanja{color:#0077B6;font-weight:600;}
+td.tag-oxossi{color:#059669;font-weight:600;}
+td.tag-ambos{color:var(--ix-green-dark);font-weight:600;}
 
-  /* Dark tables */
-  body.ix-report.ix-report-dark table { border-color: rgba(148,163,184,0.15); }
-  body.ix-report.ix-report-dark thead th { background: var(--ix-green); color: #fff; }
-  body.ix-report.ix-report-dark tbody tr:nth-child(even) { background: rgba(148,163,184,0.05); }
-  body.ix-report.ix-report-dark tbody tr:nth-child(odd) { background: transparent; }
-  body.ix-report.ix-report-dark tbody tr:hover { background: rgba(17,199,111,0.06); }
-  body.ix-report.ix-report-dark tbody td { color: #cbd5e1; border-bottom-color: rgba(148,163,184,0.1); }
-  td.highlight  { color: var(--ix-green) !important; font-weight: 700; }
-  td.tag-hoje   { color: #f87171 !important; font-weight: 700; }
-  td.tag-amanha { color: #fbbf24 !important; }
-  td.tag-semana { color: #94a3b8 !important; }
-  td.tag-iemanja { color: #7dd3fc !important; font-weight: 600; }
-  td.tag-oxossi  { color: #6ee7b7 !important; font-weight: 600; }
-  td.tag-ambos   { color: var(--ix-green) !important; font-weight: 600; }
+.sub-title{font-size:1rem;font-weight:700;color:var(--ix-green-dark);margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--ix-border);text-transform:none;letter-spacing:0;}
 
-  /* Three-col cards */
-  .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
-  .three-card {
-    background: rgba(148,163,184,0.06); border: 1px solid rgba(148,163,184,0.15);
-    border-top: 3px solid var(--ix-green); border-radius: var(--ix-radius-sm);
-    padding: 20px; text-align: center;
-  }
-  .three-card .tc-icon  { font-size: 30px; margin-bottom: 10px; }
-  .three-card .tc-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px; }
-  .three-card .tc-title { font-size: 1rem; font-weight: 700; color: #f1f5f9; margin-bottom: 8px; }
-  .three-card .tc-desc  { font-size: 0.9rem; color: #cbd5e1; line-height: 1.6; }
-
-  /* Quote block */
-  .quote-block { border-left: 3px solid var(--ix-green); padding: 16px 24px; margin: 24px 0; background: rgba(17,199,111,0.04); border-radius: 0 var(--ix-radius-sm) var(--ix-radius-sm) 0; }
-  .quote-block p { font-size: 1.1rem; font-style: italic; color: #e2e8f0; font-weight: 400; margin: 0; }
-  .quote-block .author { font-size: 12px; color: #94a3b8; margin-top: 8px; }
-
-  /* Protocol grid (7 days) */
-  .protocol-grid { display: flex; flex-direction: column; gap: 16px; margin: 20px 0; }
-  .protocol-day {
-    background: rgba(148,163,184,0.04); border: 1px solid rgba(148,163,184,0.12);
-    border-left: 4px solid var(--ix-green); border-radius: var(--ix-radius-sm); overflow: hidden;
-  }
-  .protocol-day-header {
-    background: rgba(17,199,111,0.06); padding: 12px 20px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .day-num {
-    background: var(--ix-green); color: #fff; font-weight: 900; font-size: 13px;
-    padding: 3px 12px; border-radius: 999px; font-family: var(--ix-font-mono);
-  }
-  .day-title { font-weight: 700; color: #f1f5f9; font-size: 1rem; }
-  .day-tag { font-size: 11px; color: #94a3b8; margin-left: auto; letter-spacing: 1px; text-transform: uppercase; }
-  .protocol-day-body { padding: 16px 20px; }
-  .protocol-row { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(148,163,184,0.08); align-items: flex-start; }
-  .protocol-row:last-child { border-bottom: none; }
-  .prow-time { min-width: 130px; font-size: 0.82rem; color: var(--ix-green-light); font-weight: 700; font-family: var(--ix-font-mono); padding-top: 2px; }
-  .prow-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.7; }
-
-  /* Styled lists */
-  ul.styled { list-style: none; padding: 0; margin: 12px 0; }
-  ul.styled li { padding: 10px 0 10px 24px; border-bottom: 1px solid rgba(148,163,184,0.08); font-size: 0.95rem; color: #cbd5e1; position: relative; line-height: 1.7; }
-  ul.styled li::before { content: '›'; color: var(--ix-green); position: absolute; left: 4px; font-weight: 700; font-size: 1.1em; }
-  ul.styled li:last-child { border-bottom: none; }
-  ol.styled { padding-left: 24px; margin: 12px 0; }
-  ol.styled li { padding: 6px 0 6px 8px; font-size: 0.95rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 4px; }
-  ol.styled li::marker { color: var(--ix-green); font-weight: 700; }
-
-  /* Dark footer */
-  body.ix-report.ix-report-dark .report-footer {
-    background: #0f172a; border-top: 1px solid rgba(148,163,184,0.15);
-    padding: 32px 48px; text-align: center;
-  }
-  .footer-closing { font-size: 1.1rem; font-style: italic; color: var(--ix-green-light); margin-bottom: 8px; }
-  .footer-saudacoes { font-size: 0.95rem; color: #94a3b8; margin-bottom: 24px; }
-  body.ix-report.ix-report-dark .report-footer .footer-meta { font-size: 0.85rem; color: #64748b; }
-  body.ix-report.ix-report-dark .report-footer .footer-meta strong { color: #94a3b8; }
-
-  /* TOC (dark) */
-  body.ix-report.ix-report-dark .toc {
-    background: rgba(148,163,184,0.04); border: 1px solid rgba(148,163,184,0.12);
-    border-left: 4px solid var(--ix-green); border-radius: 0 var(--ix-radius-sm) var(--ix-radius-sm) 0;
-    padding: 28px 32px; margin: 32px 0; box-shadow: none;
-  }
-  body.ix-report.ix-report-dark .toc h3 { color: var(--ix-green); }
-  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px; }
-  body.ix-report.ix-report-dark .toc a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; padding: 4px 0; transition: color 0.2s; }
-  body.ix-report.ix-report-dark .toc a:hover { color: #f1f5f9; }
-  body.ix-report.ix-report-dark .toc a .num { color: var(--ix-green-light); font-family: var(--ix-font-mono); font-size: 11px; font-weight: 500; min-width: 24px; }
-
-  /* Responsive */
-  @media (max-width: 640px) {
-    .orixa-cards, .three-col { grid-template-columns: 1fr; }
-    .toc-grid { grid-template-columns: 1fr; }
-    .ori-hero { padding: 32px 24px; }
-    .ori-hero h1 { font-size: 1.5rem; }
-    .protocol-row { flex-direction: column; gap: 4px; }
-    .prow-time { min-width: unset; }
-  }
+@media(max-width:640px){
+  .orixa-cards,.three-col{grid-template-columns:1fr;}
+  .protocol-row{flex-direction:column;gap:4px;}
+  .prow-time{min-width:unset;}
+}
 </style>
 </head>
-<body class="ix-report ix-report-dark">
+<body class="ix-report ori-report">
 
 <header class="topbar">
   <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
@@ -204,191 +89,194 @@
 
 <nav class="tab-nav" role="tablist">
   <button type="button" class="tab-btn active" data-tab="cap1" role="tab">Fundamentos</button>
-  <button type="button" class="tab-btn" data-tab="cap2" role="tab">Iemanjá &amp; Oxossi</button>
-  <button type="button" class="tab-btn" data-tab="cap3" role="tab">Diagnóstico</button>
-  <button type="button" class="tab-btn" data-tab="cap4" role="tab">Práticas</button>
+  <button type="button" class="tab-btn" data-tab="cap2" role="tab">Iemanja &amp; Oxossi</button>
+  <button type="button" class="tab-btn" data-tab="cap3" role="tab">Diagnostico</button>
+  <button type="button" class="tab-btn" data-tab="cap4" role="tab">Praticas</button>
   <button type="button" class="tab-btn" data-tab="cap5" role="tab">7 dias</button>
   <button type="button" class="tab-btn" data-tab="cap6" role="tab">Mar &amp; Mata</button>
   <button type="button" class="tab-btn" data-tab="cap7" role="tab">Banhos</button>
 </nav>
 
-<!-- Hero (outside tabs — always visible) -->
-<div class="ori-hero">
-  <div style="max-width:960px;margin:0 auto;">
-    <div class="tag">Guia Pessoal · Espiritualidade Africana</div>
-    <h1>Fortalecimento do <span class="x">Ori</span></h1>
-    <p class="subtitle">Tradições Yorubá, Candomblé e Umbanda — Personalizado para Cabo Frio</p>
-    <div class="orixa-badges">
-      <div class="orixa-badge iemanja"><span class="icon">🌊</span><div><div class="sub-label">Orixá de Cabeça</div><div>IEMANJÁ</div></div></div>
-      <div class="orixa-badge oxossi"><span class="icon">🏹</span><div><div class="sub-label">Adjuntó / Pai</div><div>OXOSSI</div></div></div>
-    </div>
-    <div class="report-meta">
-      <span>📍 Jardim Esperança, Cabo Frio</span>
-      <span>📅 Março 2026</span>
-      <span>🔱 Não-iniciado</span>
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 1: FUNDAMENTOS                 -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel active" data-tab="cap1" role="tabpanel" aria-hidden="false">
+  <div class="report-header" data-ix-watermark="X">
+    <p class="hdr-brand">GUIA PESSOAL · ESPIRITUALIDADE AFRICANA</p>
+    <h1 class="hdr-title">🔱 Fortalecimento do <em>Ori</em></h1>
+    <p class="hdr-sub">Tradicoes Yoruba, Candomble e Umbanda — Personalizado para Cabo Frio</p>
+    <div class="hdr-meta">
+      <span>📍 Jardim Esperanca, Cabo Frio</span>
+      <span>📅 Marco 2026</span>
+      <span>🔱 Nao-iniciado</span>
       <span>⚡ Uso pessoal</span>
     </div>
   </div>
-</div>
 
-<!-- ═══ Cap 1 — Fundamentos ═══ -->
-<div class="tab-panel active" data-tab="cap1" role="tabpanel" aria-hidden="false">
+  <div class="orixa-badges">
+    <div class="orixa-badge iemanja"><span class="icon">🌊</span><div><div class="sub-label">Orixa de Cabeca</div><div>IEMANJA</div></div></div>
+    <div class="orixa-badge oxossi"><span class="icon">🏹</span><div><div class="sub-label">Adjunto / Pai</div><div>OXOSSI</div></div></div>
+  </div>
+
   <div class="content">
-    <div class="section-label">Capítulo 01</div>
-    <h2 class="section-title">O Que é o Ori — Fundamentos</h2>
-    <p class="body-text">Ori é uma palavra Yorubá que significa literalmente <em>cabeça</em>. Na cosmologia africana, a cabeça é a sede da identidade espiritual, do destino pessoal e da consciência individual.</p>
+    <h1>O Que e o Ori — Fundamentos</h1>
+    <p>Ori e uma palavra Yoruba que significa literalmente <em>cabeca</em>. Na cosmologia africana, a cabeca e a sede da identidade espiritual, do destino pessoal e da consciencia individual.</p>
     <div class="three-col">
-      <div class="three-card"><div class="tc-icon">🧠</div><div class="tc-label">1ª Camada</div><div class="tc-title">Mente</div><div class="tc-desc">Consciência, raciocínio, percepção de realidade.</div></div>
-      <div class="three-card"><div class="tc-icon">✨</div><div class="tc-label">2ª Camada</div><div class="tc-title">Alma</div><div class="tc-desc">Essência, destino, missão de vida.</div></div>
-      <div class="three-card"><div class="tc-icon">🌿</div><div class="tc-label">3ª Camada</div><div class="tc-title">Corpo</div><div class="tc-desc">Saúde, sensações, ritmo biológico.</div></div>
+      <div class="three-card"><div class="tc-icon">🧠</div><div class="tc-label">1a Camada</div><div class="tc-title">Mente</div><div class="tc-desc">Consciencia, raciocinio, percepcao de realidade.</div></div>
+      <div class="three-card"><div class="tc-icon">✨</div><div class="tc-label">2a Camada</div><div class="tc-title">Alma</div><div class="tc-desc">Essencia, destino, missao de vida.</div></div>
+      <div class="three-card"><div class="tc-icon">🌿</div><div class="tc-label">3a Camada</div><div class="tc-title">Corpo</div><div class="tc-desc">Saude, sensacoes, ritmo biologico.</div></div>
     </div>
-    <div class="quote-block"><p>"Ori é o primeiro orixá que deve ser cultuado."</p><div class="author">— Tradição Yorubá</div></div>
-    <div class="callout info"><div class="callout-title">🔑 O que o Ori guarda</div><p>Quem você é de verdade. Onde você deve chegar. O que é para você e o que não é. Os orixás só conseguem agir em alguém cujo Ori aceita a ajuda. Iemanjá e Oxossi estão ao seu lado — mas precisam do seu Ori aberto para agir.</p></div>
-    <div class="callout danger"><div class="callout-title">⚠️ Nenhum orixá ajuda sozinho</div><p>Nenhum orixá pode beneficiar alguém cujo Ori não aceita a ajuda. Por isso o Ori vem ANTES de qualquer outro culto. Fortalecer o Ori é o passo zero — mesmo sendo filho de Iemanjá.</p></div>
+    <div class="quote-block"><p>"Ori e o primeiro orixa que deve ser cultuado."</p><div class="author">— Tradicao Yoruba</div></div>
+    <div class="callout info"><div class="callout-title">🔑 O que o Ori guarda</div><p>Quem voce e de verdade. Onde voce deve chegar. O que e para voce e o que nao e. Os orixas so conseguem agir em alguem cujo Ori aceita a ajuda. Iemanja e Oxossi estao ao seu lado — mas precisam do seu Ori aberto para agir.</p></div>
+    <div class="callout warning"><div class="callout-title">⚠️ Nenhum orixa ajuda sozinho</div><p>Nenhum orixa pode beneficiar alguem cujo Ori nao aceita a ajuda. Por isso o Ori vem ANTES de qualquer outro culto. Fortalecer o Ori e o passo zero — mesmo sendo filho de Iemanja.</p></div>
   </div>
 </div>
 
-<!-- ═══ Cap 2 — Iemanjá & Oxossi ═══ -->
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 2: IEMANJA & OXOSSI            -->
+<!-- ═══════════════════════════════════ -->
 <div class="tab-panel" data-tab="cap2" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <div class="section-label">Capítulo 02</div>
-    <h2 class="section-title">Seus Orixás: Iemanjá e Oxossi</h2>
-    <p class="body-text">Conhecer seus orixás muda completamente o trabalho espiritual. Cada prática, banho e intenção pode ser direcionada para quem rege sua cabeça e te protege.</p>
+    <h1>Seus Orixas: Iemanja e Oxossi</h1>
+    <p>Conhecer seus orixas muda completamente o trabalho espiritual. Cada pratica, banho e intencao pode ser direcionada para quem rege sua cabeca e te protege.</p>
     <div class="orixa-cards">
-      <div class="orixa-card iemanja"><div class="oc-icon">🌊</div><div class="oc-name">IEMANJÁ</div><div class="oc-role">Orixá de Cabeça · Sua Mãe</div><p>Rainha do Mar, mãe de todos os orixás. Rege diretamente sua consciência, sonhos, intuição profunda e capacidade de renovação. O mar em Cabo Frio não é apenas natureza para você — é o território da sua mãe espiritual.</p></div>
-      <div class="orixa-card oxossi"><div class="oc-icon">🏹</div><div class="oc-name">OXOSSI</div><div class="oc-role">Adjuntó · Seu Pai</div><p>Rei da Caça, senhor das matas e da fartura. Rege seu movimento, instinto prático e busca do necessário. Enquanto Iemanjá rege o profundo, Oxossi rege a ação e a direção.</p></div>
+      <div class="orixa-card iemanja"><div class="oc-icon">🌊</div><div class="oc-name">IEMANJA</div><div class="oc-role">Orixa de Cabeca · Sua Mae</div><p>Rainha do Mar, mae de todos os orixas. Rege diretamente sua consciencia, sonhos, intuicao profunda e capacidade de renovacao. O mar em Cabo Frio nao e apenas natureza para voce — e o territorio da sua mae espiritual.</p></div>
+      <div class="orixa-card oxossi"><div class="oc-icon">🏹</div><div class="oc-name">OXOSSI</div><div class="oc-role">Adjunto · Seu Pai</div><p>Rei da Caca, senhor das matas e da fartura. Rege seu movimento, instinto pratico e busca do necessario. Enquanto Iemanja rege o profundo, Oxossi rege a acao e a direcao.</p></div>
     </div>
-    <h3 class="sub-title">🌊 Iemanjá — Atributos Sagrados</h3>
-    <table><thead><tr><th>Dimensão</th><th>Descrição</th></tr></thead><tbody>
-      <tr><td class="highlight">Elemento</td><td>Mar, águas salgadas, oceano profundo</td></tr>
+    <h3 class="sub-title">🌊 Iemanja — Atributos Sagrados</h3>
+    <table><thead><tr><th>Dimensao</th><th>Descricao</th></tr></thead><tbody>
+      <tr><td class="highlight">Elemento</td><td>Mar, aguas salgadas, oceano profundo</td></tr>
       <tr><td class="highlight">Cores sagradas</td><td>Branco e azul claro (celeste)</td></tr>
-      <tr><td class="highlight">Dia da semana</td><td>Sábado — prioritário para seus rituais</td></tr>
-      <tr><td class="highlight">Saudação</td><td>Odoyá! (o-do-iá)</td></tr>
-      <tr><td class="highlight">Rege</td><td>Sonhos, intuição, maternidade, proteção, renovação, memória ancestral</td></tr>
-      <tr><td class="highlight">Oferendas</td><td>Flores brancas, melão, coco, peixe, sabonete branco</td></tr>
-      <tr><td class="highlight">Número sagrado</td><td>7 e seus múltiplos</td></tr>
+      <tr><td class="highlight">Dia da semana</td><td>Sabado — prioritario para seus rituais</td></tr>
+      <tr><td class="highlight">Saudacao</td><td>Odoya! (o-do-ia)</td></tr>
+      <tr><td class="highlight">Rege</td><td>Sonhos, intuicao, maternidade, protecao, renovacao, memoria ancestral</td></tr>
+      <tr><td class="highlight">Oferendas</td><td>Flores brancas, melao, coco, peixe, sabonete branco</td></tr>
+      <tr><td class="highlight">Numero sagrado</td><td>7 e seus multiplos</td></tr>
     </tbody></table>
     <h3 class="sub-title">🏹 Oxossi — Atributos Sagrados</h3>
-    <table><thead><tr><th>Dimensão</th><th>Descrição</th></tr></thead><tbody>
+    <table><thead><tr><th>Dimensao</th><th>Descricao</th></tr></thead><tbody>
       <tr><td class="highlight">Elemento</td><td>Mata, floresta, natureza aberta</td></tr>
       <tr><td class="highlight">Cores sagradas</td><td>Azul royal e verde</td></tr>
       <tr><td class="highlight">Dia da semana</td><td>Quinta-feira — bom para trabalhos de abertura</td></tr>
-      <tr><td class="highlight">Saudação</td><td>Okê Arô! (ô-quê a-rô)</td></tr>
-      <tr><td class="highlight">Rege</td><td>Intuição prática, busca, fartura, instinto certeiro, abertura de caminhos</td></tr>
+      <tr><td class="highlight">Saudacao</td><td>Oke Aro! (o-que a-ro)</td></tr>
+      <tr><td class="highlight">Rege</td><td>Intuicao pratica, busca, fartura, instinto certeiro, abertura de caminhos</td></tr>
       <tr><td class="highlight">Oferendas</td><td>Frutas da mata, mel, ervas verdes</td></tr>
-      <tr><td class="highlight">Número sagrado</td><td>7 (compartilha com Iemanjá)</td></tr>
+      <tr><td class="highlight">Numero sagrado</td><td>7 (compartilha com Iemanja)</td></tr>
     </tbody></table>
-    <div class="callout iemanja"><div class="callout-title">🌊🏹 A dupla Iemanjá + Oxossi</div><p>Mar e Mata. Profundidade e Precisão. Quando desequilibrada: profundidade de Iemanjá vira turbilhão interno, instinto de Oxossi vira ansiedade. Quando equilibrada: intuição emocional + prática funcionando juntas. Você foi feito para encontrar caminhos onde outros não veem.</p></div>
+    <div class="callout iemanja"><div class="callout-title">🌊🏹 A dupla Iemanja + Oxossi</div><p>Mar e Mata. Profundidade e Precisao. Quando desequilibrada: profundidade de Iemanja vira turbilhao interno, instinto de Oxossi vira ansiedade. Quando equilibrada: intuicao emocional + pratica funcionando juntas. Voce foi feito para encontrar caminhos onde outros nao veem.</p></div>
   </div>
 </div>
 
-<!-- ═══ Cap 3 — Diagnóstico ═══ -->
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 3: DIAGNOSTICO                 -->
+<!-- ═══════════════════════════════════ -->
 <div class="tab-panel" data-tab="cap3" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <div class="section-label">Capítulo 03</div>
-    <h2 class="section-title">Diagnóstico — Sinais de Desregulação</h2>
+    <h1>Diagnostico — Sinais de Desregulacao</h1>
     <div class="metrics-grid">
       <div class="metric-card"><div class="metric-icon">😴</div><div class="metric-label">Sono</div><div class="metric-value">Ruim</div><div class="metric-sub">Sonhos pesados</div></div>
       <div class="metric-card"><div class="metric-icon">🧠</div><div class="metric-label">Mente</div><div class="metric-value">Acelerada</div><div class="metric-sub">Ou travada</div></div>
-      <div class="metric-card"><div class="metric-icon">🧭</div><div class="metric-label">Propósito</div><div class="metric-value">Difuso</div><div class="metric-sub">Sem direção clara</div></div>
-      <div class="metric-card"><div class="metric-icon">⚡</div><div class="metric-label">Conexão</div><div class="metric-value">Quebrada</div><div class="metric-sub">Espírito ↔ Corpo</div></div>
+      <div class="metric-card"><div class="metric-icon">🧭</div><div class="metric-label">Proposito</div><div class="metric-value">Difuso</div><div class="metric-sub">Sem direcao clara</div></div>
+      <div class="metric-card"><div class="metric-icon">⚡</div><div class="metric-label">Conexao</div><div class="metric-value">Quebrada</div><div class="metric-sub">Espirito ↔ Corpo</div></div>
     </div>
-    <table><thead><tr><th>Sintoma</th><th>Dimensão</th><th>Leitura Espiritual</th></tr></thead><tbody>
-      <tr><td>Sono ruim, sonhos pesados</td><td class="tag-iemanja">🌊 Iemanjá / Ori</td><td>Iemanjá tenta se comunicar mas o canal está sujo. Limpe a cabeça para a mensagem chegar clara.</td></tr>
-      <tr><td>Mente acelerada ou travada</td><td class="tag-oxossi">🏹 Oxossi / Mente</td><td>O caçador interno perdeu a trilha. Oxossi precisa de direção — a mata interior está confusa.</td></tr>
-      <tr><td>Falta de propósito</td><td class="tag-oxossi">🏹 Oxossi</td><td>Oxossi é o orixá da busca. Quando desequilibrado, a flecha não encontra o alvo.</td></tr>
-      <tr><td>Decisões erradas depois</td><td class="tag-iemanja">🌊 Iemanjá / Ori</td><td>Ori confuso — a voz interna está abafada. Iemanjá fala pela intuição, que está bloqueada.</td></tr>
-      <tr><td>Espírito e mente desconectados do corpo</td><td class="tag-ambos">🌊🏹 Ambos</td><td>Mar e Mata separados dentro de você. O trabalho é reconectá-los.</td></tr>
+    <table><thead><tr><th>Sintoma</th><th>Dimensao</th><th>Leitura Espiritual</th></tr></thead><tbody>
+      <tr><td>Sono ruim, sonhos pesados</td><td class="tag-iemanja">🌊 Iemanja / Ori</td><td>Iemanja tenta se comunicar mas o canal esta sujo. Limpe a cabeca para a mensagem chegar clara.</td></tr>
+      <tr><td>Mente acelerada ou travada</td><td class="tag-oxossi">🏹 Oxossi / Mente</td><td>O cacador interno perdeu a trilha. Oxossi precisa de direcao — a mata interior esta confusa.</td></tr>
+      <tr><td>Falta de proposito</td><td class="tag-oxossi">🏹 Oxossi</td><td>Oxossi e o orixa da busca. Quando desequilibrado, a flecha nao encontra o alvo.</td></tr>
+      <tr><td>Decisoes erradas depois</td><td class="tag-iemanja">🌊 Iemanja / Ori</td><td>Ori confuso — a voz interna esta abafada. Iemanja fala pela intuicao, que esta bloqueada.</td></tr>
+      <tr><td>Espirito e mente desconectados do corpo</td><td class="tag-ambos">🌊🏹 Ambos</td><td>Mar e Mata separados dentro de voce. O trabalho e reconecta-los.</td></tr>
     </tbody></table>
-    <div class="callout info"><div class="callout-title">🔍 Por que seus sintomas fazem sentido</div><p>Sono ruim = Iemanjá com canal sujo. Mente acelerada = Oxossi sem trilha. Desconexão = mar e mata separados em você. O trabalho é reconectá-los.</p></div>
+    <div class="callout info"><div class="callout-title">🔍 Por que seus sintomas fazem sentido</div><p>Sono ruim = Iemanja com canal sujo. Mente acelerada = Oxossi sem trilha. Desconexao = mar e mata separados em voce. O trabalho e reconecta-los.</p></div>
   </div>
 </div>
 
-<!-- ═══ Cap 4 — Práticas ═══ -->
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 4: PRATICAS                    -->
+<!-- ═══════════════════════════════════ -->
 <div class="tab-panel" data-tab="cap4" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <div class="section-label">Capítulo 04</div>
-    <h2 class="section-title">Práticas Imediatas — Sem Iniciação</h2>
+    <h1>Praticas Imediatas — Sem Iniciacao</h1>
     <h3 class="sub-title">4.1 Conversa com o Ori</h3>
     <ol class="styled">
-      <li>Sente em silêncio. Respire fundo três vezes.</li>
-      <li>Coloque as duas palmas na cabeça — no topo.</li>
+      <li>Sente em silencio. Respire fundo tres vezes.</li>
+      <li>Coloque as duas palmas na cabeca — no topo.</li>
       <li>Diga: <strong>Ori mi, ori mi, ori mi.</strong></li>
-      <li>Chame Iemanjá: <strong>Odoyá, mãe, limpa minha cabeça.</strong></li>
-      <li>Chame Oxossi: <strong>Okê Arô, me mostra o caminho.</strong></li>
-      <li>Fale o que precisa. Termine com gratidão.</li>
+      <li>Chame Iemanja: <strong>Odoya, mae, limpa minha cabeca.</strong></li>
+      <li>Chame Oxossi: <strong>Oke Aro, me mostra o caminho.</strong></li>
+      <li>Fale o que precisa. Termine com gratidao.</li>
     </ol>
-    <h3 class="sub-title">4.2 Leite de Coco na Cabeça (Adaptado para Iemanjá)</h3>
+    <h3 class="sub-title">4.2 Leite de Coco na Cabeca (Adaptado para Iemanja)</h3>
     <ul class="styled">
-      <li>Leite de coco puro — aplique no topo da cabeça (a coroa)</li>
-      <li>Ou mel + uma colher de água salgada dissolvidos juntos</li>
-      <li>Deixe 10-15 minutos, lave com água</li>
-      <li>Intenção: <em>Minha cabeça é território de Iemanjá. Apenas ela comanda aqui.</em></li>
+      <li>Leite de coco puro — aplique no topo da cabeca (a coroa)</li>
+      <li>Ou mel + uma colher de agua salgada dissolvidos juntos</li>
+      <li>Deixe 10-15 minutos, lave com agua</li>
+      <li>Intencao: <em>Minha cabeca e territorio de Iemanja. Apenas ela comanda aqui.</em></li>
     </ul>
-    <h3 class="sub-title">4.3 Vela Branca + Água — Ritual Mínimo Diário</h3>
+    <h3 class="sub-title">4.3 Vela Branca + Agua — Ritual Minimo Diario</h3>
     <ul class="styled">
-      <li>Copo de água limpa — trocado todo dia</li>
-      <li>Vela branca — cor de Iemanjá</li>
-      <li>3 minutos com as mãos na cabeça: <strong>Odoyá Iemanjá. Okê Arô Oxossi.</strong></li>
+      <li>Copo de agua limpa — trocado todo dia</li>
+      <li>Vela branca — cor de Iemanja</li>
+      <li>3 minutos com as maos na cabeca: <strong>Odoya Iemanja. Oke Aro Oxossi.</strong></li>
     </ul>
     <h3 class="sub-title">4.4 O Que Evitar</h3>
-    <table><thead><tr><th>❌ Evite</th><th>✅ Faça em vez disso</th></tr></thead><tbody>
-      <tr><td>Mar agitado quando instável</td><td>Espere o mar calmar — Iemanjá agitada potencializa instabilidade interna</td></tr>
-      <tr><td>Barulho excessivo à noite</td><td>Silêncio noturno é território de Iemanjá. Ela fala nos sonhos.</td></tr>
-      <tr><td>Ignorar seus sonhos</td><td>Anote todo sonho ao acordar — são recados de Iemanjá</td></tr>
-      <tr><td>Decisões impulsivas</td><td>Oxossi caça com paciência. Espere o momento certo.</td></tr>
-      <tr><td>Ambientes poluídos, águas sujas</td><td>Iemanjá é sensível à poluição — afeta seu campo diretamente</td></tr>
+    <table><thead><tr><th>❌ Evite</th><th>✅ Faca em vez disso</th></tr></thead><tbody>
+      <tr><td>Mar agitado quando instavel</td><td>Espere o mar calmar — Iemanja agitada potencializa instabilidade interna</td></tr>
+      <tr><td>Barulho excessivo a noite</td><td>Silencio noturno e territorio de Iemanja. Ela fala nos sonhos.</td></tr>
+      <tr><td>Ignorar seus sonhos</td><td>Anote todo sonho ao acordar — sao recados de Iemanja</td></tr>
+      <tr><td>Decisoes impulsivas</td><td>Oxossi caca com paciencia. Espere o momento certo.</td></tr>
+      <tr><td>Ambientes poluidos, aguas sujas</td><td>Iemanja e sensivel a poluicao — afeta seu campo diretamente</td></tr>
     </tbody></table>
   </div>
 </div>
 
-<!-- ═══ Cap 5 — Protocolo 7 dias ═══ -->
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 5: PROTOCOLO 7 DIAS            -->
+<!-- ═══════════════════════════════════ -->
 <div class="tab-panel" data-tab="cap5" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <div class="section-label">Capítulo 05</div>
-    <h2 class="section-title">Protocolo de 7 Dias — Cabo Frio</h2>
-    <div class="callout iemanja"><div class="callout-title">📍 Você está no lugar ideal</div><p>Jardim Esperança, Cabo Frio. Mar de Iemanjá a poucos minutos. Natureza aberta de Oxossi ao redor. Dias 1-2 limpeza · Dias 3-4 estabilização · Dias 5-6 nutrição · Dia 7 selagem.</p></div>
+    <h1>Protocolo de 7 Dias — Cabo Frio</h1>
+    <div class="callout info"><div class="callout-title">📍 Voce esta no lugar ideal</div><p>Jardim Esperanca, Cabo Frio. Mar de Iemanja a poucos minutos. Natureza aberta de Oxossi ao redor. Dias 1-2 limpeza · Dias 3-4 estabilizacao · Dias 5-6 nutricao · Dia 7 selagem.</p></div>
     <div class="protocol-grid">
       <div class="protocol-day">
-        <div class="protocol-day-header"><div class="day-num">DIA 1</div><div class="day-title">Grande Limpeza de Iemanjá</div><div class="day-tag">Sábado se possível</div></div>
+        <div class="protocol-day-header"><div class="day-num">DIA 1</div><div class="day-title">Grande Limpeza de Iemanja</div><div class="day-tag">Sabado se possivel</div></div>
         <div class="protocol-day-body">
-          <div class="protocol-row"><div class="prow-time">Manhã cedo (6-7h)</div><div class="prow-text">Mar. 7 mergulhos com a cabeça. <em>Odoyá Iemanjá, lava minha cabeça, tira tudo que não é meu.</em></div></div>
-          <div class="protocol-row"><div class="prow-time">Após o mar</div><div class="prow-text">Banho de sal grosso + flores brancas + arruda. Do pescoço pra baixo. Deixa secar.</div></div>
+          <div class="protocol-row"><div class="prow-time">Manha cedo (6-7h)</div><div class="prow-text">Mar. 7 mergulhos com a cabeca. <em>Odoya Iemanja, lava minha cabeca, tira tudo que nao e meu.</em></div></div>
+          <div class="protocol-row"><div class="prow-time">Apos o mar</div><div class="prow-text">Banho de sal grosso + flores brancas + arruda. Do pescoco pra baixo. Deixa secar.</div></div>
           <div class="protocol-row"><div class="prow-time">Tarde</div><div class="prow-text">Anote no papel tudo que pesa. Externalize tudo.</div></div>
           <div class="protocol-row"><div class="prow-time">Anoitecer</div><div class="prow-text">Queime ou descarte o papel fora de casa.</div></div>
-          <div class="protocol-row"><div class="prow-time">Antes de dormir</div><div class="prow-text">Vela branca + copo de água ao lado da cama. Chame Iemanjá para guardar seus sonhos.</div></div>
+          <div class="protocol-row"><div class="prow-time">Antes de dormir</div><div class="prow-text">Vela branca + copo de agua ao lado da cama. Chame Iemanja para guardar seus sonhos.</div></div>
         </div>
       </div>
       <div class="protocol-day">
-        <div class="protocol-day-header"><div class="day-num">DIA 2</div><div class="day-title">Consolidar com Oxossi</div><div class="day-tag">Estabilização</div></div>
+        <div class="protocol-day-header"><div class="day-num">DIA 2</div><div class="day-title">Consolidar com Oxossi</div><div class="day-tag">Estabilizacao</div></div>
         <div class="protocol-day-body">
-          <div class="protocol-row"><div class="prow-time">Manhã</div><div class="prow-text">Espaço aberto — parque, natureza. 10 min silêncio. Observe. Estado de Oxossi.</div></div>
-          <div class="protocol-row"><div class="prow-time">Dia</div><div class="prow-text">Pergunte ao Ori: <em>Qual o próximo passo correto para mim?</em> Anote qualquer intuição.</div></div>
+          <div class="protocol-row"><div class="prow-time">Manha</div><div class="prow-text">Espaco aberto — parque, natureza. 10 min silencio. Observe. Estado de Oxossi.</div></div>
+          <div class="protocol-row"><div class="prow-time">Dia</div><div class="prow-text">Pergunte ao Ori: <em>Qual o proximo passo correto para mim?</em> Anote qualquer intuicao.</div></div>
           <div class="protocol-row"><div class="prow-time">Noite</div><div class="prow-text">Repita banho de sal grosso — mais leve.</div></div>
         </div>
       </div>
       <div class="protocol-day">
-        <div class="protocol-day-header"><div class="day-num">DIAS 3–4</div><div class="day-title">Estabilização</div><div class="day-tag">Reconexão</div></div>
+        <div class="protocol-day-header"><div class="day-num">DIAS 3–4</div><div class="day-title">Estabilizacao</div><div class="day-tag">Reconexao</div></div>
         <div class="protocol-day-body">
-          <div class="protocol-row"><div class="prow-time">Diário</div><div class="prow-text">Banho de folhas brancas (alecrim + arruda + manjericão).</div></div>
-          <div class="protocol-row"><div class="prow-time">Manhã</div><div class="prow-text">Ritual de leite de coco na cabeça — 1x por dia.</div></div>
+          <div class="protocol-row"><div class="prow-time">Diario</div><div class="prow-text">Banho de folhas brancas (alecrim + arruda + manjericao).</div></div>
+          <div class="protocol-row"><div class="prow-time">Manha</div><div class="prow-text">Ritual de leite de coco na cabeca — 1x por dia.</div></div>
           <div class="protocol-row"><div class="prow-time">Sono</div><div class="prow-text">Mesma hora para dormir. Sem tela 1h antes. Anote TODOS os sonhos ao acordar.</div></div>
         </div>
       </div>
       <div class="protocol-day">
-        <div class="protocol-day-header"><div class="day-num">DIAS 5–6</div><div class="day-title">Alimentação do Ori</div><div class="day-tag">Nutrição</div></div>
+        <div class="protocol-day-header"><div class="day-num">DIAS 5–6</div><div class="day-title">Alimentacao do Ori</div><div class="day-tag">Nutricao</div></div>
         <div class="protocol-day-body">
-          <div class="protocol-row"><div class="prow-time">Mar</div><div class="prow-text">Desta vez para <em>receber</em>. Entre, fique parado, deixe o mar vir até você.</div></div>
-          <div class="protocol-row"><div class="prow-time">Cabeça</div><div class="prow-text">Leite de coco: manhã e noite. Banho de flores brancas.</div></div>
-          <div class="protocol-row"><div class="prow-time">Conversa</div><div class="prow-text">Agora com perguntas. Peça a Oxossi o caminho. Peça a Iemanjá clareza nos sonhos.</div></div>
+          <div class="protocol-row"><div class="prow-time">Mar</div><div class="prow-text">Desta vez para <em>receber</em>. Entre, fique parado, deixe o mar vir ate voce.</div></div>
+          <div class="protocol-row"><div class="prow-time">Cabeca</div><div class="prow-text">Leite de coco: manha e noite. Banho de flores brancas.</div></div>
+          <div class="protocol-row"><div class="prow-time">Conversa</div><div class="prow-text">Agora com perguntas. Peca a Oxossi o caminho. Peca a Iemanja clareza nos sonhos.</div></div>
         </div>
       </div>
-      <div class="protocol-day" style="border-left-color:var(--ix-green)">
-        <div class="protocol-day-header" style="background:rgba(17,199,111,0.1)"><div class="day-num">DIA 7</div><div class="day-title">Selagem</div><div class="day-tag" style="color:var(--ix-green)">Gratidão + Afirmação</div></div>
+      <div class="protocol-day">
+        <div class="protocol-day-header"><div class="day-num">DIA 7</div><div class="day-title">Selagem</div><div class="day-tag">Gratidao + Afirmacao</div></div>
         <div class="protocol-day-body">
-          <div class="protocol-row"><div class="prow-time">Amanhecer</div><div class="prow-text">Mar ao nascer do sol. Puro axé de Iemanjá.</div></div>
-          <div class="protocol-row"><div class="prow-time">No mar</div><div class="prow-text">7 min parado. <em>Odoyá Iemanjá. Minha cabeça é sua. Okê Arô Oxossi. Meu caminho está se abrindo.</em></div></div>
-          <div class="protocol-row"><div class="prow-time">7 mergulhos</div><div class="prow-text">Cada um: gratidão. Ao sair — não olhe para trás imediatamente.</div></div>
+          <div class="protocol-row"><div class="prow-time">Amanhecer</div><div class="prow-text">Mar ao nascer do sol. Puro axe de Iemanja.</div></div>
+          <div class="protocol-row"><div class="prow-time">No mar</div><div class="prow-text">7 min parado. <em>Odoya Iemanja. Minha cabeca e sua. Oke Aro Oxossi. Meu caminho esta se abrindo.</em></div></div>
+          <div class="protocol-row"><div class="prow-time">7 mergulhos</div><div class="prow-text">Cada um: gratidao. Ao sair — nao olhe para tras imediatamente.</div></div>
           <div class="protocol-row"><div class="prow-time">Em casa</div><div class="prow-text">Vela branca, flores brancas, leite de coco. Escreva: o que percebi nesses 7 dias?</div></div>
         </div>
       </div>
@@ -396,91 +284,91 @@
   </div>
 </div>
 
-<!-- ═══ Cap 6 — Mar & Mata ═══ -->
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 6: MAR & MATA                  -->
+<!-- ═══════════════════════════════════ -->
 <div class="tab-panel" data-tab="cap6" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <div class="section-label">Capítulo 06</div>
-    <h2 class="section-title">Mar e Mata — Liturgia dos Seus Elementos</h2>
-    <h3 class="sub-title">6.1 O Mar — Território de Iemanjá</h3>
+    <h1>Mar e Mata — Liturgia dos Seus Elementos</h1>
+    <h3 class="sub-title">6.1 O Mar — Territorio de Iemanja</h3>
     <ol class="styled">
       <li>Chegue na beira. Pare. Olhe pro horizonte. Respire.</li>
-      <li>Antes de entrar: <em>Odoyá Iemanjá. Venho até você, mãe. Permita minha entrada.</em></li>
-      <li>Entre devagar. Deixe a água subir pelo corpo com atenção.</li>
-      <li>7 mergulhos — cada um com intenção clara.</li>
-      <li>Ao sair: agradeça. Não saia com pressa.</li>
+      <li>Antes de entrar: <em>Odoya Iemanja. Venho ate voce, mae. Permita minha entrada.</em></li>
+      <li>Entre devagar. Deixe a agua subir pelo corpo com atencao.</li>
+      <li>7 mergulhos — cada um com intencao clara.</li>
+      <li>Ao sair: agradeca. Nao saia com pressa.</li>
     </ol>
-    <table><thead><tr><th>Condição</th><th>Significado</th></tr></thead><tbody>
-      <tr><td class="highlight">Sábado de manhã cedo</td><td>Dia e horário de maior potência para Iemanjá</td></tr>
-      <tr><td class="highlight">Mar calmo e azul</td><td>Iemanjá receptiva — ideal para receber bênçãos</td></tr>
-      <tr><td class="highlight">Mar agitado</td><td>Força de transformação — limpeza profunda, com respeito</td></tr>
-      <tr><td class="highlight">Lua cheia + mar</td><td>Combinação máxima. Ritual de gratidão e petição</td></tr>
+    <table><thead><tr><th>Condicao</th><th>Significado</th></tr></thead><tbody>
+      <tr><td class="highlight">Sabado de manha cedo</td><td>Dia e horario de maior potencia para Iemanja</td></tr>
+      <tr><td class="highlight">Mar calmo e azul</td><td>Iemanja receptiva — ideal para receber bencaos</td></tr>
+      <tr><td class="highlight">Mar agitado</td><td>Forca de transformacao — limpeza profunda, com respeito</td></tr>
+      <tr><td class="highlight">Lua cheia + mar</td><td>Combinacao maxima. Ritual de gratidao e peticao</td></tr>
     </tbody></table>
-    <h3 class="sub-title">6.2 A Mata — Território de Oxossi</h3>
+    <h3 class="sub-title">6.2 A Mata — Territorio de Oxossi</h3>
     <ul class="styled">
       <li>Saia para natureza aberta ao menos 1x nos 7 dias</li>
       <li>Sem fone de ouvido — Oxossi fala pelos sons da mata</li>
-      <li>Observe os animais — são mensageiros</li>
-      <li>Quinta é o dia sagrado de Oxossi</li>
-      <li>Ao entrar: <strong>Okê Arô!</strong></li>
+      <li>Observe os animais — sao mensageiros</li>
+      <li>Quinta e o dia sagrado de Oxossi</li>
+      <li>Ao entrar: <strong>Oke Aro!</strong></li>
     </ul>
-    <div class="callout oxossi"><div class="callout-title">🌊🏹 A prática mais poderosa para sua regência</div><p>Num mesmo dia: de manhã o mar (Iemanjá), à tarde natureza aberta (Oxossi). Mar e Mata ativados juntos reconectam as duas forças separadas em você. É o alinhamento completo do seu sistema espiritual.</p></div>
+    <div class="callout oxossi"><div class="callout-title">🌊🏹 A pratica mais poderosa para sua regencia</div><p>Num mesmo dia: de manha o mar (Iemanja), a tarde natureza aberta (Oxossi). Mar e Mata ativados juntos reconectam as duas forcas separadas em voce. E o alinhamento completo do seu sistema espiritual.</p></div>
   </div>
 </div>
 
-<!-- ═══ Cap 7 — Banhos ═══ -->
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 7: BANHOS                      -->
+<!-- ═══════════════════════════════════ -->
 <div class="tab-panel" data-tab="cap7" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <div class="section-label">Capítulo 07</div>
-    <h2 class="section-title">Banhos, Defumações e Materiais</h2>
-    <h3 class="sub-title">7.1 Banho de Limpeza de Iemanjá</h3>
+    <h1>Banhos, Defumacoes e Materiais</h1>
+    <h3 class="sub-title">7.1 Banho de Limpeza de Iemanja</h3>
     <ul class="styled">
-      <li>Sal grosso — 1 punhado · Flores brancas — pétalas de 3 flores · Arruda — 3 galhos · Água de coco — meio copo</li>
+      <li>Sal grosso — 1 punhado · Flores brancas — petalas de 3 flores · Arruda — 3 galhos · Agua de coco — meio copo</li>
     </ul>
     <ol class="styled">
-      <li>Ferva 1L de água. Desligue. Infuse flores e arruda 10 min tampado.</li>
-      <li>Coe. Esfrie. Adicione sal grosso e água de coco.</li>
-      <li>Banho normal primeiro. Despeje infusão cabeça → baixo, 7 vezes.</li>
-      <li><em>Odoyá Iemanjá, lava minha cabeça, clareia meu Ori.</em> Seque naturalmente.</li>
+      <li>Ferva 1L de agua. Desligue. Infuse flores e arruda 10 min tampado.</li>
+      <li>Coe. Esfrie. Adicione sal grosso e agua de coco.</li>
+      <li>Banho normal primeiro. Despeje infusao cabeca → baixo, 7 vezes.</li>
+      <li><em>Odoya Iemanja, lava minha cabeca, clareia meu Ori.</em> Seque naturalmente.</li>
     </ol>
     <h3 class="sub-title">7.2 Banho de Oxossi — Abertura de Caminhos</h3>
-    <p class="body-text">Guiné (3 folhas) · Manjericão (1 punhado) · Alecrim (2 galhos) · Mel (1 colher pós-coar). Aplique quinta-feira. Intenção: <em>Okê Arô Oxossi. Abre meu caminho. Me guia como o caçador que eu sou.</em></p>
+    <p>Guine (3 folhas) · Manjericao (1 punhado) · Alecrim (2 galhos) · Mel (1 colher pos-coar). Aplique quinta-feira. Intencao: <em>Oke Aro Oxossi. Abre meu caminho. Me guia como o cacador que eu sou.</em></p>
     <h3 class="sub-title">7.3 Banho Combinado — Mar + Mata (O Mais Poderoso)</h3>
-    <p class="body-text">Água do mar (1 copo) + flores brancas + alecrim/guiné + água de coco. Sem fervura — frio. Pescoço pra baixo. Intenção: <em>Iemanjá e Oxossi, uni meu mar e minha mata.</em></p>
+    <p>Agua do mar (1 copo) + flores brancas + alecrim/guine + agua de coco. Sem fervura — frio. Pescoco pra baixo. Intencao: <em>Iemanja e Oxossi, uni meu mar e minha mata.</em></p>
     <h3 class="sub-title">7.4 Lista de Compras — Cabo Frio</h3>
-    <table><thead><tr><th>Item</th><th>Onde encontrar</th><th>Orixá</th><th>Urgência</th></tr></thead><tbody>
-      <tr><td>Sal grosso</td><td>Qualquer supermercado</td><td class="tag-iemanja">Iemanjá</td><td class="tag-hoje">HOJE</td></tr>
+    <table><thead><tr><th>Item</th><th>Onde encontrar</th><th>Orixa</th><th>Urgencia</th></tr></thead><tbody>
+      <tr><td>Sal grosso</td><td>Qualquer supermercado</td><td class="tag-iemanja">Iemanja</td><td class="tag-hoje">HOJE</td></tr>
       <tr><td>Velas brancas</td><td>Supermercado / casa religiosa</td><td class="tag-ambos">Ambos</td><td class="tag-hoje">HOJE</td></tr>
-      <tr><td>Leite de coco puro</td><td>Supermercado</td><td class="tag-iemanja">Iemanjá</td><td class="tag-hoje">HOJE</td></tr>
-      <tr><td>Flores brancas</td><td>Floricultura / feira</td><td class="tag-iemanja">Iemanjá</td><td class="tag-amanha">Amanhã</td></tr>
-      <tr><td>Arruda + Alecrim + Manjericão</td><td>Ervanária / supermercado</td><td class="tag-ambos">Ambos</td><td class="tag-amanha">Amanhã</td></tr>
-      <tr><td>Água de coco natural</td><td>Supermercado / praia</td><td class="tag-iemanja">Iemanjá</td><td class="tag-amanha">Amanhã</td></tr>
-      <tr><td>Guiné (folha)</td><td>Ervanária / mercado municipal</td><td class="tag-oxossi">Oxossi</td><td class="tag-semana">Semana</td></tr>
-      <tr><td>Incenso de mirra</td><td>Casa de artigos espirituais</td><td class="tag-iemanja">Iemanjá</td><td class="tag-semana">Semana</td></tr>
+      <tr><td>Leite de coco puro</td><td>Supermercado</td><td class="tag-iemanja">Iemanja</td><td class="tag-hoje">HOJE</td></tr>
+      <tr><td>Flores brancas</td><td>Floricultura / feira</td><td class="tag-iemanja">Iemanja</td><td class="tag-amanha">Amanha</td></tr>
+      <tr><td>Arruda + Alecrim + Manjericao</td><td>Ervanaria / supermercado</td><td class="tag-ambos">Ambos</td><td class="tag-amanha">Amanha</td></tr>
+      <tr><td>Agua de coco natural</td><td>Supermercado / praia</td><td class="tag-iemanja">Iemanja</td><td class="tag-amanha">Amanha</td></tr>
+      <tr><td>Guine (folha)</td><td>Ervanaria / mercado municipal</td><td class="tag-oxossi">Oxossi</td><td class="tag-semana">Semana</td></tr>
+      <tr><td>Incenso de mirra</td><td>Casa de artigos espirituais</td><td class="tag-iemanja">Iemanja</td><td class="tag-semana">Semana</td></tr>
       <tr><td>Incenso de cedro ou copal</td><td>Casa de artigos espirituais</td><td class="tag-oxossi">Oxossi</td><td class="tag-semana">Semana</td></tr>
     </tbody></table>
-    <h3 class="sub-title">7.5 Saudações para Memorizar</h3>
-    <table><thead><tr><th>Orixá</th><th>Saudação</th><th>Quando usar</th></tr></thead><tbody>
-      <tr><td class="tag-iemanja">🌊 Iemanjá</td><td><strong>Odoyá!</strong></td><td>Ao entrar no mar, iniciar rituais, dormir, acordar</td></tr>
-      <tr><td class="tag-oxossi">🏹 Oxossi</td><td><strong>Okê Arô!</strong></td><td>Ao entrar em natureza, pedir direção, quinta-feira</td></tr>
-      <tr><td class="tag-ambos">🔱 Ori</td><td><strong>Ori mi, ori mi, ori mi</strong></td><td>Diariamente com as mãos na cabeça</td></tr>
+    <h3 class="sub-title">7.5 Saudacoes para Memorizar</h3>
+    <table><thead><tr><th>Orixa</th><th>Saudacao</th><th>Quando usar</th></tr></thead><tbody>
+      <tr><td class="tag-iemanja">🌊 Iemanja</td><td><strong>Odoya!</strong></td><td>Ao entrar no mar, iniciar rituais, dormir, acordar</td></tr>
+      <tr><td class="tag-oxossi">🏹 Oxossi</td><td><strong>Oke Aro!</strong></td><td>Ao entrar em natureza, pedir direcao, quinta-feira</td></tr>
+      <tr><td class="tag-ambos">🔱 Ori</td><td><strong>Ori mi, ori mi, ori mi</strong></td><td>Diariamente com as maos na cabeca</td></tr>
     </tbody></table>
-    <h3 class="sub-title">7.6 Referências</h3>
+    <h3 class="sub-title">7.6 Referencias</h3>
     <ul class="styled">
-      <li><strong>Orixás</strong> — Pierre Fatumbi Verger</li>
-      <li><strong>Os Nagô e a Morte</strong> — Juana Elbein dos Santos</li>
-      <li><strong>Mitos e Lendas dos Orixás</strong> — Reginaldo Prandi</li>
+      <li><strong>Orixas</strong> — Pierre Fatumbi Verger</li>
+      <li><strong>Os Nago e a Morte</strong> — Juana Elbein dos Santos</li>
+      <li><strong>Mitos e Lendas dos Orixas</strong> — Reginaldo Prandi</li>
     </ul>
   </div>
 </div>
 
-<footer class="report-footer">
-  <div class="footer-closing">🌊  🔱  🏹</div>
-  <div class="footer-closing">Odoyá Iemanjá. Okê Arô Oxossi. Ori mi, ori mi, ori mi.</div>
-  <div class="footer-saudacoes">Mar e Mata em você. Cabeça forte. Caminho aberto.</div>
-  <hr style="border-color:rgba(148,163,184,0.15);margin:20px auto;max-width:300px;">
-  <div class="footer-meta">Uso pessoal · Não substitui orientação de babalorixá ou yalorixá iniciado<br><strong>Feito por Impact X — Rafael Camillo</strong></div>
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  🌊 Odoya Iemanja · 🏹 Oke Aro Oxossi · 🔱 Ori mi, ori mi, ori mi<br>
+  Uso pessoal · Feito por Impact X — Rafael Camillo · Marco 2026
 </footer>
 
-<script src="assets/js/report.js"></script>
+<script src="../assets/js/report.js"></script>
 </body>
 </html>
