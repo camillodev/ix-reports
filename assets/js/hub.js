@@ -74,7 +74,8 @@
   // ─── Helpers ───
   function capitalize(str) {
     if (!str) return '';
-    return str.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    var s = str.replace(/-/g, ' ');
+    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
   function el(tag, attrs, children) {

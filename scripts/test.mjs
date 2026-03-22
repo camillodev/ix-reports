@@ -194,7 +194,7 @@ if (indexHtml) {
   assert(indexHtml.includes("data-theme") || indexHtml.includes("dark"), "index.html supports dark mode");
   assert(indexHtml.includes("sidebar-tree"), "index.html has clients section in sidebar");
   assert(indexHtml.includes("tag-filters"), "index.html has categories/tags section in sidebar");
-  assert(indexHtml.includes("RELATORIO"), "index.html brand is RELATORIO X");
+  assert(indexHtml.includes("Relatorio"), "index.html brand is Relatorio X");
   assert(indexHtml.includes("view-toggle"), "index.html has view toggle (list/grid)");
 }
 
