@@ -41,43 +41,18 @@
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-section">
-      <button class="tree-all-btn active" id="tree-all-btn" data-filter="all">
-        <i class="bi bi-grid-3x3-gap"></i> Todos
-        <span class="tree-count" id="count-all">0</span>
+      <div class="sidebar-label">Clientes</div>
+      <button class="nav-item active" id="tree-all-btn" data-filter="all">
+        <i class="bi bi-grid-3x3-gap nav-icon"></i>
+        <span class="nav-label">Todos</span>
+        <span class="nav-count" id="count-all">0</span>
       </button>
+      <div id="sidebar-tree"></div>
     </div>
 
-    <!-- Accordion: Clientes -->
     <div class="sidebar-section">
-      <button class="accordion-header active" id="acc-clientes" data-accordion="clientes">
-        <span class="accordion-label">Clientes</span>
-        <span class="accordion-chevron"><i class="bi bi-chevron-down"></i></span>
-      </button>
-      <div class="accordion-body open" id="acc-body-clientes">
-        <div id="sidebar-tree"></div>
-      </div>
-    </div>
-
-    <!-- Accordion: Projetos -->
-    <div class="sidebar-section">
-      <button class="accordion-header" id="acc-projetos" data-accordion="projetos">
-        <span class="accordion-label">Projetos</span>
-        <span class="accordion-chevron"><i class="bi bi-chevron-down"></i></span>
-      </button>
-      <div class="accordion-body" id="acc-body-projetos">
-        <div id="sidebar-projects"></div>
-      </div>
-    </div>
-
-    <!-- Accordion: Tags -->
-    <div class="sidebar-section">
-      <button class="accordion-header" id="acc-tags" data-accordion="tags">
-        <span class="accordion-label">Tags</span>
-        <span class="accordion-chevron"><i class="bi bi-chevron-down"></i></span>
-      </button>
-      <div class="accordion-body" id="acc-body-tags">
-        <div class="sidebar-tags" id="tag-filters"></div>
-      </div>
+      <div class="sidebar-label">Categorias</div>
+      <div id="tag-filters"></div>
     </div>
 
     <div class="active-filters-bar hidden" id="active-filters">

@@ -192,8 +192,8 @@ if (indexHtml) {
   assert(indexHtml.includes("Cmd") || indexHtml.includes("cmd-k"), "index.html has Cmd+K trigger");
   assert(indexHtml.includes("theme-toggle") || indexHtml.includes("theme_toggle"), "index.html has theme toggle");
   assert(indexHtml.includes("data-theme") || indexHtml.includes("dark"), "index.html supports dark mode");
-  assert(indexHtml.includes("accordion"), "index.html has accordion sections");
-  assert(indexHtml.includes("acc-clientes") && indexHtml.includes("acc-projetos") && indexHtml.includes("acc-tags"), "index.html has 3 accordion sections (clientes/projetos/tags)");
+  assert(indexHtml.includes("sidebar-tree"), "index.html has clients section in sidebar");
+  assert(indexHtml.includes("tag-filters"), "index.html has categories/tags section in sidebar");
   assert(indexHtml.includes("RELATORIO"), "index.html brand is RELATORIO X");
   assert(indexHtml.includes("view-toggle"), "index.html has view toggle (list/grid)");
 }

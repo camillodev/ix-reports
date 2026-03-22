@@ -25,7 +25,6 @@
   var sidebar = document.getElementById('sidebar');
   var sidebarOverlay = document.getElementById('sidebar-overlay');
   var sidebarTree = document.getElementById('sidebar-tree');
-  var sidebarProjects = document.getElementById('sidebar-projects');
   var treeAllBtn = document.getElementById('tree-all-btn');
   var countAll = document.getElementById('count-all');
   var tagFiltersEl = document.getElementById('tag-filters');
@@ -102,31 +101,31 @@
     setTimeout(function () { toast.classList.remove('show'); }, 2500);
   }
 
-  // ─── Accordion logic ───
-  function initAccordions() {
-    var headers = document.querySelectorAll('.accordion-header');
-    headers.forEach(function (header) {
-      var key = header.dataset.accordion;
-      var body = document.getElementById('acc-body-' + key);
-      var saved = localStorage.getItem('ix-accordion-' + key);
+  // ─── Tag icon map ───
+  var tagIcons = {
+    'estrategia': 'compass',
+    'financeiro': 'currency-dollar',
+    'comercial': 'megaphone',
+    'tech': 'cpu',
+    'operacoes': 'gear',
+    'cultura': 'people',
+    'produto': 'box-seam',
+    'rh': 'person-badge',
+    'automacao': 'robot',
+    'integracao': 'link-45deg',
+    'espiritualidade': 'brightness-high',
+    'carreira': 'briefcase',
+    'metricas': 'bar-chart',
+    'roadmap': 'signpost-split',
+    'modelo-negocio': 'diagram-3',
+    'time': 'people-fill',
+    'processo': 'kanban',
+    'entrevista': 'chat-dots',
+    'educacao': 'mortarboard'
+  };
 
-      // Default: clientes open, others closed
-      if (saved === 'open') {
-        body.classList.add('open');
-        header.classList.add('active');
-      } else if (saved === 'closed') {
-        body.classList.remove('open');
-        header.classList.remove('active');
-      }
-      // else keep HTML default
-
-      header.addEventListener('click', function () {
-        var isOpen = body.classList.contains('open');
-        body.classList.toggle('open');
-        header.classList.toggle('active');
-        localStorage.setItem('ix-accordion-' + key, isOpen ? 'closed' : 'open');
-      });
-    });
+  function getTagIcon(tag) {
+    return tagIcons[tag] || 'tag';
   }
 
   // ─── Router (hash-based) ───
@@ -156,7 +155,7 @@
 
   window.addEventListener('hashchange', readHash);
 
-  // ─── Sidebar Tree (Clientes accordion) ───
+  // ─── Sidebar Clients (flat list with icons) ───
   function renderTree() {
     sidebarTree.textContent = '';
     var clientKeys = Object.keys(clients);
@@ -164,146 +163,30 @@
     clientKeys.forEach(function (key) {
       var c = clients[key];
       var count = reports.filter(function (r) { return r.client === key; }).length;
-      if (count === 0) return;
 
-      var wrapper = el('div', { className: 'tree-client' });
-
-      // Client button
       var btn = el('button', {
-        className: 'tree-client-btn',
+        className: 'nav-item',
         'data-client': key
       });
-      var dot = el('span', { className: 'client-dot' });
-      dot.style.background = c.color || 'var(--ix-green)';
-      btn.appendChild(dot);
-      btn.appendChild(document.createTextNode(c.name));
-      btn.appendChild(el('span', { className: 'tree-count', textContent: String(count) }));
-      var chevron = el('span', { className: 'chevron' });
-      chevron.textContent = '\u203A';
-      btn.appendChild(chevron);
 
-      // Projects
-      var projectsWrap = el('div', { className: 'tree-projects' });
-      var projects = c.projects || {};
-      Object.keys(projects).forEach(function (pKey) {
-        var pCount = reports.filter(function (r) {
-          return r.client === key && r.project === pKey;
-        }).length;
-        if (pCount === 0) return;
-
-        var pBtn = el('button', {
-          className: 'tree-project-btn',
-          'data-client': key,
-          'data-project': pKey
-        });
-        pBtn.appendChild(document.createTextNode(projects[pKey].name));
-        pBtn.appendChild(el('span', { className: 'proj-count', textContent: String(pCount) }));
-        pBtn.addEventListener('click', function () {
-          setFilter(key, pKey);
-          setHash(key, pKey);
-          closeMobileSidebar();
-        });
-        projectsWrap.appendChild(pBtn);
-      });
-
-      // No-project reports
-      var noProjectCount = reports.filter(function (r) {
-        return r.client === key && !r.project;
-      }).length;
-      if (noProjectCount > 0) {
-        var npBtn = el('button', {
-          className: 'tree-project-btn',
-          'data-client': key,
-          'data-project': '__none__'
-        });
-        npBtn.appendChild(document.createTextNode('Sem projeto'));
-        npBtn.appendChild(el('span', { className: 'proj-count', textContent: String(noProjectCount) }));
-        npBtn.addEventListener('click', function () {
-          setFilter(key, '__none__');
-          setHash(key, null);
-          closeMobileSidebar();
-        });
-        projectsWrap.appendChild(npBtn);
-      }
-
-      // Expand/collapse
-      var savedState = localStorage.getItem('ix-tree-' + key);
-      var isExpanded = savedState !== 'collapsed';
+      var icon = el('i', { className: 'bi bi-' + (c.icon || 'building') + ' nav-icon' });
+      btn.appendChild(icon);
+      btn.appendChild(el('span', { className: 'nav-label', textContent: c.name }));
+      btn.appendChild(el('span', { className: 'nav-count', textContent: String(count) }));
 
       btn.addEventListener('click', function () {
-        if (activeClient === key && !activeProject) {
-          var open = projectsWrap.classList.contains('open');
-          projectsWrap.classList.toggle('open');
-          btn.classList.toggle('expanded');
-          localStorage.setItem('ix-tree-' + key, open ? 'collapsed' : 'expanded');
-        } else {
-          setFilter(key, null);
-          setHash(key, null);
-          projectsWrap.classList.add('open');
-          btn.classList.add('expanded');
-          localStorage.setItem('ix-tree-' + key, 'expanded');
-          closeMobileSidebar();
-        }
+        setFilter(key, null);
+        setHash(key, null);
+        closeMobileSidebar();
       });
 
-      if (isExpanded) {
-        projectsWrap.classList.add('open');
-        btn.classList.add('expanded');
-      }
-
-      wrapper.appendChild(btn);
-      wrapper.appendChild(projectsWrap);
-      sidebarTree.appendChild(wrapper);
+      sidebarTree.appendChild(btn);
     });
 
     countAll.textContent = reports.length;
   }
 
-  // ─── Sidebar Projects accordion (flat list) ───
-  function renderProjectsList() {
-    sidebarProjects.textContent = '';
-    var projectMap = {};
-
-    reports.forEach(function (r) {
-      if (!r.project) return;
-      if (!projectMap[r.project]) {
-        projectMap[r.project] = { name: '', count: 0 };
-      }
-      projectMap[r.project].count++;
-      // Get display name from clients data
-      if (!projectMap[r.project].name && r.client && clients[r.client] && clients[r.client].projects && clients[r.client].projects[r.project]) {
-        projectMap[r.project].name = clients[r.client].projects[r.project].name;
-      }
-    });
-
-    var sortedProjects = Object.keys(projectMap).sort(function (a, b) {
-      return projectMap[b].count - projectMap[a].count;
-    });
-
-    sortedProjects.forEach(function (pKey) {
-      var p = projectMap[pKey];
-      var btn = el('button', {
-        className: 'tree-project-btn sidebar-project-flat',
-        'data-project-filter': pKey
-      });
-      btn.appendChild(document.createTextNode(p.name || capitalize(pKey)));
-      btn.appendChild(el('span', { className: 'proj-count', textContent: String(p.count) }));
-      btn.addEventListener('click', function () {
-        // Filter by project across all clients
-        activeClient = 'all';
-        activeProject = pKey;
-        currentPage = 1;
-        updateTreeActive();
-        applyFilters();
-        mainTitle.textContent = p.name || capitalize(pKey);
-        setHash('all', null);
-        closeMobileSidebar();
-      });
-      sidebarProjects.appendChild(btn);
-    });
-  }
-
-  // ─── Tags ───
+  // ─── Tags / Categorias (flat list with icons) ───
   function renderTags() {
     tagFiltersEl.textContent = '';
     var tagMap = {};
@@ -319,11 +202,15 @@
 
     sortedTags.forEach(function (tag) {
       var btn = el('button', {
-        className: 'sidebar-tag',
+        className: 'nav-item',
         'data-tag': tag
       });
-      btn.appendChild(document.createTextNode(capitalize(tag)));
-      btn.appendChild(el('span', { className: 'tag-count', textContent: ' (' + tagMap[tag] + ')' }));
+
+      var icon = el('i', { className: 'bi bi-' + getTagIcon(tag) + ' nav-icon' });
+      btn.appendChild(icon);
+      btn.appendChild(el('span', { className: 'nav-label', textContent: capitalize(tag) }));
+      btn.appendChild(el('span', { className: 'nav-count', textContent: String(tagMap[tag]) }));
+
       btn.addEventListener('click', function () {
         if (activeTags.has(tag)) {
           activeTags.delete(tag);
@@ -349,9 +236,6 @@
 
     if (client === 'all' && !project) {
       mainTitle.textContent = 'Relatorios';
-    } else if (client === 'all' && project) {
-      // Project-only filter (from Projetos accordion)
-      mainTitle.textContent = capitalize(project);
     } else if (clients[client]) {
       mainTitle.textContent = clients[client].name;
       if (project && project !== '__none__' && clients[client].projects && clients[client].projects[project]) {
@@ -363,19 +247,8 @@
   function updateTreeActive() {
     treeAllBtn.classList.toggle('active', activeClient === 'all' && !activeProject);
 
-    document.querySelectorAll('.tree-client-btn').forEach(function (btn) {
-      var isActive = btn.dataset.client === activeClient && !activeProject;
-      btn.classList.toggle('active', isActive);
-    });
-
-    document.querySelectorAll('.tree-project-btn').forEach(function (btn) {
-      var isActive = btn.dataset.client === activeClient && btn.dataset.project === activeProject;
-      btn.classList.toggle('active', isActive);
-    });
-
-    // Flat project list highlight
-    document.querySelectorAll('.sidebar-project-flat').forEach(function (btn) {
-      btn.classList.toggle('active', btn.dataset.projectFilter === activeProject && activeClient === 'all');
+    document.querySelectorAll('#sidebar-tree .nav-item').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.client === activeClient);
     });
   }
 
@@ -393,7 +266,7 @@
     mainTitle.textContent = 'Relatorios';
     setHash('all', null);
     updateTreeActive();
-    document.querySelectorAll('.sidebar-tag.active').forEach(function (t) {
+    document.querySelectorAll('#tag-filters .nav-item.active').forEach(function (t) {
       t.classList.remove('active');
     });
     applyFilters();
@@ -597,7 +470,6 @@
 
   // ─── Init ───
   initTheme();
-  initAccordions();
   initViewToggle();
 
   Promise.all([
@@ -614,7 +486,6 @@
     });
 
     renderTree();
-    renderProjectsList();
     renderTags();
     renderAll();
     readHash();

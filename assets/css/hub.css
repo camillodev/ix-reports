@@ -154,20 +154,16 @@ body {
   padding: 8px 12px 0;
 }
 
-/* ─── Sidebar Tree ─── */
-.tree-client {
-  margin-bottom: 4px;
-}
-
-.tree-client-btn {
+/* ─── Sidebar Nav Items ─── */
+.nav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: var(--ix-radius-sm);
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--ix-radius-md);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--ix-ink);
   border: none;
   background: none;
@@ -177,224 +173,46 @@ body {
   transition: all 0.15s;
 }
 
-.tree-client-btn:hover {
+.nav-item:hover {
   background: var(--ix-surface-2);
 }
 
-.tree-client-btn.active {
+.nav-item.active {
   background: var(--ix-green-light);
   color: var(--ix-green-dark);
+  font-weight: 600;
 }
 
-.tree-client-btn .client-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+.nav-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
   flex-shrink: 0;
-}
-
-.tree-client-btn .chevron {
-  margin-left: auto;
-  font-size: 12px;
-  transition: transform 0.2s;
   color: var(--ix-muted);
 }
 
-.tree-client-btn.expanded .chevron {
-  transform: rotate(90deg);
+.nav-item.active .nav-icon {
+  color: var(--ix-green-dark);
 }
 
-.tree-client-btn .tree-count {
-  margin-left: auto;
+.nav-label {
+  flex: 1;
+}
+
+.nav-count {
   background: var(--ix-surface-3);
   color: var(--ix-muted);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 1px 8px;
-  border-radius: var(--ix-radius-sm);
-}
-
-.tree-client-btn.active .tree-count {
-  background: var(--ix-green);
-  color: #fff;
-}
-
-.tree-projects {
-  padding-left: 30px;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.25s ease;
-}
-
-.tree-projects.open {
-  max-height: 500px;
-}
-
-.tree-project-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: var(--ix-radius-xs);
-  cursor: pointer;
   font-size: 13px;
-  font-weight: 500;
-  color: var(--ix-ink-secondary);
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  font-family: inherit;
-  transition: all 0.12s;
-}
-
-.tree-project-btn:hover {
-  background: var(--ix-surface-2);
-  color: var(--ix-ink);
-}
-
-.tree-project-btn.active {
-  background: var(--ix-green-light);
-  color: var(--ix-green-dark);
   font-weight: 600;
-}
-
-.tree-project-btn .proj-count {
-  margin-left: auto;
-  font-size: 11px;
-  color: var(--ix-muted);
-}
-
-/* Sidebar "Todos" button */
-.tree-all-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: var(--ix-radius-sm);
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ix-ink);
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  font-family: inherit;
-  transition: all 0.15s;
-  margin-bottom: 4px;
-}
-
-.tree-all-btn:hover {
-  background: var(--ix-surface-2);
-}
-
-.tree-all-btn.active {
-  background: var(--ix-green-light);
-  color: var(--ix-green-dark);
-}
-
-.tree-all-btn .tree-count {
-  margin-left: auto;
-  background: var(--ix-surface-3);
-  color: var(--ix-muted);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 1px 8px;
+  min-width: 28px;
+  text-align: center;
+  padding: 2px 8px;
   border-radius: var(--ix-radius-sm);
 }
 
-.tree-all-btn.active .tree-count {
+.nav-item.active .nav-count {
   background: var(--ix-green);
   color: #fff;
-}
-
-/* Sidebar tags */
-.sidebar-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 0 12px;
-}
-
-.sidebar-tag {
-  display: inline-flex;
-  align-items: center;
-  background: var(--ix-surface-3);
-  color: var(--ix-ink-secondary);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: var(--ix-radius-pill);
-  cursor: pointer;
-  border: 1.5px solid transparent;
-  transition: all 0.12s;
-  font-family: inherit;
-}
-
-.sidebar-tag:hover {
-  border-color: var(--ix-green);
-  color: var(--ix-green-dark);
-}
-
-.sidebar-tag.active {
-  background: var(--ix-green-light);
-  color: var(--ix-green-dark);
-  border-color: var(--ix-green);
-  font-weight: 600;
-}
-
-/* ─── Accordion ─── */
-.accordion-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 8px 12px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--ix-muted);
-  text-transform: uppercase;
-  transition: color 0.15s;
-}
-
-.accordion-header:hover {
-  color: var(--ix-ink);
-}
-
-.accordion-label {
-  pointer-events: none;
-}
-
-.accordion-chevron {
-  font-size: 10px;
-  transition: transform 0.2s;
-  pointer-events: none;
-}
-
-.accordion-header.active .accordion-chevron {
-  transform: rotate(180deg);
-}
-
-.accordion-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.25s ease;
-}
-
-.accordion-body.open {
-  max-height: 800px;
-}
-
-.tag-count {
-  font-size: 11px;
-  color: var(--ix-muted);
-  font-weight: 400;
 }
 
 /* Active filters bar */
