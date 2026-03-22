@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Impact X — Reports</title>
+<title>Relatorio X — Reports</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="assets/css/tokens.css" rel="stylesheet">
 <link href="assets/css/hub.css" rel="stylesheet">
 <link href="assets/css/cmd-k.css" rel="stylesheet">
-<link href="assets/css/timeline.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,8 +18,7 @@
     <button class="icon-btn hamburger" id="hamburger" aria-label="Menu">
       <i class="bi bi-list"></i>
     </button>
-    <a href="#" class="brand">IMPACT <span class="x">X</span></a>
-    <span class="topbar-badge">Reports Hub</span>
+    <a href="#" class="brand">RELATORIO <span class="x">X</span></a>
   </div>
   <div class="topbar-right">
     <button class="cmdk-trigger" id="cmdk-trigger" type="button">
@@ -42,22 +40,44 @@
 
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
-    <button class="new-report-btn" id="new-report-btn" type="button">
-      <i class="bi bi-plus-lg"></i> Novo Relatorio
-    </button>
-
     <div class="sidebar-section">
-      <div class="sidebar-label">Clientes</div>
       <button class="tree-all-btn active" id="tree-all-btn" data-filter="all">
         <i class="bi bi-grid-3x3-gap"></i> Todos
         <span class="tree-count" id="count-all">0</span>
       </button>
-      <div id="sidebar-tree"></div>
     </div>
 
+    <!-- Accordion: Clientes -->
     <div class="sidebar-section">
-      <div class="sidebar-label">Tags</div>
-      <div class="sidebar-tags" id="tag-filters"></div>
+      <button class="accordion-header active" id="acc-clientes" data-accordion="clientes">
+        <span class="accordion-label">Clientes</span>
+        <span class="accordion-chevron"><i class="bi bi-chevron-down"></i></span>
+      </button>
+      <div class="accordion-body open" id="acc-body-clientes">
+        <div id="sidebar-tree"></div>
+      </div>
+    </div>
+
+    <!-- Accordion: Projetos -->
+    <div class="sidebar-section">
+      <button class="accordion-header" id="acc-projetos" data-accordion="projetos">
+        <span class="accordion-label">Projetos</span>
+        <span class="accordion-chevron"><i class="bi bi-chevron-down"></i></span>
+      </button>
+      <div class="accordion-body" id="acc-body-projetos">
+        <div id="sidebar-projects"></div>
+      </div>
+    </div>
+
+    <!-- Accordion: Tags -->
+    <div class="sidebar-section">
+      <button class="accordion-header" id="acc-tags" data-accordion="tags">
+        <span class="accordion-label">Tags</span>
+        <span class="accordion-chevron"><i class="bi bi-chevron-down"></i></span>
+      </button>
+      <div class="accordion-body" id="acc-body-tags">
+        <div class="sidebar-tags" id="tag-filters"></div>
+      </div>
     </div>
 
     <div class="active-filters-bar hidden" id="active-filters">
@@ -76,33 +96,13 @@
       <div class="main-toolbar-right">
         <div class="view-toggle">
           <button class="view-toggle-btn active" data-view="list" title="Lista"><i class="bi bi-list-ul"></i></button>
-          <button class="view-toggle-btn" data-view="timeline" title="Timeline"><i class="bi bi-clock-history"></i></button>
-          <button class="view-toggle-btn" data-view="dashboard" title="Dashboard"><i class="bi bi-bar-chart"></i></button>
+          <button class="view-toggle-btn" data-view="grid" title="Grid"><i class="bi bi-grid-3x3-gap"></i></button>
         </div>
-      </div>
-    </div>
-
-    <!-- Dashboard charts area -->
-    <div class="dashboard-area hidden" id="dashboard-area">
-      <div class="chart-card">
-        <div class="chart-card-title">Reports por Mes</div>
-        <div id="chart-monthly" style="width:100%;height:220px"></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-title">Por Cliente</div>
-        <div id="chart-client" style="width:100%;height:220px"></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-title">Por Tag</div>
-        <div id="chart-tags" style="width:100%;height:220px"></div>
       </div>
     </div>
 
     <!-- List view -->
     <div class="reports-list" id="reports-list"></div>
-
-    <!-- Timeline view -->
-    <div class="timeline-view" id="timeline-view"></div>
 
     <div class="empty-state hidden" id="empty-state">
       <div style="font-size:36px;margin-bottom:12px"><i class="bi bi-search"></i></div>
@@ -117,39 +117,8 @@
 </div>
 
 <footer class="app-footer">
-  Impact <span class="x-mark">X</span> — Rafael Camillo · <span id="footer-count">0</span> reports
+  Relatorio <span class="x-mark">X</span> — Rafael Camillo · <span id="footer-count">0</span> reports
 </footer>
-
-<!-- New Report Modal -->
-<div class="modal-overlay" id="new-report-modal">
-  <div class="modal-box">
-    <div class="modal-title">Novo Relatorio</div>
-    <div class="modal-field">
-      <label for="nr-title">Titulo</label>
-      <input type="text" id="nr-title" placeholder="Ex: Analise Q2 2026">
-    </div>
-    <div class="modal-field">
-      <label for="nr-client">Cliente</label>
-      <select id="nr-client"></select>
-    </div>
-    <div class="modal-field">
-      <label for="nr-project">Projeto</label>
-      <select id="nr-project"><option value="">Nenhum</option></select>
-    </div>
-    <div class="modal-field">
-      <label for="nr-desc">Descricao</label>
-      <textarea id="nr-desc" rows="3" placeholder="Breve descricao do relatorio..."></textarea>
-    </div>
-    <div class="cmd-output hidden" id="nr-output">
-      <button class="cmd-copy-btn" id="nr-copy">Copiar</button>
-      <code id="nr-command"></code>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-secondary" id="nr-cancel">Cancelar</button>
-      <button class="btn-primary" id="nr-generate">Gerar Comando</button>
-    </div>
-  </div>
-</div>
 
 <!-- Cmd+K Palette -->
 <div class="cmdk-overlay" id="cmdk-overlay">
@@ -172,7 +141,5 @@
 
 <script src="assets/js/hub.js"></script>
 <script src="assets/js/cmd-k.js"></script>
-<script src="assets/js/timeline.js"></script>
-<script defer src="assets/js/charts.js"></script>
 </body>
 </html>

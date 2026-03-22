@@ -8,7 +8,7 @@
   var activeClient = 'all';
   var activeProject = null;
   var activeTags = new Set();
-  var currentView = 'list';
+  var currentViewMode = localStorage.getItem('ix-view-mode') || 'list';
 
   // DOM refs
   var reportsList = document.getElementById('reports-list');
@@ -25,26 +25,11 @@
   var sidebar = document.getElementById('sidebar');
   var sidebarOverlay = document.getElementById('sidebar-overlay');
   var sidebarTree = document.getElementById('sidebar-tree');
+  var sidebarProjects = document.getElementById('sidebar-projects');
   var treeAllBtn = document.getElementById('tree-all-btn');
   var countAll = document.getElementById('count-all');
   var tagFiltersEl = document.getElementById('tag-filters');
   var mainTitle = document.getElementById('main-title');
-  var dashboardArea = document.getElementById('dashboard-area');
-  var timelineView = document.getElementById('timeline-view');
-  var paginationNav = document.getElementById('pagination-nav');
-
-  // New report modal
-  var newReportBtn = document.getElementById('new-report-btn');
-  var newReportModal = document.getElementById('new-report-modal');
-  var nrTitle = document.getElementById('nr-title');
-  var nrClient = document.getElementById('nr-client');
-  var nrProject = document.getElementById('nr-project');
-  var nrDesc = document.getElementById('nr-desc');
-  var nrOutput = document.getElementById('nr-output');
-  var nrCommand = document.getElementById('nr-command');
-  var nrCopy = document.getElementById('nr-copy');
-  var nrCancel = document.getElementById('nr-cancel');
-  var nrGenerate = document.getElementById('nr-generate');
 
   var toast = document.getElementById('toast');
 
@@ -70,7 +55,6 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('ix-theme', next);
     updateThemeIcon();
-    if (window.IXCharts) window.IXCharts.applyTheme(next === 'dark');
   }
 
   themeToggle.addEventListener('click', toggleTheme);
@@ -118,6 +102,33 @@
     setTimeout(function () { toast.classList.remove('show'); }, 2500);
   }
 
+  // ─── Accordion logic ───
+  function initAccordions() {
+    var headers = document.querySelectorAll('.accordion-header');
+    headers.forEach(function (header) {
+      var key = header.dataset.accordion;
+      var body = document.getElementById('acc-body-' + key);
+      var saved = localStorage.getItem('ix-accordion-' + key);
+
+      // Default: clientes open, others closed
+      if (saved === 'open') {
+        body.classList.add('open');
+        header.classList.add('active');
+      } else if (saved === 'closed') {
+        body.classList.remove('open');
+        header.classList.remove('active');
+      }
+      // else keep HTML default
+
+      header.addEventListener('click', function () {
+        var isOpen = body.classList.contains('open');
+        body.classList.toggle('open');
+        header.classList.toggle('active');
+        localStorage.setItem('ix-accordion-' + key, isOpen ? 'closed' : 'open');
+      });
+    });
+  }
+
   // ─── Router (hash-based) ───
   function readHash() {
     var hash = (location.hash || '').replace('#', '');
@@ -145,7 +156,7 @@
 
   window.addEventListener('hashchange', readHash);
 
-  // ─── Sidebar Tree ───
+  // ─── Sidebar Tree (Clientes accordion) ───
   function renderTree() {
     sidebarTree.textContent = '';
     var clientKeys = Object.keys(clients);
@@ -248,20 +259,71 @@
     countAll.textContent = reports.length;
   }
 
+  // ─── Sidebar Projects accordion (flat list) ───
+  function renderProjectsList() {
+    sidebarProjects.textContent = '';
+    var projectMap = {};
+
+    reports.forEach(function (r) {
+      if (!r.project) return;
+      if (!projectMap[r.project]) {
+        projectMap[r.project] = { name: '', count: 0 };
+      }
+      projectMap[r.project].count++;
+      // Get display name from clients data
+      if (!projectMap[r.project].name && r.client && clients[r.client] && clients[r.client].projects && clients[r.client].projects[r.project]) {
+        projectMap[r.project].name = clients[r.client].projects[r.project].name;
+      }
+    });
+
+    var sortedProjects = Object.keys(projectMap).sort(function (a, b) {
+      return projectMap[b].count - projectMap[a].count;
+    });
+
+    sortedProjects.forEach(function (pKey) {
+      var p = projectMap[pKey];
+      var btn = el('button', {
+        className: 'tree-project-btn sidebar-project-flat',
+        'data-project-filter': pKey
+      });
+      btn.appendChild(document.createTextNode(p.name || capitalize(pKey)));
+      btn.appendChild(el('span', { className: 'proj-count', textContent: String(p.count) }));
+      btn.addEventListener('click', function () {
+        // Filter by project across all clients
+        activeClient = 'all';
+        activeProject = pKey;
+        currentPage = 1;
+        updateTreeActive();
+        applyFilters();
+        mainTitle.textContent = p.name || capitalize(pKey);
+        setHash('all', null);
+        closeMobileSidebar();
+      });
+      sidebarProjects.appendChild(btn);
+    });
+  }
+
   // ─── Tags ───
   function renderTags() {
     tagFiltersEl.textContent = '';
-    var allTags = new Set();
+    var tagMap = {};
     reports.forEach(function (r) {
-      (r.tags || []).forEach(function (t) { allTags.add(t); });
+      (r.tags || []).forEach(function (t) {
+        tagMap[t] = (tagMap[t] || 0) + 1;
+      });
     });
 
-    Array.from(allTags).sort().forEach(function (tag) {
+    var sortedTags = Object.keys(tagMap).sort(function (a, b) {
+      return tagMap[b] - tagMap[a];
+    });
+
+    sortedTags.forEach(function (tag) {
       var btn = el('button', {
         className: 'sidebar-tag',
-        'data-tag': tag,
-        textContent: capitalize(tag)
+        'data-tag': tag
       });
+      btn.appendChild(document.createTextNode(capitalize(tag)));
+      btn.appendChild(el('span', { className: 'tag-count', textContent: ' (' + tagMap[tag] + ')' }));
       btn.addEventListener('click', function () {
         if (activeTags.has(tag)) {
           activeTags.delete(tag);
@@ -285,8 +347,11 @@
     updateTreeActive();
     applyFilters();
 
-    if (client === 'all') {
+    if (client === 'all' && !project) {
       mainTitle.textContent = 'Relatorios';
+    } else if (client === 'all' && project) {
+      // Project-only filter (from Projetos accordion)
+      mainTitle.textContent = capitalize(project);
     } else if (clients[client]) {
       mainTitle.textContent = clients[client].name;
       if (project && project !== '__none__' && clients[client].projects && clients[client].projects[project]) {
@@ -296,7 +361,7 @@
   }
 
   function updateTreeActive() {
-    treeAllBtn.classList.toggle('active', activeClient === 'all');
+    treeAllBtn.classList.toggle('active', activeClient === 'all' && !activeProject);
 
     document.querySelectorAll('.tree-client-btn').forEach(function (btn) {
       var isActive = btn.dataset.client === activeClient && !activeProject;
@@ -306,6 +371,11 @@
     document.querySelectorAll('.tree-project-btn').forEach(function (btn) {
       var isActive = btn.dataset.client === activeClient && btn.dataset.project === activeProject;
       btn.classList.toggle('active', isActive);
+    });
+
+    // Flat project list highlight
+    document.querySelectorAll('.sidebar-project-flat').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.projectFilter === activeProject && activeClient === 'all');
     });
   }
 
@@ -435,9 +505,7 @@
       row.classList.remove('page-hidden');
     });
 
-    if (currentView === 'list') {
-      paginate();
-    }
+    paginate();
 
     var visibleCount = filtered.length;
 
@@ -452,14 +520,6 @@
       resultCount.textContent = visibleCount + ' de ' + reports.length + ' relatorios';
     } else {
       activeFiltersBar.classList.add('hidden');
-    }
-
-    if (currentView === 'timeline' && window.IXTimeline) {
-      window.IXTimeline.render(filtered);
-    }
-
-    if (currentView === 'dashboard' && window.IXCharts) {
-      window.IXCharts.update(filtered, clients);
     }
   }
 
@@ -507,104 +567,23 @@
     reportsList.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // ─── View toggle ───
-  document.querySelectorAll('.view-toggle-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var view = btn.dataset.view;
-      currentView = view;
-
-      document.querySelectorAll('.view-toggle-btn').forEach(function (b) {
-        b.classList.toggle('active', b.dataset.view === view);
-      });
-
-      reportsList.classList.toggle('hidden', view !== 'list');
-      timelineView.classList.toggle('active', view === 'timeline');
-      dashboardArea.classList.toggle('hidden', view !== 'dashboard');
-      paginationNav.classList.toggle('hidden', view !== 'list');
-
-      if (view === 'timeline' && window.IXTimeline) {
-        window.IXTimeline.render(getFilteredReports());
-      }
-      if (view === 'dashboard' && window.IXCharts) {
-        window.IXCharts.update(getFilteredReports(), clients);
-      }
-      if (view === 'list') {
-        applyFilters();
-      }
-    });
-  });
-
-  // ─── New Report Modal ───
-  newReportBtn.addEventListener('click', function () {
-    nrOutput.classList.add('hidden');
-    nrTitle.value = '';
-    nrDesc.value = '';
-    newReportModal.classList.add('active');
-    nrTitle.focus();
-  });
-
-  nrCancel.addEventListener('click', function () {
-    newReportModal.classList.remove('active');
-  });
-
-  newReportModal.addEventListener('click', function (e) {
-    if (e.target === newReportModal) newReportModal.classList.remove('active');
-  });
-
-  nrGenerate.addEventListener('click', function () {
-    var title = nrTitle.value.trim();
-    var client = nrClient.value;
-    var project = nrProject.value;
-    var desc = nrDesc.value.trim();
-
-    if (!title) { nrTitle.focus(); return; }
-
-    var cmd = 'claude "gera relatorio ix-reports: titulo=\'' + title + '\'';
-    if (client) cmd += ', client=\'' + client + '\'';
-    if (project) cmd += ', project=\'' + project + '\'';
-    if (desc) cmd += '. ' + desc;
-    cmd += '"';
-
-    nrCommand.textContent = cmd;
-    nrOutput.classList.remove('hidden');
-  });
-
-  nrCopy.addEventListener('click', function () {
-    var cmd = nrCommand.textContent;
-    navigator.clipboard.writeText(cmd).then(function () {
-      showToast('Comando copiado!');
-    });
-  });
-
-  function populateModalSelects() {
-    nrClient.textContent = '';
-    Object.keys(clients).forEach(function (key) {
-      var opt = document.createElement('option');
-      opt.value = key;
-      opt.textContent = clients[key].name;
-      nrClient.appendChild(opt);
-    });
-
-    nrClient.addEventListener('change', updateProjectSelect);
-    updateProjectSelect();
-  }
-
-  function updateProjectSelect() {
-    nrProject.textContent = '';
-    var none = document.createElement('option');
-    none.value = '';
-    none.textContent = 'Nenhum';
-    nrProject.appendChild(none);
-
-    var c = clients[nrClient.value];
-    if (c && c.projects) {
-      Object.keys(c.projects).forEach(function (pKey) {
-        var opt = document.createElement('option');
-        opt.value = pKey;
-        opt.textContent = c.projects[pKey].name;
-        nrProject.appendChild(opt);
-      });
+  // ─── View toggle (list/grid) ───
+  function initViewToggle() {
+    if (currentViewMode === 'grid') {
+      reportsList.classList.add('grid-view');
     }
+    document.querySelectorAll('.view-toggle-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.view === currentViewMode);
+      btn.addEventListener('click', function () {
+        var view = btn.dataset.view;
+        currentViewMode = view;
+        localStorage.setItem('ix-view-mode', view);
+        document.querySelectorAll('.view-toggle-btn').forEach(function (b) {
+          b.classList.toggle('active', b.dataset.view === view);
+        });
+        reportsList.classList.toggle('grid-view', view === 'grid');
+      });
+    });
   }
 
   // ─── Expose for other modules ───
@@ -618,6 +597,8 @@
 
   // ─── Init ───
   initTheme();
+  initAccordions();
+  initViewToggle();
 
   Promise.all([
     fetch('data/reports.json').then(function (r) { return r.json(); }),
@@ -633,9 +614,9 @@
     });
 
     renderTree();
+    renderProjectsList();
     renderTags();
     renderAll();
-    populateModalSelects();
     readHash();
 
     if (window.IXCmdK) window.IXCmdK.setData(reports, clients);

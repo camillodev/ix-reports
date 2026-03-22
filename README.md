@@ -1,136 +1,95 @@
-# IX Reports
+# Relatorio X
 
-Reports hub for Impact X — reports.rafaelcamillo.com
+Hub de relatorios da Impact X — reports.rafaelcamillo.com
 
 ## Stack
 
-- Vanilla HTML/CSS/JS (no framework)
-- Static site deployed on Vercel
-- amCharts 5 (CDN) for dashboard charts
+- HTML/CSS/JS puro (sem framework)
+- Site estatico com deploy na Vercel
 
-## Structure
+## Estrutura do Projeto
 
 ```
-index.html              # Hub — sidebar tree + main content
+index.html              # Hub — sidebar com accordions + conteudo principal
 assets/
   css/
-    tokens.css          # Design tokens (colors, spacing, z-index)
-    hub.css             # Hub-specific styles
-    report.css          # Shared report chrome (topbar, tabs, typography)
-    cmd-k.css           # Command palette styles
-    timeline.css        # Timeline view styles
+    tokens.css          # Design tokens (cores, espacamento, z-index)
+    hub.css             # Estilos do hub
+    report.css          # Chrome compartilhado dos relatorios (topbar, tabs, tipografia)
+    cmd-k.css           # Estilos da paleta de comandos
   js/
-    hub.js              # Hub logic (sidebar tree, filters, router)
-    cmd-k.js            # Cmd+K command palette
-    timeline.js         # Timeline view
-    charts.js           # amCharts dashboard
-    report.js           # Shared report JS (tabs, back btn)
+    hub.js              # Logica do hub (sidebar, filtros, accordions, router)
+    cmd-k.js            # Paleta de comandos Cmd+K
+    report.js           # JS compartilhado dos relatorios (tabs, botao voltar)
 data/
-  reports.json          # Report registry (title, slug, date, client, project, tags)
-  clients.json          # Client/project metadata (name, color, icon, projects)
-  *.html                # Individual report files
-  downloads/            # PDF/MD files
+  reports.json          # Registro de relatorios (titulo, slug, data, cliente, projeto, tags)
+  clients.json          # Metadados de clientes/projetos (nome, cor, icone, projetos)
+  *.html                # Arquivos individuais de relatorio
+  downloads/            # Arquivos PDF/MD
 scripts/
-  validate.mjs          # Validates reports.json, clients.json, file existence
-vercel.json             # Redirect rules (old filenames -> new slugs)
+  test.mjs              # Testes de verificacao (JSON, estrutura HTML, arquivos)
+vercel.json             # Regras de redirect (nomes antigos -> slugs novos)
 ```
 
-## How to run locally
+## Funcionalidades
+
+- **Sidebar com 3 accordions**: Clientes, Projetos e Tags
+- **Filtros combinados**: por cliente, projeto e/ou tags
+- **Visualizacao lista/grid**: toggle persistido em localStorage
+- **Paleta de comandos**: Cmd+K para busca rapida
+- **Tema claro/escuro**: toggle com persistencia
+- **Paginacao**: no conteudo principal
+- **Responsivo**: sidebar mobile com overlay
+
+## Como rodar localmente
 
 ```bash
 npx serve .
-# or
+# ou
 python3 -m http.server 8000
 ```
 
-Open http://localhost:8000
+Abrir http://localhost:8000
 
-## How to add a report
+## Como adicionar um relatorio
 
-1. Create `data/your-report.html` following the gold standard (`data/plano-automacao.html`)
-2. Add entry to `data/reports.json`
-3. Run `node scripts/validate.mjs` to check
-4. If the report's `client` or `project` don't exist in `data/clients.json`, add them
+1. Criar `data/seu-relatorio.html` seguindo o padrao (`data/plano-automacao.html`)
+2. Adicionar entrada em `data/reports.json`
+3. Rodar `node scripts/test.mjs` para validar
+4. Se o `client` ou `project` nao existir em `data/clients.json`, adicionar
 
-## reports.json schema
+## Schema do reports.json
 
 ```json
 {
-  "title": "Report Title",
-  "slug": "report-slug",
-  "file": "report-slug.html",
+  "title": "Titulo do Relatorio",
+  "slug": "slug-do-relatorio",
+  "file": "slug-do-relatorio.html",
   "date": "2026-03-22",
-  "meta": "22 Mar 2026 · Short description",
+  "meta": "22 Mar 2026 · Descricao curta",
   "client": "impact-x",
   "project": "automacao",
   "tags": ["tech", "operacoes"],
   "icon": "file-earmark-text",
   "type": "html",
   "num": "01",
-  "description": "Optional longer description",
+  "description": "Descricao opcional mais longa",
   "status": "published",
   "pinned": false
 }
 ```
 
-Required: `title`, `slug`, `file`, `date`, `client`, `tags`, `type`.
-Optional: `meta`, `project`, `icon`, `num`, `description`, `status`, `pinned`, `quarter`.
-
-## Report HTML template
-
-```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Impact X — Report Title</title>
-<link href="../assets/css/report.css" rel="stylesheet">
-<style>
-/* Report-specific overrides only */
-</style>
-</head>
-<body class="ix-report">
-
-<header class="topbar">
-  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
-  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
-  <span class="topbar-title">Report Title</span>
-</header>
-
-<nav class="tab-nav" role="tablist">
-  <button type="button" class="tab-btn active" data-tab="overview">Overview</button>
-</nav>
-
-<div class="tab-panel active" data-tab="overview" role="tabpanel">
-  <div class="report-header">
-    <div class="hdr-brand">IMPACT <span class="x">X</span></div>
-    <div class="hdr-title">Report Title</div>
-    <div class="hdr-sub">Subtitle</div>
-    <div class="hdr-meta"><span>Date</span><span>Author</span></div>
-  </div>
-  <div class="content">
-    <!-- content here -->
-  </div>
-</div>
-
-<footer>
-  <div class="brand">IMPACT <span class="x">X</span></div>
-  Feito por Impact X — Rafael Camillo
-</footer>
-
-<script src="../assets/js/report.js"></script>
-</body>
-</html>
-```
+- **Obrigatorios**: `title`, `slug`, `file`, `date`, `client`, `tags`, `type`
+- **Opcionais**: `meta`, `project`, `icon`, `num`, `description`, `status`, `pinned`, `quarter`
 
 ## Deploy
 
-Push to `master` branch. Vercel auto-deploys.
+Push para a branch `master`. A Vercel faz deploy automatico.
 
-## Tests
+## Testes
 
 ```bash
-node scripts/validate.mjs    # Validates JSON schemas and file existence
-node scripts/test.mjs         # Runs all verification tests
+node scripts/test.mjs
 ```
+
+Valida schemas JSON, existencia de arquivos, estrutura HTML dos relatorios, arquivos do hub e redirects da Vercel.

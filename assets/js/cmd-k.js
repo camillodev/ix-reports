@@ -114,8 +114,7 @@
 
     // Actions (only if query matches)
     var actions = [
-      { title: 'Alternar tema (dark/light)', action: 'toggle-theme', icon: 'moon-fill' },
-      { title: 'Novo relatorio', action: 'new-report', icon: 'plus-lg' }
+      { title: 'Alternar tema (dark/light)', action: 'toggle-theme', icon: 'moon-fill' }
     ];
 
     var scoredActions = actions.map(function (a) {
@@ -242,8 +241,6 @@
     } else if (item.type === 'action') {
       if (item.data.action === 'toggle-theme' && window.IXHub) {
         window.IXHub.toggleTheme();
-      } else if (item.data.action === 'new-report') {
-        document.getElementById('new-report-btn').click();
       }
     }
   }

@@ -165,11 +165,8 @@ const hubFiles = [
   "assets/css/tokens.css",
   "assets/css/hub.css",
   "assets/css/cmd-k.css",
-  "assets/css/timeline.css",
   "assets/js/hub.js",
   "assets/js/cmd-k.js",
-  "assets/js/timeline.js",
-  "assets/js/charts.js",
   "vercel.json",
   "LLM.md",
 ];
@@ -189,17 +186,16 @@ if (indexHtml) {
   assert(indexHtml.includes("tokens.css"), "index.html imports tokens.css");
   assert(indexHtml.includes("hub.css"), "index.html imports hub.css");
   assert(indexHtml.includes("cmd-k.css"), "index.html imports cmd-k.css");
-  assert(indexHtml.includes("timeline.css"), "index.html imports timeline.css");
   assert(indexHtml.includes("hub.js"), "index.html imports hub.js");
   assert(indexHtml.includes("cmd-k.js"), "index.html imports cmd-k.js");
-  assert(indexHtml.includes("timeline.js"), "index.html imports timeline.js");
-  assert(indexHtml.includes("charts.js"), "index.html imports charts.js");
   assert(indexHtml.includes("sidebar"), "index.html has sidebar");
   assert(indexHtml.includes("Cmd") || indexHtml.includes("cmd-k"), "index.html has Cmd+K trigger");
   assert(indexHtml.includes("theme-toggle") || indexHtml.includes("theme_toggle"), "index.html has theme toggle");
   assert(indexHtml.includes("data-theme") || indexHtml.includes("dark"), "index.html supports dark mode");
-  assert(indexHtml.includes("timeline"), "index.html has timeline view area");
-  assert(indexHtml.includes("charts") || indexHtml.includes("dashboard"), "index.html has dashboard/charts area");
+  assert(indexHtml.includes("accordion"), "index.html has accordion sections");
+  assert(indexHtml.includes("acc-clientes") && indexHtml.includes("acc-projetos") && indexHtml.includes("acc-tags"), "index.html has 3 accordion sections (clientes/projetos/tags)");
+  assert(indexHtml.includes("RELATORIO"), "index.html brand is RELATORIO X");
+  assert(indexHtml.includes("view-toggle"), "index.html has view toggle (list/grid)");
 }
 
 // ═══════════════════════════════════════════
