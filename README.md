@@ -7,18 +7,18 @@ Hub de relatorios da Impact X — reports.rafaelcamillo.com
 - HTML/CSS/JS puro (sem framework)
 - Site estatico com deploy na Vercel
 
-## Estrutura do Projeto
+## Estrutura do projeto
 
 ```
-index.html              # Hub — sidebar com accordions + conteudo principal
+index.html              # Hub — sidebar flat + conteudo principal
 assets/
   css/
-    tokens.css          # Design tokens (cores, espacamento, z-index)
+    tokens.css          # Design tokens (cores, shadows, z-index)
     hub.css             # Estilos do hub
     report.css          # Chrome compartilhado dos relatorios (topbar, tabs, tipografia)
     cmd-k.css           # Estilos da paleta de comandos
   js/
-    hub.js              # Logica do hub (sidebar, filtros, accordions, router)
+    hub.js              # Logica do hub (sidebar, filtros, router, view toggle)
     cmd-k.js            # Paleta de comandos Cmd+K
     report.js           # JS compartilhado dos relatorios (tabs, botao voltar)
 data/
@@ -33,13 +33,15 @@ vercel.json             # Regras de redirect (nomes antigos -> slugs novos)
 
 ## Funcionalidades
 
-- **Sidebar com 3 accordions**: Clientes, Projetos e Tags
-- **Filtros combinados**: por cliente, projeto e/ou tags
+- **Sidebar flat**: clientes com icone e contagem, categorias por tag
+- **Filtros combinados**: por cliente e/ou tags com contagem dinamica
 - **Visualizacao lista/grid**: toggle persistido em localStorage
 - **Paleta de comandos**: Cmd+K para busca rapida
-- **Tema claro/escuro**: toggle com persistencia
+- **Tema claro/escuro**: light clean + dark Rocketseat (#121214, accent #04d361)
+- **Cards com shadow**: estilo Google Material, elevacao sutil no hover
 - **Paginacao**: no conteudo principal
 - **Responsivo**: sidebar mobile com overlay
+- **Sentence case**: tipografia limpa, sem caps lock
 
 ## Como rodar localmente
 
@@ -62,7 +64,7 @@ Abrir http://localhost:8000
 
 ```json
 {
-  "title": "Titulo do Relatorio",
+  "title": "Titulo do relatorio",
   "slug": "slug-do-relatorio",
   "file": "slug-do-relatorio.html",
   "date": "2026-03-22",
