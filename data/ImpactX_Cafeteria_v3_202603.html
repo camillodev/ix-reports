@@ -30,199 +30,593 @@
 <body class="ix-report cafe-report">
 
 <header class="topbar">
-  <h1>Impact X — Cafeteria</h1>
-  <p class="subtitle">Plano de Negócio v3</p>
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Cafeteria — Plano de Negócio v3</span>
 </header>
 
-<main>
-  <section class="intro">
-    <h2>Resumo Executivo</h2>
-    <p>Este documento apresenta o terceiro ciclo de desenvolvimento do projeto de cafeteria da Impact X, contemplando agora as operações em 3 cidades: <span class="city-label city-cabo">Cabo Frio</span>, <span class="city-label city-itacare">Itacaré</span> e <span class="city-label city-bh">Belo Horizonte</span>.</p>
-    
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="financeiro">💰 Financeiro</button>
+  <button type="button" class="tab-btn" data-tab="cidades">🏙️ Cidades</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">🗺️ Roadmap</button>
+  <button type="button" class="tab-btn" data-tab="kpis">📊 KPIs & OKRs</button>
+  <button type="button" class="tab-btn" data-tab="business">🔄 Business Model</button>
+</nav>
+
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 1: FINANCEIRO                  -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel active" data-tab="financeiro" role="tabpanel" aria-hidden="false">
+  <div class="report-header" data-ix-watermark="X">
+    <p class="hdr-brand">IMPACT <span class="x">X</span> — PLANO DE NEGÓCIO</p>
+    <h1 class="hdr-title">☕ Cafeteria <em>MVP</em> — Análise Financeira</h1>
+    <p class="hdr-sub">CAPEX · OPEX · ROI · Níveis de Investimento — 3 cidades</p>
+    <div class="hdr-meta">
+      <span>📅 Março 2026</span>
+      <span>👤 Rafael Camillo</span>
+      <span>💰 Capital: R$120k</span>
+      <span>📍 Cabo Frio · Itacaré · BH</span>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="callout info">
+      <strong>Premissa Central:</strong> Abrir cafeteria pelo menor custo possível (MVP). Escalar com coworking e lavanderia conforme caixa gerado.
+    </div>
+
+    <h1>Nível 1 — MVP Cafeteria Mínima</h1>
+    <p>☕ Só café. O mais barato possível. Validar ponto e produto.</p>
+
+    <table>
+      <thead><tr><th>Item</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>Reforma mínima (40-60m²)</td><td>R$ 15.000</td><td>R$ 12.000</td><td>R$ 18.000</td></tr>
+        <tr><td>Equipamentos café (espresso usada + moedor)</td><td>R$ 8.000</td><td>R$ 8.000</td><td>R$ 10.000</td></tr>
+        <tr><td>Mobiliário básico (6-8 mesas, balcão)</td><td>R$ 6.000</td><td>R$ 5.000</td><td>R$ 7.000</td></tr>
+        <tr><td>Fachada + identidade visual</td><td>R$ 3.000</td><td>R$ 2.500</td><td>R$ 3.500</td></tr>
+        <tr><td>Caução aluguel (3 meses)</td><td>R$ 9.000</td><td>R$ 6.000</td><td>R$ 15.000</td></tr>
+        <tr><td>Capital de giro (3 meses OPEX)</td><td>R$ 24.000</td><td>R$ 18.000</td><td>R$ 30.000</td></tr>
+        <tr><td>Legalização (CNPJ, alvarás, contador)</td><td>R$ 2.500</td><td>R$ 2.500</td><td>R$ 3.000</td></tr>
+        <tr><td>Marketing de lançamento</td><td>R$ 2.000</td><td>R$ 2.000</td><td>R$ 3.000</td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX Nível 1</strong></td><td><strong>R$ 69.500</strong></td><td><strong>R$ 56.000</strong></td><td><strong>R$ 89.500</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>✅ Cabe nos R$120k em qualquer cidade.</strong> Sobra caixa de segurança: Itacaré R$64k, Cabo Frio R$50k, BH R$30k.
+    </div>
+
+    <h1>Nível 2 — Café + Coworking</h1>
+    <p>☕💻 Adiciona estações de trabalho. Gera receita recorrente (mensalistas).</p>
+
+    <table>
+      <thead><tr><th>Item</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>Tudo do Nível 1</td><td>R$ 69.500</td><td>R$ 56.000</td><td>R$ 89.500</td></tr>
+        <tr><td>Equip. coworking (15-20 estações + sala reunião)</td><td>R$ 16.000</td><td>R$ 12.000</td><td>R$ 18.000</td></tr>
+        <tr><td>Internet fibra redundante + rede</td><td>R$ 3.000</td><td>R$ 3.000</td><td>R$ 2.500</td></tr>
+        <tr><td>Ar-condicionado (splits)</td><td>R$ 6.000</td><td>R$ 3.000</td><td>R$ 6.000</td></tr>
+        <tr><td>Mobiliário extra (mesas, cadeiras ergonômicas)</td><td>R$ 8.000</td><td>R$ 6.000</td><td>R$ 10.000</td></tr>
+        <tr><td>Capital de giro adicional</td><td>R$ 12.000</td><td>R$ 10.000</td><td>R$ 15.000</td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX Nível 2</strong></td><td><strong>R$ 114.500</strong></td><td><strong>R$ 90.000</strong></td><td><strong>R$ 141.000</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning">
+      <strong>⚠️ Cabo Frio e Itacaré cabem nos R$120k.</strong> BH precisa de ~R$141k — possível com pequeno financiamento.
+    </div>
+
+    <h1>Nível 3 — Café + Coworking + Lavanderia</h1>
+    <p>☕💻🧺 Modelo completo. Lavanderia é mina de ouro em cidade litorânea.</p>
+
+    <table>
+      <thead><tr><th>Item</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>Tudo do Nível 2</td><td>R$ 114.500</td><td>R$ 90.000</td><td>R$ 141.000</td></tr>
+        <tr><td>Equip. lavanderia (4 lavad + 4 secad + totem)</td><td>R$ 75.000</td><td>R$ 65.000</td><td>R$ 75.000</td></tr>
+        <tr><td>Reforma hidráulica/elétrica adicional</td><td>R$ 15.000</td><td>R$ 12.000</td><td>R$ 15.000</td></tr>
+        <tr><td>Capital de giro adicional</td><td>R$ 30.000</td><td>R$ 24.000</td><td>R$ 30.000</td></tr>
+        <tr><td>Espaço maior (reforma 120m²)</td><td>R$ 13.000</td><td>R$ 10.000</td><td>R$ 15.000</td></tr>
+        <tr class="total"><td><strong>TOTAL CAPEX Nível 3</strong></td><td><strong>R$ 247.500</strong></td><td><strong>R$ 201.000</strong></td><td><strong>R$ 276.000</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout danger">
+      <strong>🚫 Nenhuma cidade cabe nos R$120k.</strong> Requer Fase 2 com caixa gerado + financiamento BNDES Microempreendedor (~1,9%/mês).
+    </div>
+
+    <h1>OPEX Mensal — Por Nível</h1>
+
+    <h2>Nível 1 — Só Cafeteria</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>Aluguel</td><td>R$ 3.000</td><td>R$ 2.200</td><td>R$ 5.000</td></tr>
+        <tr><td>Energia</td><td>R$ 800</td><td>R$ 600</td><td>R$ 900</td></tr>
+        <tr><td>Água</td><td>R$ 300</td><td>R$ 250</td><td>R$ 350</td></tr>
+        <tr><td>Pessoal (1-2 func.)</td><td>R$ 3.500</td><td>R$ 3.000</td><td>R$ 4.000</td></tr>
+        <tr><td>Insumos café (CMV ~32%)</td><td>R$ 3.000</td><td>R$ 2.200</td><td>R$ 3.800</td></tr>
+        <tr><td>Contador + impostos (~6.5%)</td><td>R$ 1.200</td><td>R$ 900</td><td>R$ 1.500</td></tr>
+        <tr><td>Marketing</td><td>R$ 500</td><td>R$ 400</td><td>R$ 600</td></tr>
+        <tr><td>Seguros + manutenção</td><td>R$ 400</td><td>R$ 350</td><td>R$ 500</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX Nível 1</strong></td><td><strong>R$ 12.700</strong></td><td><strong>R$ 9.900</strong></td><td><strong>R$ 16.650</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Nível 2 — Café + Coworking</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>OPEX Nível 1</td><td>R$ 12.700</td><td>R$ 9.900</td><td>R$ 16.650</td></tr>
+        <tr><td>Internet (2 links fibra)</td><td>R$ 700</td><td>R$ 700</td><td>R$ 500</td></tr>
+        <tr><td>Energia adicional</td><td>R$ 600</td><td>R$ 500</td><td>R$ 700</td></tr>
+        <tr><td>Pessoal adicional</td><td>R$ 2.000</td><td>R$ 1.500</td><td>R$ 2.500</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX Nível 2</strong></td><td><strong>R$ 16.000</strong></td><td><strong>R$ 12.600</strong></td><td><strong>R$ 20.350</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Nível 3 — Completo</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>OPEX Nível 2</td><td>R$ 16.000</td><td>R$ 12.600</td><td>R$ 20.350</td></tr>
+        <tr><td>Água extra (lavanderia)</td><td>R$ 900</td><td>R$ 600</td><td>R$ 900</td></tr>
+        <tr><td>Energia extra</td><td>R$ 1.800</td><td>R$ 1.200</td><td>R$ 1.800</td></tr>
+        <tr><td>Insumos lavanderia (CMV ~12%)</td><td>R$ 1.500</td><td>R$ 1.100</td><td>R$ 1.500</td></tr>
+        <tr><td>Pessoal extra</td><td>R$ 2.000</td><td>R$ 1.500</td><td>R$ 2.000</td></tr>
+        <tr><td>Aluguel maior (120m²)</td><td>R$ 1.000</td><td>R$ 800</td><td>R$ 1.500</td></tr>
+        <tr class="total"><td><strong>TOTAL OPEX Nível 3</strong></td><td><strong>R$ 23.200</strong></td><td><strong>R$ 17.800</strong></td><td><strong>R$ 28.050</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h1>Receita Projetada — Nível 1 (MVP)</h1>
+    <table>
+      <thead><tr><th>Métrica</th><th>Cabo Frio</th><th>Itacaré</th><th>BH</th></tr></thead>
+      <tbody>
+        <tr><td>Ticket médio</td><td>R$ 28</td><td>R$ 25</td><td>R$ 24</td></tr>
+        <tr><td>Clientes/dia (baixa)</td><td>25</td><td>22</td><td>35</td></tr>
+        <tr><td>Clientes/dia (média)</td><td>40</td><td>40</td><td>40</td></tr>
+        <tr><td>Clientes/dia (alta)</td><td>65</td><td>75</td><td>45</td></tr>
+        <tr><td><strong>Receita/mês baixa</strong></td><td>R$ 21.000</td><td>R$ 16.500</td><td>R$ 25.200</td></tr>
+        <tr><td><strong>Receita/mês média</strong></td><td>R$ 33.600</td><td>R$ 30.000</td><td>R$ 28.800</td></tr>
+        <tr><td><strong>Receita/mês alta</strong></td><td>R$ 54.600</td><td>R$ 56.250</td><td>R$ 32.400</td></tr>
+        <tr class="total"><td><strong>Receita média anual/mês</strong></td><td><strong>R$ 36.400</strong></td><td><strong>R$ 34.250</strong></td><td><strong>R$ 28.800</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>💡 BH não tem sazonalidade turística</strong> — receita mais estável porém sem picos de alta temporada. Cabo Frio e Itacaré têm picos dez-mar mas queda mai-ago.
+    </div>
+
+    <h1>Lucro Líquido — MVP</h1>
+
     <div class="metrics-grid">
       <div class="metric-card">
-        <h4>Cidades Operacionais</h4>
-        <p class="big-number">3</p>
+        <div class="metric-value" style="color: var(--ix-green)">R$ 23.700</div>
+        <div class="metric-label">Lucro/mês Cabo Frio</div>
+        <div class="metric-sub">Margem ~65% · Payback ~5m</div>
       </div>
       <div class="metric-card">
-        <h4>Pontos de Venda</h4>
-        <p class="big-number">12</p>
+        <div class="metric-value" style="color: var(--ix-green)">R$ 24.350</div>
+        <div class="metric-label">Lucro/mês Itacaré</div>
+        <div class="metric-sub">Margem ~71% · Payback ~4m</div>
       </div>
       <div class="metric-card">
-        <h4>Receita Mensal Projetada</h4>
-        <p class="big-number">R$ 45.8k</p>
-      </div>
-      <div class="metric-card">
-        <h4>Margem Bruta</h4>
-        <p class="big-number">62%</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="city-performance">
-    <h2>Desempenho por Cidade</h2>
-    
-    <div class="city-section city-cabo">
-      <h3><span class="rank-badge rank-1">1</span>Cabo Frio</h3>
-      <div class="city-details">
-        <p>Primeira cidade a alcançar lucratividade, com modelo de negócio bem estabelecido em pousadas e resorts.</p>
-        
-        <div class="income-box">
-          <h3>Projeção Mensal</h3>
-          <div class="income-row">
-            <span>Receita de Vendas</span>
-            <span>R$ 18.500</span>
-          </div>
-          <div class="income-row">
-            <span>Custos Operacionais</span>
-            <span>R$ 7.200</span>
-          </div>
-          <div class="income-row">
-            <span>Custos de Fornecimentos</span>
-            <span>R$ 4.100</span>
-          </div>
-          <div class="income-row">
-            <span>Lucro Bruto</span>
-            <span>R$ 11.400</span>
-          </div>
-        </div>
-        
-        <div class="badges">
-          <span class="badge badge-green">Lucrativo</span>
-          <span class="badge badge-green">Crescimento 18% ao mês</span>
-          <span class="badge badge-blue">5 pontos ativos</span>
-        </div>
+        <div class="metric-value">R$ 12.150</div>
+        <div class="metric-label">Lucro/mês BH</div>
+        <div class="metric-sub">Margem ~42% · Payback ~10m</div>
       </div>
     </div>
 
-    <div class="city-section city-itacare">
-      <h3><span class="rank-badge rank-2">2</span>Itacaré</h3>
-      <div class="city-details">
-        <p>Expansão bem-sucedida em região turística, com foco em bares e restaurantes. Caminhando para rentabilidade.</p>
-        
-        <div class="income-box">
-          <h3>Projeção Mensal</h3>
-          <div class="income-row">
-            <span>Receita de Vendas</span>
-            <span>R$ 15.200</span>
-          </div>
-          <div class="income-row">
-            <span>Custos Operacionais</span>
-            <span>R$ 6.800</span>
-          </div>
-          <div class="income-row">
-            <span>Custos de Fornecimentos</span>
-            <span>R$ 3.400</span>
-          </div>
-          <div class="income-row">
-            <span>Lucro Bruto</span>
-            <span>R$ 5.000</span>
-          </div>
-        </div>
-        
-        <div class="badges">
-          <span class="badge badge-yellow">Crescimento</span>
-          <span class="badge badge-green">Crescimento 22% ao mês</span>
-          <span class="badge badge-blue">4 pontos ativos</span>
-        </div>
+    <div class="callout warning">
+      <strong>⚠️ Paybacks otimistas.</strong> Na prática, considerar 60-70% da receita nos primeiros 3 meses (ramp-up). Payback realista: Cabo Frio ~5m, Itacaré ~4m, BH ~10m.
+    </div>
+
+    <h1>Estratégia de Faseamento com R$120k</h1>
+    <table>
+      <thead><tr><th>Fase</th><th>Timing</th><th>Investimento</th><th>O que abre</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fase 1 — MVP</strong></td><td>Mês 0</td><td>R$ 56-90k</td><td>Cafeteria mínima</td></tr>
+        <tr><td><strong>Fase 2 — Coworking</strong></td><td>Mês 4-6</td><td>R$ 25-50k (caixa)</td><td>Estações + internet</td></tr>
+        <tr><td><strong>Fase 3 — Lavanderia</strong></td><td>Mês 10-14</td><td>R$ 80-100k (BNDES)</td><td>Lavanderia self-service</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>🎯 Lançar Fase 1 em setembro 2026</strong> para pegar alta temporada (dez-mar) com 3 meses de ramp-up.
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 2: CIDADES                     -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="cidades" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Comparativo — Cabo Frio vs Itacaré vs BH</h1>
+
+    <table>
+      <thead><tr><th>Dimensão</th><th>📍 Cabo Frio (RJ)</th><th>📍 Itacaré (BA)</th><th>📍 BH (MG)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>População</strong></td><td>~230k</td><td>~30k</td><td>~2.7M</td></tr>
+        <tr><td><strong>Perfil</strong></td><td>Turismo + residentes</td><td>Surf + nômades digitais</td><td>Capital — urbano</td></tr>
+        <tr><td><strong>Sazonalidade</strong></td><td>Moderada (dez-mar)</td><td>Alta (nov-mar)</td><td class="winner">Nenhuma — estável</td></tr>
+        <tr><td><strong>Aluguel comercial</strong></td><td>R$ 3-4k/mês</td><td class="winner">R$ 2-3.5k/mês</td><td class="loser">R$ 5-8k/mês</td></tr>
+        <tr><td><strong>CAPEX MVP</strong></td><td>R$ 69.500</td><td class="winner">R$ 56.000</td><td class="loser">R$ 89.500</td></tr>
+        <tr><td><strong>OPEX MVP</strong></td><td>R$ 12.700/mês</td><td class="winner">R$ 9.900/mês</td><td class="loser">R$ 16.650/mês</td></tr>
+        <tr><td><strong>Receita média/mês</strong></td><td class="winner">R$ 36.400</td><td>R$ 34.250</td><td>R$ 28.800</td></tr>
+        <tr><td><strong>Lucro médio/mês</strong></td><td>R$ 23.700</td><td class="winner">R$ 24.350</td><td class="loser">R$ 12.150</td></tr>
+        <tr><td><strong>Margem</strong></td><td>~65%</td><td class="winner">~71%</td><td class="loser">~42%</td></tr>
+        <tr><td><strong>Payback realista</strong></td><td>~5 meses</td><td class="winner">~4 meses</td><td class="loser">~10 meses</td></tr>
+        <tr><td><strong>Infraestrutura</strong></td><td class="winner">Ótima</td><td>Mediana</td><td class="winner">Excelente</td></tr>
+        <tr><td><strong>Concorrência café</strong></td><td>Média</td><td class="winner">Baixa</td><td class="loser">Alta</td></tr>
+        <tr><td><strong>Público nômade</strong></td><td>Crescente</td><td class="winner">Alto</td><td>Médio</td></tr>
+        <tr><td><strong>Lifestyle</strong></td><td>Bom</td><td class="winner">Excepcional</td><td>Urbano</td></tr>
+        <tr><td><strong>Viável com R$120k</strong></td><td class="winner">✅ Sim (sobra R$50k)</td><td class="winner">✅ Sim (sobra R$64k)</td><td class="winner">✅ Sim (sobra R$30k)</td></tr>
+      </tbody>
+    </table>
+
+    <h1>📍 Cabo Frio — RJ</h1>
+    <p><strong>Maior cidade da Costa do Sol. Fluxo constante. Melhor custo-benefício.</strong></p>
+
+    <div class="callout success">
+      <strong>Vantagens:</strong> Melhor equilíbrio receita vs custo · Sazonalidade moderada · Público nômade crescente · Infraestrutura boa · Aluguel razoável (~R$3-4k)
+    </div>
+    <div class="callout warning">
+      <strong>Riscos:</strong> Baixa temporada (mai-ago) reduz ~40% · Concorrência média · Dependência turismo sazonal
+    </div>
+    <p><span class="badge badge-green">🏆 Melhor para: Segurança financeira + ROI sólido</span></p>
+
+    <h1>📍 Itacaré — BA</h1>
+    <p><strong>Surf. Natureza. Nômades internacionais. Custo baixo. Lifestyle primeiro.</strong></p>
+
+    <div class="callout success">
+      <strong>Vantagens:</strong> Menor CAPEX/OPEX · Melhor margem (~71%) · Payback mais rápido · ÚNICO café+coworking estruturado · Comunidade nômade consolidada · Aluguel R$2-3.5k
+    </div>
+    <div class="callout warning">
+      <strong>Riscos:</strong> Infraestrutura limitada (internet) · Cidade pequena (~30k) · Logística difícil (frete) · Baixa temporada abr-jun
+    </div>
+    <p><span class="badge badge-green">🌴 Melhor para: Lifestyle + propósito + menor risco financeiro</span></p>
+
+    <h1>📍 Belo Horizonte — MG</h1>
+    <p><strong>Capital mineira. Mercado grande. Receita estável. Concorrência alta.</strong></p>
+
+    <div class="callout info">
+      <strong>Vantagens:</strong> Zero sazonalidade · Mercado enorme (2.7M hab) · Infraestrutura excelente · Cultura de café forte em MG · Potencial de escala
+    </div>
+    <div class="callout danger">
+      <strong>Riscos:</strong> Aluguel alto (Savassi R$5-8k) · Concorrência fortíssima · Menor margem (~42%) · Payback longo (~10m) · Lavanderia faz menos sentido
+    </div>
+    <p><span class="badge badge-yellow">🏙️ Melhor para: Estabilidade + escala (se tiver diferencial forte)</span></p>
+
+    <h1>Ranking por Objetivo</h1>
+    <table>
+      <thead><tr><th>Objetivo</th><th>🥇 1º</th><th>🥈 2º</th><th>🥉 3º</th></tr></thead>
+      <tbody>
+        <tr><td>💰 Maior ROI</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>BH</td></tr>
+        <tr><td>🏄 Lifestyle</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>BH</td></tr>
+        <tr><td>💸 Menor investimento</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>BH</td></tr>
+        <tr><td>⚡ Menor risco baixa temp.</td><td><span class="rank-badge rank-1">1</span>BH</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>Itacaré</td></tr>
+        <tr><td>🌍 Público nômade</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>BH</td></tr>
+        <tr><td>📅 Payback rápido</td><td><span class="rank-badge rank-1">1</span>Itacaré</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>BH</td></tr>
+        <tr><td>📈 Potencial de escala</td><td><span class="rank-badge rank-1">1</span>BH</td><td><span class="rank-badge rank-2">2</span>Cabo Frio</td><td><span class="rank-badge rank-3">3</span>Itacaré</td></tr>
+        <tr><td>🧺 Lavanderia faz sentido</td><td><span class="rank-badge rank-1">1</span>Cabo Frio</td><td><span class="rank-badge rank-2">2</span>Itacaré</td><td><span class="rank-badge rank-3">3</span>BH</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>🏆 Recomendação:</strong> Segurança → <strong>Cabo Frio</strong>. Lifestyle + missão → <strong>Itacaré</strong>. BH só como 2ª unidade após validar modelo. Em qualquer caso: <strong>MVP cafeteria. Lançar em setembro.</strong>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 3: ROADMAP                     -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Roadmap — MVP → Modelo Completo</h1>
+
+    <div class="phase">
+      <div class="phase-label">Fase 0 — Preparação (Mês -2 a 0)</div>
+      <div class="phase-content">
+        <ul>
+          <li>Definir cidade final</li>
+          <li>Visitar pontos comerciais (3-5 opções)</li>
+          <li>Negociar aluguel (caução + carência)</li>
+          <li>Abrir CNPJ (MEI ou Simples Nacional)</li>
+          <li>Alvarás: vigilância sanitária, bombeiros, prefeitura</li>
+          <li>Contratar contador</li>
+          <li>Definir identidade visual e marca</li>
+          <li>Comprar equipamentos (priorizar usados para MVP)</li>
+        </ul>
+        <p><strong>Investimento:</strong> ~R$15-20k (legalização + caução + primeiras compras)</p>
       </div>
     </div>
 
-    <div class="city-section city-bh">
-      <h3><span class="rank-badge rank-3">3</span>Belo Horizonte</h3>
-      <div class="city-details">
-        <p>Lançamento recente em maior mercado. Fase de consolidação com potencial de escala significativo.</p>
-        
-        <div class="income-box">
-          <h3>Projeção Mensal</h3>
-          <div class="income-row">
-            <span>Receita de Vendas</span>
-            <span>R$ 12.100</span>
-          </div>
-          <div class="income-row">
-            <span>Custos Operacionais</span>
-            <span>R$ 5.200</span>
-          </div>
-          <div class="income-row">
-            <span>Custos de Fornecimentos</span>
-            <span>R$ 2.700</span>
-          </div>
-          <div class="income-row">
-            <span>Lucro Bruto</span>
-            <span>R$ 4.200</span>
-          </div>
-        </div>
-        
-        <div class="badges">
-          <span class="badge badge-yellow">Desenvolvendo</span>
-          <span class="badge badge-green">Crescimento 28% ao mês</span>
-          <span class="badge badge-blue">3 pontos ativos</span>
-        </div>
+    <div class="phase">
+      <div class="phase-label">Fase 1 — MVP Cafeteria (Mês 0 a 3)</div>
+      <div class="phase-content">
+        <ul>
+          <li>Reforma mínima do ponto</li>
+          <li>Instalar equipamentos de café</li>
+          <li>Montar cardápio enxuto (8-12 itens)</li>
+          <li>Contratar 1-2 baristas</li>
+          <li>Lançamento soft (amigos + comunidade local)</li>
+          <li>Instagram + Google Meu Negócio</li>
+          <li>Validar ticket médio e fluxo de clientes</li>
+          <li>Coletar feedback diário</li>
+        </ul>
+        <p><strong>Meta:</strong> 20-30 clientes/dia até mês 3. Break-even operacional.</p>
+        <p><strong>Investimento acumulado:</strong> ~R$56-90k</p>
       </div>
     </div>
-  </section>
 
-  <section class="consolidated-metrics">
-    <h2>Consolidado - Todas as Cidades</h2>
-    
-    <div class="metric-box">
-      <h3>Receita Total Mensal</h3>
-      <p class="metric-value">R$ 45.800</p>
-      <p class="metric-label">Projeção combinada de vendas</p>
-    </div>
-
-    <div class="metric-box">
-      <h3>Margem Bruta Média</h3>
-      <p class="metric-value">62%</p>
-      <p class="metric-label">Margem operacional média das 3 cidades</p>
-    </div>
-
-    <div class="metric-box">
-      <h3>Lucro Bruto Total</h3>
-      <p class="metric-value">R$ 20.600</p>
-      <p class="metric-label">Lucro combinado (antes de despesas corporativas)</p>
-    </div>
-  </section>
-
-  <section class="product-mix">
-    <h2>Mix de Produtos</h2>
-    <p>A categorização de produtos permanece consistente entre as cidades:</p>
-    
-    <div class="product-categories">
-      <div class="category">
-        <h4>Bebidas</h4>
-        <p>40% da receita</p>
-        <p class="description">Café especializado, chás, bebidas frias, sucos naturais</p>
-      </div>
-      <div class="category">
-        <h4>Lanches & Paes</h4>
-        <p>35% da receita</p>
-        <p class="description">Pães artesanais, bolos, cookies, sanduíches leves</p>
-      </div>
-      <div class="category">
-        <h4>Refeições</h4>
-        <p>20% da receita</p>
-        <p class="description">Pratos principais (limitado), saladas, opções vegetarianas</p>
-      </div>
-      <div class="category">
-        <h4>Merch & Outros</h4>
-        <p>5% da receita</p>
-        <p class="description">Mercadoria branded, itens de viagem, acessórios</p>
+    <div class="phase">
+      <div class="phase-label">Fase 2 — Coworking (Mês 4 a 6)</div>
+      <div class="phase-content">
+        <ul>
+          <li>Instalar estações de trabalho (15-20 posições)</li>
+          <li>Internet fibra redundante</li>
+          <li>Planos: diária, semanal, mensal</li>
+          <li>Sala de reunião (se espaço permitir)</li>
+          <li>Parcerias com hostels e pousadas</li>
+          <li>Divulgação em comunidades de nômades (Nomad List, grupos)</li>
+        </ul>
+        <p><strong>Meta:</strong> 6 mensalistas + 5 diárias/dia</p>
+        <p><strong>Investimento adicional:</strong> ~R$25-50k (caixa gerado)</p>
       </div>
     </div>
-  </section>
 
-  <section class="next-steps">
-    <h2>Próximos Passos — v4</h2>
+    <div class="phase">
+      <div class="phase-label">Fase 3 — Lavanderia Self-Service (Mês 10 a 14)</div>
+      <div class="phase-content">
+        <ul>
+          <li>Financiamento BNDES Microempreendedor (~1.9%/mês)</li>
+          <li>3-4 lavadoras + 3-4 secadoras industriais</li>
+          <li>Totem de pagamento automático</li>
+          <li>Operar 24h com totem (receita passiva)</li>
+          <li>Marketing: "Lave sua roupa enquanto toma café e trabalha"</li>
+        </ul>
+        <p><strong>Investimento adicional:</strong> ~R$80-100k (caixa + BNDES)</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">Fase 4 — Otimização e Escala (Mês 15+)</div>
+      <div class="phase-content">
+        <ul>
+          <li>Automatizar operações (PDV, estoque, agendamento)</li>
+          <li>Contratar gerente operacional</li>
+          <li>Programa de fidelidade</li>
+          <li>Avaliar 2ª unidade ou franquia</li>
+          <li>Revenue streams adicionais: eventos, workshops, produtos</li>
+        </ul>
+      </div>
+    </div>
+
+    <h1>Timeline Visual</h1>
+    <table>
+      <thead><tr><th>Mês</th><th>Marco</th></tr></thead>
+      <tbody>
+        <tr><td>Mês -2</td><td>Preparação legal e busca de ponto</td></tr>
+        <tr><td>Mês 0</td><td>🚀 Abertura da cafeteria MVP</td></tr>
+        <tr><td>Mês 3</td><td>Break-even operacional</td></tr>
+        <tr><td>Mês 4-6</td><td>➕ Coworking adicionado</td></tr>
+        <tr><td>Mês 8</td><td>Caixa suficiente para Fase 3</td></tr>
+        <tr><td>Mês 10-14</td><td>➕ Lavanderia instalada</td></tr>
+        <tr><td>Mês 15</td><td>Modelo completo operando</td></tr>
+        <tr><td>Mês 18</td><td>Payback total do investimento</td></tr>
+        <tr><td>Mês 24+</td><td>Avaliar escala / 2ª unidade</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 4: KPIs & OKRs                 -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="kpis" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>KPIs — Indicadores-Chave</h1>
+
+    <h2>KPIs Operacionais</h2>
+    <table>
+      <thead><tr><th>KPI</th><th>Meta MVP (Mês 1-3)</th><th>Meta Maturidade (6+)</th><th>Como Medir</th></tr></thead>
+      <tbody>
+        <tr><td>Clientes/dia</td><td>20-30</td><td>40-60</td><td>PDV / contagem</td></tr>
+        <tr><td>Ticket médio</td><td>R$ 22-28</td><td>R$ 28-35</td><td>PDV</td></tr>
+        <tr><td>Receita bruta/mês</td><td>R$ 15-25k</td><td>R$ 35-50k</td><td>Financeiro</td></tr>
+        <tr><td>CMV</td><td>&lt; 35%</td><td>&lt; 30%</td><td>Estoque vs vendas</td></tr>
+        <tr><td>Ocupação coworking</td><td>—</td><td>&gt; 60%</td><td>Sistema reservas</td></tr>
+        <tr><td>Ciclos lavanderia/dia</td><td>—</td><td>15-25</td><td>Totem</td></tr>
+        <tr><td>NPS</td><td>&gt; 40</td><td>&gt; 60</td><td>Pesquisa mensal</td></tr>
+      </tbody>
+    </table>
+
+    <h2>KPIs Financeiros</h2>
+    <table>
+      <thead><tr><th>KPI</th><th>Meta</th><th>Frequência</th></tr></thead>
+      <tbody>
+        <tr><td>Margem bruta</td><td>&gt; 65%</td><td>Mensal</td></tr>
+        <tr><td>Margem líquida</td><td>&gt; 25%</td><td>Mensal</td></tr>
+        <tr><td>OPEX / Receita</td><td>&lt; 50%</td><td>Mensal</td></tr>
+        <tr><td>Cash burn rate</td><td>Positivo após mês 3</td><td>Semanal</td></tr>
+        <tr><td>Payback acumulado</td><td>&lt; 10 meses</td><td>Mensal</td></tr>
+        <tr><td>Receita recorrente (mensalistas)</td><td>&gt; 30% da receita</td><td>Mensal</td></tr>
+      </tbody>
+    </table>
+
+    <h2>KPIs de Marketing</h2>
+    <table>
+      <thead><tr><th>KPI</th><th>Meta</th><th>Como Medir</th></tr></thead>
+      <tbody>
+        <tr><td>Seguidores Instagram</td><td>1k em 3 meses</td><td>Instagram Insights</td></tr>
+        <tr><td>Google Meu Negócio</td><td>&gt; 4.5★, 50+ reviews</td><td>Google</td></tr>
+        <tr><td>CAC</td><td>&lt; R$ 15</td><td>Marketing / novos cli.</td></tr>
+        <tr><td>Taxa de retorno</td><td>&gt; 40%</td><td>PDV</td></tr>
+      </tbody>
+    </table>
+
+    <h1>OKRs — Objetivos e Resultados-Chave</h1>
+
+    <h2>Q1 (Meses 1-3) — Validação</h2>
+    <div class="callout info">
+      <strong>Objetivo 1: Validar produto-mercado da cafeteria MVP</strong><br>
+      KR1: 25 clientes/dia até mês 3 · KR2: Ticket médio &gt; R$22 · KR3: NPS &gt; 40 · KR4: Break-even operacional no mês 3
+    </div>
+    <div class="callout info">
+      <strong>Objetivo 2: Construir presença local</strong><br>
+      KR1: 500 seguidores Instagram · KR2: 20+ avaliações Google (&gt; 4.5) · KR3: 3 parcerias locais (hostel, pousada, surf school)
+    </div>
+
+    <h2>Q2 (Meses 4-6) — Expansão Coworking</h2>
+    <div class="callout success">
+      <strong>Objetivo 3: Lançar coworking e gerar receita recorrente</strong><br>
+      KR1: 6 mensalistas ativos · KR2: 8 diárias/dia · KR3: Receita coworking &gt; R$10k/mês · KR4: Ocupação &gt; 50%
+    </div>
+    <div class="callout success">
+      <strong>Objetivo 4: Otimizar operação cafeteria</strong><br>
+      KR1: CMV &lt; 30% · KR2: 40 clientes/dia · KR3: Ticket médio &gt; R$26
+    </div>
+
+    <h2>Q3-Q4 (Meses 7-12) — Escala</h2>
+    <div class="callout warning">
+      <strong>Objetivo 5: Preparar e lançar lavanderia</strong><br>
+      KR1: Aprovação BNDES até mês 8 · KR2: Instalação completa até mês 12 · KR3: 10 ciclos/dia no 1º mês
+    </div>
+    <div class="callout warning">
+      <strong>Objetivo 6: Modelo completo rentável</strong><br>
+      KR1: Receita &gt; R$45k/mês · KR2: Margem líquida &gt; 25% · KR3: Lucro &gt; R$15k/mês · KR4: Contratar gerente operacional
+    </div>
+
+    <h2>Ano 2 — Autonomia</h2>
+    <div class="callout info">
+      <strong>Objetivo 7: Sair da operação diária</strong><br>
+      KR1: Gerente 100% autônomo · KR2: Você &lt; 5h/semana · KR3: Avaliar 2ª unidade · KR4: Receita &gt; R$60k/mês
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- TAB 5: BUSINESS MODEL              -->
+<!-- ═══════════════════════════════════ -->
+<div class="tab-panel" data-tab="business" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Business Model — Café + Coworking + Lavanderia</h1>
+
+    <div class="callout success">
+      <strong>Proposta de Valor:</strong> "Lave sua roupa, tome um café de especialidade e trabalhe com internet rápida — tudo no mesmo lugar, a 5 minutos da praia."
+    </div>
+
+    <p>O modelo combina 3 negócios complementares que se retroalimentam:</p>
     <ul>
-      <li>Consolidar operações em BH e expandir para 5 pontos de venda</li>
-      <li>Implementar sistema de franquia para acelerar crescimento</li>
-      <li>Adicionar nova cidade (Salvador ou Florianópolis)</li>
-      <li>Desenvolver marca própria de produtos (café, pães)</li>
-      <li>Otimizar cadeia de suprimentos para reduzir custos em 8-10%</li>
+      <li><strong>☕ Cafeteria</strong> → tráfego de pessoas (motor de aquisição)</li>
+      <li><strong>💻 Coworking</strong> → receita recorrente (estabilidade)</li>
+      <li><strong>🧺 Lavanderia</strong> → receita passiva 24h (margem alta)</li>
     </ul>
-  </section>
-</main>
+
+    <h1>Segmentos de Clientes</h1>
+    <table>
+      <thead><tr><th>Segmento</th><th>Necessidade</th><th>Módulo Principal</th></tr></thead>
+      <tbody>
+        <tr><td>Nômades digitais</td><td>Internet + café + espaço de trabalho</td><td>Coworking + Café</td></tr>
+        <tr><td>Turistas longa estada (1-4 sem)</td><td>Lavar roupa + socializar</td><td>Lavanderia + Café</td></tr>
+        <tr><td>Surfistas / mochileiros</td><td>Café + lavanderia rápida</td><td>Lavanderia + Café</td></tr>
+        <tr><td>Moradores locais</td><td>Café de qualidade + espaço</td><td>Café</td></tr>
+        <tr><td>Freelancers locais</td><td>Escritório flexível</td><td>Coworking</td></tr>
+        <tr><td>Turistas de fim de semana</td><td>Café instagramável</td><td>Café</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Fontes de Receita</h1>
+    <table>
+      <thead><tr><th>Fonte</th><th>Tipo</th><th>% Receita (completo)</th></tr></thead>
+      <tbody>
+        <tr><td>Vendas cafeteria</td><td>Transacional</td><td>~35%</td></tr>
+        <tr><td>Diárias coworking</td><td>Transacional</td><td>~10%</td></tr>
+        <tr><td>Mensalidades coworking</td><td>Recorrente</td><td>~15%</td></tr>
+        <tr><td>Ciclos lavanderia</td><td>Self-service</td><td>~35%</td></tr>
+        <tr><td>Eventos / workshops</td><td>Eventual</td><td>~5%</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Estrutura de Custos</h1>
+    <table>
+      <thead><tr><th>Categoria</th><th>% do OPEX</th></tr></thead>
+      <tbody>
+        <tr><td>Aluguel</td><td>~20-25%</td></tr>
+        <tr><td>Pessoal</td><td>~30-35%</td></tr>
+        <tr><td>Insumos (café + lavanderia)</td><td>~20%</td></tr>
+        <tr><td>Energia + água</td><td>~10%</td></tr>
+        <tr><td>Impostos + contador</td><td>~10%</td></tr>
+        <tr><td>Marketing + outros</td><td>~5%</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Vantagem Competitiva (Moat)</h1>
+    <table>
+      <thead><tr><th>#</th><th>Vantagem</th><th>Descrição</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Modelo integrado</td><td>Ninguém oferece café + coworking + lavanderia juntos em cidades litorâneas</td></tr>
+        <tr><td>2</td><td>Efeito de rede local</td><td>Mais nômades usando → mais nômades atraem (comunidade)</td></tr>
+        <tr><td>3</td><td>Receita diversificada</td><td>3 fontes de receita reduzem risco</td></tr>
+        <tr><td>4</td><td>Lavanderia 24h</td><td>Receita passiva com margem ~88%</td></tr>
+        <tr><td>5</td><td>Lock-in mensalistas</td><td>Coworking mensal gera receita previsível</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Riscos e Mitigações</h1>
+    <table>
+      <thead><tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigação</th></tr></thead>
+      <tbody>
+        <tr><td>Baixa temporada sem caixa</td><td>Média</td><td>Alto</td><td>Capital de giro 3 meses + renda de engenheiro</td></tr>
+        <tr><td>Internet instável (Itacaré)</td><td>Alta</td><td>Alto</td><td>2 links + backup 4G/satélite</td></tr>
+        <tr><td>Concorrência copiar modelo</td><td>Média</td><td>Médio</td><td>First mover + comunidade + branding</td></tr>
+        <tr><td>Equip. lavanderia quebrar</td><td>Baixa</td><td>Alto</td><td>Manutenção preventiva + seguro</td></tr>
+        <tr><td>Ponto comercial ruim</td><td>Baixa</td><td>Crítico</td><td>Pesquisar 3+ meses antes de assinar</td></tr>
+        <tr><td>Regulação/alvará negado</td><td>Baixa</td><td>Crítico</td><td>Consultar prefeitura ANTES de alugar</td></tr>
+      </tbody>
+    </table>
+
+    <h1>Unit Economics</h1>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">R$ 25-28</div>
+        <div class="metric-label">Ticket Cafeteria</div>
+        <div class="metric-sub">CMV ~32% · Margem ~68%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">R$ 50/dia</div>
+        <div class="metric-label">Diária Coworking</div>
+        <div class="metric-sub">CMV ~5% · Margem ~95%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">R$ 30/ciclo</div>
+        <div class="metric-label">Lavanderia</div>
+        <div class="metric-sub">CMV ~12% · Margem ~88%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">R$ 450/mês</div>
+        <div class="metric-label">Mensalidade Coworking</div>
+        <div class="metric-sub">Receita recorrente</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Break-even por módulo:</strong> Cafeteria ~15 cli/dia · Coworking ~4 mensalistas · Lavanderia ~8 ciclos/dia
+    </div>
+
+  </div>
+</div>
 
 <footer>
   <div class="brand">IMPACT <span class="x">X</span></div>
