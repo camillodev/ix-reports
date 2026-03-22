@@ -226,6 +226,12 @@
     });
   }
 
+  // ─── Main count update ───
+  function updateMainCount() {
+    var filtered = getFilteredReports();
+    totalCountEl.textContent = filtered.length;
+  }
+
   // ─── Filter logic ───
   function setFilter(client, project) {
     activeClient = client;
@@ -242,6 +248,7 @@
         mainTitle.textContent += ' / ' + clients[client].projects[project].name;
       }
     }
+    updateMainCount();
   }
 
   function updateTreeActive() {
@@ -394,6 +401,8 @@
     } else {
       activeFiltersBar.classList.add('hidden');
     }
+
+    totalCountEl.textContent = visibleCount;
   }
 
   function paginate() {

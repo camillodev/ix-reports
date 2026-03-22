@@ -54,17 +54,20 @@
 }
 
 [data-theme="dark"] {
-  --ix-ink: #e2e8f0;
+  --ix-ink: #f1f5f9;
   --ix-ink-secondary: #cbd5e1;
-  --ix-muted: #94a3b8;
-  --ix-green-light: #134e35;
-  --ix-green-tint: #0f3d2c;
-  --ix-bg: #0f172a;
-  --ix-surface: #1e293b;
-  --ix-surface-2: #273548;
-  --ix-surface-3: #334155;
-  --ix-border: #334155;
-  --ix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --ix-shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
-  --ix-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --ix-muted: #9ca3af;
+  --ix-green: #059669;
+  --ix-green-hover: #047857;
+  --ix-green-dark: #34d399;
+  --ix-green-light: #064e3b;
+  --ix-green-tint: #022c22;
+  --ix-bg: #212529;
+  --ix-surface: #2a2e33;
+  --ix-surface-2: #343a40;
+  --ix-surface-3: #3d444b;
+  --ix-border: #3d444b;
+  --ix-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --ix-shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --ix-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
