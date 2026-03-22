@@ -35,8 +35,9 @@
   --ix-radius-pill: 100px;
 
   /* Shadows */
-  --ix-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --ix-shadow-md: 0 8px 30px rgba(15, 23, 42, 0.08);
+  --ix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --ix-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --ix-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
   --ix-shadow-lg: 0 12px 40px rgba(15, 23, 42, 0.12);
 
   /* Typography */
@@ -66,8 +67,9 @@
   --ix-surface: #1c1c1f;
   --ix-surface-2: #29292e;
   --ix-surface-3: #323238;
-  --ix-border: #29292e;
-  --ix-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --ix-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --ix-border: #323238;
+  --ix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --ix-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --ix-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.2);
   --ix-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
 }

@@ -381,17 +381,14 @@ body {
   text-decoration: none;
   color: inherit;
   border-left: 3px solid transparent;
+  box-shadow: var(--ix-shadow-card);
 }
 
 .report-row:hover {
   border-left-color: var(--ix-green);
   box-shadow: var(--ix-shadow-md);
-  transform: translateX(2px);
+  transform: translateY(-1px);
   color: inherit;
-}
-
-[data-theme="dark"] .report-row:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
 .rr-icon {
