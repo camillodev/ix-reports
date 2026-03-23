@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Cargo Assistente Executiva: Diagnóstico & Estrutura</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Cargo AE — Diagnóstico & Estrutura</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="contexto">Contexto</button>
+  <button type="button" class="tab-btn" data-tab="diagnostico">Diagnóstico</button>
+  <button type="button" class="tab-btn" data-tab="escopo">Revisão de Escopo</button>
+  <button type="button" class="tab-btn" data-tab="niveis">3 Níveis do Cargo</button>
+  <button type="button" class="tab-btn" data-tab="recomendacao">Recomendação</button>
+</nav>
+
+<div class="tab-panel active" data-tab="contexto" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+  <div class="report-header" data-ix-watermark="X">
+    <div class="hdr-brand">IMPACT <span>X</span> — PEOPLE & OPS</div>
+    <div class="hdr-title">Cargo AE — Diagnóstico <em>&</em> Estrutura</div>
+    <div class="hdr-sub">Análise do conflito de escopo, revisão de responsabilidades e estruturação de 3 níveis para o cargo de Assistente Executiva</div>
+    <div class="hdr-meta">
+      <span>📅 Março 2026</span>
+      <span>👤 Uso interno — Rafael Camillo</span>
+      <span>🔒 Confidencial</span>
+    </div>
+  </div>
+
+  <h2>Contexto: Rafael & Impact X</h2>
+
+  <div class="callout info">
+    <div class="callout-icon">🧠</div>
+    <div class="callout-body">
+      <div class="callout-title">Limitações do fundador que definem a necessidade de suporte</div>
+      <div class="callout-text">Rafael tem diagnóstico oficial de <strong>Autismo + TDAH tipo misto</strong> e está em recuperação de burnout autístico. Isso não é contexto — é a variável central que define o que o cargo de AE precisa entregar.</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Limitação de Rafa</th><th>Impacto operacional</th><th>O que a AE precisa cobrir</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Memória de trabalho limitada</strong></td><td>Tarefas não registradas somem</td><td>Sistema de captura e tracking confiável</td></tr>
+      <tr><td><strong>Time blindness (TDAH)</strong></td><td>Perde prazos e janelas</td><td>Gestão proativa de agenda e lembretes</td></tr>
+      <tr><td><strong>Paralisia de decisão</strong></td><td>Trava em tarefas administrativas</td><td>Eliminar decisões pequenas antes de chegarem a ele</td></tr>
+      <tr><td><strong>Sobrecarga cognitiva (TEA)</strong></td><td>Shutdown se receber muita info</td><td>Filtrar e resumir comunicações externas</td></tr>
+      <tr><td><strong>Dificuldade com transições</strong></td><td>Perda de energia entre tarefas</td><td>Preparar contexto antes de reuniões e entregas</td></tr>
+      <tr><td><strong>Burnout autístico ativo</strong></td><td>Máx. 6h/dia de trabalho produtivo</td><td>Proteger tempo e energia do Rafa como prioridade</td></tr>
+    </tbody>
+  </table>
+
+  <h2>O que a Impact X precisa agora</h2>
+
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-value">R$3k</div><div class="metric-label">OPEX Nicole (atual)</div></div>
+    <div class="metric-card"><div class="metric-value">R$5k</div><div class="metric-label">Meta quando contratos ativos</div></div>
+    <div class="metric-card"><div class="metric-value">6h/dia</div><div class="metric-label">Limite máx. de Rafa</div></div>
+    <div class="metric-card"><div class="metric-value">3 devs</div><div class="metric-label">Break-even da operação</div></div>
+  </div>
+
+  <p>A Impact X está no estágio mais crítico: bootstrapped, pré-receita recorrente, com um único fundador neurodivergente em recuperação. O suporte operacional não é conforto — é <strong>infraestrutura de sobrevivência do negócio</strong>.</p>
+
+  <h2>Contexto: Nicole</h2>
+
+  <div class="callout warning">
+    <div class="callout-icon">⚡</div>
+    <div class="callout-body">
+      <div class="callout-title">O que Nicole sinalizou na reunião</div>
+      <div class="callout-text">Com base na reunião registrada, Nicole quer: <strong>(1)</strong> manter escopo de assistente executiva sem expansão não-combinada, <strong>(2)</strong> flexibilidade de horário sem jornada fixa, <strong>(3)</strong> comunicação estruturada sobre mudanças de cargo, <strong>(4)</strong> sem papel de liderança ou gestão operacional, <strong>(5)</strong> expectativas claras e documentadas.</div>
+    </div>
+  </div>
+
+  <p>Esses pedidos são legítimos e, em grande parte, <strong>alinhados com a cultura da Impact X</strong>: remote-first, async, sem heroísmo, sem jornada rígida. O conflito não é sobre os valores — é sobre o que cabe dentro do escopo de uma AE.</p>
+
+</div>
+</div>
+
+<div class="tab-panel" data-tab="diagnostico" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+  <h1>Diagnóstico do Conflito</h1>
+
+  <h2>O que aconteceu</h2>
+  <p>O conflito surgiu de uma <strong>expansão de escopo implícita</strong>: tarefas de gestão operacional (onboarding de devs, coordenação de pipeline comercial, potencial liderança de equipe) foram adicionadas ao dia a dia de Nicole sem formalização de cargo, sem aumento de remuneração e sem alinhamento explícito.</p>
+
+  <div class="callout danger">
+    <div class="callout-icon">🚨</div>
+    <div class="callout-body">
+      <div class="callout-title">O problema central</div>
+      <div class="callout-text">O Diagnóstico 07 da Impact X documenta Nicole como candidata natural à posição de <strong>Head Ops</strong> (R$5k). Mas Nicole não sabe (ou não aceita) que essa é a expectativa. Há um gap entre o que o plano da empresa prevê e o que foi acordado com a colaboradora.</div>
+    </div>
+  </div>
+
+  <h2>Onde cada lado tem razão</h2>
+
+  <table>
+    <thead><tr><th>Lado</th><th>Ponto legítimo</th><th>Ponto de atenção</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Rafael / Impact X</strong></td>
+        <td>Precisa de cobertura operacional crescente. Com burnout e neurodivergência, delegar execução não é escolha — é necessidade. O negócio não survives sem isso.</td>
+        <td>Adicionou responsabilidades sem comunicação clara, sem nova descrição de cargo e sem revisão de remuneração. Gerou expectativas difusas.</td>
+      </tr>
+      <tr>
+        <td><strong>Nicole</strong></td>
+        <td>Tem direito a saber exatamente qual é seu cargo, escopo e expectativas. Aceitar tarefas crescentes sem revisão é exploração — mesmo sem intenção.</td>
+        <td>A posição de AE numa empresa em crescimento vai naturalmente expandir. Resistir a qualquer evolução pode criar um teto artificial para ambos os lados.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>O gap real</h2>
+
+  <div class="callout warning">
+    <div class="callout-icon">🔍</div>
+    <div class="callout-body">
+      <div class="callout-title">O que o diagnóstico revela</div>
+      <div class="callout-text">O Diagnóstico 07 marca Nicole como <strong>⚠️ Parcial</strong> no papel de Operações/Onboarding — com nota explícita: <em>"precisa crescer para Head Ops se volume escalar"</em>. O organograma previsto coloca Nicole como <strong>Head Ops</strong> com Tech Recruiter e Onboarding de Devs reportando a ela. <br><br>Nicole não quer esse papel. Isso cria um gap operacional real que precisa ser endereçado — independentemente de como se resolve a situação com Nicole.</div>
+    </div>
+  </div>
+
+  <h2>O que precisa de decisão</h2>
+  <ul>
+    <li><strong>Alinhamento imediato:</strong> documentar e comunicar o escopo atual real do cargo de AE Sênior</li>
+    <li><strong>Flexibilidade:</strong> formalizar que não há jornada fixa — entrega por resultado, não por hora</li>
+    <li><strong>Futuro:</strong> definir como o gap de Head Ops será coberto — e se a trajetória de Nicole inclui ou não essa direção</li>
+    <li><strong>Comunicação:</strong> criar protocolo claro para qualquer mudança de escopo — sem surpresas</li>
+  </ul>
+
+</div>
+</div>
+
+<div class="tab-panel" data-tab="escopo" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+  <h1>Revisão de Escopo: o que é AE vs o que não é</h1>
+
+  <p>Com base nas responsabilidades documentadas na Impact X e no que foi atribuído a Nicole, segue a revisão linha por linha.</p>
+
+  <h2>✅ Dentro do escopo de Assistente Executiva Sênior</h2>
+
+  <table>
+    <thead><tr><th>Responsabilidade</th><th>Por quê é AE</th></tr></thead>
+    <tbody>
+      <tr><td>Gestão de agenda de Rafael (calendário, reuniões, conflitos)</td><td>Core da função. Executa instrução, não decide.</td></tr>
+      <tr><td>Gestão de inbox / triagem de e-mails</td><td>Filtra e resume — não decide. AE Sênior pode redigir respostas para aprovação.</td></tr>
+      <tr><td>Preparação de documentos, reuniões e briefings</td><td>Suporte direto ao CEO. Não requer autoridade.</td></tr>
+      <tr><td>Tracking de tarefas no Linear (criar tickets por instruções de Rafa)</td><td>Operacional. Executa — não prioriza estrategicamente.</td></tr>
+      <tr><td>Envio de contratos / PandaDoc por instrução</td><td>Logística administrativa.</td></tr>
+      <tr><td>Coordenação com fornecedores externos (contador, advogado) por instrução</td><td>Intermediação, não gestão.</td></tr>
+      <tr><td>Onboarding administrativo de devs (checklist pré-definido)</td><td>Execução de processo existente. AE Sênior gerencia o processo, não as pessoas.</td></tr>
+      <tr><td>Controle básico de finanças operacionais (planilhas, pagamentos por aprovação)</td><td>Administrativo. Não decide — executa.</td></tr>
+      <tr><td>Comunicação com clientes por instrução explícita de Rafa</td><td>Representação, não autonomia comercial.</td></tr>
+      <tr><td>Organização de documentos (Drive, Notion, arquivos)</td><td>Operacional clássico de AE.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>🚫 Fora do escopo de AE — requer papel diferente</h2>
+
+  <table>
+    <thead><tr><th>Responsabilidade</th><th>Por quê não é AE</th><th>Cargo correto</th></tr></thead>
+    <tbody>
+      <tr><td>Gestão de time (Tech Recruiter, outros)</td><td>Requer autoridade hierárquica, feedback de performance, decisões de contratação/desligamento</td><td>Head Ops / COO</td></tr>
+      <tr><td>Decisões de priorização de pipeline comercial</td><td>Requer visão estratégica do negócio e autonomia de decisão</td><td>Head Comercial / CEO</td></tr>
+      <tr><td>Criação/revisão de processos operacionais do zero</td><td>Requer ownership estratégico — não execução</td><td>Head Ops</td></tr>
+      <tr><td>Representação autônoma da empresa com parceiros / clientes</td><td>Requer autoridade e responsabilidade que vão além do suporte</td><td>CEO / Head Comercial</td></tr>
+      <tr><td>Gestão de KPIs e métricas operacionais</td><td>Requer ownership de resultado — diferente de tracking</td><td>Head Ops</td></tr>
+      <tr><td>Decisões sobre budget (mesmo pequenas sem aprovação)</td><td>Requer responsabilidade financeira formal</td><td>Head Ops / CFO</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <div class="callout-icon">📋</div>
+    <div class="callout-body">
+      <div class="callout-title">Critério simples para definir escopo</div>
+      <div class="callout-text"><strong>AE Sênior executa processos e suporta decisões. Head Ops cria processos e toma decisões.</strong> Se a tarefa requer gerir pessoas, assumir resultado de negócio, ou criar estrutura do zero — é Head Ops, não AE.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="tab-panel" data-tab="niveis" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+  <h1>3 Níveis do Cargo de Assistente Executiva</h1>
+
+  <p>Estrutura criada para dar clareza de expectativas, trajetória de crescimento e critérios objetivos de progressão — dentro do escopo de AE, sem cruzar para gestão.</p>
+
+  <div class="callout info">
+    <div class="callout-icon">ℹ️</div>
+    <div class="callout-body">
+      <div class="callout-title">Regra geral dos 3 níveis</div>
+      <div class="callout-text">Nível 1 = executa com instrução. Nível 2 = executa com autonomia. Nível 3 = antecipa e sistematiza. Nenhum nível inclui gestão de pessoas ou ownership estratégico — isso é Head Ops, cargo separado.</div>
+    </div>
+  </div>
+
+  <h2 style="color:var(--ix-muted); border-left:4px solid var(--ix-border); padding-left:12px; margin-top:2rem;">Nível 1 — AE Operacional</h2>
+  <p><strong>Remuneração referência:</strong> R$1.500–2.500/mês PJ &nbsp;|&nbsp; <strong>Jornada:</strong> até 20h semanais, flexível &nbsp;|&nbsp; <strong>Perfil:</strong> executa tarefas bem definidas com pouca ambiguidade</p>
+
+  <table>
+    <thead><tr><th>Checklist de responsabilidades — Nível 1</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>☐ Organização de agenda por instrução direta (criar, mover, cancelar eventos)</td><td>Base</td></tr>
+      <tr><td>☐ Triagem simples de e-mails (categorizar, sinalizar urgentes)</td><td>Base</td></tr>
+      <tr><td>☐ Formatação e envio de documentos por instrução (contratos, propostas)</td><td>Base</td></tr>
+      <tr><td>☐ Criação de tickets no Linear por instrução de Rafa</td><td>Base</td></tr>
+      <tr><td>☐ Organização de arquivos (Drive, Notion) por instrução</td><td>Base</td></tr>
+      <tr><td>☐ Agendamento de reuniões com roteiros pré-definidos</td><td>Base</td></tr>
+      <tr><td>☐ Preenchimento de planilhas e relatórios por template</td><td>Base</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Limite claro do Nível 1:</strong> não toma nenhuma decisão sem instrução explícita. Se o processo não existe documentado, escala para Rafa.</p>
+
+  <div class="callout danger">
+    <div class="callout-icon">🚫</div>
+    <div class="callout-body">
+      <div class="callout-title">Casos extremos — fora do escopo mesmo no Nível 1</div>
+      <div class="callout-text">Nunca: responder e-mails de cliente sem aprovação · Cancelar reunião estratégica sem consulta · Comprometer recursos financeiros · Representar a empresa publicamente · Tomar decisão sobre contratação ou desligamento</div>
+    </div>
+  </div>
+
+  <h2 style="color:var(--ix-green-dark); border-left:4px solid var(--ix-green); padding-left:12px; margin-top:2.5rem;">Nível 2 — AE Sênior (posição atual / target de Nicole)</h2>
+  <p><strong>Remuneração referência:</strong> R$3.000–5.000/mês PJ &nbsp;|&nbsp; <strong>Jornada:</strong> flexível, foco em entrega &nbsp;|&nbsp; <strong>Perfil:</strong> proativa, antecipa necessidades, opera processos existentes com autonomia</p>
+
+  <table>
+    <thead><tr><th>Checklist de responsabilidades — Nível 2</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>☐ Tudo do Nível 1</td><td>Base</td></tr>
+      <tr><td>☐ Gestão proativa de agenda (identifica conflitos, sugere soluções antes de escalar)</td><td>Sênior</td></tr>
+      <tr><td>☐ Rascunho de e-mails para aprovação de Rafa (clientes, fornecedores, parceiros)</td><td>Sênior</td></tr>
+      <tr><td>☐ Preparação de briefings de reunião (contexto, objetivo, perguntas-chave)</td><td>Sênior</td></tr>
+      <tr><td>☐ Follow-up de itens abertos após reuniões</td><td>Sênior</td></tr>
+      <tr><td>☐ Execução de onboarding de devs via checklist pré-definido (não gestão)</td><td>Sênior</td></tr>
+      <tr><td>☐ Coordenação com contador e advogado por instrução (agendar, enviar docs, coletar retorno)</td><td>Sênior</td></tr>
+      <tr><td>☐ Controle de pagamentos e recebimentos com aprovação de Rafa</td><td>Sênior</td></tr>
+      <tr><td>☐ Manutenção e atualização de SOPs existentes (não criação do zero)</td><td>Sênior</td></tr>
+      <tr><td>☐ Suporte ao pipeline comercial: preparação de materiais, tracking de status no CRM por instrução</td><td>Sênior</td></tr>
+      <tr><td>☐ Identificação proativa de problemas operacionais e escalada antes que se tornem urgência</td><td>Diferencial</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Limite claro do Nível 2:</strong> opera processos existentes com autonomia, mas não cria estrutura nova sozinha nem gerencia pessoas. Qualquer decisão que afete terceiros passa por Rafa.</p>
+
+  <div class="callout success">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <div class="callout-title">O que define a promoção de Nível 1 para Nível 2</div>
+      <div class="callout-text">Opera 100% dos processos do Nível 1 sem supervisão · Antecipa necessidades sem ser solicitada (mín. 3 exemplos documentados/mês) · Briefings de reunião consistentemente bem feitos · Zero follow-ups perdidos por 60 dias consecutivos</div>
+    </div>
+  </div>
+
+  <h2 style="color:#7C3AED; border-left:4px solid #7C3AED; padding-left:12px; margin-top:2.5rem;">Nível 3 — AE Estratégica / Chief of Staff</h2>
+  <p><strong>Remuneração referência:</strong> R$5.000–8.000/mês PJ &nbsp;|&nbsp; <strong>Jornada:</strong> flexível, orientada a resultado estratégico &nbsp;|&nbsp; <strong>Perfil:</strong> extensão operacional do CEO, cria sistemas, tem visão de negócio, sem P&amp;L</p>
+
+  <table>
+    <thead><tr><th>Checklist de responsabilidades — Nível 3</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>☐ Tudo do Nível 2</td><td>Base</td></tr>
+      <tr><td>☐ Criação e documentação de novos SOPs operacionais</td><td>Estratégica</td></tr>
+      <tr><td>☐ Gestão de agenda estratégica de Rafa (protege blocos de foco, recusa reuniões desnecessárias)</td><td>Estratégica</td></tr>
+      <tr><td>☐ Representação de Rafa em comunicações de baixo risco com parceiros (com briefing prévio)</td><td>Estratégica</td></tr>
+      <tr><td>☐ Tracking de OKRs e KPIs operacionais (coleta dados, monta relatório semanal)</td><td>Estratégica</td></tr>
+      <tr><td>☐ Identificação de ineficiências e proposta de melhorias (com dados)</td><td>Estratégica</td></tr>
+      <tr><td>☐ Coordenação entre áreas (Comercial ↔ Ops ↔ Produto) sem hierarquia formal</td><td>Estratégica</td></tr>
+      <tr><td>☐ Gestão do sistema de automações e ferramentas operacionais</td><td>Estratégica</td></tr>
+      <tr><td>☐ Onboarding de qualquer novo membro da equipe (processo, cultura, ferramentas)</td><td>Estratégica</td></tr>
+      <tr><td>☐ Filtragem completa das demandas que chegam a Rafa (prioridade, urgência, relevância)</td><td>Estratégica</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Limite claro do Nível 3:</strong> mesmo como AE Estratégica, <strong>não tem direct reports formais, não aprova budget, não representa a empresa comercialmente com autonomia, não toma decisões de negócio</strong>. Isso é Head Ops — cargo e faixa salarial diferentes.</p>
+
+  <div class="callout danger">
+    <div class="callout-icon">🚫</div>
+    <div class="callout-body">
+      <div class="callout-title">Casos extremos — limites que nunca mudam (qualquer nível)</div>
+      <div class="callout-text">
+        <strong>Nunca, em nenhum nível de AE:</strong><br>
+        · Demitir ou contratar alguém (mesmo verbalmente)<br>
+        · Aprovar pagamentos sem autorização de Rafa<br>
+        · Comprometer a empresa em contratos ou termos comerciais<br>
+        · Tomar decisão pública (redes sociais, press, comunicado) sem aprovação<br>
+        · Definir estratégia de produto, comercial ou financeira<br>
+        · Gerenciar performance de outros membros do time
+      </div>
+    </div>
+  </div>
+
+  <h2>Comparativo dos 3 Níveis</h2>
+
+  <table>
+    <thead><tr><th>Critério</th><th>Nível 1 — Operacional</th><th>Nível 2 — Sênior</th><th>Nível 3 — Estratégica</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Autonomia</strong></td><td>Executa com instrução</td><td>Executa com autonomia</td><td>Antecipa e sistematiza</td></tr>
+      <tr><td><strong>Iniciativa</strong></td><td>Reativa</td><td>Proativa</td><td>Estratégica</td></tr>
+      <tr><td><strong>Processos</strong></td><td>Segue</td><td>Opera</td><td>Cria e melhora</td></tr>
+      <tr><td><strong>Comunicação externa</strong></td><td>Por instrução direta</td><td>Rascunha para aprovação</td><td>Representa com briefing</td></tr>
+      <tr><td><strong>Gestão de pessoas</strong></td><td>❌</td><td>❌</td><td>❌ (coordena, não gerencia)</td></tr>
+      <tr><td><strong>Decisão de negócio</strong></td><td>❌</td><td>❌</td><td>❌</td></tr>
+      <tr><td><strong>Remuneração ref.</strong></td><td>R$1,5–2,5k</td><td>R$3–5k</td><td>R$5–8k</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+<div class="tab-panel" data-tab="recomendacao" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+  <h1>Recomendação</h1>
+
+  <h2>Decisão imediata (esta semana)</h2>
+
+  <div class="callout success">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <div class="callout-title">O que fazer agora</div>
+      <div class="callout-text">Formalizar o cargo de <strong>AE Sênior — Nível 2</strong> com escopo escrito, critérios de progressão e protocolo de comunicação para mudanças. Isso atende o pedido de Nicole por clareza e alinha com o que a Impact X precisa agora.</div>
+    </div>
+  </div>
+
+  <h2>Checklist da conversa de alinhamento com Nicole</h2>
+
+  <table>
+    <thead><tr><th>Item</th><th>Como abordar</th></tr></thead>
+    <tbody>
+      <tr><td>☐ Compartilhar este documento (escopo dos 3 níveis)</td><td>Apresentar como estruturação do cargo — não como resposta ao conflito</td></tr>
+      <tr><td>☐ Confirmar que Nicole está no Nível 2</td><td>Sem pressão para evoluir para Nível 3 ou Head Ops</td></tr>
+      <tr><td>☐ Formalizar flexibilidade de horário</td><td>"Entrega por resultado, não por hora. Sem jornada fixa. Isso já é nossa cultura."</td></tr>
+      <tr><td>☐ Definir protocolo de mudança de escopo</td><td>Qualquer nova responsabilidade passa por conversa → doc escrito → aprovação → novo escopo assinado</td></tr>
+      <tr><td>☐ Separar explicitamente AE de Head Ops</td><td>Head Ops é um cargo diferente, com salário diferente e com contratação futura separada</td></tr>
+      <tr><td>☐ Alinhar critérios de progressão para R$5k</td><td>Checklists do Nível 2 completos + volume de contratos ativos (não gestão de pessoas)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>O gap de Head Ops</h2>
+
+  <p>O Diagnóstico 07 identificou que a Impact X precisará de um perfil de <strong>Head Ops</strong> quando o volume de devs escalar. Esse papel inclui: gerir Tech Recruiter, supervisionar onboarding, coordenar processos operacionais estratégicos.</p>
+
+  <div class="callout warning">
+    <div class="callout-icon">📌</div>
+    <div class="callout-body">
+      <div class="callout-title">Como endereçar sem criar tensão</div>
+      <div class="callout-text">O gap de Head Ops é real e cresce com a empresa. O caminho natural é planejá-lo como <strong>contratação separada</strong> — seja uma evolução orgânica de alguém do time quando fizer sentido para essa pessoa, seja uma contratação nova quando o volume justificar (Q3+). <br><br>Isso preserva o acordo com Nicole no escopo atual e mantém o planejamento estratégico de equipe realista.</div>
+    </div>
+  </div>
+
+  <h2>Protocolo de comunicação para Rafa (no dia a dia)</h2>
+
+  <div class="callout info">
+    <div class="callout-icon">🔁</div>
+    <div class="callout-body">
+      <div class="callout-title">Regra simples para evitar conflito futuro</div>
+      <div class="callout-text"><strong>Antes de pedir qualquer coisa nova:</strong> verificar se está na lista de escopo do Nível 2. Se não estiver → comunicar que é uma tarefa fora do escopo atual, e decidir se adiciona formalmente ao cargo (com nova remuneração) ou busca outra solução.</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Cenário</th><th>Ação correta de Rafa</th></tr></thead>
+    <tbody>
+      <tr><td>Precisa que Nicole faça algo novo e pontual (dentro de AE)</td><td>Pede normalmente — está dentro do escopo combinado</td></tr>
+      <tr><td>Precisa que Nicole faça algo que é recorrente e novo</td><td>Conversa → documenta → adiciona ao escopo escrito antes de pedir</td></tr>
+      <tr><td>Precisa que Nicole gerencie alguém ou processo estratégico</td><td>Esse é o trigger para planejar a contratação de Head Ops</td></tr>
+      <tr><td>Precisa de algo urgente fora do escopo</td><td>Pede como exceção explícita, não como nova norma. Compensa se recorrente.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Resumo executivo</h2>
+
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-value">AE S2</div><div class="metric-label">Cargo formalizado para Nicole</div></div>
+    <div class="metric-card"><div class="metric-value">R$3–5k</div><div class="metric-label">Faixa atual confirmada</div></div>
+    <div class="metric-card"><div class="metric-value">Q3+</div><div class="metric-label">Previsão de contratação Head Ops</div></div>
+    <div class="metric-card"><div class="metric-value">0</div><div class="metric-label">Gestão de pessoas no escopo AE</div></div>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <div class="callout-title">O resultado correto desta conversa</div>
+      <div class="callout-text">Nicole sai com: cargo documentado, escopo claro, flexibilidade formalizada, protocolo de comunicação para mudanças.<br>
+      Rafa sai com: expectativas alinhadas, cobertura operacional garantida para o estágio atual, plano claro para escalar quando necessário.<br>
+      Impact X sai com: estrutura de People que funciona sem conflito implícito.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo · Março 2026 · Confidencial
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
