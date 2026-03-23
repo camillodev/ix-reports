@@ -376,6 +376,7 @@ footer .brand {
   <button type="button" class="tab-btn" data-tab="viktor">Viktor Case</button>
   <button type="button" class="tab-btn" data-tab="whatsapp">WhatsApp</button>
   <button type="button" class="tab-btn" data-tab="recomendacao">Recomendação</button>
+  <button type="button" class="tab-btn" data-tab="upgrade">Plano de Upgrade</button>
 </nav>
 
 <!-- TAB 1: Tier List -->
@@ -820,6 +821,340 @@ footer .brand {
       <li>NPS > 7 (recomendaria a amigos?)</li>
       <li>Custo por usuário < $0.50/mês</li>
     </ul>
+  </div>
+</div>
+
+<!-- TAB 6: Plano de Upgrade -->
+<div class="tab-panel" data-tab="upgrade" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">De <em>Tier S no Papel</em> a Tier S Operacional</div>
+      <div class="hdr-sub">Plano de 14 dias para levar o OpenClaw de 1 agente funcional a 5+ agentes coordenados</div>
+      <div class="hdr-meta">
+        <span>Data: 2026-03-23</span>
+        <span>Autor: Rafael Camillo / Impact X</span>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Estado Atual</div>
+        <div class="metric-value">1/13</div>
+        <p>agentes funcionais</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Alvo</div>
+        <div class="metric-value">5+</div>
+        <p>agentes coordenados</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Timeline</div>
+        <div class="metric-value">14d</div>
+        <p>para Tier S operacional</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Custo Mensal</div>
+        <div class="metric-value">$18-25</div>
+        <p>vs $50 do Viktor (SaaS)</p>
+      </div>
+    </div>
+
+    <!-- Diagnostico -->
+    <h2>Diagnostico Completo</h2>
+
+    <h3>O que Funciona</h3>
+    <table>
+      <thead>
+        <tr><th>Componente</th><th>Status</th><th>Detalhes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Gateway</strong></td><td>OK (instavel)</td><td>localhost:18789, respondendo HTTP 200, mas em loop de auto-restart</td></tr>
+        <tr><td><strong>Watchdog</strong></td><td>OK</td><td>Auto-restart max 3/dia, rodando a cada 10 min via crontab</td></tr>
+        <tr><td><strong>Sam (Telegram)</strong></td><td>Parcial</td><td>4 de 6 cron jobs funcionando, check-ins 09h e 12h OK</td></tr>
+        <tr><td><strong>Groq (modelo primario)</strong></td><td>OK</td><td>llama-3.3-70b-versatile free tier, hits rate limit em horario de pico</td></tr>
+        <tr><td><strong>Budget tracking</strong></td><td>OK</td><td>budget-state.json ativo, eco mode funcional</td></tr>
+        <tr><td><strong>Config audit trail</strong></td><td>OK</td><td>config-audit.jsonl rastreando todas as mudancas</td></tr>
+        <tr><td><strong>Healthcheck cron</strong></td><td>OK</td><td>A cada 4h via crontab do sistema</td></tr>
+        <tr><td><strong>Log rotation</strong></td><td>OK</td><td>Diario as 03h BRT</td></tr>
+        <tr><td><strong>Backup</strong></td><td>OK</td><td>Diario as 04h BRT</td></tr>
+        <tr><td><strong>Secret scan</strong></td><td>OK</td><td>Semanal, resultado limpo (0 leaks)</td></tr>
+        <tr><td><strong>Memoria SQLite</strong></td><td>OK</td><td>5 databases (assistente, health, pm, sam, silva)</td></tr>
+        <tr><td><strong>Inter-agent inbox</strong></td><td>OK</td><td>13 inboxes criadas em shared/inbox/</td></tr>
+        <tr><td><strong>Carol (docs)</strong></td><td>OK</td><td>IDENTITY, SOUL, HEARTBEAT, TOOLS, MODEL_ROUTING — tudo documentado</td></tr>
+        <tr><td><strong>Second-brain</strong></td><td>OK</td><td>facts/rafael.md, state/today.md, state/open_cycles.md</td></tr>
+        <tr><td><strong>Scripts operacionais</strong></td><td>OK</td><td>21 scripts em scripts/</td></tr>
+      </tbody>
+    </table>
+
+    <h3>O que esta Quebrado</h3>
+    <table>
+      <thead>
+        <tr><th>Componente</th><th>Problema</th><th>Impacto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>API Keys (Anthropic)</strong></td><td>HTTP 401 invalid x-api-key</td><td>Pattern detection falhando</td></tr>
+        <tr><td><strong>API Keys (OpenRouter)</strong></td><td>HTTP 401 errors</td><td>Fallback chain quebrada</td></tr>
+        <tr><td><strong>API Keys (Google)</strong></td><td>Rate limit em horarios de pico</td><td>Fallback parcialmente funcional</td></tr>
+        <tr><td><strong>health-checkin-19h</strong></td><td>All models failed: rate_limit_reached</td><td>Check-in da noite ausente</td></tr>
+        <tr><td><strong>health-pattern-detect</strong></td><td>invalid x-api-key (Anthropic + Google)</td><td>Zero deteccao de padroes</td></tr>
+        <tr><td><strong>Gateway stability</strong></td><td>Loop de auto-restart no systemd</td><td>Perda de contexto entre restarts</td></tr>
+        <tr><td><strong>Budget</strong></td><td>$0.20/dia, $6/mes</td><td>Insuficiente para qualquer operacao real</td></tr>
+        <tr><td><strong>Discord</strong></td><td>enabled: false</td><td>Canal inativo</td></tr>
+        <tr><td><strong>Slack</strong></td><td>enabled: false + servico inativo</td><td>Canal inativo</td></tr>
+        <tr><td><strong>WhatsApp</strong></td><td>INEXISTENTE</td><td>Zero config, zero bridge</td></tr>
+        <tr><td><strong>Hooks</strong></td><td>hooks.enabled: false</td><td>Sem automacoes event-driven</td></tr>
+        <tr><td><strong>Carol (execucao)</strong></td><td>Nao registrada como agente ativo</td><td>Orquestradora existe so no papel</td></tr>
+        <tr><td><strong>Main agent</strong></td><td>Usa Ollama qwen2.5:3b (3B params)</td><td>Qualidade muito baixa</td></tr>
+        <tr><td><strong>Multi-agent</strong></td><td>1 agente funcional de 13 slots</td><td>12 inboxes vazias</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Benchmark -->
+    <h2>Benchmark: OpenClaw vs Viktor</h2>
+    <table>
+      <thead>
+        <tr><th>Capacidade</th><th>Viktor</th><th>OpenClaw Atual</th><th>OpenClaw Alvo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Heartbeat + padroes</td><td>Observa canais + clustering</td><td>Heartbeat basico 24h, falhando</td><td>Heartbeat 4h + anomaly detection</td></tr>
+        <tr><td>Proatividade real</td><td>28 updates em crise</td><td>Cron jobs falhando</td><td>Crons 100% + triggers reativos</td></tr>
+        <tr><td>Integracoes</td><td>3000+ via OAuth</td><td>~11 MCPs configurados</td><td>MCPs validados + Evolution API</td></tr>
+        <tr><td>Memoria persistente</td><td>Event-sourcing AES-256</td><td>SQLite + .md (sem continuidade)</td><td>SQLite + consolidacao diaria</td></tr>
+        <tr><td>Self-improving</td><td>Workflows → skills</td><td>17 skills, sem auto-melhoria</td><td>Skills com CHANGELOG + METRICS</td></tr>
+        <tr><td>Browser automation</td><td>Puppeteer sandbox cloud</td><td>Playwright (nao testado)</td><td>Playwright validado</td></tr>
+        <tr><td>Deliverables</td><td>PDFs, Excel, PPT, web apps</td><td>Zero</td><td>PDFs + Excel</td></tr>
+        <tr><td>Multi-canal</td><td>Slack (Teams em breve)</td><td>Telegram parcial</td><td>Telegram + Discord + Slack + WhatsApp</td></tr>
+        <tr><td>Multi-agent</td><td>Single workspace</td><td>1 de 13 ativos</td><td>5+ coordenados por Carol</td></tr>
+        <tr><td>Custo</td><td>$50/workspace/mes (SaaS)</td><td>$0.20/dia ($6/mes)</td><td>$18-25/mes (BYO API)</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Fases -->
+    <h2>Fases de Implementacao</h2>
+
+    <h3>Fase 0 — Triage (Dia 1, 2-3h)</h3>
+    <div class="callout info">
+      <strong>Objetivo</strong>
+      <p>Parar o sangramento. Estabilizar o que ja existe.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Acao</th><th>Arquivos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fix API Keys</td><td>Regenerar Anthropic, OpenRouter, Google; testar via models-check.sh</td><td>.env, scripts/rotate-keys.sh</td></tr>
+        <tr><td>Estabilizar Gateway</td><td>Diagnosticar loop systemd, corrigir keys, restart limpo</td><td>scripts/start.sh, openclaw.json</td></tr>
+        <tr><td>Ajustar Budget</td><td>$0.20 → $2.00/dia, $6 → $40/mes</td><td>workspace/budget-state.json</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>Metricas de Sucesso</strong>
+      <p>Gateway estavel 24h sem restart | 6 cron jobs OK | models-check passando | Budget >= $1/dia</p>
+    </div>
+
+    <h3>Fase 1 — Sam 100% + Carol Ativa (Dias 2-3)</h3>
+    <div class="callout info">
+      <strong>Objetivo</strong>
+      <p>Os 2 agentes core funcionando end-to-end.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Acao</th><th>Arquivos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sam 100%</td><td>Validar 6 cron jobs, testar Supabase, MCPs, pattern-detect, weekly-report</td><td>cron/jobs.json</td></tr>
+        <tr><td>Ativar Carol</td><td>Criar models.json, registrar em openclaw.json, crons standup 09h + digest 23h, habilitar hooks</td><td>agents/carol/, openclaw.json</td></tr>
+        <tr><td>Ativar Discord</td><td>enabled: true, verificar tokens, bind Carol ao canal</td><td>openclaw.json</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>Metricas de Sucesso</strong>
+      <p>Sam 4 check-ins/dia por 3 dias | Pattern-detect 3x/dia sem erro | Carol no Discord | Heartbeat processando inbox</p>
+    </div>
+
+    <h3>Fase 2 — Multi-Agent + Canais (Dias 4-5)</h3>
+    <div class="callout info">
+      <strong>Objetivo</strong>
+      <p>Ativar agentes especializados e canais de comunicacao.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Acao</th><th>Arquivos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>EmailBot</td><td>Criar agente, Gmail MCP, cron check emails, inbox compartilhada</td><td>agents/emailbot/</td></tr>
+        <tr><td>DevBot</td><td>Criar agente com Linear, Vercel, Playwright</td><td>agents/devbot/</td></tr>
+        <tr><td>Slack Bridge</td><td>Reativar servico systemd, testar envio/recepcao</td><td>bridges/slack/</td></tr>
+        <tr><td>WhatsApp</td><td>Evolution API Cloud (~$10/mes), webhook via Cloudflare Tunnel</td><td>bridges/whatsapp/</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>Metricas de Sucesso</strong>
+      <p>EmailBot processando emails | DevBot respondendo queries | Slack ativo | WhatsApp recebendo/respondendo</p>
+    </div>
+
+    <h3>Fase 3 — Proatividade + Memoria (Dias 5-7)</h3>
+    <div class="callout info">
+      <strong>Objetivo</strong>
+      <p>Heartbeat inteligente tipo Viktor, memoria cross-session robusta.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Acao</th><th>Arquivos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Heartbeat Inteligente</td><td>24h → 4h, protocolo v2: inbox + email + calendar + deploys + patterns + notify</td><td>openclaw.json, HEARTBEAT.md</td></tr>
+        <tr><td>Memoria Cross-Session</td><td>Script consolidacao diaria, cron 23:30, shared/status/</td><td>scripts/memory-consolidate.sh</td></tr>
+        <tr><td>Pattern Detection+</td><td>Estender para padroes de trabalho, gasto, issues; cron 23h</td><td>cron/jobs.json</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>Metricas de Sucesso</strong>
+      <p>Heartbeat 4-6x/dia com acoes proativas | 1+ notificacao util/dia | Memoria consolidada diariamente</p>
+    </div>
+
+    <h3>Fase 4 — Self-Improvement + Deliverables (Semana 2)</h3>
+    <div class="callout info">
+      <strong>Objetivo</strong>
+      <p>Skills que melhoram sozinhas + outputs tangiveis.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Acao</th><th>Arquivos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Self-Improving Skills</td><td>Ciclo executa → mede → documenta → ajusta; CHANGELOG + METRICS por skill</td><td>workspace/skills/</td></tr>
+        <tr><td>Deliverables</td><td>Playwright → PDF, exceljs → Excel, template system</td><td>workspace/templates/, package.json</td></tr>
+        <tr><td>ResearchBot</td><td>Criar agente com Web Search, Playwright, Notion</td><td>agents/researchbot/</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>Metricas de Sucesso</strong>
+      <p>1+ skill com historico de melhoria | Weekly report PDF automatico | ResearchBot completando pesquisas</p>
+    </div>
+
+    <h3>Fase 5 — Observability + Polish (Semana 2-3)</h3>
+    <div class="callout info">
+      <strong>Objetivo</strong>
+      <p>Dashboard, metricas, alertas robustos.</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Acao</th><th>Arquivos</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Dashboard de Status</td><td>Static HTML ou Next.js em dashboard.rafaelcamillo.com</td><td>dashboard/</td></tr>
+        <tr><td>Alertas Multi-Canal</td><td>Cascade: Telegram → Discord → Slack para gateway down, budget, keys, crons</td><td>scripts/watchdog.sh</td></tr>
+        <tr><td>Metricas Estruturadas</td><td>Logs JSONL, tempo resposta, tokens/sessao, taxa erro</td><td>OBSERVABILITY.md</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>Metricas de Sucesso</strong>
+      <p>Dashboard acessivel real-time | Alertas disparando corretamente | Logs JSONL para todos agentes</p>
+    </div>
+
+    <!-- Dependencias -->
+    <h2>Dependencias entre Fases</h2>
+    <div class="callout info">
+      <strong>Mapa de Dependencias</strong>
+<pre style="font-family: 'Roboto Mono', monospace; font-size: 13px; line-height: 1.6; color: var(--ix-ink); margin: 12px 0;">
+FASE 0 (Triage) ──────┐
+  Fix API keys         │
+  Estabilizar gateway  ├──► FASE 1 (Core Agents)
+  Ajustar budget       │      Sam 100% + Carol ativa + Discord
+                       │
+                       └──► NENHUMA fase comeca sem Fase 0
+
+FASE 1 ────┬──► FASE 2 (Multi-Agent + Canais)
+           │      EmailBot, DevBot, Slack, WhatsApp
+           │      Precisa Carol para orquestrar
+           │
+           └──► FASE 3 (Proatividade + Memoria)
+                  Heartbeat inteligente, Pattern detection
+
+FASE 2 ────────► FASE 4 (Deliverables)
+                   Precisa agentes para gerar conteudo
+
+FASE 3 + 4 ────► FASE 5 (Observability)
+                   Precisa sistema funcional para monitorar
+</pre>
+    </div>
+
+    <!-- Timeline -->
+    <h2>Timeline</h2>
+    <table>
+      <thead>
+        <tr><th>Dia</th><th>Fase</th><th>Entregas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>Fase 0</td><td>API keys fixas, gateway estavel, budget ajustado</td></tr>
+        <tr><td><strong>2-3</strong></td><td>Fase 1</td><td>Sam 100%, Carol ativa no Discord, heartbeat funcional</td></tr>
+        <tr><td><strong>4-5</strong></td><td>Fase 2</td><td>EmailBot + DevBot ativos, Slack reativado, WhatsApp MVP</td></tr>
+        <tr><td><strong>5-7</strong></td><td>Fase 3</td><td>Heartbeat inteligente 4x/dia, memoria consolidada, pattern detection</td></tr>
+        <tr><td><strong>8-10</strong></td><td>Fase 4</td><td>Self-improving skills, PDF reports, ResearchBot</td></tr>
+        <tr><td><strong>11-14</strong></td><td>Fase 5</td><td>Dashboard, alertas multi-canal, metricas estruturadas</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Custos -->
+    <h2>Custo Estimado (Estado Final)</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Custo/mes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Groq (llama-3.3-70b) — primario</td><td>$0 (free tier)</td></tr>
+        <tr><td>Gemini Flash — fallback/rotina</td><td>$3-5</td></tr>
+        <tr><td>Claude Sonnet — empatico/deliverables</td><td>$5-10 (uso esporadico)</td></tr>
+        <tr><td>Evolution API Cloud (WhatsApp)</td><td>$10</td></tr>
+        <tr><td>Oracle VPS</td><td>$0 (free tier)</td></tr>
+        <tr><td>Supabase</td><td>$0 (free tier)</td></tr>
+        <tr><td>Vercel (dashboard)</td><td>$0 (free tier)</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><strong>$18-25/mes</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="callout warning">
+      <strong>Comparativo</strong>
+      <p>Viktor custa $50/workspace/mes para funcionalidade similar. OpenClaw atinge paridade por 50-60% menos usando BYO API keys + free tiers.</p>
+    </div>
+
+    <!-- Riscos -->
+    <h2>Riscos e Mitigacoes</h2>
+    <table>
+      <thead>
+        <tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Mitigacao</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Groq rate limits em pico</td><td>Alta</td><td>Media</td><td>Fallback chain: Groq → Gemini Flash → Ollama local</td></tr>
+        <tr><td>API key expirar sem aviso</td><td>Media</td><td>Alta</td><td>Cron validacao semanal + alerta imediato</td></tr>
+        <tr><td>Budget estourar com Sonnet</td><td>Media</td><td>Media</td><td>Eco mode automatico + approval para Sonnet</td></tr>
+        <tr><td>VPS sem RAM (4 agents + Ollama)</td><td>Media</td><td>Alta</td><td>Desabilitar Ollama se RAM < 1GB</td></tr>
+        <tr><td>WhatsApp Evolution API instavel</td><td>Baixa</td><td>Alta</td><td>Fallback para Telegram (ja funcional)</td></tr>
+        <tr><td>Complexidade multi-agent</td><td>Media</td><td>Media</td><td>Comecar com 3 agents, expandir gradual</td></tr>
+        <tr><td>Meta compliance WhatsApp</td><td>Baixa</td><td>Alta</td><td>Enquadrar como suporte a saude</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Checklist -->
+    <h2>Checklist Final — Tier S Atingido</h2>
+    <div class="callout success">
+      <strong>12 Criterios para Tier S Operacional</strong>
+      <ul>
+        <li>Gateway estavel 7 dias sem restart forcado</li>
+        <li>5+ agentes ativos e coordenados (Sam, Carol, EmailBot, DevBot, ResearchBot)</li>
+        <li>4 canais funcionais (Telegram, Discord, Slack, WhatsApp)</li>
+        <li>Heartbeat inteligente 4x/dia com notificacoes proativas</li>
+        <li>Pattern detection gerando insights semanais</li>
+        <li>Memoria cross-session consolidada diariamente</li>
+        <li>Weekly report em PDF gerado automaticamente</li>
+        <li>Dashboard com status real-time</li>
+        <li>Alertas multi-canal disparando corretamente</li>
+        <li>Budget controlado < $40/mes</li>
+        <li>Zero cron jobs falhando por 7 dias consecutivos</li>
+        <li>Self-improving skills com historico documentado</li>
+      </ul>
+    </div>
+
   </div>
 </div>
 
