@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Agentes Autonomos: Guia Comparativo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:20px 0}
+.tier-card{padding:20px;border-radius:var(--ix-radius-md);border:2px solid}
+.tier-s{border-color:var(--ix-green);background:var(--ix-green-bg)}
+.tier-a{border-color:#2563EB;background:#EFF6FF}
+.tier-b{border-color:var(--ix-warning);background:#FEF3E2}
+.tier-c{border-color:var(--ix-danger);background:#FDECEA}
+.tier-label{font-size:28px;font-weight:800;margin-bottom:4px}
+.tier-s .tier-label{color:var(--ix-green-dark)}
+.tier-a .tier-label{color:#2563EB}
+.tier-b .tier-label{color:var(--ix-warning)}
+.tier-c .tier-label{color:var(--ix-danger)}
+.tier-card ul{padding-left:18px;margin:8px 0 0}
+.tier-card li{font-size:14px;margin-bottom:4px}
+.fw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:20px 0}
+.fw-card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:20px;box-shadow:var(--ix-shadow-sm)}
+.fw-card h3{font-size:18px;font-weight:700;margin:0 0 2px;color:var(--ix-ink)}
+.fw-role{font-size:13px;font-weight:600;color:var(--ix-green);margin-bottom:10px}
+.fw-card p{font-size:14px;margin-bottom:6px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px}
+.badge-green{background:var(--ix-green-bg);color:var(--ix-green-dark)}
+.badge-blue{background:#EFF6FF;color:#2563EB}
+.badge-orange{background:#FEF3E2;color:var(--ix-warning)}
+.badge-red{background:#FDECEA;color:var(--ix-danger)}
+.badge-purple{background:#F3EAFF;color:#7B2FBE}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">&larr; Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Agentes Autonomos 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="resumo">Resumo</button>
+  <button type="button" class="tab-btn" data-tab="frameworks">Frameworks</button>
+  <button type="button" class="tab-btn" data-tab="plataformas">Plataformas</button>
+  <button type="button" class="tab-btn" data-tab="whatsapp">WhatsApp</button>
+  <button type="button" class="tab-btn" data-tab="terapeutico">Agente TO</button>
+  <button type="button" class="tab-btn" data-tab="recomendacao">Recomendacao</button>
+</nav>
+
+<!-- ==================== RESUMO ==================== -->
+<div class="tab-panel active" data-tab="resumo" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header" data-ix-watermark="X">
+  <div class="hdr-brand">IMPACT X RESEARCH</div>
+  <h1 class="hdr-title">Agentes Autonomos: <em>Guia Comparativo 2026</em></h1>
+  <p class="hdr-sub">13 plataformas analisadas para construir agentes 100% autonomos e proativos</p>
+  <div class="hdr-meta">
+    <span>Marco 2026</span>
+    <span>Caso de uso: Agente terapeutico via WhatsApp (TEA+TDAH)</span>
+  </div>
+</div>
+
+<h2>Tier List</h2>
+
+<div class="tier-grid">
+  <div class="tier-card tier-s">
+    <div class="tier-label">S</div>
+    <strong>Melhor para autonomia</strong>
+    <ul>
+      <li><strong>n8n + Evolution API</strong> — WhatsApp + autonomia + custo zero</li>
+      <li><strong>LangGraph</strong> — workflows complexos, checkpointing, 400+ empresas</li>
+      <li><strong>OpenClaw</strong> — ja roda 24/7, budget caps, multi-agente</li>
+    </ul>
+  </div>
+  <div class="tier-card tier-a">
+    <div class="tier-label">A</div>
+    <strong>Excelente, com trade-offs</strong>
+    <ul>
+      <li><strong>CrewAI</strong> — multi-agente facil, 44K stars, MCP+A2A</li>
+      <li><strong>Claude Agent SDK</strong> — melhor raciocinio, MCP nativo</li>
+      <li><strong>Google ADK</strong> — multi-modal, A2A, Cloud Run</li>
+    </ul>
+  </div>
+  <div class="tier-card tier-b">
+    <div class="tier-label">B</div>
+    <strong>Usavel, limitacoes claras</strong>
+    <ul>
+      <li><strong>OpenAI Agents SDK</strong> — rapido de iniciar, so OpenAI</li>
+      <li><strong>Perplexity Computer</strong> — 19 modelos, $200/mes</li>
+      <li><strong>Manus AI</strong> — autonomo mas instavel</li>
+    </ul>
+  </div>
+  <div class="tier-card tier-c">
+    <div class="tier-label">C</div>
+    <strong>Evitar em 2026</strong>
+    <ul>
+      <li><strong>AutoGen</strong> — maintenance mode</li>
+      <li><strong>Assistants API</strong> — deprecando mid-2026</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Matriz Comparativa</h2>
+
+<table>
+  <thead>
+    <tr><th>Plataforma</th><th>Autonomo 24/7</th><th>WhatsApp</th><th>Memoria</th><th>Custo</th><th>Producao</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>n8n + Evolution API</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-green">Nativo</span></td><td><span class="badge badge-green">Redis+PG</span></td><td><span class="badge badge-green">Gratis</span></td><td><span class="badge badge-green">Prod</span></td></tr>
+    <tr><td><strong>LangGraph</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-orange">Bridge</span></td><td><span class="badge badge-green">Checkpoint</span></td><td><span class="badge badge-orange">LLM pass</span></td><td><span class="badge badge-green">400+ emp</span></td></tr>
+    <tr><td><strong>OpenClaw</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-orange">Bridge</span></td><td><span class="badge badge-green">Cross-session</span></td><td><span class="badge badge-green">$8/dia cap</span></td><td><span class="badge badge-green">24/7</span></td></tr>
+    <tr><td><strong>CrewAI</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-orange">Bridge</span></td><td><span class="badge badge-green">Agente</span></td><td><span class="badge badge-orange">LLM pass</span></td><td><span class="badge badge-green">12M/dia</span></td></tr>
+    <tr><td><strong>Claude Agent SDK</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-red">Custom</span></td><td><span class="badge badge-green">Arquivo</span></td><td><span class="badge badge-orange">Token</span></td><td><span class="badge badge-green">v1.0</span></td></tr>
+    <tr><td><strong>Google ADK</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-red">Custom</span></td><td><span class="badge badge-green">Session</span></td><td><span class="badge badge-orange">$5-20/dev</span></td><td><span class="badge badge-green">Cloud Run</span></td></tr>
+    <tr><td><strong>OpenAI SDK</strong></td><td><span class="badge badge-orange">Parcial</span></td><td><span class="badge badge-red">Custom</span></td><td><span class="badge badge-red">Manual</span></td><td><span class="badge badge-orange">Token</span></td><td><span class="badge badge-green">Prod</span></td></tr>
+    <tr><td><strong>Perplexity Computer</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-red">Nao</span></td><td><span class="badge badge-orange">Custom</span></td><td><span class="badge badge-red">$200/mes</span></td><td><span class="badge badge-green">Prod</span></td></tr>
+    <tr><td><strong>Manus AI</strong></td><td><span class="badge badge-green">Sim</span></td><td><span class="badge badge-red">Nao</span></td><td><span class="badge badge-orange">Interno</span></td><td><span class="badge badge-red">$39-199</span></td><td><span class="badge badge-orange">Instavel</span></td></tr>
+  </tbody>
+</table>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="metric-value">6+</div><div class="metric-label">Frameworks prod-ready</div></div>
+  <div class="metric-card"><div class="metric-value">$2.5B</div><div class="metric-label">Valuation n8n</div></div>
+  <div class="metric-card"><div class="metric-value">44.6K</div><div class="metric-label">Stars CrewAI</div></div>
+  <div class="metric-card"><div class="metric-value">400+</div><div class="metric-label">Empresas LangGraph</div></div>
+</div>
+
+</div>
+</div>
+
+<!-- ==================== FRAMEWORKS ==================== -->
+<div class="tab-panel" data-tab="frameworks" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Frameworks Code-First</h1>
+<p>Controle total, escrevendo codigo. Ideal para agentes complexos e em producao.</p>
+
+<div class="fw-grid">
+
+<div class="fw-card">
+  <h3>LangGraph</h3>
+  <div class="fw-role">Grafo de estados + checkpointing</div>
+  <p><strong>Arquitetura:</strong> Grafo direcionado com nos e arestas. Visibilidade total do caminho de execucao.</p>
+  <p><strong>Diferencial:</strong> Checkpoint rollback, observabilidade via LangSmith. Uber, LinkedIn, BlackRock em prod.</p>
+  <p><strong>Modelos:</strong> Qualquer LLM | <strong>Curva:</strong> 1-2 semanas</p>
+  <p><span class="badge badge-green">v1.0 GA</span> <span class="badge badge-purple">~25K stars</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>CrewAI</h3>
+  <div class="fw-role">Multi-agente baseado em papeis</div>
+  <p><strong>Arquitetura:</strong> Agentes como "membros de time" com role, backstory e goal.</p>
+  <p><strong>Diferencial:</strong> 20 linhas Python = sistema funcionando. MCP + A2A nativo. 100K+ devs certificados.</p>
+  <p><strong>Modelos:</strong> Qualquer LLM | <strong>Curva:</strong> 3-5 dias</p>
+  <p><span class="badge badge-green">v1.10.1</span> <span class="badge badge-purple">44.6K stars</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>Claude Agent SDK</h3>
+  <div class="fw-role">Tool-use + MCP nativo</div>
+  <p><strong>Arquitetura:</strong> Tool-use chain com sub-agents. MCP in-process server model.</p>
+  <p><strong>Diferencial:</strong> MCP criado pela Anthropic. Constitutional AI. Extended thinking transparente.</p>
+  <p><strong>Modelos:</strong> Claude only | <strong>Curva:</strong> Medio</p>
+  <p><span class="badge badge-green">v0.1.48</span> <span class="badge badge-blue">MCP-native</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>OpenAI Agents SDK</h3>
+  <div class="fw-role">Handoff chain minimalista</div>
+  <p><strong>Arquitetura:</strong> Agents delegam para especialistas como tools. SDK gerencia loops automaticamente.</p>
+  <p><strong>Diferencial:</strong> &lt;100 linhas = multi-agent com guardrails e tracing built-in.</p>
+  <p><strong>Modelos:</strong> OpenAI only | <strong>Curva:</strong> 2-3 dias</p>
+  <p><span class="badge badge-green">v0.10.2</span> <span class="badge badge-orange">OpenAI-only</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>Google ADK</h3>
+  <div class="fw-role">Multi-modal + A2A protocol</div>
+  <p><strong>Arquitetura:</strong> Code-first (Python, Java, Go). A2A para comunicacao cross-framework.</p>
+  <p><strong>Diferencial:</strong> Gemini 2.5 Pro multi-modal. Deploy Cloud Run com auto-scaling.</p>
+  <p><strong>Modelos:</strong> Gemini + Claude | <strong>Curva:</strong> Medio</p>
+  <p><span class="badge badge-green">v1.26.0</span> <span class="badge badge-blue">A2A</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>OpenClaw</h3>
+  <div class="fw-role">Multi-agente config-driven</div>
+  <p><strong>Arquitetura:</strong> JSON + Markdown config. Gateway localhost:18789. Workspaces isolados.</p>
+  <p><strong>Diferencial:</strong> Budget caps por agente. EcoMode. Circuit breaker. Cron nativo. Composio 500+ tools.</p>
+  <p><strong>Modelos:</strong> Multi (routing) | <strong>Curva:</strong> Config-heavy</p>
+  <p><span class="badge badge-green">Prod 24/7</span> <span class="badge badge-green">Oracle VPS</span></p>
+</div>
+
+</div>
+
+<h2>Comparativo de Arquitetura</h2>
+<table>
+  <thead><tr><th>Framework</th><th>Tipo</th><th>Persistencia</th><th>Multi-modelo</th><th>Human-in-Loop</th></tr></thead>
+  <tbody>
+    <tr><td>LangGraph</td><td>Grafo direcionado</td><td>Checkpoint built-in</td><td>Qualquer</td><td>Nativo</td></tr>
+    <tr><td>CrewAI</td><td>Role-based crews</td><td>Session memory</td><td>Qualquer</td><td>Callbacks</td></tr>
+    <tr><td>Claude SDK</td><td>Tool-use chain</td><td>Filesystem</td><td>Claude</td><td>Lifecycle hooks</td></tr>
+    <tr><td>OpenAI SDK</td><td>Handoff chain</td><td>Manual</td><td>OpenAI</td><td>Manual</td></tr>
+    <tr><td>Google ADK</td><td>Code-first</td><td>Session</td><td>Gemini+</td><td>A2A protocol</td></tr>
+    <tr><td>OpenClaw</td><td>Config-driven</td><td>Cross-session</td><td>Multi routing</td><td>Inbox</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ==================== PLATAFORMAS ==================== -->
+<div class="tab-panel" data-tab="plataformas" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Plataformas No/Low-Code e SaaS</h1>
+
+<div class="fw-grid">
+
+<div class="fw-card">
+  <h3>n8n</h3>
+  <div class="fw-role">Workflow automation + AI agents</div>
+  <p>Plataforma low-code com 500+ integracoes. Valuada em $2.5B (Oct 2025). 5,815+ templates de automacao AI.</p>
+  <p><strong>WhatsApp:</strong> Integracao nativa via Evolution API ou Cloud API oficial.</p>
+  <p><strong>Custo:</strong> Self-hosted gratis. Cloud $40-250+/mes.</p>
+  <p><span class="badge badge-green">Prod</span> <span class="badge badge-green">WhatsApp nativo</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>Perplexity Computer</h3>
+  <div class="fw-role">19 modelos + execucao autonoma</div>
+  <p>"Digital worker" que orquestra 19 modelos AI em paralelo. Workflows de horas a meses. 400+ integracoes.</p>
+  <p><strong>Custo:</strong> $200/mes. <strong>Limitacao:</strong> Sem WhatsApp. Foco enterprise.</p>
+  <p><span class="badge badge-green">Prod</span> <span class="badge badge-red">$200/mes</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>Manus AI</h3>
+  <div class="fw-role">Agente autonomo generalista</div>
+  <p>Planeja, navega, codifica e analisa em background. Adquirido pela Meta. Usa Claude e Qwen internamente.</p>
+  <p><strong>Custo:</strong> Free (300 creditos/dia), $39-199/mes. <strong>Problema:</strong> Instabilidade significativa.</p>
+  <p><span class="badge badge-orange">Instavel</span> <span class="badge badge-red">Custo imprevisivel</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>Claude Code + Cowork</h3>
+  <div class="fw-role">IDE-integrated + Agent Teams</div>
+  <p>340+ plugins, 1367+ skills. Agent Teams (Feb 2026). Subagents para tarefas paralelas.</p>
+  <p><strong>Limitacao:</strong> Requer sessao ativa. Nao e proativo/scheduled por design.</p>
+  <p><span class="badge badge-green">Prod</span> <span class="badge badge-orange">Sessao required</span></p>
+</div>
+
+<div class="fw-card">
+  <h3>Composio</h3>
+  <div class="fw-role">Integration layer para agentes</div>
+  <p>500+ tools pre-prontas com OAuth, rate-limit e retry gerenciados. MCP nativo. Funciona com qualquer framework.</p>
+  <p><strong>Custo:</strong> Free/freemium. <strong>Ja integrado no OpenClaw.</strong></p>
+  <p><span class="badge badge-green">Prod</span> <span class="badge badge-purple">Ja integrado</span></p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- ==================== WHATSAPP ==================== -->
+<div class="tab-panel" data-tab="whatsapp" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Conectando Agentes ao WhatsApp</h1>
+
+<div class="callout danger">
+  <strong>Meta baniu chatbots generalistas no WhatsApp (Jan 2026).</strong> Porem, bots especificos para atender clientes/usuarios (como agente de saude pessoal) continuam permitidos.
+</div>
+
+<h2>3 Caminhos</h2>
+
+<div class="fw-grid">
+
+<div class="fw-card">
+  <h3>1. Evolution API + n8n</h3>
+  <div class="fw-role"><span class="badge badge-green">RECOMENDADO</span></div>
+  <p>Open-source. Dual-mode: Baileys (gratis) ou Cloud API (producao). 10+ integracoes. n8n community node pronto.</p>
+  <p><strong>Multi-modal:</strong> texto, audio (transcricao), imagem (visao).</p>
+  <p><strong>Templates n8n prontos:</strong></p>
+  <ul>
+    <li>WhatsApp assistant GPT-4o + Evolution API</li>
+    <li>Agent "human-like" com Redis + PostgreSQL + Gemini</li>
+    <li>AI personal assistant com RAG + voice via Supabase</li>
+  </ul>
+</div>
+
+<div class="fw-card">
+  <h3>2. Baileys Direto (TypeScript)</h3>
+  <div class="fw-role"><span class="badge badge-blue">PARA DEVS</span></div>
+  <p>Protocolo WebSocket do WhatsApp Web direto. 100% gratis, Linked Devices, controle total.</p>
+  <p><strong>Riscos:</strong> Nao oficial, conta pode ser banida, sem SLA.</p>
+  <p><strong>Melhor para:</strong> Projetos pessoais, uso proprio.</p>
+</div>
+
+<div class="fw-card">
+  <h3>3. WhatsApp Cloud API (Oficial)</h3>
+  <div class="fw-role"><span class="badge badge-purple">PRODUCAO</span></div>
+  <p>API oficial da Meta. 1.000 conversas gratis/mes. Templates aprovados. Webhooks nativos.</p>
+  <p><strong>Requer:</strong> Business Account verificado. Custo por conversa apos free tier.</p>
+  <p><strong>Alternativa:</strong> Twilio — mais facil, porem mais caro.</p>
+</div>
+
+</div>
+
+<h2>Stack Recomendado</h2>
+
+<div class="callout success">
+  <strong>Uso pessoal (custo zero):</strong><br>
+  WhatsApp (Baileys/Evolution API) &rarr; n8n &rarr; Claude/Gemini Flash &rarr; Supabase &rarr; Cron
+</div>
+
+<div class="callout info">
+  <strong>Producao/escala:</strong><br>
+  WhatsApp Cloud API &rarr; Evolution API &rarr; n8n &rarr; LLM &rarr; PostgreSQL &rarr; Cron
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TERAPEUTICO ==================== -->
+<div class="tab-panel" data-tab="terapeutico" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Agente Terapeutico para TEA + TDAH</h1>
+
+<div class="callout warning">
+  <strong>Disclaimer:</strong> Agentes AI nao substituem profissionais. Objetivo: automatizar tecnicas que voce ja pratica sozinho — regulacao, lembretes TCC, journaling, tracking de humor.
+</div>
+
+<h2>O que ja existe</h2>
+
+<table>
+  <thead><tr><th>Produto</th><th>Foco</th><th>WhatsApp</th><th>Observacao</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Health Agent (OpenClaw)</strong></td><td>Check-ins ADHD/Autism</td><td>Nao (Telegram)</td><td>Ja roda 24/7, 4 check-ins/dia, Supabase, ACT exercises</td></tr>
+    <tr><td><strong>JoBot</strong></td><td>CBT + ADHD + Autism</td><td>Nao</td><td>Especializado em TCC para neurodivergentes</td></tr>
+    <tr><td><strong>Wysa</strong></td><td>Self-management CBT</td><td>Nao</td><td>Assume neurotypicality (limitacao)</td></tr>
+    <tr><td><strong>Tess</strong></td><td>Multi-canal terapeutico</td><td>Sim</td><td>Um dos poucos com WhatsApp nativo</td></tr>
+  </tbody>
+</table>
+
+<h2>Design: "TO Digital"</h2>
+
+<table>
+  <thead><tr><th>Feature</th><th>Descricao</th><th>Frequencia</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Check-in matinal</strong></td><td>Sono, energia, plano do dia (max 3 itens)</td><td>1x/dia 09h</td></tr>
+    <tr><td><strong>Lembrete Concerta</strong></td><td>Confirmacao de medicacao</td><td>1x/dia 08h</td></tr>
+    <tr><td><strong>Body doubling</strong></td><td>Pomodoro virtual + check apos 25min</td><td>On-demand</td></tr>
+    <tr><td><strong>Regulacao sensorial</strong></td><td>Grounding 5-4-3-2-1 quando overwhelm</td><td>On-demand</td></tr>
+    <tr><td><strong>TCC micro</strong></td><td>Reestruturacao cognitiva em 3 perguntas</td><td>On-demand</td></tr>
+    <tr><td><strong>Transicao de tarefa</strong></td><td>Alerta + ritual de fechamento</td><td>Calendar-aware</td></tr>
+    <tr><td><strong>Mood tracking</strong></td><td>Escala 1-5 + emocao + trigger</td><td>2x/dia</td></tr>
+    <tr><td><strong>Journal noturno</strong></td><td>3 coisas boas + 1 desafio + insight</td><td>1x/dia 22h</td></tr>
+    <tr><td><strong>Pattern report</strong></td><td>Tendencias semanais</td><td>1x/sem</td></tr>
+  </tbody>
+</table>
+
+<h2>Guardrails (AuDHD-aware)</h2>
+
+<ul>
+  <li><strong>Max 1 pergunta por mensagem</strong> — nunca bombardear</li>
+  <li><strong>Max 5 itens por lista</strong> — respeitar working memory</li>
+  <li><strong>Respostas curtas</strong> — 2-3 frases max</li>
+  <li><strong>Sem julgamento</strong> — nunca "voce deveria ter..."</li>
+  <li><strong>Comando /pausar</strong> — para tudo imediatamente</li>
+  <li><strong>Protocolo de crise</strong> — CVV 188 + contato emergencia hardcoded</li>
+  <li><strong>Nao diagnosticar</strong> — sempre redirecionar para profissional</li>
+</ul>
+
+</div>
+</div>
+
+<!-- ==================== RECOMENDACAO ==================== -->
+<div class="tab-panel" data-tab="recomendacao" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Recomendacao Final</h1>
+
+<div class="callout success">
+  <strong>Caminho recomendado: Hibrido</strong><br><br>
+  <strong>OpenClaw</strong> (ja roda 24/7) como orchestrador + memoria + guardrails<br>
+  + <strong>Evolution API</strong> (gratis, self-hosted) como canal WhatsApp<br>
+  + <strong>Supabase</strong> (ja configurado) para dados clinicos<br>
+  + <strong>Gemini Flash</strong> (default) para 90% das interacoes<br>
+  + <strong>Claude Haiku</strong> (fallback) para nuance em reestruturacao cognitiva<br><br>
+  <strong>Custo estimado: ~$0/mes</strong> (tudo self-hosted na VPS Oracle free tier)
+</div>
+
+<h2>Quando usar cada ferramenta</h2>
+
+<table>
+  <thead><tr><th>Situacao</th><th>Ferramenta</th><th>Por que</th></tr></thead>
+  <tbody>
+    <tr><td>Agente autonomo 24/7</td><td><strong>OpenClaw</strong></td><td>Ja roda, budget caps, cron nativo</td></tr>
+    <tr><td>Conectar WhatsApp</td><td><strong>Evolution API + Baileys</strong></td><td>Gratis, open-source, dual-mode</td></tr>
+    <tr><td>Workflows visuais</td><td><strong>n8n</strong></td><td>500+ integracoes, $0 self-hosted</td></tr>
+    <tr><td>Raciocinio complexo</td><td><strong>Claude Agent SDK</strong></td><td>MCP nativo, seguranca top</td></tr>
+    <tr><td>Multi-agente rapido</td><td><strong>CrewAI</strong></td><td>20 linhas = funcionando</td></tr>
+    <tr><td>Workflow com estado</td><td><strong>LangGraph</strong></td><td>Checkpoint, rollback, 400+ empresas</td></tr>
+    <tr><td>500+ APIs terceiros</td><td><strong>Composio</strong></td><td>Ja integrado, OAuth gerenciado</td></tr>
+    <tr><td>Pesquisa multi-modelo</td><td><strong>Perplexity Computer</strong></td><td>19 modelos, $200/mes</td></tr>
+    <tr><td>Dev workflow</td><td><strong>Claude Code</strong></td><td>Plugins, skills, Agent Teams</td></tr>
+  </tbody>
+</table>
+
+<h2>Proximo Passo</h2>
+
+<div class="phase">
+  <div class="phase-label">Sprint 1 (1-2 dias)</div>
+  <div class="phase-content">
+    <ol>
+      <li>Instalar Evolution API na VPS Oracle (Docker compose)</li>
+      <li>Conectar WhatsApp pessoal via QR code (Baileys mode)</li>
+      <li>Criar bridge OpenClaw &harr; Evolution API (copiar pattern Slack bridge)</li>
+      <li>Mover health agent de Telegram para WhatsApp</li>
+      <li>Testar check-in matinal via WhatsApp</li>
+    </ol>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-label">Sprint 2 (3-5 dias)</div>
+  <div class="phase-content">
+    <ol>
+      <li>Adicionar TCC (reestruturacao cognitiva, grounding)</li>
+      <li>Body doubling virtual (pomodoro + check)</li>
+      <li>Regulacao sensorial on-demand</li>
+      <li>Transicao de tarefa calendar-aware (Composio Google Calendar)</li>
+    </ol>
+  </div>
+</div>
+
+<h2>Fontes</h2>
+<p style="font-size:13px;color:var(--ix-muted);">
+  designrevision.com — AI Agent Frameworks Compared |
+  particula.tech — LangGraph vs CrewAI vs OpenAI SDK |
+  gurusup.com — Best Multi-Agent Frameworks 2026 |
+  doc.evolution-api.com — Evolution API Docs |
+  n8n.io — AI Automation Workflows |
+  cybernews.com — Manus AI Review 2026 |
+  perplexity.ai — Computer Launch |
+  prabha.ai — Claude SDK vs Google ADK |
+  pubmed.ncbi.nlm.nih.gov — CBT Chatbot for ADHD |
+  techcrunch.com — WhatsApp Chatbot Terms |
+  baileys.wiki — Baileys Docs
+</p>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X &mdash; Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
