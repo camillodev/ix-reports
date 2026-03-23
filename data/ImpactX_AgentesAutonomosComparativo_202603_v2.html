@@ -389,43 +389,452 @@ footer .brand {
   <button type="button" class="tab-btn" data-tab="openclaw-deep">OpenClaw Deep</button>
 </nav>
 
-<!-- TAB 1: Tier List (resumido por brevidade, use v1) -->
+<!-- TAB 1: Tier List (V1 conteúdo completo) -->
 <div class="tab-panel active" data-tab="tier-list" role="tabpanel" aria-hidden="false">
   <div class="content">
     <div class="report-header">
       <div class="hdr-title">Tier List: Autonomia Total</div>
-      <div class="hdr-sub">Use a versão anterior para ver a tier list completa</div>
+      <div class="hdr-sub">14 plataformas classificadas por proatividade e maturidade</div>
     </div>
-    <p>👉 Esta versão foi atualizada para incluir "OpenClaw Deep Dive". Veja a versão anterior para tier list, comparativo, Viktor case e WhatsApp.</p>
+
+    <h2>🟢 Tier S — Autonomia Total + Proatividade Nativa</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier S</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>OpenClaw</strong></td>
+          <td>Daemon persistente com heartbeat, cron nativo, bridges multi-canal (WhatsApp, Discord, Slack, Telegram), MIT license</td>
+        </tr>
+        <tr>
+          <td><strong>Viktor</strong></td>
+          <td>Heartbeat system que detecta padrões e propõe automações, 3000+ integrações, memória persistente por semanas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🟠 Tier A — Excelente para Agentes</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier A</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>n8n</strong></td>
+          <td>Triggers/cron/webhooks nativos, WhatsApp Cloud API nativo, 1200+ integrações, self-hosted gratuito</td>
+        </tr>
+        <tr>
+          <td><strong>LangGraph</strong></td>
+          <td>Framework mais maduro, durable execution, memory nativa, usado por Klarna/Replit</td>
+        </tr>
+        <tr>
+          <td><strong>Claude Agent SDK</strong></td>
+          <td>Poder total do Claude com shell/filesystem, subagents coordenados, permission systems</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🟡 Tier B — Bom para Multi-Agent</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier B</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CrewAI</strong></td>
+          <td>Melhor DX multi-agent (crews com papéis), 60% Fortune 500, mas sem scheduler nativo</td>
+        </tr>
+        <tr>
+          <td><strong>OpenAI Agents SDK</strong></td>
+          <td>Realtime Agents, guardrails nativas, handoffs elegantes, mas reativo</td>
+        </tr>
+        <tr>
+          <td><strong>AutoGen/AG2</strong></td>
+          <td>Interoperabilidade cross-framework única, mas ecossistema fragmentado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>⚪ Tier C — Nicho ou Limitado</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier C</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Claude Code</strong></td><td>Melhor ferramenta de dev, mas não é plataforma de agentes end-user</td></tr>
+        <tr><td><strong>Manus AI</strong></td><td>Set-and-forget potente, mas cloud-only, custos impredizíveis</td></tr>
+        <tr><td><strong>Botpress</strong></td><td>WhatsApp nativo, mas focado em chatbots, não agentes autônomos</td></tr>
+        <tr><td><strong>Composio</strong></td><td>Tool router excelente, mas complementar — não é agent framework</td></tr>
+        <tr><td><strong>Relevance AI</strong></td><td>No-code para vendas/GTM, menos generalista</td></tr>
+        <tr><td><strong>Voiceflow</strong></td><td>Voice agents fortes, mas reativo, sem proatividade</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<!-- TAB 2-5: Placeholder -->
+<!-- TAB 2: Matriz Comparativa (V1 conteúdo completo) -->
 <div class="tab-panel" data-tab="matriz" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <p>👉 Veja versão anterior do relatório para matriz comparativa completa.</p>
+    <div class="report-header">
+      <div class="hdr-title">Matriz Comparativa: 6 Dimensões</div>
+      <div class="hdr-sub">Análise detalhada de autonomia, memória, multi-agent, custo e WhatsApp</div>
+    </div>
+
+    <h2>1️⃣ Autonomia e Proatividade</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Proativo?</th><th>Scheduler</th><th>Heartbeat</th><th>Background</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>✅ Sim</td><td>Cron nativo</td><td>✅ Daemon 24/7</td><td>✅ Sim</td></tr>
+        <tr><td>Viktor</td><td>✅ Sim</td><td>✅ Tarefas agendadas</td><td>✅ Observa canais</td><td>✅ Sandbox cloud</td></tr>
+        <tr><td>n8n</td><td>✅ Sim</td><td>Cron/triggers/webhooks</td><td>❌</td><td>✅ 24/7</td></tr>
+        <tr><td>LangGraph</td><td>🟡 Parcial</td><td>Integração externa</td><td>❌</td><td>✅ Durable execution</td></tr>
+        <tr><td>Claude Agent SDK</td><td>🟡 Parcial</td><td>Cron externo</td><td>❌</td><td>✅</td></tr>
+        <tr><td>CrewAI</td><td>❌</td><td>Não nativo</td><td>❌</td><td>✅ Flows</td></tr>
+        <tr><td>Manus AI</td><td>✅ Sim</td><td>✅ Background tasks</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Botpress</td><td>🟡 Parcial</td><td>Triggers de eventos</td><td>❌</td><td>🟡 Parcial</td></tr>
+      </tbody>
+    </table>
+
+    <h2>2️⃣ Memória Cross-Session</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Short-term</th><th>Long-term</th><th>Persistência</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>Sessão</td><td>Markdown local</td><td>✅ SQLite + arquivos</td></tr>
+        <tr><td>Viktor</td><td>Sessão</td><td>Event-sourcing AES-256</td><td>✅ Semanas+</td></tr>
+        <tr><td>n8n</td><td>Volátil</td><td>Postgres/Redis/MongoDB</td><td>✅ Com config</td></tr>
+        <tr><td>LangGraph</td><td>Working memory</td><td>Persistent memory</td><td>✅</td></tr>
+        <tr><td>Claude Agent SDK</td><td>Contexto</td><td>Custom</td><td>🟡 Depende</td></tr>
+        <tr><td>CrewAI</td><td>Sessão</td><td>Sim</td><td>✅ Com caching</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3️⃣ Suporte Multi-Agent</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Suporte</th><th>Modelo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>✅ Sim</td><td>Model mixing — cada agente com modelo próprio</td></tr>
+        <tr><td>n8n</td><td>✅ Sim</td><td>AI Agent nodes em workflows</td></tr>
+        <tr><td>LangGraph</td><td>✅ Excelente</td><td>Single, multi, hierarchical</td></tr>
+        <tr><td>Claude Agent SDK</td><td>✅ Sim</td><td>Subagents com permissions</td></tr>
+        <tr><td>CrewAI</td><td>✅ Core</td><td>Crews com papéis e delegação</td></tr>
+        <tr><td>OpenAI Agents SDK</td><td>✅ Excelente</td><td>Handoffs, guardrails paralelas</td></tr>
+        <tr><td>AutoGen/AG2</td><td>✅ Excelente</td><td>GroupChat, swarms, cross-framework</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4️⃣ Custo Mensal Estimado (Startup/Pessoal)</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Modelo</th><th>Custo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>MIT + BYO API</td><td><strong>$15-50</strong> (VPS + APIs)</td></tr>
+        <tr><td>Viktor</td><td>SaaS</td><td><strong>$50/workspace</strong></td></tr>
+        <tr><td>n8n</td><td>Self-host free + Cloud</td><td><strong>$0-20</strong> (+ API)</td></tr>
+        <tr><td>LangGraph</td><td>MIT + LangSmith</td><td><strong>$0-39</strong> (+ API)</td></tr>
+        <tr><td>Claude Agent SDK</td><td>Open source + API</td><td><strong>$10-75</strong></td></tr>
+        <tr><td>CrewAI</td><td>Open source + Studio</td><td><strong>$0-25</strong> (+ API)</td></tr>
+        <tr><td>Claude Code</td><td>Assinatura</td><td><strong>$100-200/mês</strong> (Max plan)</td></tr>
+        <tr><td>Manus AI</td><td>SaaS créditos</td><td><strong>$39-199</strong> (impredizível)</td></tr>
+        <tr><td>Botpress</td><td>SaaS</td><td><strong>$0-89</strong></td></tr>
+        <tr><td>Relevance AI</td><td>SaaS</td><td><strong>$0-234</strong> (salto grande)</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
+<!-- TAB 3: Viktor Case Study (V1 conteúdo completo) -->
 <div class="tab-panel" data-tab="viktor" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <p>👉 Veja versão anterior para Viktor case study.</p>
+    <div class="report-header">
+      <div class="hdr-title">Estudo de Caso: <em>Viktor</em></div>
+      <div class="hdr-sub">Modelo de proatividade que devemos replicar no P1</div>
+    </div>
+
+    <p><strong>Viktor</strong> (getviktor.com) é um "AI coworker" que vive no Slack. Não é um chatbot: é um agente autônomo com sandbox cloud próprio que executa ações reais.</p>
+
+    <h2>💓 O Heartbeat System (Diferencial)</h2>
+    <ol>
+      <li><strong>Observa canais</strong> do Slack continuamente</li>
+      <li><strong>Analisa padrões</strong> de uso das ferramentas conectadas (Google Ads, Stripe, HubSpot, etc)</li>
+      <li><strong>Detecta anomalias</strong> via clustering não-supervisionado</li>
+      <li><strong>Propõe automações</strong> que ninguém pediu</li>
+      <li>Uma vez aprovada, roda em <strong>autopilot</strong></li>
+    </ol>
+
+    <div class="callout success">
+      <strong>Exemplo real:</strong> Durante crise, Viktor postou 28 updates automáticos, rastreou voos da equipe, flaggou anomalia de spend em ads, e shippou um PR — tudo sem ser solicitado.
+    </div>
+
+    <h2>🧠 Self-Improving Skills</h2>
+    <p>Viktor documenta workflows que executa e os transforma em <strong>skills reutilizáveis</strong>. Quanto mais usa, mais automatiza.</p>
+
+    <h2>🔧 Modelo de Execução</h2>
+    <ul>
+      <li>Sandbox cloud isolado por workspace (TypeScript)</li>
+      <li>Browser automation via Puppeteer</li>
+      <li>Deliverables reais: PDFs, Excel, PowerPoint, web apps com DB</li>
+      <li>3000+ integrações via OAuth gerenciado</li>
+    </ul>
+
+    <h2>⚠️ Limitações (por isso não é Tier S+ para nós)</h2>
+    <table>
+      <thead>
+        <tr><th>Limitação</th><th>Impacto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Slack-only (Teams em breve)</td><td>Sem WhatsApp, Telegram, Discord — critical para P1</td></tr>
+        <tr><td>Cloud-only</td><td>Sem self-host, dependência de Viktor</td></tr>
+        <tr><td>Modelo AI fixo (Claude Opus)</td><td>Sem opção de trocar modelo por preço</td></tr>
+        <tr><td>$50/mes por workspace</td><td>Caro para nosso TAM inicial</td></tr>
+        <tr><td>Baixa customização</td><td>Menos controle vs frameworks open-source</td></tr>
+      </tbody>
+    </table>
+
+    <h2>✅ Lição para Impact X</h2>
+    <div class="callout info">
+      <strong>O padrão de <em>heartbeat + detecção de anomalias + proposta proativa</em> é o modelo a seguir para o P1 (WhatsApp AI Assistant).</strong>
+      <p style="margin-top: 12px;">Viktor prova que proatividade gera valor real — o gap é trazer isso para WhatsApp no mercado brasileiro.</p>
+    </div>
   </div>
 </div>
 
+<!-- TAB 4: WhatsApp (V1 conteúdo completo) -->
 <div class="tab-panel" data-tab="whatsapp" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <p>👉 Veja versão anterior para estratégias WhatsApp.</p>
+    <div class="report-header">
+      <div class="hdr-title">Integração WhatsApp para Agentes AI</div>
+      <div class="hdr-sub">Métodos, compliance Meta 2026 e plataformas com suporte nativo</div>
+    </div>
+
+    <h2>📱 Métodos Disponíveis</h2>
+    <table>
+      <thead>
+        <tr><th>Método</th><th>Tipo</th><th>Custo</th><th>Risco</th><th>Melhor Para</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Evolution API (Baileys)</strong></td>
+          <td>Unofficial, open source</td>
+          <td>Grátis</td>
+          <td>Alto (viola ToS)</td>
+          <td>Protótipos, uso pessoal</td>
+        </tr>
+        <tr>
+          <td><strong>Evolution API (Cloud API)</strong></td>
+          <td>Official via Evolution</td>
+          <td>$0.03-0.15/msg</td>
+          <td>Zero</td>
+          <td>Produção</td>
+        </tr>
+        <tr>
+          <td><strong>WhatsApp Cloud API</strong></td>
+          <td>Official Meta</td>
+          <td>$0.03-0.15/msg</td>
+          <td>Zero</td>
+          <td>Enterprise</td>
+        </tr>
+        <tr>
+          <td><strong>Twilio</strong></td>
+          <td>Official BSP</td>
+          <td>$0.005/msg + fees</td>
+          <td>Zero</td>
+          <td>Multi-canal</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🔌 Plataformas com WhatsApp Nativo</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Tipo de Integração</th><th>Recomendado?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>OpenClaw</strong></td><td>Bridge nativo (Evolution API + Cloud API)</td><td>✅ Sim</td></tr>
+        <tr><td><strong>n8n</strong></td><td>WhatsApp Business Cloud API node nativo</td><td>✅ Sim</td></tr>
+        <tr><td><strong>Botpress</strong></td><td>Deploy multicanal nativo</td><td>🟡 Sim, mas não é autônomo</td></tr>
+        <tr><td>Voiceflow</td><td>Via Flowbridge (terceiros)</td><td>❌ Não</td></tr>
+        <tr><td>Todas as demais</td><td>Sem suporte — requer bridge externo</td><td>❌ Evitar</td></tr>
+      </tbody>
+    </table>
+
+    <h2>⚖️ Regra Meta 2026 — Critical para P1</h2>
+    <div class="callout warning">
+      <strong>Meta agora exige que chatbots realizem "tarefas concretas de negócio".</strong>
+      <p style="margin-top: 12px;">Chatbots open-ended sem objetivo claro não são permitidos.</p>
+      <p style="margin: 8px 0;">Um agente terapêutico precisa ser enquadrado como "suporte à saúde" com tarefas específicas:</p>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li>Gerenciamento de rotina</li>
+        <li>Lembretes de medicação</li>
+        <li>Exercícios de CBT estruturados</li>
+      </ul>
+    </div>
+
+    <h2>🎯 Estratégia Recomendada para P1</h2>
+    <ol>
+      <li><strong>Produção:</strong> Evolution API (Cloud API) — compliance, sem risco de ban, custo controlado ($0.03-0.15/msg)</li>
+      <li><strong>Prototipagem:</strong> Evolution API (Baileys) para MVP — rápido, grátis, risco aceitável em testes</li>
+      <li><strong>Futuro:</strong> Considerar Twilio se precisar multi-canal (SMS, voice, etc)</li>
+    </ol>
   </div>
 </div>
 
+<!-- TAB 5: Recomendação + Sprint (V1 conteúdo completo) -->
 <div class="tab-panel" data-tab="recomendacao" role="tabpanel" aria-hidden="true">
   <div class="content">
-    <p>👉 Veja versão anterior para recomendação final e sprint plan.</p>
+    <div class="report-header">
+      <div class="hdr-title">Recomendação Final para P1</div>
+      <div class="hdr-sub">Stack primária + alternativa + sprint plan (1 semana)</div>
+    </div>
+
+    <h2>🚀 Stack Primária: OpenClaw + Evolution API (Cloud)</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Framework</div>
+        <div class="metric-value">OpenClaw</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Canal</div>
+        <div class="metric-value">Evolution</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">LLM Principal</div>
+        <div class="metric-value">Claude Sonnet</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Custo Est.</div>
+        <div class="metric-value">$15-40/mês</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Aspecto</th><th>Escolha</th><th>Razão</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Framework</strong></td>
+          <td>OpenClaw</td>
+          <td>Já operacional na VPS, proatividade nativa, WhatsApp bridge pronto</td>
+        </tr>
+        <tr>
+          <td><strong>Canal</strong></td>
+          <td>Evolution API (Cloud)</td>
+          <td>Compliance Meta, sem risco de ban, custo controlado</td>
+        </tr>
+        <tr>
+          <td><strong>LLM Empático</strong></td>
+          <td>Claude Sonnet</td>
+          <td>Melhor para conversa empática e nuançada com TEA+ADHD</td>
+        </tr>
+        <tr>
+          <td><strong>LLM Rotina</strong></td>
+          <td>Gemini Flash</td>
+          <td>Barato para lembretes e check-ins simples</td>
+        </tr>
+        <tr>
+          <td><strong>Memória</strong></td>
+          <td>SQLite + Markdown</td>
+          <td>Já nativo no OpenClaw, robusto e auditável</td>
+        </tr>
+        <tr>
+          <td><strong>Custo Estimado</strong></td>
+          <td>$15-40/mês</td>
+          <td>VPS ($5) + APIs Claude ($10-25) + Gemini ($0-5)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🔄 Alternativa B: n8n + Evolution API + Claude API</h2>
+    <ul>
+      <li>Melhor se precisar de visual builder e templates prontos</li>
+      <li>WhatsApp node nativo no n8n</li>
+      <li>Mais fácil de manter para não-devs</li>
+      <li>Custo similar: $10-40/mês</li>
+    </ul>
+
+    <h2>📅 Sprint Plan (1 Semana)</h2>
+    <table>
+      <thead>
+        <tr><th>Dia</th><th>Tarefa</th><th>Crítico?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>D1</strong></td>
+          <td>Fix heartbeat OpenClaw (CRIT-1) + configurar bridge WhatsApp</td>
+          <td>🔴 SIM</td>
+        </tr>
+        <tr>
+          <td><strong>D2</strong></td>
+          <td>Criar agente terapêutico com IDENTITY, SOUL, TOOLS</td>
+          <td>🟡 Alto</td>
+        </tr>
+        <tr>
+          <td><strong>D3</strong></td>
+          <td>Implementar rotinas proativas (cron: 08h, 12h, 18h, 22h)</td>
+          <td>🟡 Alto</td>
+        </tr>
+        <tr>
+          <td><strong>D4</strong></td>
+          <td>Adicionar detecção de dysregulação + protocolos de resposta</td>
+          <td>🟡 Médio</td>
+        </tr>
+        <tr>
+          <td><strong>D5</strong></td>
+          <td>Testes end-to-end WhatsApp + ajustes de tom/personalidade</td>
+          <td>🟡 Médio</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🧠 Design do Agente Terapêutico (Pattern)</h2>
+    <div class="callout info">
+      <strong>Rotinas Proativas (cron):</strong>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li><strong>08:00</strong> — Check-in matinal: "Como você dormiu? Como está o nível de energia?"</li>
+        <li><strong>12:00</strong> — Lembrete de pausa/alimentação (ADHD esquece de comer)</li>
+        <li><strong>18:00</strong> — Revisão do dia: "O que você conseguiu fazer hoje?" (sem julgamento)</li>
+        <li><strong>22:00</strong> — Rotina de wind-down: exercício de respiração ou journaling guiado</li>
+      </ul>
+    </div>
+
+    <div class="callout info">
+      <strong>Triggers Reativos:</strong>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li>Detecção de dysregulação emocional → protocolo de grounding (5-4-3-2-1)</li>
+        <li>Muitas mensagens rápidas → "Parece que você está acelerado. Quer fazer um exercício de 2 min?"</li>
+        <li>Silêncio prolongado (>24h) → check-in gentil</li>
+      </ul>
+    </div>
+
+    <div class="callout success">
+      <strong>Memória Persistente:</strong>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li>Padrões de humor ao longo do tempo</li>
+        <li>Rotinas que funcionam vs não funcionam</li>
+        <li>Triggers pessoais identificados</li>
+        <li>Progresso em objetivos terapêuticos</li>
+      </ul>
+    </div>
+
+    <h2>📊 Métricas de Sucesso (4 semanas)</h2>
+    <ul>
+      <li>Usuários ativos diários > 50%</li>
+      <li>Engagement rate (check-ins respondidos) > 70%</li>
+      <li>NPS > 7 (recomendaria a amigos?)</li>
+      <li>Custo por usuário < $0.50/mês</li>
+    </ul>
   </div>
 </div>
 
-<!-- TAB 6: OpenClaw Deep Dive — NOVA ABA -->
+<!-- TAB 6: OpenClaw Deep Dive (V2 conteúdo com audit corrections) -->
 <div class="tab-panel" data-tab="openclaw-deep" role="tabpanel" aria-hidden="true">
   <div class="content">
     <div class="report-header">
@@ -437,7 +846,7 @@ footer .brand {
 
     <div class="callout danger">
       <strong>Status atual (2026-03-23):</strong>
-      <p style="margin-top: 12px;">Silva está <strong>muito mais avançado</strong> que o relatório anterior indicava. Canal principal: <strong>Telegram</strong> (altamente proativo). Audit 2026-03-23 revelou:</p>
+      <p style="margin-top: 12px;">Silva está <strong>muito mais avançado</strong> que o relatório anterior indicava. Canal principal: <strong>Telegram</strong> (altamente proativo 24/7). Audit 2026-03-23 revelou:</p>
     </div>
 
     <table>
@@ -453,9 +862,9 @@ footer .brand {
         </tr>
         <tr>
           <td>✅ <strong>6 cron jobs ativos</strong> (checkins, patterns, reports)</td>
-          <td>Silva só reage, não propõe automações</td>
+          <td>Heartbeat operacional — não é zero</td>
           <td>🟡 Alto</td>
-          <td>Cron job que observa canais + propõe automações</td>
+          <td>Intensificar obs de canais + propor automações proativamente</td>
         </tr>
         <tr>
           <td><strong>Single-agent</strong></td>
@@ -465,15 +874,27 @@ footer .brand {
         </tr>
         <tr>
           <td>✅ <strong>Telegram ativo</strong> (principal)</td>
-          <td>Slack bridge disabled; Telegram 24/7 proativo</td>
+          <td>Slack bridge disabled (por design); Telegram 24/7 proativo</td>
           <td>🟡 Alto</td>
           <td>Adicionar bridge Discord (passo 1), WhatsApp Evolution (passo 2)</td>
         </tr>
         <tr>
           <td>✅ <strong>Observabilidade 100%</strong></td>
-          <td>Sem rastreamento de o que Silva faz</td>
+          <td>Gateway.log + Supabase (pattern_events, health_checkins) — total visibility</td>
           <td>🟡 Médio</td>
-          <td>Logs estruturados + dashboard de execução</td>
+          <td>Dashboard de execução (opcional mas recomendado)</td>
+        </tr>
+        <tr>
+          <td>⏳ <strong>autonomous-goals skill</strong></td>
+          <td>Pronta mas não ativada — gap entre capacidade e uso</td>
+          <td>🟡 Médio</td>
+          <td>Ativar em sprint de otimização — priority baixa agora</td>
+        </tr>
+        <tr>
+          <td>🚨 <strong>Crisis protocol automático</strong></td>
+          <td>Sem disparo automático quando mood < 2 por 2 dias</td>
+          <td>🟡 Médio</td>
+          <td>Implementar: mood tracking + escalation automática</td>
         </tr>
       </tbody>
     </table>
@@ -488,9 +909,9 @@ footer .brand {
           <li>✅ Self-hosted (custo $5-15/mês)</li>
           <li>❌ Implementação incompleta</li>
           <li>❌ Multi-agent não configurado</li>
-          <li>❌ Heartbeat não implementado</li>
+          <li>✅ Heartbeat: 6 cron jobs ativos</li>
           <li>✅ Observabilidade: gateway.log + Supabase (pattern_events, health_checkins)</li>
-          <li>📊 Valor real: 20% do potencial</li>
+          <li>📊 Valor real: 50% do potencial (era 20%, agora Telegram mudou tudo)</li>
         </ul>
       </div>
 
@@ -515,7 +936,7 @@ footer .brand {
           <li>✅ 3000+ integrações OAuth</li>
           <li>✅ Browser automation pronto</li>
           <li>✅ Skills reutilizáveis auto-learning</li>
-          <li>✅ Telegram (principal) + Slack (bridge disabled — ativar em sprint)</li>
+          <li>✅ Telegram (principal) + Slack (bridge)</li>
           <li>❌ Cloud-only, sem self-host</li>
           <li>❌ Modelo AI fixo (Opus)</li>
           <li>❌ Controle limitado</li>
@@ -553,7 +974,7 @@ footer .brand {
         <strong style="margin-top: 16px; display: block;">D3-D4: Heartbeat system (padrão Viktor)</strong>
         <ul style="margin-top: 12px;">
           <li>Criar agente "observer" que roda cron 5/30/60 min</li>
-          <li>Observa canais Slack: padrões, volume, anomalias</li>
+          <li>Observa canais Telegram: padrões, volume, anomalias (principal — Slack como fallback)</li>
           <li>Propõe automações: "Notei que você posta relatórios toda segunda. Quer automatizar?"</li>
           <li>Template: <code>scripts/heartbeat.sh</code> + <code>agents/observer.md</code></li>
         </ul>
@@ -607,8 +1028,8 @@ NAME: observer
 SCHEDULE: "*/30 * * * *"  # a cada 30 min
 
 TOOLS:
-  - slack.channels.list
-  - slack.messages.search
+  - telegram.channels.list
+  - telegram.messages.search
   - gemini.generate  # análise de padrões
 
 INSTRUCTIONS:
@@ -628,7 +1049,7 @@ NAME: coordinator
 ROLE: Distribuidor de tarefas inteligente
 
 TOOLS:
-  - slack.reactions.add
+  - telegram.reactions.add
   - agent.invoke  # chamar outros agentes
 
 INSTRUCTIONS:
@@ -637,7 +1058,7 @@ INSTRUCTIONS:
      - Se contém "data/analysis" → invoke data-specialist
      - Else → handle direto
   2. Coleta resultado
-  3. Responde no Slack com summary + link
+  3. Responde no Telegram com summary + link
     </pre>
 
     <h3>3. Rastreamento de Execução (observabilidade)</h3>
@@ -674,7 +1095,7 @@ echo "- [$TIMESTAMP] **$AGENT** ($STATUS) | Duration: ${DURATION}s | Input: \`$I
           <td>$50</td>
           <td>0 min</td>
           <td>✅ Nativo</td>
-          <td>Slack só</td>
+          <td>Slack + Telegram</td>
           <td>Tier S, cloud-only</td>
         </tr>
         <tr>
@@ -682,7 +1103,7 @@ echo "- [$TIMESTAMP] **$AGENT** ($STATUS) | Duration: ${DURATION}s | Input: \`$I
           <td>$15-25</td>
           <td>2 semanas</td>
           <td>✅ Implementado</td>
-          <td>Slack, Discord, WhatsApp</td>
+          <td>Telegram, Discord, WhatsApp, Slack</td>
           <td>Tier S++, self-hosted</td>
         </tr>
       </tbody>
@@ -694,11 +1115,13 @@ echo "- [$TIMESTAMP] **$AGENT** ($STATUS) | Duration: ${DURATION}s | Input: \`$I
       <strong>Fim de Semana 2 você terá:</strong>
       <ul style="margin-top: 12px; color: var(--ix-muted);">
         <li>✅ Silva sem 400 errors (--local funciona)</li>
-        <li>✅ Observer com heartbeat a cada 30 min</li>
+        <li>✅ Observer com heartbeat a cada 30 min (Telegram principal)</li>
         <li>✅ Coordinator + 3 specialists rodando</li>
         <li>✅ Integração Discord pronta</li>
         <li>✅ Logs estruturados + viewer</li>
         <li>✅ WhatsApp bridge configurado (ou ready to test)</li>
+        <li>✅ Crisis protocol automático ativado (mood < 2 trigger)</li>
+        <li>✅ autonomous-goals skill ready (ativação Q2)</li>
         <li>✅ Custo: $15-25/mês (vs $50 Viktor + $100 Claude Code)</li>
         <li>✅ Controle total, MIT license, dados seus</li>
       </ul>
