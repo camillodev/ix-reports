@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Life Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+/* Life Design custom overrides */
+.ld-hero {
+  background: linear-gradient(135deg, #0A1628 0%, #1A2A4A 40%, #0D4A4A 100%);
+  color: white;
+  padding: 52px 56px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.ld-hero::before {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(17, 199, 111, 0.12);
+}
+.ld-hero::after {
+  content: '';
+  position: absolute;
+  left: -50px;
+  bottom: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.08);
+}
+.ld-hero-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 14px;
+  position: relative;
+}
+.ld-hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  position: relative;
+}
+.ld-hero-title .accent { color: var(--ix-green); }
+.ld-hero-sub {
+  font-size: 15px;
+  opacity: 0.75;
+  font-weight: 400;
+  max-width: 700px;
+  position: relative;
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+.ld-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.ld-chip {
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.ld-chip.green { background: rgba(17,199,111,0.25); border-color: rgba(17,199,111,0.5); }
+.ld-chip.yellow { background: rgba(245,158,11,0.25); border-color: rgba(245,158,11,0.5); }
+.ld-chip.red { background: rgba(192,57,43,0.25); border-color: rgba(192,57,43,0.5); }
+
+/* Income path cards */
+.path-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.path-card {
+  background: var(--ix-surface);
+  border: 2px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+.path-card.recommended { border-color: var(--ix-green); }
+.path-card.viable { border-color: #3B82F6; }
+.path-card.risky { border-color: #F59E0B; }
+.path-card.avoid { border-color: #C0392B; }
+.path-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.path-label.recommended { color: var(--ix-green); }
+.path-label.viable { color: #3B82F6; }
+.path-label.risky { color: #F59E0B; }
+.path-label.avoid { color: #C0392B; }
+.path-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ix-ink);
+  margin-bottom: 8px;
+}
+.path-meta {
+  font-size: 13px;
+  color: var(--ix-muted);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+.path-metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.path-metric {
+  text-align: center;
+}
+.path-metric-val {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+}
+.path-metric-label {
+  font-size: 10px;
+  color: var(--ix-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Value cards */
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.value-card {
+  background: var(--ix-surface);
+  border-left: 4px solid var(--ix-green);
+  border-radius: 0 var(--ix-radius-sm) var(--ix-radius-sm) 0;
+  padding: 16px 18px;
+}
+.value-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ix-ink);
+  margin-bottom: 6px;
+}
+.value-card p {
+  font-size: 14px;
+  color: var(--ix-muted);
+  line-height: 1.6;
+}
+.value-card .source {
+  font-size: 11px;
+  color: var(--ix-green);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* Comparison table */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+.compare-table thead th {
+  background: var(--ix-green);
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+}
+.compare-table tbody td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--ix-border);
+  vertical-align: top;
+}
+.compare-table tbody tr:nth-child(even) {
+  background: var(--ix-green-tint);
+}
+.score-high { color: var(--ix-green); font-weight: 700; }
+.score-mid { color: #F59E0B; font-weight: 700; }
+.score-low { color: #C0392B; font-weight: 700; }
+
+/* Phase timeline */
+.phase-block {
+  display: flex;
+  border-radius: var(--ix-radius-sm);
+  overflow: hidden;
+  margin: 10px 0;
+  box-shadow: var(--ix-shadow-sm);
+}
+.phase-label {
+  background: var(--ix-green);
+  color: white;
+  padding: 16px;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.phase-label.orange { background: #F59E0B; }
+.phase-label.blue { background: #3B82F6; }
+.phase-label.purple { background: #8B5CF6; }
+.phase-label .phase-num { font-size: 20px; font-weight: 800; }
+.phase-label .phase-period { font-size: 11px; opacity: 0.8; margin-top: 4px; }
+.phase-body {
+  background: var(--ix-surface);
+  padding: 16px 20px;
+  flex: 1;
+  border: 1px solid var(--ix-border);
+  border-left: none;
+}
+.phase-body h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ix-ink);
+  margin: 0 0 8px;
+}
+.phase-body ul { padding-left: 16px; }
+.phase-body li { font-size: 13px; margin: 4px 0; line-height: 1.6; }
+
+/* Principle blocks */
+.principle {
+  background: var(--ix-surface);
+  border: 2px solid var(--ix-green-bg);
+  border-radius: var(--ix-radius-md);
+  padding: 20px;
+  margin: 12px 0;
+}
+.principle-num {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ix-green);
+  margin-bottom: 4px;
+}
+.principle h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ix-ink);
+  margin-bottom: 8px;
+}
+.principle p {
+  font-size: 14px;
+  color: var(--ix-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .path-grid { grid-template-columns: 1fr; }
+  .ld-hero { padding: 32px 20px; }
+  .ld-hero-title { font-size: 24px; }
+}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Life Design</span>
+</header>
+
+<!-- HERO -->
+<div class="ld-hero">
+  <div class="ld-hero-tag">Rafael Camillo — Documento Pessoal · Março 2026</div>
+  <div class="ld-hero-title">Life Design — <span class="accent">Redesenhar pra Existir</span></div>
+  <div class="ld-hero-sub">
+    A vida atual é insustentável. Este documento é a decisão estruturada de como viver, trabalhar e gerar renda de um jeito que respeite quem você é — não quem a sociedade colonial exige que você seja. Baseado nos seus relatórios, no laudo neuropsicológico, e nos valores de "Descolonizando Afetos" (Geni Nuñez).
+  </div>
+  <div class="ld-chips">
+    <span class="ld-chip red">🔴 Vida atual insustentável</span>
+    <span class="ld-chip">🧠 TEA N1 + TAG + Borderline</span>
+    <span class="ld-chip yellow">📖 Descolonizando Afetos — Geni Nuñez</span>
+    <span class="ld-chip green">🌱 Interdependência como design</span>
+    <span class="ld-chip">🤖 IA como alavanca de escala</span>
+  </div>
+</div>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="diagnostico">Diagnóstico</button>
+  <button type="button" class="tab-btn" data-tab="valores">Valores Decoloniais</button>
+  <button type="button" class="tab-btn" data-tab="renda">Caminhos de Renda</button>
+  <button type="button" class="tab-btn" data-tab="ambiente">Design do Ambiente</button>
+  <button type="button" class="tab-btn" data-tab="comunidades">Comunidades</button>
+  <button type="button" class="tab-btn" data-tab="escala">Escala com IA</button>
+  <button type="button" class="tab-btn" data-tab="decisao">Decisão Final</button>
+  <button type="button" class="tab-btn" data-tab="acao">Plano de Ação</button>
+</nav>
+
+<!-- ═══ TAB 1: DIAGNÓSTICO ═══ -->
+<div class="tab-panel active" data-tab="diagnostico" role="tabpanel" aria-hidden="false">
+  <div class="content">
+    <h1>O que está insustentável — e por quê</h1>
+
+    <div class="callout danger">
+      <strong>Premissa central:</strong> Não é você que está quebrado. É o modelo de vida que te venderam. O laudo mostra desregulação — mas desregulação em relação a quê? A uma sociedade que adoece todo mundo. A pergunta não é "como me consertar" — é "como desenhar uma vida que funcione pro meu corpo e pro meu sistema nervoso".
+    </div>
+
+    <h2>O que o laudo diz vs. o que a vida colonial exige</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Seu laudo</th>
+          <th>O que a sociedade exige</th>
+          <th>O conflito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Atenção Alternada P1 — trocar tarefa = custo altíssimo</td>
+          <td>Multitasking, Slack 24h, reuniões costas-a-costas</td>
+          <td class="score-low">Colapso garantido</td>
+        </tr>
+        <tr>
+          <td>Atenção Concentrada P10 — foco sem pressão é difícil</td>
+          <td>8h sentado num escritório "produzindo"</td>
+          <td class="score-low">Esgotamento sem entrega</td>
+        </tr>
+        <tr>
+          <td>Autodisciplina P21 — execução interna comprometida</td>
+          <td>"Seja seu próprio chefe", "grind", "hustle"</td>
+          <td class="score-low">Paralisia + culpa</td>
+        </tr>
+        <tr>
+          <td>Inteligência P80 — capacidade cognitiva alta</td>
+          <td>"Se é inteligente, por que não consegue?"</td>
+          <td class="score-mid">Autocobrança destrutiva</td>
+        </tr>
+        <tr>
+          <td>Ansiedade P85 — pensamentos preocupantes P95</td>
+          <td>"Relax", "medita", "é só ansiedade"</td>
+          <td class="score-low">Invalidação crônica</td>
+        </tr>
+        <tr>
+          <td>Atenção Difusa P70 — múltiplos estímulos: forte</td>
+          <td>Ambientes silenciosos, foco único</td>
+          <td class="score-high">Ponto forte ignorado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>As 5 fontes de insustentabilidade hoje</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: #C0392B;">1</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Isolamento</div>
+        <div style="font-size: 13px; margin-top: 6px;">Mora em prédio onde vizinho morre em incêndio e ninguém bate na porta. Zero rede de suporte presencial. Suporte concentrado em parceiro romântico = instável.</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: #C0392B;">2</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Renda Instável</div>
+        <div style="font-size: 13px; margin-top: 6px;">Mil caminhos abertos (cafeteria, SaaS, consultoria, emprego), nenhum consolidado. TDAH paralisa na decisão. Cada mês é um estresse de caixa.</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: #C0392B;">3</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Modelo Colonial</div>
+        <div style="font-size: 13px; margin-top: 6px;">A vida está montada no modelo "indivíduo autossuficiente + produtividade + consumo". Esse modelo não funciona pra ninguém — menos ainda pra neurodivergentes.</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: #F59E0B;">4</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Sobrecarga Decisória</div>
+        <div style="font-size: 13px; margin-top: 6px;">50 projetos começados, 0 validados. Cada relatório abre mais possibilidades. O cérebro TDAH fica hiper, começa, mas não fecha ciclo.</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: #F59E0B;">5</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Corpo Ignorado</div>
+        <div style="font-size: 13px; margin-top: 6px;">Sistema nervoso no limite. Sem rotina sensorial. Alimentação irregular. Sono desregulado. O corpo pede pausa, o capitalismo pede produção.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>A pergunta que guia este documento:</strong> Como construir uma vida onde gerar renda, cuidar do corpo, pertencer a uma comunidade e ter propósito não sejam coisas separadas que competem entre si — mas um sistema integrado?
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 2: VALORES DECOLONIAIS ═══ -->
+<div class="tab-panel" data-tab="valores" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Valores que guiam este redesign</h1>
+
+    <div class="callout info">
+      <strong>Referência:</strong> "Descolonizando Afetos" — Geni Nuñez. A colonização não é só história — é a estrutura que organiza como você vive, trabalha, ama e adoece. O redesign da vida exige descolonizar as premissas.
+    </div>
+
+    <h2>7 Princípios Decoloniais aplicados ao Life Design</h2>
+
+    <div class="principle">
+      <div class="principle-num">01</div>
+      <h3>Interdependência, não independência</h3>
+      <p>A colonização vendeu que ser adulto = ser autossuficiente. Que pedir ajuda = fraqueza. Que precisar dos outros = patologia. A verdade ancestral é oposta: <strong>humanos são animais de bando</strong>. Seu laudo não é "déficit de autodisciplina" — é um corpo que precisa de mais gente ao redor pra funcionar. E isso é completamente normal em qualquer cultura que a colonização não destruiu.</p>
+      <div class="source">→ Redesign: viver em comunidade intencional, não em caixas de concreto isoladas</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">02</div>
+      <h3>Seu bem-estar é responsabilidade coletiva</h3>
+      <p>"Meu bem-estar é responsabilidade dos outros, assim como o dos outros é minha." Isso não é dependência — é o modelo original de existência humana. Vizinhos que percebem quando você está mal. Pessoas que cozinham quando você não consegue. Um corpo comunitário que não deixa ninguém morrer num incêndio porque "não quis incomodar".</p>
+      <div class="source">→ Redesign: ambiente onde cuidar e ser cuidado é infraestrutura, não favor</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">03</div>
+      <h3>Trabalho como expressão, não como extração</h3>
+      <p>O modelo colonial de trabalho é: venda seu tempo → receba dinheiro → use dinheiro pra comprar o que precisa. Mas a Impact X não é isso. Tecnologia invisível que devolve tempo. A lógica de trabalho precisa ser: <strong>fazer o que importa → gerar valor real → renda como consequência</strong>.</p>
+      <div class="source">→ Redesign: renda vem de impacto, não de horas vendidas</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">04</div>
+      <h3>O corpo sabe antes da mente</h3>
+      <p>A colonização ensinou que a mente manda e o corpo obedece. Mas o TEA e TAG são o corpo gritando. Desregulação sensorial, meltdowns, shutdowns — não são "falta de controle". São informação. O corpo diz "isso aqui tá errado" antes da mente racionalizar.</p>
+      <div class="source">→ Redesign: decisões de vida validadas pelo corpo (regulação sensorial), não só pela planilha</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">05</div>
+      <h3>Produtividade não é identidade</h3>
+      <p>Você não é valioso porque produz. Você produz porque está vivo e num ambiente que te permite. O laudo P21 de autodisciplina não é "falha" — é um corpo que se recusa a funcionar num sistema que o adoece. A "preguiça" que você sente é frequentemente sabedoria somática.</p>
+      <div class="source">→ Redesign: métricas de vida incluem descanso, conexão e regulação — não só MRR</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">06</div>
+      <h3>Escassez é fabricada</h3>
+      <p>A ansiedade financeira não é só "sua cabeça". O sistema é desenhado pra manter todos em escassez percebida. Mas olha: você tem stack técnico de 11 anos, lead quente na G2I, capacidade de construir SaaS sozinho, Nicole como assistente. A escassez real é de <strong>estrutura e suporte</strong>, não de capacidade.</p>
+      <div class="source">→ Redesign: focar em construir estrutura de suporte, não em "ganhar mais"</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">07</div>
+      <h3>Cura é coletiva, não individual</h3>
+      <p>Terapia individual é importante. Mas não existe cura individual pra adoecimento coletivo. Se o ambiente é tóxico (prédio isolado, cidade hostil, trabalho colonial), nenhuma TCC do mundo resolve. A cura está em mudar o ambiente — e mudar junto com outros.</p>
+      <div class="source">→ Redesign: ambiente sustentável + comunidade = a maior "terapia"</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 3: CAMINHOS DE RENDA ═══ -->
+<div class="tab-panel" data-tab="renda" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Análise dos caminhos de renda</h1>
+
+    <div class="callout info">
+      <strong>Fonte:</strong> Dados extraídos dos relatórios existentes — Diagnóstico Executivo, Projeção Financeira, Cafeteria v3, Café Coworking Lavanderia, Modelo de Negócio, G2I Interview Prep, Plano de Automação, ConcursoAI.
+    </div>
+
+    <h2>Matriz de decisão</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Caminho</th>
+          <th>Renda Potencial</th>
+          <th>Time to Revenue</th>
+          <th>Fit TEA/TDAH</th>
+          <th>Interdependência</th>
+          <th>Escala IA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Impact X Consultoria (G2I)</strong></td>
+          <td class="score-high">R$ 30-50k/mês</td>
+          <td class="score-high">1-3 meses</td>
+          <td class="score-mid">Médio</td>
+          <td class="score-mid">Médio</td>
+          <td class="score-high">Alto</td>
+        </tr>
+        <tr>
+          <td><strong>Emprego Remoto (dev sênior)</strong></td>
+          <td class="score-high">R$ 25-45k/mês</td>
+          <td class="score-high">1-2 meses</td>
+          <td class="score-low">Baixo</td>
+          <td class="score-low">Baixo</td>
+          <td class="score-low">Baixo</td>
+        </tr>
+        <tr>
+          <td><strong>SaaS (ConcursoAI, Oracle Agent)</strong></td>
+          <td class="score-mid">R$ 0 → R$ 20k+ /mês</td>
+          <td class="score-low">6-12 meses</td>
+          <td class="score-high">Alto</td>
+          <td class="score-low">Baixo</td>
+          <td class="score-high">Altíssimo</td>
+        </tr>
+        <tr>
+          <td><strong>Cafeteria / Coworking / Lavanderia</strong></td>
+          <td class="score-mid">R$ 8-15k/mês (lucro)</td>
+          <td class="score-low">6-12 meses</td>
+          <td class="score-mid">Médio</td>
+          <td class="score-high">Altíssimo</td>
+          <td class="score-mid">Médio</td>
+        </tr>
+        <tr>
+          <td><strong>Híbrido: Consultoria + SaaS + Espaço Físico</strong></td>
+          <td class="score-high">R$ 40-80k/mês</td>
+          <td class="score-high">1-3 meses (fase 1)</td>
+          <td class="score-high">Alto</td>
+          <td class="score-high">Alto</td>
+          <td class="score-high">Alto</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Análise detalhada por caminho</h2>
+
+    <div class="path-grid">
+      <div class="path-card recommended">
+        <div class="path-label recommended">RECOMENDADO — FASE 1</div>
+        <div class="path-title">Impact X Consultoria (G2I)</div>
+        <div class="path-meta">Lead quente existente. ~80 devs sênior pra colocar em startups US. Não precisa construir produto. Gera caixa real. Nicole já pode prospectar.</div>
+        <div class="path-metrics">
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: var(--ix-green);">R$ 35k</div>
+            <div class="path-metric-label">Renda média/mês</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: var(--ix-green);">30d</div>
+            <div class="path-metric-label">Time to first $</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #F59E0B;">3h/dia</div>
+            <div class="path-metric-label">Tempo requerido</div>
+          </div>
+        </div>
+        <p style="font-size: 13px;"><strong>Fit neurodivergente:</strong> Bom em hiperfoco de vendas/matching, ruim em follow-up prolongado (Nicole cobre). IA automatiza sourcing e matching.</p>
+        <p style="font-size: 13px;"><strong>Fit decolonial:</strong> Conecta talentos BR marginalizados com oportunidades reais no exterior. Impacto direto. Mas ainda é modelo de venda de tempo (dos outros).</p>
+      </div>
+
+      <div class="path-card risky">
+        <div class="path-label risky">ALTO RISCO TDAH</div>
+        <div class="path-title">SaaS (ConcursoAI / Oracle Agent / Silva)</div>
+        <div class="path-meta">Alta escala, alto fit com IA, mas cada um leva 6-12 meses pra validar. TDAH pattern: começa 3, termina 0. Precisa de validação de mercado primeiro.</div>
+        <div class="path-metrics">
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #F59E0B;">R$ 0</div>
+            <div class="path-metric-label">Renda hoje</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #C0392B;">6-12m</div>
+            <div class="path-metric-label">Time to revenue</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: var(--ix-green);">∞</div>
+            <div class="path-metric-label">Escala potencial</div>
+          </div>
+        </div>
+        <p style="font-size: 13px;"><strong>Regra:</strong> SaaS é fase 2. Só depois que consultoria gera R$ 20k+/mês estável por 3 meses consecutivos. Toda ideia nova vai pra quarentena da Nicole.</p>
+      </div>
+
+      <div class="path-card viable">
+        <div class="path-label viable">VIÁVEL — PARALELO</div>
+        <div class="path-title">Espaço Físico (Café + Coworking)</div>
+        <div class="path-meta">Relatórios de Cafeteria v3 e Café Coworking Lavanderia mostram viabilidade financeira. Mas o valor real é outro: cria o AMBIENTE de interdependência.</div>
+        <div class="path-metrics">
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #3B82F6;">R$ 12k</div>
+            <div class="path-metric-label">Lucro estimado/mês</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #F59E0B;">6-9m</div>
+            <div class="path-metric-label">Time to open</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: var(--ix-green);">Alto</div>
+            <div class="path-metric-label">Fit interdependência</div>
+          </div>
+        </div>
+        <p style="font-size: 13px;"><strong>Fit decolonial:</strong> É o "Dengo" da Impact X. Um espaço físico com calor humano. Não é escritório — é casa pra existir junto. Exatamente o oposto do prédio onde ninguém se conhece.</p>
+      </div>
+
+      <div class="path-card avoid">
+        <div class="path-label avoid">EVITAR</div>
+        <div class="path-title">Emprego Formal Remoto</div>
+        <div class="path-meta">Paga bem, mas é o modelo mais colonial: 8h/dia de atenção alternada (P1), reuniões (sobrecarga sensorial), métricas de produtividade que ignoram neurodivergência.</div>
+        <div class="path-metrics">
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: var(--ix-green);">R$ 35k</div>
+            <div class="path-metric-label">Salário médio</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #C0392B;">8h/dia</div>
+            <div class="path-metric-label">Tempo capturado</div>
+          </div>
+          <div class="path-metric">
+            <div class="path-metric-val" style="color: #C0392B;">P1</div>
+            <div class="path-metric-label">Fit atenção alternada</div>
+          </div>
+        </div>
+        <p style="font-size: 13px;"><strong>Exceção:</strong> Apenas como emergência financeira (menos de 2 meses de runway). Nesse caso, priorize contract work de 3-6 meses, não emprego fixo.</p>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>Decisão recomendada:</strong> Modelo Híbrido em fases. Fase 1: Impact X Consultoria (caixa rápido). Fase 2: SaaS em paralelo quando caixa estabilizar. Fase 3: Espaço físico como infraestrutura de vida — não como negócio isolado, mas como o ambiente onde tudo acontece.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 4: DESIGN DO AMBIENTE ═══ -->
+<div class="tab-panel" data-tab="ambiente" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Design do ambiente — curto e médio prazo</h1>
+
+    <div class="callout danger">
+      <strong>Verdade dura:</strong> Você está mal hoje. Não tem energia pra construir comunidade do zero. Qualquer plano que dependa de você ser o motor da mudança agora é irreal. O plano tem que funcionar com o Rafa de hoje — depois evolui pro Rafa com mais energia. Duas fases: <strong>sobreviver em BH</strong> (curto prazo) → <strong>escolher onde viver</strong> (médio prazo, com liberdade geográfica).
+    </div>
+
+    <h2>CURTO PRAZO: BH — porque é onde o bando está agora</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Recurso</th>
+          <th>O que é</th>
+          <th>Como usar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Kumon Camargos</strong></td>
+          <td>Espaço do cliente que funciona como coworking improvisado</td>
+          <td>Body double com Rafa Pimenta e Nicole. Ir presencialmente. Já tem contexto de trabalho, não precisa explicar nada.</td>
+        </tr>
+        <tr>
+          <td><strong>TO</strong></td>
+          <td>Amigo terapeuta ocupacional, vai morar em BH</td>
+          <td>Encontro semanal presencial. Possibilidade real de moradia compartilhada. Convivência, não clínica.</td>
+        </tr>
+        <tr>
+          <td><strong>Nicole</strong></td>
+          <td>Assistente executiva, em BH</td>
+          <td>Body double no Kumon Camargos ou coworking. Presença que quebra isolamento sem esforço social.</td>
+        </tr>
+        <tr>
+          <td><strong>Wellhub</strong></td>
+          <td>Regulação sensorial em BH — sem mar, mas com opções</td>
+          <td><strong>Yoga</strong> (regulação do sistema nervoso), <strong>indoor biker</strong> (descarga de energia/ansiedade), <strong>natação</strong> (sensorial parecido com mar — água, peso, pressão). Rotina: pelo menos 3x/semana.</td>
+        </tr>
+        <tr>
+          <td><strong>Terapeuta + Psiquiatra</strong></td>
+          <td>Rede clínica em BH</td>
+          <td>Manter. Não cancelar sessão quando tá mal — é justamente quando mais precisa.</td>
+        </tr>
+        <tr>
+          <td><strong>Terreiro de Candomblé</strong></td>
+          <td>Comunidade espiritual + fortalecimento do Ori + rede de cuidado mútuo</td>
+          <td>Escolher 1 terreiro em BH (ver 3 opções abaixo). Ir a 1 festa pública primeiro. Depois ir conhecendo, sem pressa. Terreiro é comunidade ancestral — exatamente a interdependência que você busca.</td>
+        </tr>
+        <tr>
+          <td><strong>Cabo Frio</strong></td>
+          <td>Mãe + mar</td>
+          <td><strong>Protocolo de refúgio:</strong> 5-10 dias quando o corpo pede mar/reset. Não mudança, não fuga. Ir, regular, voltar.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Terreiros em BH — 3 opções de confiança</h2>
+
+    <div class="value-grid">
+      <div class="value-card" style="border-left-color: var(--ix-green);">
+        <h3>1. Ilê Wopo Olojukan (Ketu)</h3>
+        <p><strong>O mais antigo de BH.</strong> Fundado em 1964. Tombado como Patrimônio Cultural da Capital (1995). Babalorixá Pai Sidney ti Osossi. Desde 2017 tem a "Rede de Mobilização e Participação Sociocultural de Matriz Africana" — projeto semanal aberto a todos com aulas, palestras e workshops. Não precisa ser iniciado pra ir. Acolhimento forte.</p>
+        <p style="margin-top: 6px; font-size: 13px;"><strong>Endereço:</strong> Rua Dr. Benedito Xavier, 2003 — Aarão Reis, BH</p>
+        <p style="font-size: 13px;"><strong>Contato:</strong> (31) 9622-0620 · Facebook: EgbeOlojukan</p>
+        <div class="source" style="color: var(--ix-green);">→ Melhor pra: primeiro contato, projetos sociais, educação cultural. Patrimônio de BH.</div>
+      </div>
+      <div class="value-card" style="border-left-color: #3B82F6;">
+        <h3>2. Cabana Senhora da Glória — Nzo Kuna Nkos'i (Angola)</h3>
+        <p><strong>Primeiro terreiro Angola de MG.</strong> Fundado em 1964. Recebeu Cidadão Honorário de BH e chave da cidade (2007). Ativismo contra racismo religioso + distribuição de cestas básicas. Tradição Moxicongo (Bantu) — mais ligada à cultura afro-brasileira de resistência. Forte em projetos sociais e acolhimento.</p>
+        <p style="margin-top: 6px; font-size: 13px;"><strong>Endereço:</strong> Rua Expedicionário Vicente Ribeiro, 84 — Sarandi (Pampulha), BH</p>
+        <p style="font-size: 13px;"><strong>Contato:</strong> cabanasenhoradagloria@gmail.com · cabanasenhoradagloria.com.br</p>
+        <div class="source" style="color: #3B82F6;">→ Melhor pra: ativismo, comunidade de resistência, tradição Angola/Bantu.</div>
+      </div>
+      <div class="value-card" style="border-left-color: #8B5CF6;">
+        <h3>3. Ilê Axé Guian (Umbanda/Candomblé)</h3>
+        <p><strong>Presença online forte</strong> (13k+ seguidores no Instagram). Santa Efigênia, região central de BH. Sessões abertas às segundas às 19h — mais fácil pra primeiro contato sem compromisso. Seminários sobre tradições espíritas. Ambiente acessível pra quem está chegando.</p>
+        <p style="margin-top: 6px; font-size: 13px;"><strong>Endereço:</strong> Rua Niquelina, 179 — Santa Efigênia, BH</p>
+        <p style="font-size: 13px;"><strong>Contato:</strong> (31) 99668-5738 · Instagram: @ileaxeguian</p>
+        <div class="source" style="color: #8B5CF6;">→ Melhor pra: acessibilidade, primeiro contato fácil (sessão aberta toda segunda), presença digital.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Sobre o Bori (fortalecimento do Ori):</strong> O Bori é um ritual fundamental no Candomblé de fortalecimento da cabeça/essência. Todos os 3 terreiros acima podem orientar sobre isso, mas é algo que se constrói com confiança — primeiro frequente, conheça, sinta. O Bori vem quando a relação estiver estabelecida. Perguntar diretamente no primeiro contato é ok — terreiros sérios explicam o processo com transparência.
+    </div>
+
+    <h2>Âncoras presenciais semanais em BH</h2>
+
+    <div class="value-grid">
+      <div class="value-card" style="border-left-color: var(--ix-green);">
+        <h3>Kumon Camargos (2-3x/semana)</h3>
+        <p>Ir trabalhar presencialmente. Rafa Pimenta e Nicole como body doubles. Não precisa de conversa profunda — só presença. O corpo sai do apartamento, vê gente, tem rotina. Isso já quebra 80% do isolamento.</p>
+      </div>
+      <div class="value-card" style="border-left-color: #3B82F6;">
+        <h3>Wellhub (3-4x/semana)</h3>
+        <p><strong>Yoga:</strong> regulação do sistema nervoso, respiração, propriocepção. <strong>Indoor biker:</strong> descarga de energia acumulada pela ansiedade. <strong>Natação:</strong> o mais próximo do mar em BH — água, pressão, sensorial. Alternar conforme o corpo pedir naquele dia.</p>
+      </div>
+      <div class="value-card" style="border-left-color: #8B5CF6;">
+        <h3>TO (1x/semana mínimo)</h3>
+        <p>Encontro presencial. Café, jantar, caminhada. Não precisa ser sessão. A presença de alguém que te conhece e entende neurodivergência é regulação por si só.</p>
+      </div>
+      <div class="value-card" style="border-left-color: #F59E0B;">
+        <h3>Terreiro (1x/semana quando começar)</h3>
+        <p>Ir a sessão aberta ou festa pública. Comunidade ancestral — gente que cuida de gente. Fortalecimento do Ori. Não é mais uma obrigação — é pertencimento. Ilê Axé Guian tem sessão toda segunda 19h (mais fácil pra começar).</p>
+      </div>
+    </div>
+
+    <h2>Moradia em BH — 3 cenários</h2>
+
+    <div class="value-grid">
+      <div class="value-card" style="border-left-color: var(--ix-green);">
+        <h3>Cenário A: Morar com o TO</h3>
+        <p>Dividir moradia. Não como paciente — como pessoas que escolheram viver juntas. Cozinhar junto, perceber quando um tá mal, rotina compartilhada. Custo dividido. Presença humana diária. Bairro com vida de rua, não condomínio fechado.</p>
+        <div class="source" style="color: var(--ix-green);">Viabilidade: ALTA — já está no plano</div>
+      </div>
+      <div class="value-card" style="border-left-color: #3B82F6;">
+        <h3>Cenário B: Apartamento + âncoras (ponte)</h3>
+        <p>Se morar junto não rolar agora: manter apartamento mas garantir que NENHUM dia da semana seja totalmente sozinho. Kumon Camargos + Wellhub + TO = estrutura mínima. Funciona como ponte.</p>
+        <div class="source" style="color: #3B82F6;">Viabilidade: ALTA — funciona já</div>
+      </div>
+      <div class="value-card" style="border-left-color: #F59E0B;">
+        <h3>Cenário C: República intencional pequena</h3>
+        <p>TO + 1 pessoa alinhada. Regras claras. Espaços individuais. Áreas comuns. O custo cai, o isolamento acaba. Mas depende de encontrar pessoa certa.</p>
+        <div class="source" style="color: #F59E0B;">Viabilidade: MÉDIA — depende de encontrar 1 pessoa</div>
+      </div>
+    </div>
+
+    <h2>MÉDIO PRAZO: Liberdade geográfica → se juntar a uma comunidade que já existe</h2>
+
+    <div class="callout info">
+      <strong>O ponto crucial:</strong> Você não precisa CONSTRUIR comunidade. Comunidades já existem. Quilombos, ecovilas, terreiros, cohousing — gente que já vive o que você quer viver. Com renda de consultoria remota + IA, você tem liberdade geográfica. A pergunta não é "como construo uma comunidade" — é "qual comunidade já existe que se alinha com meus valores e posso me juntar?"
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">LÓGICA</div>
+      <h3>Não construir. Se juntar.</h3>
+      <p>Construir comunidade do zero exige energia que você não tem. Liderar exige estabilidade que você não tem. Mas <strong>chegar numa comunidade que já funciona</strong> exige só disposição de participar. Isso é radicalmente diferente. Você não precisa ser o motor — precisa ser parte de algo que já roda. A aba "Comunidades" tem a pesquisa completa de onde essas comunidades estão.</p>
+    </div>
+
+    <h2>Critérios pra escolher comunidade (quando a hora chegar)</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>Peso</th>
+          <th>Por quê</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Já existe e funciona sem você</td>
+          <td class="score-high">Inegociável</td>
+          <td>Se depende de você pra existir, não é comunidade — é mais um projeto.</td>
+        </tr>
+        <tr>
+          <td>Aceita novos moradores</td>
+          <td class="score-high">Inegociável</td>
+          <td>Tem que ter porta aberta e processo de acolhimento.</td>
+        </tr>
+        <tr>
+          <td>Internet boa</td>
+          <td class="score-high">Inegociável</td>
+          <td>Sem internet, sem renda remota. Sem renda, sem autonomia.</td>
+        </tr>
+        <tr>
+          <td>Acesso ao mar ou água</td>
+          <td class="score-high">Muito importante</td>
+          <td>Regulação sensorial. O corpo pede.</td>
+        </tr>
+        <tr>
+          <td>Valores decoloniais / afrocentrados</td>
+          <td class="score-high">Muito importante</td>
+          <td>Sem alinhamento de valores, é coliving de startup — não comunidade.</td>
+        </tr>
+        <tr>
+          <td>Cuidado mútuo como prática real</td>
+          <td class="score-mid">Importante</td>
+          <td>Não basta discurso. As pessoas cozinham juntas? Percebem quando alguém está mal?</td>
+        </tr>
+        <tr>
+          <td>Período de experiência antes de mudar</td>
+          <td class="score-mid">Importante</td>
+          <td>Visitar 2-4 semanas antes de qualquer decisão. O corpo decide, não a planilha.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Sequência realista</h2>
+
+    <div class="phase-block">
+      <div class="phase-label">
+        <div class="phase-num">01</div>
+        <div class="phase-period">Agora</div>
+      </div>
+      <div class="phase-body">
+        <h3>Sobreviver em BH: ativar âncoras</h3>
+        <ul>
+          <li>Kumon Camargos 2-3x/semana (body double)</li>
+          <li>Wellhub 3-4x/semana (yoga, biker, natação)</li>
+          <li>TO 1x/semana presencial</li>
+          <li>Se tá mal demais: Cabo Frio 5-7 dias (protocolo de refúgio)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-label orange">
+        <div class="phase-num">02</div>
+        <div class="phase-period">1-3 meses</div>
+      </div>
+      <div class="phase-body">
+        <h3>Estabilizar em BH: moradia + renda</h3>
+        <ul>
+          <li>Moradia com TO (ou âncoras fortes se moradia compartilhada não rolar agora)</li>
+          <li>Renda estável da consultoria (R$ 15k+/mês)</li>
+          <li>Corpo regulando com Wellhub + rotina</li>
+          <li>Pesquisar comunidades da aba "Comunidades" — ler, entrar em contato, mas não visitar ainda</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-label blue">
+        <div class="phase-num">03</div>
+        <div class="phase-period">3-6 meses</div>
+      </div>
+      <div class="phase-body">
+        <h3>Explorar: visitar 1-2 comunidades</h3>
+        <ul>
+          <li>Com renda rodando e corpo mais regulado, fazer 1-2 visitas de 2-4 semanas</li>
+          <li>Prioridade: comunidades no litoral baiano (Piracanga/Itacaré, quilombos do litoral) — mar + cultura + valores</li>
+          <li>Levar o trabalho remoto. Testar: a internet funciona? O corpo regula? As pessoas acolhem?</li>
+          <li>NÃO decidir nada na visita. Voltar pra BH, processar, decidir com rede de suporte</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-label purple">
+        <div class="phase-num">04</div>
+        <div class="phase-period">6-12 meses</div>
+      </div>
+      <div class="phase-body">
+        <h3>Decidir: ficar em BH ou mudar</h3>
+        <ul>
+          <li>Se encontrou comunidade que funciona: mudança gradual. Manter BH como base de volta se precisar.</li>
+          <li>Se BH evoluiu bem (TO, moradia, âncoras): pode ficar. Comunidade se constrói com tempo, não com mudança geográfica.</li>
+          <li>A decisão é do corpo estabilizado — não do corpo em crise.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>Resumo:</strong> BH agora com Kumon Camargos + Wellhub + TO + Nicole. Cabo Frio como refúgio. Médio prazo: com renda e corpo regulado, visitar comunidades que já existem (quilombos, ecovilas, terreiros com vida comunitária). Se juntar — não construir. A liberdade geográfica da consultoria remota permite isso.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 4B: PESQUISA COMUNIDADES ═══ -->
+<div class="tab-panel" data-tab="comunidades" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Pesquisa: Comunidades que já existem</h1>
+
+    <div class="callout info">
+      <strong>Lógica:</strong> Você não precisa construir comunidade. Precisa encontrar uma que já funciona e se encaixar. Esta pesquisa foi feita por agentes de IA em março/2026. Os links e contatos precisam ser verificados antes de agir.
+    </div>
+
+    <h2>Ecovilas e comunidades intencionais — litoral (prioridade)</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Comunidade</th>
+          <th>Local</th>
+          <th>O que é</th>
+          <th>Aceita moradores?</th>
+          <th>Fit pra você</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Piracanga / Inkiri</strong></td>
+          <td>Península de Maraú, BA (perto de Itacaré)</td>
+          <td>Ecovila com ~200 residentes de várias nacionalidades. 40+ casas. Comunidade sustentável com retiros, yoga, terapias. Instituto Inkiri dentro.</td>
+          <td>Sim — estadias, retiros, vivências. Processo de acolhimento gradual.</td>
+          <td class="score-high">Alto — mar, Bahia, valores comunitários, retiros como porta de entrada. Verificar internet.</td>
+        </tr>
+        <tr>
+          <td><strong>Terra Mirim</strong></td>
+          <td>Simões Filho, BA (região metropolitana de Salvador)</td>
+          <td>Centro de Luz e ecologia integrativa. Fundada em 1992. Reserva da Biosfera Mata Atlântica.</td>
+          <td>Sim — Programa de Acolhimento Participativo. Até 3 meses de permanência.</td>
+          <td class="score-mid">Médio — perto de Salvador (saúde, internet), mas sem mar direto.</td>
+        </tr>
+        <tr>
+          <td><strong>Comunidade Campina</strong></td>
+          <td>Vale do Capão, Chapada Diamantina, BA</td>
+          <td>Comunidade rural permacultural. 30+ anos. 90 hectares reflorestados.</td>
+          <td>Sim — aceita visitantes, moradores e voluntários.</td>
+          <td class="score-mid">Médio — natureza forte, mas sem mar. Verificar internet.</td>
+        </tr>
+        <tr>
+          <td><strong>Noiva do Cordeiro</strong></td>
+          <td>Belo Vale, MG (~100km de BH)</td>
+          <td>Comunidade matriarcal com ~300 pessoas. Divisão coletiva de trabalho, refeições, decisões. Fundada por mulheres negras.</td>
+          <td>Contato: contato@noivadocordeiro.com.br / WhatsApp: 31998401550</td>
+          <td class="score-high">Alto — perto de BH (transição gradual), valores matriarcais/coletivistas, cultura negra. Sem mar. Verificar internet.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Quilombos contemporâneos — comunidades vivas</h2>
+
+    <div class="callout warning">
+      <strong>Nota importante:</strong> Quilombos são comunidades de resistência com raízes ancestrais. Não são "coliving". O respeito ao território, à história e à autodeterminação é inegociável. Chegar como visitante, contribuir, aprender — não como "cliente" buscando serviço. Alguns quilombos têm turismo sustentável e acolhem visitantes. Outros são fechados por proteção. Respeitar sempre.
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Quilombo</th>
+          <th>Local</th>
+          <th>O que é</th>
+          <th>Acesso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Campinho da Independência</strong></td>
+          <td>Paraty, RJ</td>
+          <td>Primeiro quilombo titulado do RJ (1999). 287 hectares. Igreja, escola, artesanato, restaurante. Turismo sustentável estruturado.</td>
+          <td>Aceita visitantes com tour guiado. Mar perto (Paraty). Contato via Facebook.</td>
+        </tr>
+        <tr>
+          <td><strong>Xica Manicongo</strong></td>
+          <td>Niterói, RJ</td>
+          <td>Quilombo urbano. Primeiro de Niterói. Criado por coletivos negro + LGBTQ+. Espaço de acolhimento e cultura.</td>
+          <td>Eventos abertos. Instagram: @quilomboxicamanicongo</td>
+        </tr>
+        <tr>
+          <td><strong>Quilombos do litoral baiano</strong></td>
+          <td>Vários, BA</td>
+          <td>Bahia tem 397 mil quilombolas (maior população). Comunidades no litoral: Kalunga (Maragogipe), Acupe (Santo Amaro), Ilha de Maré (Salvador).</td>
+          <td>Contatar CONAQ (conaq.org.br) pra mapear comunidades acolhedoras na região.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Terreiros de candomblé como comunidade de suporte</h2>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <h3>Por que terreiros</h3>
+        <p>Terreiros não são só espaço religioso. São centros de cuidado mútuo, especialmente em periferias. "Família de santo" — hierarquias, responsabilidades, bonds de afeto. Distribuição de alimentos, alfabetização, festas, acolhimento. Exatamente a interdependência que você busca. Em Salvador, 1.165+ terreiros mapeados.</p>
+        <div class="source">→ Fit decolonial: altíssimo. Cuidado ancestral como infraestrutura.</div>
+      </div>
+      <div class="value-card">
+        <h3>BH — já disponível</h3>
+        <p>BH tem terreiros ativos. Mapeamento: mapeandoaxe.org.br. Não precisa mudar de cidade pra isso. Começar visitando, participando de festas públicas, conhecendo gente. Sem pressa. O terreiro te acolhe quando você está pronto.</p>
+        <div class="source">→ Ação: pesquisar terreiros em BH, ir a 1 festa pública como primeiro passo</div>
+      </div>
+      <div class="value-card">
+        <h3>Salvador — se mudar for o caminho</h3>
+        <p>Maior concentração de terreiros do Brasil. Projetos sociais em terreiros: Samba e Sopa, Criança Feliz, Prato do Povo. Terreiro Bogum faz rodas de conversa sobre saúde mental e acolhimento. Associação Pássaros das Águas une 20 terreiros.</p>
+        <div class="source">→ Salvador = mar + terreiros + quilombos + cultura negra forte. Candidata séria pra médio prazo.</div>
+      </div>
+    </div>
+
+    <h2>Cohousing no Brasil</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Projeto</th>
+          <th>Local</th>
+          <th>Status</th>
+          <th>Modelo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vila ConViver</strong></td>
+          <td>Campinas, SP</td>
+          <td>Operacional (~90% ocupado)</td>
+          <td>34 unidades individuais + áreas comuns (cozinha, academia, espaços multiuso). Decisões colaborativas. Público 50+.</td>
+        </tr>
+        <tr>
+          <td><strong>Commu</strong></td>
+          <td>Plataforma nacional</td>
+          <td>Ativo</td>
+          <td>Empresa que cria/gere comunidades intencionais. 60+ clientes, 300+ pessoas treinadas. Pode ajudar a encontrar ou criar. commu.cc</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Redes que conectam — por onde começar</h2>
+
+    <div class="value-grid">
+      <div class="value-card" style="border-left-color: var(--ix-green);">
+        <h3>CASA Brasil</h3>
+        <p>Rede brasileira ligada a GEN (Global Ecovillage Network). 36 ecovilas registradas. Mapeamento de comunidades regenerativas.</p>
+        <div class="source">redecasabrasil.org — fazer parte, buscar comunidades</div>
+      </div>
+      <div class="value-card" style="border-left-color: #3B82F6;">
+        <h3>CONAQ</h3>
+        <p>Coordenação Nacional de Quilombos. 3.500+ comunidades em 24 estados. Oficinas, rodas de acolhimento, fortalecimento de narrativas.</p>
+        <div class="source">conaq.org.br — mapear quilombos acolhedores</div>
+      </div>
+      <div class="value-card" style="border-left-color: #8B5CF6;">
+        <h3>ABRASCA</h3>
+        <p>Associação Brasileira de Comunidades Autossustentáveis. ~300 ecovilas mapeadas. ENCA (encontro anual).</p>
+        <div class="source">abrasca.org.br — participar do próximo ENCA como exploração</div>
+      </div>
+      <div class="value-card" style="border-left-color: #F59E0B;">
+        <h3>N'zinga Coletivo (BH)</h3>
+        <p>Coletivo de Mulheres Negras em BH. 33 anos. Leitura de autores decoloniais, Pan-africanos, feministas. Já em BH — não precisa mudar.</p>
+        <div class="source">→ Comunidade intelectual negra em BH. Possível âncora já.</div>
+      </div>
+    </div>
+
+    <h2>Top 3 comunidades pra visitar primeiro (quando estiver pronto)</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div style="font-size: 20px; font-weight: 800; color: var(--ix-green);">1</div>
+        <div style="font-size: 14px; font-weight: 700; margin-top: 4px;">Piracanga / Inkiri</div>
+        <div style="font-size: 12px; color: var(--ix-muted); margin-top: 4px;">Maraú, BA · Mar + comunidade + retiro como porta de entrada · Perto de Itacaré</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 20px; font-weight: 800; color: #3B82F6;">2</div>
+        <div style="font-size: 14px; font-weight: 700; margin-top: 4px;">Noiva do Cordeiro</div>
+        <div style="font-size: 12px; color: var(--ix-muted); margin-top: 4px;">Belo Vale, MG · ~100km de BH · Matriarcal, coletivista, negra · Transição gradual</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 20px; font-weight: 800; color: #8B5CF6;">3</div>
+        <div style="font-size: 14px; font-weight: 700; margin-top: 4px;">Campinho da Independência</div>
+        <div style="font-size: 12px; color: var(--ix-muted); margin-top: 4px;">Paraty, RJ · Quilombo titulado + mar + turismo sustentável · Acolhe visitantes</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>A mensagem:</strong> Comunidade não é algo que você precisa inventar. Já existe gente vivendo do jeito que você quer viver. Quilombos, ecovilas, terreiros. O trabalho não é construir — é encontrar e chegar com respeito. E isso só quando estiver mais regulado. Agora: BH, Wellhub, Kumon Camargos, TO.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 5: ESCALA COM IA ═══ -->
+<div class="tab-panel" data-tab="escala" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>IA como multiplicador de vida</h1>
+
+    <div class="callout info">
+      <strong>A ideia não é substituir trabalho humano. É liberar tempo pra viver.</strong> A IA escala o que antes exigia 8h/dia de trabalho repetitivo. Com a stack certa, 4h de trabalho focado + IA podem gerar o mesmo resultado de 8h no modelo colonial. Meta rastreada via <strong>RescueTime</strong> — dados reais, não chute.
+    </div>
+
+    <h2>Stack de alavancagem (já construída)</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Camada</th>
+          <th>Ferramentas</th>
+          <th>O que automatiza</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Assistente pessoal</strong></td>
+          <td>Claude Desktop + Skills IX + Bot WhatsApp</td>
+          <td>Check-ins, priorização, regulação, dados de saúde</td>
+        </tr>
+        <tr>
+          <td><strong>Operações Impact X</strong></td>
+          <td>Linear + Gmail + Slack + Calendar (MCPs)</td>
+          <td>Briefing diário, tickets, comunicação, agenda</td>
+        </tr>
+        <tr>
+          <td><strong>Comercial</strong></td>
+          <td>Apollo + Attio + Claude (sourcing/matching)</td>
+          <td>Prospecção G2I, matching de devs, outreach</td>
+        </tr>
+        <tr>
+          <td><strong>Conteúdo</strong></td>
+          <td>Claude + Buffer + Notion</td>
+          <td>Posts 3x/semana, calendário editorial</td>
+        </tr>
+        <tr>
+          <td><strong>Relatórios</strong></td>
+          <td>ix-reports + Vercel (auto-deploy)</td>
+          <td>Documentação branded, decision docs</td>
+        </tr>
+        <tr>
+          <td><strong>Engenharia</strong></td>
+          <td>Claude Code + GitHub + Vercel + Supabase</td>
+          <td>PRDs, protótipos, deploy de MVPs</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Modelo de "trabalho" redesenhado</h2>
+
+    <div class="path-grid">
+      <div class="path-card recommended">
+        <div class="path-label recommended">META: 4H/DIA FOCADO</div>
+        <div class="path-title">4h de Deep Work + IA + RescueTime</div>
+        <div class="path-meta">4h realistas — não 2h idealista nem 8h colonial. Dividido em 2 blocos de 2h com pausa sensorial entre eles. RescueTime rastreia tempo produtivo real — sem autoengano.</div>
+        <ul style="font-size: 13px; padding-left: 18px; line-height: 1.8;">
+          <li><strong>Bloco 1 (manhã, ~2h):</strong> Briefing Claude → MIT do dia → deep work</li>
+          <li><strong>Pausa sensorial (30-60min):</strong> Wellhub, caminhada, qualquer coisa que não seja tela</li>
+          <li><strong>Bloco 2 (início tarde, ~2h):</strong> Segundo foco — calls, revisão, construção</li>
+          <li><strong>IA entre blocos:</strong> Follow-ups, reports, sourcing, conteúdo — roda sozinho</li>
+          <li><strong>Nicole executa:</strong> Emails, agendamento, CRM, prospecção G2I</li>
+          <li><strong>Resto do dia:</strong> Wellhub, terreiro, TO, comunidade, descanso. Vida.</li>
+          <li><strong>RescueTime:</strong> Meta 4h/dia produtivo. Dashboard semanal. Sem culpa se 3h — dados pra ajustar, não pra punir.</li>
+        </ul>
+      </div>
+
+      <div class="path-card avoid">
+        <div class="path-label avoid">MODELO COLONIAL</div>
+        <div class="path-title">8h "produtivas" por dia</div>
+        <div class="path-meta">O que o mercado espera. O que destrói um sistema nervoso TEA+TAG.</div>
+        <ul style="font-size: 13px; padding-left: 18px; line-height: 1.8;">
+          <li>8h de atenção alternada (P1 no laudo)</li>
+          <li>Reuniões costas a costas (sobrecarga sensorial)</li>
+          <li>Slack/email constante (ansiedade P85)</li>
+          <li>Culpa por não render = mais ansiedade = menos rendimento</li>
+          <li>Noite: exausto demais pra viver</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>ROI de IA na vida (não só no trabalho)</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: var(--ix-green);">~20h</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Horas/semana economizadas</div>
+        <div style="font-size: 12px; margin-top: 6px; color: var(--ix-muted);">Operações + comercial + conteúdo + relatórios</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: var(--ix-green);">70%</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Decisões simplificadas</div>
+        <div style="font-size: 12px; margin-top: 6px; color: var(--ix-muted);">Claude prepara, você decide. Menos paralisia.</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: var(--ix-green);">24/7</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Suporte Bot WhatsApp</div>
+        <div style="font-size: 12px; margin-top: 6px; color: var(--ix-muted);">Check-ins, regulação, dados de saúde — sem depender de gente</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 28px; font-weight: 800; color: #F59E0B;">R$ 0</div>
+        <div style="font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Custo adicional de equipe</div>
+        <div style="font-size: 12px; margin-top: 6px; color: var(--ix-muted);">IA faz o trabalho de 2-3 analistas. Nicole cobre o humano.</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>A equação:</strong> Com IA + Nicole + ambiente certo, você pode gerar R$ 30-50k/mês com 4h/dia de trabalho focado (rastreado via RescueTime). O resto do dia é Wellhub, terreiro, TO, comunidade, vida. Isso não é preguiça — é design inteligente pra um cérebro que funciona diferente.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 6: DECISÃO FINAL ═══ -->
+<div class="tab-panel" data-tab="decisao" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>A decisão — tudo converge aqui</h1>
+
+    <div class="callout warning">
+      <strong>Contexto:</strong> Você tem mil caminhos. O TDAH quer explorar todos. Mas cada caminho aberto é energia drenada. Este tab é a convergência. Cada decisão conecta com uma aba deste documento. Uma vida, um sistema.
+    </div>
+
+    <h2>O Design de Vida escolhido</h2>
+
+    <div class="principle">
+      <div class="principle-num">RENDA</div>
+      <h3>Impact X Consultoria (G2I) → SaaS → Dengo</h3>
+      <p><strong>Fase 1 (agora):</strong> Fechar G2I. Nicole prospecta no Kumon Camargos, IA automatiza matching, você faz max 2 calls/semana. Meta: R$ 20k+/mês estável por 3 meses.<br>
+      <strong>Fase 2 (mês 4+):</strong> Com caixa, iniciar 1 (UM) SaaS. Não 3 — um. Quarentena de ideias na Nicole.<br>
+      <strong>Fase 3 (mês 9+):</strong> Com renda de 2 fontes, o Dengo entra como infraestrutura de vida — não como negócio isolado.</p>
+      <div class="source">→ Detalhes na aba "Caminhos de Renda"</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">AMBIENTE</div>
+      <h3>BH agora → comunidade existente no médio prazo</h3>
+      <p><strong>Curto prazo:</strong> BH. Kumon Camargos como coworking (body double com Rafa Pimenta e Nicole). Morar com TO quando possível. Cabo Frio como protocolo de refúgio (5-10 dias de mar + mãe).<br>
+      <strong>Médio prazo:</strong> Com renda e corpo regulado, visitar comunidades que já existem — Piracanga (BA), Noiva do Cordeiro (MG), quilombos do litoral. Se juntar, não construir. A liberdade geográfica da consultoria remota permite.</p>
+      <div class="source">→ Detalhes nas abas "Design do Ambiente" e "Comunidades"</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">CORPO</div>
+      <h3>Wellhub 3-4x/semana + Cabo Frio como reset</h3>
+      <p><strong>Em BH:</strong> Yoga (regulação nervosa), indoor biker (descarga de ansiedade), natação (sensorial/água). Via Wellhub, 3-4x/semana. Não como recompensa por produzir — como pré-requisito pra funcionar. O corpo vem antes do trabalho.<br>
+      <strong>Reset:</strong> Cabo Frio 5-10 dias quando saturar. Mar é regulação que BH não tem.</p>
+      <div class="source">→ Detalhes na aba "Design do Ambiente"</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">ORI</div>
+      <h3>Terreiro em BH — fortalecimento espiritual + comunidade ancestral</h3>
+      <p>Procurar 1 dos 3 terreiros pesquisados em BH. Ir a 1 festa pública primeiro. Terreiro é interdependência ancestral — família de santo, cuidado mútuo, pertencimento. Fortalecimento do Ori quando a relação estiver construída. Não é mais uma obrigação — é raiz.</p>
+      <div class="source">→ 3 opções na aba "Design do Ambiente" (Ilê Wopo Olojukan, Cabana Sra. da Glória, Ilê Axé Guian)</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">COMUNIDADE</div>
+      <h3>Não construir — se juntar</h3>
+      <p><strong>Agora (BH):</strong> TO + Nicole + Kumon Camargos + terreiro + terapeuta + psiquiatra + bot. Nenhuma pessoa sozinha carrega tudo. Suporte distribuído.<br>
+      <strong>Médio prazo:</strong> Visitar quilombos, ecovilas, terreiros no litoral. Se encaixar numa comunidade que já funciona sem você. Chegar com respeito, contribuir, pertencer.</p>
+      <div class="source">→ Pesquisa completa na aba "Comunidades"</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">TRABALHO</div>
+      <h3>4h deep work/dia + IA + Nicole · RescueTime rastreia</h3>
+      <p>2 blocos de 2h com pausa sensorial entre eles. RescueTime mede tempo produtivo real — dados pra ajustar, não pra punir. Se 3h num dia, tudo bem. A meta é 4h/dia de média semanal. IA cobre o resto. Nicole executa operacional. Sem 8h de atenção alternada. Sem culpa.</p>
+      <div class="source">→ Detalhes na aba "Escala com IA"</div>
+    </div>
+
+    <h2>Métricas de vida — não só de trabalho</h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div style="font-size: 22px; font-weight: 800; color: var(--ix-green);">4h</div>
+        <div style="font-size: 11px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Deep work/dia</div>
+        <div style="font-size: 11px; margin-top: 4px; color: var(--ix-muted);">RescueTime</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 22px; font-weight: 800; color: var(--ix-green);">3-4x</div>
+        <div style="font-size: 11px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Wellhub/semana</div>
+        <div style="font-size: 11px; margin-top: 4px; color: var(--ix-muted);">Yoga, biker, natação</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 22px; font-weight: 800; color: #3B82F6;">0</div>
+        <div style="font-size: 11px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Dias isolado/semana</div>
+        <div style="font-size: 11px; margin-top: 4px; color: var(--ix-muted);">Kumon + TO + terreiro</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 22px; font-weight: 800; color: #8B5CF6;">7h+</div>
+        <div style="font-size: 11px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">Sono/noite</div>
+        <div style="font-size: 11px; margin-top: 4px; color: var(--ix-muted);">Smartwatch + bot</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 22px; font-weight: 800; color: #F59E0B;">R$ 20k+</div>
+        <div style="font-size: 11px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 1px;">MRR meta</div>
+        <div style="font-size: 11px; margin-top: 4px; color: var(--ix-muted);">G2I consultoria</div>
+      </div>
+    </div>
+
+    <h2>O que NÃO fazer (anti-TDAH list)</h2>
+
+    <div class="callout danger">
+      <ul style="margin: 0; padding-left: 18px; line-height: 2;">
+        <li><strong>NÃO</strong> abrir mais de 1 fonte de renda por vez (quarentena na Nicole)</li>
+        <li><strong>NÃO</strong> aceitar emprego formal a não ser como emergência de caixa (&lt; 2 meses runway)</li>
+        <li><strong>NÃO</strong> mudar de cidade pra onde não tem ninguém — se juntar a comunidade, não fugir</li>
+        <li><strong>NÃO</strong> construir comunidade sozinho — encontrar uma que já existe</li>
+        <li><strong>NÃO</strong> abrir espaço físico antes de ter renda estável de consultoria/SaaS</li>
+        <li><strong>NÃO</strong> concentrar suporte emocional em 1 pessoa (distribuir sempre)</li>
+        <li><strong>NÃO</strong> ignorar o corpo em nome de "produtividade" — Wellhub antes do work</li>
+        <li><strong>NÃO</strong> comparar seu ritmo com neurotípicos — suas 4h focadas valem as 8h deles</li>
+        <li><strong>NÃO</strong> tomar decisão de vida grande quando está mal — Cabo Frio, regular, voltar, decidir</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 7: PLANO DE AÇÃO ═══ -->
+<div class="tab-panel" data-tab="acao" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <h1>Plano de ação — 90 dias</h1>
+
+    <div class="callout info">
+      <strong>Lógica:</strong> Cada fase tem 1 foco. Cada foco tem 1 métrica. Se a métrica não bater, não avança. O sistema não debate com o TDAH — ele protege contra a dispersão.
+    </div>
+
+    <h2>Fase 0: Cuidar (Esta semana)</h2>
+
+    <div class="phase-block">
+      <div class="phase-label" style="background: #C0392B;">
+        <div class="phase-num">00</div>
+        <div class="phase-period">Agora</div>
+      </div>
+      <div class="phase-body">
+        <h3>Você está mal. Primeiro se cuida.</h3>
+        <ul>
+          <li><strong>Corpo:</strong> Se Cabo Frio chama — vá. 5-7 dias de mar + mãe + descanso. Não é fuga, é protocolo de recuperação.</li>
+          <li><strong>Se ficar em BH:</strong> Ligar pro TO hoje ou amanhã. Pedir um café, um jantar, presença. Não precisa explicar tudo.</li>
+          <li><strong>Nicole:</strong> Pedir pra ela segurar as pontas do operacional. 1 msg: "tô mal, segura essa semana".</li>
+          <li><strong>Terapia:</strong> Se tem sessão essa semana, não cancela. Se não tem, tenta encaixar.</li>
+          <li><strong>Trabalho:</strong> Zero. Nada. O mundo não acaba em 1 semana. O G2I espera.</li>
+          <li><strong>Métrica:</strong> <span style="color: #C0392B; font-weight: 700;">Dormir, comer, não ficar sozinho. Só isso.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Fase 1: Âncoras (Semanas 2-4)</h2>
+
+    <div class="phase-block">
+      <div class="phase-label">
+        <div class="phase-num">01</div>
+        <div class="phase-period">Sem 2-4</div>
+      </div>
+      <div class="phase-body">
+        <h3>Criar 3 âncoras presenciais fixas — sair do isolamento</h3>
+        <ul>
+          <li><strong>Âncora 1 — Nicole body double:</strong> Coworking fixo 2-3x/semana. Não precisa trabalhar junto — só estar no mesmo espaço.</li>
+          <li><strong>Âncora 2 — TO semanal:</strong> 1 encontro presencial semanal garantido. Jantar, café, caminhada. O que for.</li>
+          <li><strong>Âncora 3 — 1 espaço terceiro:</strong> Café, academia, qualquer lugar onde te vejam e você veja gente. Ir 2x/semana.</li>
+          <li><strong>Renda:</strong> Nicole reativa prospecção G2I. Rafa faz no máximo 2 calls/semana. IA faz sourcing.</li>
+          <li><strong>Métrica:</strong> <span style="color: var(--ix-green); font-weight: 700;">0 dias da semana totalmente sozinho + pelo menos 1 call G2I feita</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Fase 2: Moradia (Mês 2-3)</h2>
+
+    <div class="phase-block">
+      <div class="phase-label orange">
+        <div class="phase-num">02</div>
+        <div class="phase-period">Mês 2-3</div>
+      </div>
+      <div class="phase-body">
+        <h3>Sair do apartamento isolado → morar com o TO</h3>
+        <ul>
+          <li><strong>Conversa:</strong> Sentar com TO e alinhar expectativas — regras, limites, custos, rotina. Isso não é terapia, é convivência.</li>
+          <li><strong>Local:</strong> Bairro com vida de rua (padaria, comércio, calçada). Não condomínio fechado. Não prédio anônimo.</li>
+          <li><strong>Renda:</strong> G2I gerando pelo menos R$ 10-15k/mês (1-2 devs colocados)</li>
+          <li><strong>Corpo:</strong> Rotina de regulação consolidada em BH (pode não ser mar — pode ser parque, caminhada, qualquer coisa que funcione)</li>
+          <li><strong>Métrica:</strong> <span style="color: #F59E0B; font-weight: 700;">Morando com TO + renda &gt; R$ 10k/mês + 3 âncoras presenciais ativas</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Fase 3: Consolidar (Mês 4-6)</h2>
+
+    <div class="phase-block">
+      <div class="phase-label blue">
+        <div class="phase-num">03</div>
+        <div class="phase-period">Mês 4-6</div>
+      </div>
+      <div class="phase-body">
+        <h3>Vida funcionando — agora sim pensar em escalar</h3>
+        <ul>
+          <li><strong>Moradia:</strong> Estável com TO. Rotina de convivência funcionando.</li>
+          <li><strong>Renda:</strong> Consultoria estável R$ 20k+/mês. SÓ AGORA avaliar 1 SaaS.</li>
+          <li><strong>Comunidade:</strong> Buscar 1 âncora comunitária adicional (grupo, terreiro, coletivo, o que o corpo escolher)</li>
+          <li><strong>Cabo Frio:</strong> 1 viagem de refúgio/regulação a cada 6-8 semanas como manutenção</li>
+          <li><strong>Dengo:</strong> Pode começar a pesquisar. Não abrir. Pesquisar.</li>
+          <li><strong>Métrica:</strong> <span style="color: #3B82F6; font-weight: 700;">R$ 20k+ MRR + moradia estável + 0 semanas de isolamento total + corpo regulando</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Horizonte 6-12 meses</h2>
+
+    <div class="phase-block">
+      <div class="phase-label purple">
+        <div class="phase-num">∞</div>
+        <div class="phase-period">Mês 6-12</div>
+      </div>
+      <div class="phase-body">
+        <h3>O design de vida operando — sem fantasia</h3>
+        <ul>
+          <li>Morando com TO em BH. Bairro com vida. Rotina de convivência.</li>
+          <li>Consultoria gerando R$ 30-50k/mês (4h/dia + Nicole + IA, rastreado via RescueTime)</li>
+          <li>1 SaaS em construção ou validação</li>
+          <li>3-5 âncoras presenciais semanais (Nicole, TO, espaço terceiro, comunidade)</li>
+          <li>Cabo Frio como refúgio de regulação a cada 6-8 semanas</li>
+          <li>TO residente + bot + terapeuta + psiquiatra = suporte distribuído, não concentrado</li>
+          <li>Dengo/espaço físico: decisão baseada em renda e energia, não em urgência</li>
+          <li>Métricas de vida: sono, regulação sensorial, dias sem isolamento, conexões humanas — não só MRR</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>O resultado final:</strong> Uma vida onde gerar renda, cuidar do corpo, pertencer a uma comunidade e ter propósito são a mesma coisa. Onde você ajuda e é ajudado. Onde seu bem-estar é percebido. Onde a tecnologia é invisível e o tempo é devolvido. Isso é o design da Impact X aplicado à própria vida.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
