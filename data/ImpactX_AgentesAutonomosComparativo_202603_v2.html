@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Agentes Autônomos: Comparativo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ix-ink: #1A1D21;
+  --ix-muted: #6B7280;
+  --ix-green: #11C76F;
+  --ix-green-hover: #0EB863;
+  --ix-green-dark: #059669;
+  --ix-green-light: #34D399;
+  --ix-green-bg: #D1FAE5;
+  --ix-green-tint: #ECFDF5;
+  --ix-bg: #F4F6F9;
+  --ix-surface: #FFFFFF;
+  --ix-border: #E8ECF1;
+  --ix-warning: #D4820A;
+  --ix-danger: #C0392B;
+  --ix-radius-sm: 10px;
+  --ix-radius-md: 16px;
+  --ix-shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --ix-shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ix-ink);
+  background: var(--ix-bg);
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--ix-surface);
+  border-bottom: 1px solid var(--ix-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  box-shadow: var(--ix-shadow-sm);
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--ix-green);
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px;
+}
+
+.back-btn:hover { color: var(--ix-green-hover); }
+
+.brand {
+  color: var(--ix-ink);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  gap: 2px;
+}
+
+.brand .x { color: var(--ix-green); }
+
+.topbar-title {
+  color: var(--ix-muted);
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  text-align: right;
+}
+
+.tab-nav {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: var(--ix-surface);
+  border-bottom: 1px solid var(--ix-border);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  z-index: 99;
+  padding: 0 24px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--ix-muted);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 16px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover { color: var(--ix-ink); }
+.tab-btn.active { color: var(--ix-green); border-bottom-color: var(--ix-green); }
+
+.tab-panel { display: none; padding-top: 116px; min-height: 100vh; }
+.tab-panel.active { display: block; }
+
+.content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.report-header {
+  background: var(--ix-green-tint);
+  border-radius: var(--ix-radius-md);
+  padding: 40px;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--ix-green);
+}
+
+.hdr-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ix-ink);
+}
+
+.hdr-title em {
+  color: var(--ix-green);
+  font-style: normal;
+}
+
+.hdr-sub {
+  font-size: 16px;
+  color: var(--ix-muted);
+  margin-bottom: 12px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--ix-shadow-sm);
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--ix-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ix-green);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  overflow: hidden;
+}
+
+thead { background: var(--ix-green-tint); border-bottom: 1px solid var(--ix-border); }
+
+th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ix-ink);
+  font-size: 14px;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid var(--ix-border);
+  font-size: 14px;
+}
+
+tbody tr:hover { background: var(--ix-green-tint); }
+
+.callout {
+  border-radius: var(--ix-radius-md);
+  padding: 20px;
+  margin: 24px 0;
+  border-left: 4px solid;
+  background: var(--ix-surface);
+}
+
+.callout.info {
+  border-left-color: var(--ix-green);
+  background: var(--ix-green-tint);
+}
+
+.callout.success {
+  border-left-color: var(--ix-green-dark);
+  background: rgba(17, 199, 111, 0.05);
+}
+
+.callout.warning {
+  border-left-color: var(--ix-warning);
+  background: rgba(212, 130, 10, 0.05);
+}
+
+.callout.danger {
+  border-left-color: var(--ix-danger);
+  background: rgba(192, 57, 43, 0.05);
+}
+
+.callout strong {
+  color: var(--ix-ink);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.callout p {
+  color: var(--ix-muted);
+  margin: 8px 0;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  color: var(--ix-ink);
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 28px 0 16px;
+  color: var(--ix-ink);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 20px 0 12px;
+  color: var(--ix-ink);
+}
+
+p {
+  margin: 12px 0;
+  color: var(--ix-muted);
+  line-height: 1.8;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin: 12px 0;
+  color: var(--ix-muted);
+}
+
+li { margin: 8px 0; }
+
+strong {
+  color: var(--ix-ink);
+  font-weight: 600;
+}
+
+a {
+  color: var(--ix-green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+a:hover { color: var(--ix-green-hover); }
+
+footer {
+  background: var(--ix-surface);
+  border-top: 1px solid var(--ix-border);
+  padding: 40px 24px;
+  text-align: center;
+  margin-top: 60px;
+  color: var(--ix-muted);
+  font-size: 14px;
+}
+
+footer .brand {
+  font-size: 16px;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+.phase {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  padding: 24px;
+  margin: 20px 0;
+}
+
+.phase-label {
+  font-weight: 700;
+  color: var(--ix-green);
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.phase-content {
+  color: var(--ix-muted);
+  line-height: 1.8;
+}
+
+.comparison-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.comparison-box {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  padding: 20px;
+}
+
+.comparison-box h4 {
+  color: var(--ix-ink);
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.comparison-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.comparison-box li {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .comparison-2col {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Agentes Autônomos 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="tier-list">Tier List</button>
+  <button type="button" class="tab-btn" data-tab="matriz">Comparativo</button>
+  <button type="button" class="tab-btn" data-tab="viktor">Viktor Case</button>
+  <button type="button" class="tab-btn" data-tab="whatsapp">WhatsApp</button>
+  <button type="button" class="tab-btn" data-tab="recomendacao">Recomendação</button>
+  <button type="button" class="tab-btn" data-tab="openclaw-deep">OpenClaw Deep</button>
+</nav>
+
+<!-- TAB 1: Tier List (resumido por brevidade, use v1) -->
+<div class="tab-panel active" data-tab="tier-list" role="tabpanel" aria-hidden="false">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">Tier List: Autonomia Total</div>
+      <div class="hdr-sub">Use a versão anterior para ver a tier list completa</div>
+    </div>
+    <p>👉 Esta versão foi atualizada para incluir "OpenClaw Deep Dive". Veja a versão anterior para tier list, comparativo, Viktor case e WhatsApp.</p>
+  </div>
+</div>
+
+<!-- TAB 2-5: Placeholder -->
+<div class="tab-panel" data-tab="matriz" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <p>👉 Veja versão anterior do relatório para matriz comparativa completa.</p>
+  </div>
+</div>
+
+<div class="tab-panel" data-tab="viktor" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <p>👉 Veja versão anterior para Viktor case study.</p>
+  </div>
+</div>
+
+<div class="tab-panel" data-tab="whatsapp" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <p>👉 Veja versão anterior para estratégias WhatsApp.</p>
+  </div>
+</div>
+
+<div class="tab-panel" data-tab="recomendacao" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <p>👉 Veja versão anterior para recomendação final e sprint plan.</p>
+  </div>
+</div>
+
+<!-- TAB 6: OpenClaw Deep Dive — NOVA ABA -->
+<div class="tab-panel" data-tab="openclaw-deep" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">OpenClaw Deep Dive: Por que seu está <em>péssimo</em> e como ficar Tier S</div>
+      <div class="hdr-sub">Diagnóstico, comparação com Claude Code + Viktor, e sprint de 2 semanas</div>
+    </div>
+
+    <h2>🔍 Diagnóstico: O que está errado com seu OpenClaw (Silva)</h2>
+
+    <div class="callout danger">
+      <strong>Status atual (2026-03-23):</strong>
+      <p style="margin-top: 12px;">Silva está <strong>muito mais avançado</strong> que o relatório anterior indicava. Canal principal: <strong>Telegram</strong> (altamente proativo). Audit 2026-03-23 revelou:</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Problema</th><th>Impacto</th><th>Severidade</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>tools.profile: "full"</strong></td>
+          <td>Manda 200+ tools ao Gemini → 400 error no --local</td>
+          <td>🔴 Crítico</td>
+          <td>Lista explícita de grupos (message, web, code)</td>
+        </tr>
+        <tr>
+          <td>✅ <strong>6 cron jobs ativos</strong> (checkins, patterns, reports)</td>
+          <td>Silva só reage, não propõe automações</td>
+          <td>🟡 Alto</td>
+          <td>Cron job que observa canais + propõe automações</td>
+        </tr>
+        <tr>
+          <td><strong>Single-agent</strong></td>
+          <td>Tudo centralizado em Silva</td>
+          <td>🟡 Alto</td>
+          <td>Multi-agent: 1 coordinator + 3 specialists (code, data, voice)</td>
+        </tr>
+        <tr>
+          <td>✅ <strong>Telegram ativo</strong> (principal)</td>
+          <td>Slack bridge disabled; Telegram 24/7 proativo</td>
+          <td>🟡 Alto</td>
+          <td>Adicionar bridge Discord (passo 1), WhatsApp Evolution (passo 2)</td>
+        </tr>
+        <tr>
+          <td>✅ <strong>Observabilidade 100%</strong></td>
+          <td>Sem rastreamento de o que Silva faz</td>
+          <td>🟡 Médio</td>
+          <td>Logs estruturados + dashboard de execução</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>📊 OpenClaw vs Claude Code vs Viktor</h2>
+
+    <div class="comparison-2col">
+      <div class="comparison-box">
+        <h4>OpenClaw (seu, não otimizado)</h4>
+        <ul>
+          <li>✅ Autonomia teórica máxima</li>
+          <li>✅ Self-hosted (custo $5-15/mês)</li>
+          <li>❌ Implementação incompleta</li>
+          <li>❌ Multi-agent não configurado</li>
+          <li>❌ Heartbeat não implementado</li>
+          <li>✅ Observabilidade: gateway.log + Supabase (pattern_events, health_checkins)</li>
+          <li>📊 Valor real: 20% do potencial</li>
+        </ul>
+      </div>
+
+      <div class="comparison-box">
+        <h4>Claude Code (seu Max Plan)</h4>
+        <ul>
+          <li>✅ Dev tool mais poderoso do mercado</li>
+          <li>✅ Hooks + subagents bem documentados</li>
+          <li>✅ Integração perfeita com seu workflow</li>
+          <li>❌ Não é framework de agentes prod</li>
+          <li>✅ Heartbeat: 6 cron jobs (4 checkins + 3 patterns + 1 report semanal)</li>
+          <li>❌ Sessão limitada (até 50 tasks)</li>
+          <li>💰 $100-200/mês + contrato anual</li>
+          <li>📊 Valor real: excelente para DEV, limitado para agentes prod</li>
+        </ul>
+      </div>
+
+      <div class="comparison-box">
+        <h4>Viktor ($50/mês)</h4>
+        <ul>
+          <li>✅ Heartbeat + detecção anomalias nativo</li>
+          <li>✅ 3000+ integrações OAuth</li>
+          <li>✅ Browser automation pronto</li>
+          <li>✅ Skills reutilizáveis auto-learning</li>
+          <li>✅ Telegram (principal) + Slack (bridge disabled — ativar em sprint)</li>
+          <li>❌ Cloud-only, sem self-host</li>
+          <li>❌ Modelo AI fixo (Opus)</li>
+          <li>❌ Controle limitado</li>
+          <li>📊 Valor real: padrão de ouro para autonomia, mas caro para TAM inicial</li>
+        </ul>
+      </div>
+
+      <div class="comparison-box">
+        <h4>OpenClaw (otimizado — META)</h4>
+        <ul>
+          <li>✅ Heartbeat implementado (cron nativo)</li>
+          <li>✅ Multi-agent: coordenador + specialists</li>
+          <li>✅ Bridges nativos: Discord, WhatsApp, Slack, Telegram</li>
+          <li>✅ Self-hosted ($5-15/mês)</li>
+          <li>✅ BYO modelo (Claude, Gemini, Llama)</li>
+          <li>✅ Controle total, observabilidade 100%</li>
+          <li>✅ MIT license — seu código</li>
+          <li>📊 Valor real: Tier S++ com implementação completa</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>🚀 Sprint 2 Semanas: OpenClaw → Tier S++</h2>
+
+    <div class="phase">
+      <div class="phase-label">📅 Semana 1: Arquitetura + Heartbeat</div>
+      <div class="phase-content">
+        <strong>D1-D2: Fix críticos Silva (backend)</strong>
+        <ul style="margin-top: 12px;">
+          <li><strong>tools.profile "full" → lista explícita</strong> (message, web, code groups only)</li>
+          <li>Test --local: <code>openclaw agent --agent silva --message "hi" --local</code> → 200</li>
+          <li>Deploy fix para Slack real, verificar com @rafael</li>
+        </ul>
+
+        <strong style="margin-top: 16px; display: block;">D3-D4: Heartbeat system (padrão Viktor)</strong>
+        <ul style="margin-top: 12px;">
+          <li>Criar agente "observer" que roda cron 5/30/60 min</li>
+          <li>Observa canais Slack: padrões, volume, anomalias</li>
+          <li>Propõe automações: "Notei que você posta relatórios toda segunda. Quer automatizar?"</li>
+          <li>Template: <code>scripts/heartbeat.sh</code> + <code>agents/observer.md</code></li>
+        </ul>
+
+        <strong style="margin-top: 16px; display: block;">D5: Multi-agent setup</strong>
+        <ul style="margin-top: 12px;">
+          <li>Criar <code>agents/coordinator.md</code> — distribui tarefas</li>
+          <li>Criar <code>agents/code-specialist.md</code> — executa tasks coding</li>
+          <li>Criar <code>agents/data-specialist.md</code> — analisa dados</li>
+          <li>Coordinator roteia: "code-specialist" se task envolve coding, "data-specialist" se análise</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">📅 Semana 2: Canais + Observabilidade</div>
+      <div class="phase-content">
+        <strong>D6-D7: Bridge Discord</strong>
+        <ul style="margin-top: 12px;">
+          <li>Adicionar <code>channels.discord</code> a openclaw.json</li>
+          <li>DISCORD_BOT_TOKEN em .env</li>
+          <li>Test: enviar msg no Discord → Silva responde</li>
+          <li>Reuse Silva config (replyToMode, streaming, etc)</li>
+        </ul>
+
+        <strong style="margin-top: 16px; display: block;">D8: Observabilidade (logs + dashboard)</strong>
+        <ul style="margin-top: 12px;">
+          <li>Criar <code>workspace/execution-log.md</code> → append cada agent run</li>
+          <li>Estrutura: timestamp, agent, input, output, duration, status</li>
+          <li>Script <code>scripts/log-viewer.sh</code> para ver últimos 50 runs</li>
+          <li>Opcional: dashboard web simples em Node.js (porta 18790)</li>
+        </ul>
+
+        <strong style="margin-top: 16px; display: block;">D9-D10: WhatsApp bridge (opcional, P1 future)</strong>
+        <ul style="margin-top: 12px;">
+          <li>Adicionar <code>channels.whatsapp</code> (Evolution API)</li>
+          <li>Config: EVOLUTION_API_URL, EVOLUTION_API_KEY</li>
+          <li>Test com número pessoal</li>
+          <li>Leave para Q2 se tight</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>🎯 Como usar OpenClaw para alcançar Viktor-level</h2>
+
+    <h3>1. Heartbeat System (padrão Viktor)</h3>
+    <p>Crie um agente "observer" que roda a cada 30 min:</p>
+    <pre style="background: var(--ix-surface); padding: 16px; border-radius: 8px; overflow-x: auto; font-family: 'Roboto Mono'; font-size: 12px; margin: 12px 0;">
+# Pseudocódigo para agents/observer.md
+NAME: observer
+SCHEDULE: "*/30 * * * *"  # a cada 30 min
+
+TOOLS:
+  - slack.channels.list
+  - slack.messages.search
+  - gemini.generate  # análise de padrões
+
+INSTRUCTIONS:
+  1. List todos canais que você monitora
+  2. Para cada canal, busque últimas 50 mensagens
+  3. Análise com Gemini: padrões, anomalias, oportunidades
+  4. Se encontrar padrão acionável:
+     - Proposta de automação em thread
+     - Aguarda aprovação de Rafael
+     - Cria nova automação se aprovado
+    </pre>
+
+    <h3>2. Multi-Agent Routing (padrão CrewAI melhorado)</h3>
+    <pre style="background: var(--ix-surface); padding: 16px; border-radius: 8px; overflow-x: auto; font-family: 'Roboto Mono'; font-size: 12px; margin: 12px 0;">
+# agents/coordinator.md
+NAME: coordinator
+ROLE: Distribuidor de tarefas inteligente
+
+TOOLS:
+  - slack.reactions.add
+  - agent.invoke  # chamar outros agentes
+
+INSTRUCTIONS:
+  1. Quando receber mensagem complexa:
+     - Se contém "code" → invoke code-specialist
+     - Se contém "data/analysis" → invoke data-specialist
+     - Else → handle direto
+  2. Coleta resultado
+  3. Responde no Slack com summary + link
+    </pre>
+
+    <h3>3. Rastreamento de Execução (observabilidade)</h3>
+    <pre style="background: var(--ix-surface); padding: 16px; border-radius: 8px; overflow-x: auto; font-family: 'Roboto Mono'; font-size: 12px; margin: 12px 0;">
+# scripts/log-run.sh
+#!/bin/bash
+TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+AGENT=$1
+INPUT=$2
+OUTPUT=$3
+DURATION=$4
+STATUS=$5  # "success" or "error"
+
+echo "- [$TIMESTAMP] **$AGENT** ($STATUS) | Duration: ${DURATION}s | Input: \`$INPUT\` | Output: \`${OUTPUT:0:50}...\`" >> workspace/execution-log.md
+    </pre>
+
+    <h2>💰 Custo Comparison Após Otimização</h2>
+
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Mensal</th><th>Setup</th><th>Heartbeat</th><th>Canais</th><th>Autonomia</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claude Code (seu)</strong></td>
+          <td>$100-200</td>
+          <td>Pronto</td>
+          <td>❌</td>
+          <td>Nenhum</td>
+          <td>Dev tool, não prod</td>
+        </tr>
+        <tr>
+          <td><strong>Viktor</strong></td>
+          <td>$50</td>
+          <td>0 min</td>
+          <td>✅ Nativo</td>
+          <td>Slack só</td>
+          <td>Tier S, cloud-only</td>
+        </tr>
+        <tr>
+          <td><strong>OpenClaw (otimizado)</strong></td>
+          <td>$15-25</td>
+          <td>2 semanas</td>
+          <td>✅ Implementado</td>
+          <td>Slack, Discord, WhatsApp</td>
+          <td>Tier S++, self-hosted</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>✅ Checklist: Tier S++ Success</h2>
+
+    <div class="callout success">
+      <strong>Fim de Semana 2 você terá:</strong>
+      <ul style="margin-top: 12px; color: var(--ix-muted);">
+        <li>✅ Silva sem 400 errors (--local funciona)</li>
+        <li>✅ Observer com heartbeat a cada 30 min</li>
+        <li>✅ Coordinator + 3 specialists rodando</li>
+        <li>✅ Integração Discord pronta</li>
+        <li>✅ Logs estruturados + viewer</li>
+        <li>✅ WhatsApp bridge configurado (ou ready to test)</li>
+        <li>✅ Custo: $15-25/mês (vs $50 Viktor + $100 Claude Code)</li>
+        <li>✅ Controle total, MIT license, dados seus</li>
+      </ul>
+    </div>
+
+    <h2>🔗 Próximos passos imediatos</h2>
+    <ol>
+      <li>Fix tools.profile Silva: <code>~/openclaw/.claude/TASKS.md</code></li>
+      <li>Criar branch <code>feat/heartbeat</code> para trabalho</li>
+      <li>Clonar agents/observer.md do template acima</li>
+      <li>Deploy para gateway local, test com @rafael</li>
+      <li>Feedback → iterate 2 semanas</li>
+    </ol>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tabId = btn.getAttribute('data-tab');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      if (p.getAttribute('data-tab') === tabId) {
+        p.classList.add('active');
+      }
+    });
+    window.location.hash = tabId;
+  });
+});
+
+document.querySelector('.back-btn').addEventListener('click', () => {
+  history.back();
+});
+
+window.addEventListener('load', () => {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const btn = document.querySelector(`[data-tab="${hash}"]`);
+    if (btn) btn.click();
+  }
+});
+</script>
+</body>
+</html>
