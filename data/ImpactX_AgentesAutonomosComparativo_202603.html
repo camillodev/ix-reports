@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Agentes Autônomos: Comparativo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ix-ink: #1A1D21;
+  --ix-muted: #6B7280;
+  --ix-green: #11C76F;
+  --ix-green-hover: #0EB863;
+  --ix-green-dark: #059669;
+  --ix-green-light: #34D399;
+  --ix-green-bg: #D1FAE5;
+  --ix-green-tint: #ECFDF5;
+  --ix-bg: #F4F6F9;
+  --ix-surface: #FFFFFF;
+  --ix-border: #E8ECF1;
+  --ix-warning: #D4820A;
+  --ix-danger: #C0392B;
+  --ix-radius-sm: 10px;
+  --ix-radius-md: 16px;
+  --ix-shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --ix-shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ix-ink);
+  background: var(--ix-bg);
+}
+
+/* Topbar */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--ix-surface);
+  border-bottom: 1px solid var(--ix-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  box-shadow: var(--ix-shadow-sm);
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--ix-green);
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px;
+}
+
+.back-btn:hover {
+  color: var(--ix-green-hover);
+}
+
+.brand {
+  color: var(--ix-ink);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  gap: 2px;
+}
+
+.brand .x {
+  color: var(--ix-green);
+}
+
+.topbar-title {
+  color: var(--ix-muted);
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  text-align: right;
+}
+
+/* Tab Navigation */
+.tab-nav {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: var(--ix-surface);
+  border-bottom: 1px solid var(--ix-border);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  z-index: 99;
+  padding: 0 24px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--ix-muted);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 16px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: var(--ix-ink);
+}
+
+.tab-btn.active {
+  color: var(--ix-green);
+  border-bottom-color: var(--ix-green);
+}
+
+/* Tab Panels */
+.tab-panel {
+  display: none;
+  padding-top: 116px;
+  min-height: 100vh;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* Report Header */
+.report-header {
+  background: var(--ix-green-tint);
+  border-radius: var(--ix-radius-md);
+  padding: 40px;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--ix-green);
+}
+
+.hdr-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ix-ink);
+}
+
+.hdr-title em {
+  color: var(--ix-green);
+  font-style: normal;
+}
+
+.hdr-sub {
+  font-size: 16px;
+  color: var(--ix-muted);
+  margin-bottom: 12px;
+}
+
+.hdr-meta {
+  font-size: 14px;
+  color: var(--ix-muted);
+  display: flex;
+  gap: 16px;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--ix-shadow-sm);
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--ix-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ix-green);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  overflow: hidden;
+}
+
+thead {
+  background: var(--ix-green-tint);
+  border-bottom: 1px solid var(--ix-border);
+}
+
+th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ix-ink);
+  font-size: 14px;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid var(--ix-border);
+  font-size: 14px;
+}
+
+tbody tr:hover {
+  background: var(--ix-green-tint);
+}
+
+/* Callouts */
+.callout {
+  border-radius: var(--ix-radius-md);
+  padding: 20px;
+  margin: 24px 0;
+  border-left: 4px solid;
+  background: var(--ix-surface);
+}
+
+.callout.info {
+  border-left-color: var(--ix-green);
+  background: var(--ix-green-tint);
+}
+
+.callout.success {
+  border-left-color: var(--ix-green-dark);
+  background: rgba(17, 199, 111, 0.05);
+}
+
+.callout.warning {
+  border-left-color: var(--ix-warning);
+  background: rgba(212, 130, 10, 0.05);
+}
+
+.callout.danger {
+  border-left-color: var(--ix-danger);
+  background: rgba(192, 57, 43, 0.05);
+}
+
+.callout strong {
+  color: var(--ix-ink);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.callout p {
+  color: var(--ix-muted);
+  margin: 8px 0;
+}
+
+/* Headings */
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  color: var(--ix-ink);
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 28px 0 16px;
+  color: var(--ix-ink);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 20px 0 12px;
+  color: var(--ix-ink);
+}
+
+p {
+  margin: 12px 0;
+  color: var(--ix-muted);
+  line-height: 1.8;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin: 12px 0;
+  color: var(--ix-muted);
+}
+
+li {
+  margin: 8px 0;
+}
+
+strong {
+  color: var(--ix-ink);
+  font-weight: 600;
+}
+
+a {
+  color: var(--ix-green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--ix-green-hover);
+}
+
+/* Footer */
+footer {
+  background: var(--ix-surface);
+  border-top: 1px solid var(--ix-border);
+  padding: 40px 24px;
+  text-align: center;
+  margin-top: 60px;
+  color: var(--ix-muted);
+  font-size: 14px;
+}
+
+footer .brand {
+  font-size: 16px;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+/* Tier badges */
+.tier-s { background: #FBBF24; color: var(--ix-ink); padding: 4px 12px; border-radius: 4px; font-weight: 600; font-size: 12px; display: inline-block; }
+.tier-a { background: var(--ix-green-light); color: var(--ix-ink); padding: 4px 12px; border-radius: 4px; font-weight: 600; font-size: 12px; display: inline-block; }
+.tier-b { background: #9CA3AF; color: white; padding: 4px 12px; border-radius: 4px; font-weight: 600; font-size: 12px; display: inline-block; }
+.tier-c { background: #D1D5DB; color: var(--ix-ink); padding: 4px 12px; border-radius: 4px; font-weight: 600; font-size: 12px; display: inline-block; }
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Agentes Autônomos 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="tier-list">Tier List</button>
+  <button type="button" class="tab-btn" data-tab="matriz">Comparativo</button>
+  <button type="button" class="tab-btn" data-tab="viktor">Viktor Case</button>
+  <button type="button" class="tab-btn" data-tab="whatsapp">WhatsApp</button>
+  <button type="button" class="tab-btn" data-tab="recomendacao">Recomendação</button>
+</nav>
+
+<!-- TAB 1: Tier List -->
+<div class="tab-panel active" data-tab="tier-list" role="tabpanel" aria-hidden="false">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">Tier List: Autonomia Total</div>
+      <div class="hdr-sub">14 plataformas classificadas por proatividade e maturidade</div>
+    </div>
+
+    <h2>🔴 Tier S — Autonomia Total + Proatividade Nativa</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier S</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>OpenClaw</strong></td>
+          <td>Daemon persistente com heartbeat, cron nativo, bridges multi-canal (WhatsApp, Discord, Slack), MIT license</td>
+        </tr>
+        <tr>
+          <td><strong>Viktor</strong></td>
+          <td>Heartbeat system que detecta padrões e propõe automações, 3000+ integrações, memória persistente por semanas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🟠 Tier A — Excelente para Agentes</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier A</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>n8n</strong></td>
+          <td>Triggers/cron/webhooks nativos, WhatsApp Cloud API nativo, 1200+ integrações, self-hosted gratuito</td>
+        </tr>
+        <tr>
+          <td><strong>LangGraph</strong></td>
+          <td>Framework mais maduro, durable execution, memory nativa, usado por Klarna/Replit</td>
+        </tr>
+        <tr>
+          <td><strong>Claude Agent SDK</strong></td>
+          <td>Poder total do Claude com shell/filesystem, subagents coordenados, permission systems</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🟡 Tier B — Bom para Multi-Agent</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier B</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CrewAI</strong></td>
+          <td>Melhor DX multi-agent (crews com papéis), 60% Fortune 500, mas sem scheduler nativo</td>
+        </tr>
+        <tr>
+          <td><strong>OpenAI Agents SDK</strong></td>
+          <td>Realtime Agents, guardrails nativas, handoffs elegantes, mas reativo</td>
+        </tr>
+        <tr>
+          <td><strong>AutoGen/AG2</strong></td>
+          <td>Interoperabilidade cross-framework única, mas ecossistema fragmentado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>⚪ Tier C — Nicho ou Limitado</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Por que Tier C</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Claude Code</strong></td><td>Melhor ferramenta de dev, mas não é plataforma de agentes end-user</td></tr>
+        <tr><td><strong>Manus AI</strong></td><td>Set-and-forget potente, mas cloud-only, custos impredizíveis</td></tr>
+        <tr><td><strong>Botpress</strong></td><td>WhatsApp nativo, mas focado em chatbots, não agentes autônomos</td></tr>
+        <tr><td><strong>Composio</strong></td><td>Tool router excelente, mas complementar — não é agent framework</td></tr>
+        <tr><td><strong>Relevance AI</strong></td><td>No-code para vendas/GTM, menos generalista</td></tr>
+        <tr><td><strong>Voiceflow</strong></td><td>Voice agents fortes, mas reativo, sem proatividade</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 2: Matriz Comparativa -->
+<div class="tab-panel" data-tab="matriz" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">Matriz Comparativa: 6 Dimensões</div>
+      <div class="hdr-sub">Análise detalhada de autonomia, memória, multi-agent, custo e WhatsApp</div>
+    </div>
+
+    <h2>1️⃣ Autonomia e Proatividade</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Proativo?</th><th>Scheduler</th><th>Heartbeat</th><th>Background</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>✅ Sim</td><td>Cron nativo</td><td>✅ Daemon 24/7</td><td>✅ Sim</td></tr>
+        <tr><td>Viktor</td><td>✅ Sim</td><td>✅ Tarefas agendadas</td><td>✅ Observa canais</td><td>✅ Sandbox cloud</td></tr>
+        <tr><td>n8n</td><td>✅ Sim</td><td>Cron/triggers/webhooks</td><td>❌</td><td>✅ 24/7</td></tr>
+        <tr><td>LangGraph</td><td>🟡 Parcial</td><td>Integração externa</td><td>❌</td><td>✅ Durable execution</td></tr>
+        <tr><td>Claude Agent SDK</td><td>🟡 Parcial</td><td>Cron externo</td><td>❌</td><td>✅</td></tr>
+        <tr><td>CrewAI</td><td>❌</td><td>Não nativo</td><td>❌</td><td>✅ Flows</td></tr>
+        <tr><td>Manus AI</td><td>✅ Sim</td><td>✅ Background tasks</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Botpress</td><td>🟡 Parcial</td><td>Triggers de eventos</td><td>❌</td><td>🟡 Parcial</td></tr>
+      </tbody>
+    </table>
+
+    <h2>2️⃣ Memória Cross-Session</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Short-term</th><th>Long-term</th><th>Persistência</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>Sessão</td><td>Markdown local</td><td>✅ SQLite + arquivos</td></tr>
+        <tr><td>Viktor</td><td>Sessão</td><td>Event-sourcing AES-256</td><td>✅ Semanas+</td></tr>
+        <tr><td>n8n</td><td>Volátil</td><td>Postgres/Redis/MongoDB</td><td>✅ Com config</td></tr>
+        <tr><td>LangGraph</td><td>Working memory</td><td>Persistent memory</td><td>✅</td></tr>
+        <tr><td>Claude Agent SDK</td><td>Contexto</td><td>Custom</td><td>🟡 Depende</td></tr>
+        <tr><td>CrewAI</td><td>Sessão</td><td>Sim</td><td>✅ Com caching</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3️⃣ Suporte Multi-Agent</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Suporte</th><th>Modelo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>✅ Sim</td><td>Model mixing — cada agente com modelo próprio</td></tr>
+        <tr><td>n8n</td><td>✅ Sim</td><td>AI Agent nodes em workflows</td></tr>
+        <tr><td>LangGraph</td><td>✅ Excelente</td><td>Single, multi, hierarchical</td></tr>
+        <tr><td>Claude Agent SDK</td><td>✅ Sim</td><td>Subagents com permissions</td></tr>
+        <tr><td>CrewAI</td><td>✅ Core</td><td>Crews com papéis e delegação</td></tr>
+        <tr><td>OpenAI Agents SDK</td><td>✅ Excelente</td><td>Handoffs, guardrails paralelas</td></tr>
+        <tr><td>AutoGen/AG2</td><td>✅ Excelente</td><td>GroupChat, swarms, cross-framework</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4️⃣ Custo Mensal Estimado (Startup/Pessoal)</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Modelo</th><th>Custo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw</td><td>MIT + BYO API</td><td><strong>$15-50</strong> (VPS + APIs)</td></tr>
+        <tr><td>Viktor</td><td>SaaS</td><td><strong>$50/workspace</strong></td></tr>
+        <tr><td>n8n</td><td>Self-host free + Cloud</td><td><strong>$0-20</strong> (+ API)</td></tr>
+        <tr><td>LangGraph</td><td>MIT + LangSmith</td><td><strong>$0-39</strong> (+ API)</td></tr>
+        <tr><td>Claude Agent SDK</td><td>Open source + API</td><td><strong>$10-75</strong></td></tr>
+        <tr><td>CrewAI</td><td>Open source + Studio</td><td><strong>$0-25</strong> (+ API)</td></tr>
+        <tr><td>Claude Code</td><td>Assinatura</td><td><strong>$100-200/mês</strong> (Max plan)</td></tr>
+        <tr><td>Manus AI</td><td>SaaS créditos</td><td><strong>$39-199</strong> (impredizível)</td></tr>
+        <tr><td>Botpress</td><td>SaaS</td><td><strong>$0-89</strong></td></tr>
+        <tr><td>Relevance AI</td><td>SaaS</td><td><strong>$0-234</strong> (salto grande)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 3: Viktor Case Study -->
+<div class="tab-panel" data-tab="viktor" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">Estudo de Caso: <em>Viktor</em></div>
+      <div class="hdr-sub">Modelo de proatividade que devemos replicar no P1</div>
+    </div>
+
+    <p><strong>Viktor</strong> (getviktor.com) é um "AI coworker" que vive no Slack. Não é um chatbot: é um agente autônomo com sandbox cloud próprio que executa ações reais.</p>
+
+    <h2>💓 O Heartbeat System (Diferencial)</h2>
+    <ol>
+      <li><strong>Observa canais</strong> do Slack continuamente</li>
+      <li><strong>Analisa padrões</strong> de uso das ferramentas conectadas (Google Ads, Stripe, HubSpot, etc)</li>
+      <li><strong>Detecta anomalias</strong> via clustering não-supervisionado</li>
+      <li><strong>Propõe automações</strong> que ninguém pediu</li>
+      <li>Uma vez aprovada, roda em <strong>autopilot</strong></li>
+    </ol>
+
+    <div class="callout success">
+      <strong>Exemplo real:</strong> Durante crise, Viktor postou 28 updates automáticos, rastreou voos da equipe, flaggou anomalia de spend em ads, e shippou um PR — tudo sem ser solicitado.
+    </div>
+
+    <h2>🧠 Self-Improving Skills</h2>
+    <p>Viktor documenta workflows que executa e os transforma em <strong>skills reutilizáveis</strong>. Quanto mais usa, mais automatiza.</p>
+
+    <h2>🔧 Modelo de Execução</h2>
+    <ul>
+      <li>Sandbox cloud isolado por workspace (TypeScript)</li>
+      <li>Browser automation via Puppeteer</li>
+      <li>Deliverables reais: PDFs, Excel, PowerPoint, web apps com DB</li>
+      <li>3000+ integrações via OAuth gerenciado</li>
+    </ul>
+
+    <h2>⚠️ Limitações (por isso não é Tier S+ para nós)</h2>
+    <table>
+      <thead>
+        <tr><th>Limitação</th><th>Impacto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Slack-only (Teams em breve)</td><td>Sem WhatsApp, Telegram, Discord — critical para P1</td></tr>
+        <tr><td>Cloud-only</td><td>Sem self-host, dependência de Viktor</td></tr>
+        <tr><td>Modelo AI fixo (Claude Opus)</td><td>Sem opção de trocar modelo por preço</td></tr>
+        <tr><td>$50/mes por workspace</td><td>Caro para nosso TAM inicial</td></tr>
+        <tr><td>Baixa customização</td><td>Menos controle vs frameworks open-source</td></tr>
+      </tbody>
+    </table>
+
+    <h2>✅ Lição para Impact X</h2>
+    <div class="callout info">
+      <strong>O padrão de <em>heartbeat + detecção de anomalias + proposta proativa</em> é o modelo a seguir para o P1 (WhatsApp AI Assistant).</strong>
+      <p style="margin-top: 12px;">Viktor prova que proatividade gera valor real — o gap é trazer isso para WhatsApp no mercado brasileiro.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: WhatsApp -->
+<div class="tab-panel" data-tab="whatsapp" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">Integração WhatsApp para Agentes AI</div>
+      <div class="hdr-sub">Métodos, compliance Meta 2026 e plataformas com suporte nativo</div>
+    </div>
+
+    <h2>📱 Métodos Disponíveis</h2>
+    <table>
+      <thead>
+        <tr><th>Método</th><th>Tipo</th><th>Custo</th><th>Risco</th><th>Melhor Para</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Evolution API (Baileys)</strong></td>
+          <td>Unofficial, open source</td>
+          <td>Grátis</td>
+          <td>Alto (viola ToS)</td>
+          <td>Protótipos, uso pessoal</td>
+        </tr>
+        <tr>
+          <td><strong>Evolution API (Cloud API)</strong></td>
+          <td>Official via Evolution</td>
+          <td>$0.03-0.15/msg</td>
+          <td>Zero</td>
+          <td>Produção</td>
+        </tr>
+        <tr>
+          <td><strong>WhatsApp Cloud API</strong></td>
+          <td>Official Meta</td>
+          <td>$0.03-0.15/msg</td>
+          <td>Zero</td>
+          <td>Enterprise</td>
+        </tr>
+        <tr>
+          <td><strong>Twilio</strong></td>
+          <td>Official BSP</td>
+          <td>$0.005/msg + fees</td>
+          <td>Zero</td>
+          <td>Multi-canal</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🔌 Plataformas com WhatsApp Nativo</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Tipo de Integração</th><th>Recomendado?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>OpenClaw</strong></td><td>Bridge nativo (Evolution API + Cloud API)</td><td>✅ Sim</td></tr>
+        <tr><td><strong>n8n</strong></td><td>WhatsApp Business Cloud API node nativo</td><td>✅ Sim</td></tr>
+        <tr><td><strong>Botpress</strong></td><td>Deploy multicanal nativo</td><td>🟡 Sim, mas não é autônomo</td></tr>
+        <tr><td>Voiceflow</td><td>Via Flowbridge (terceiros)</td><td>❌ Não</td></tr>
+        <tr><td>Todas as demais</td><td>Sem suporte — requer bridge externo</td><td>❌ Evitar</td></tr>
+      </tbody>
+    </table>
+
+    <h2>⚖️ Regra Meta 2026 — Critical para P1</h2>
+    <div class="callout warning">
+      <strong>Meta agora exige que chatbots realizem "tarefas concretas de negócio".</strong>
+      <p style="margin-top: 12px;">Chatbots open-ended sem objetivo claro não são permitidos.</p>
+      <p style="margin: 8px 0;">Um agente terapêutico precisa ser enquadrado como "suporte à saúde" com tarefas específicas:</p>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li>Gerenciamento de rotina</li>
+        <li>Lembretes de medicação</li>
+        <li>Exercícios de CBT estruturados</li>
+      </ul>
+    </div>
+
+    <h2>🎯 Estratégia Recomendada para P1</h2>
+    <ol>
+      <li><strong>Produção:</strong> Evolution API (Cloud API) — compliance, sem risco de ban, custo controlado ($0.03-0.15/msg)</li>
+      <li><strong>Prototipagem:</strong> Evolution API (Baileys) para MVP — rápido, grátis, risco aceitável em testes</li>
+      <li><strong>Futuro:</strong> Considerar Twilio se precisar multi-canal (SMS, voice, etc)</li>
+    </ol>
+  </div>
+</div>
+
+<!-- TAB 5: Recomendação + Sprint -->
+<div class="tab-panel" data-tab="recomendacao" role="tabpanel" aria-hidden="true">
+  <div class="content">
+    <div class="report-header">
+      <div class="hdr-title">Recomendação Final para P1</div>
+      <div class="hdr-sub">Stack primária + alternativa + sprint plan (1 semana)</div>
+    </div>
+
+    <h2>🚀 Stack Primária: OpenClaw + Evolution API (Cloud)</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Framework</div>
+        <div class="metric-value">OpenClaw</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Canal</div>
+        <div class="metric-value">Evolution</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">LLM Principal</div>
+        <div class="metric-value">Claude Sonnet</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Custo Est.</div>
+        <div class="metric-value">$15-40/mês</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Aspecto</th><th>Escolha</th><th>Razão</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Framework</strong></td>
+          <td>OpenClaw</td>
+          <td>Já operacional na VPS, proatividade nativa, WhatsApp bridge pronto</td>
+        </tr>
+        <tr>
+          <td><strong>Canal</strong></td>
+          <td>Evolution API (Cloud)</td>
+          <td>Compliance Meta, sem risco de ban, custo controlado</td>
+        </tr>
+        <tr>
+          <td><strong>LLM Empático</strong></td>
+          <td>Claude Sonnet</td>
+          <td>Melhor para conversa empática e nuançada com TEA+ADHD</td>
+        </tr>
+        <tr>
+          <td><strong>LLM Rotina</strong></td>
+          <td>Gemini Flash</td>
+          <td>Barato para lembretes e check-ins simples</td>
+        </tr>
+        <tr>
+          <td><strong>Memória</strong></td>
+          <td>SQLite + Markdown</td>
+          <td>Já nativo no OpenClaw, robusto e auditável</td>
+        </tr>
+        <tr>
+          <td><strong>Custo Estimado</strong></td>
+          <td>$15-40/mês</td>
+          <td>VPS ($5) + APIs Claude ($10-25) + Gemini ($0-5)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🔄 Alternativa B: n8n + Evolution API + Claude API</h2>
+    <ul>
+      <li>Melhor se precisar de visual builder e templates prontos</li>
+      <li>WhatsApp node nativo no n8n</li>
+      <li>Mais fácil de manter para não-devs</li>
+      <li>Custo similar: $10-40/mês</li>
+    </ul>
+
+    <h2>📅 Sprint Plan (1 Semana)</h2>
+    <table>
+      <thead>
+        <tr><th>Dia</th><th>Tarefa</th><th>Crítico?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>D1</strong></td>
+          <td>Fix heartbeat OpenClaw (CRIT-1) + configurar bridge WhatsApp</td>
+          <td>🔴 SIM</td>
+        </tr>
+        <tr>
+          <td><strong>D2</strong></td>
+          <td>Criar agente terapêutico com IDENTITY, SOUL, TOOLS</td>
+          <td>🟡 Alto</td>
+        </tr>
+        <tr>
+          <td><strong>D3</strong></td>
+          <td>Implementar rotinas proativas (cron: 08h, 12h, 18h, 22h)</td>
+          <td>🟡 Alto</td>
+        </tr>
+        <tr>
+          <td><strong>D4</strong></td>
+          <td>Adicionar detecção de dysregulação + protocolos de resposta</td>
+          <td>🟡 Médio</td>
+        </tr>
+        <tr>
+          <td><strong>D5</strong></td>
+          <td>Testes end-to-end WhatsApp + ajustes de tom/personalidade</td>
+          <td>🟡 Médio</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🧠 Design do Agente Terapêutico (Pattern)</h2>
+    <div class="callout info">
+      <strong>Rotinas Proativas (cron):</strong>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li><strong>08:00</strong> — Check-in matinal: "Como você dormiu? Como está o nível de energia?"</li>
+        <li><strong>12:00</strong> — Lembrete de pausa/alimentação (ADHD esquece de comer)</li>
+        <li><strong>18:00</strong> — Revisão do dia: "O que você conseguiu fazer hoje?" (sem julgamento)</li>
+        <li><strong>22:00</strong> — Rotina de wind-down: exercício de respiração ou journaling guiado</li>
+      </ul>
+    </div>
+
+    <div class="callout info">
+      <strong>Triggers Reativos:</strong>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li>Detecção de dysregulação emocional → protocolo de grounding (5-4-3-2-1)</li>
+        <li>Muitas mensagens rápidas → "Parece que você está acelerado. Quer fazer um exercício de 2 min?"</li>
+        <li>Silêncio prolongado (>24h) → check-in gentil</li>
+      </ul>
+    </div>
+
+    <div class="callout success">
+      <strong>Memória Persistente:</strong>
+      <ul style="margin: 12px 0; color: inherit;">
+        <li>Padrões de humor ao longo do tempo</li>
+        <li>Rotinas que funcionam vs não funcionam</li>
+        <li>Triggers pessoais identificados</li>
+        <li>Progresso em objetivos terapêuticos</li>
+      </ul>
+    </div>
+
+    <h2>📊 Métricas de Sucesso (4 semanas)</h2>
+    <ul>
+      <li>Usuários ativos diários > 50%</li>
+      <li>Engagement rate (check-ins respondidos) > 70%</li>
+      <li>NPS > 7 (recomendaria a amigos?)</li>
+      <li>Custo por usuário < $0.50/mês</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tabId = btn.getAttribute('data-tab');
+
+    // Update buttons
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Update panels
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      if (p.getAttribute('data-tab') === tabId) {
+        p.classList.add('active');
+      }
+    });
+
+    // URL hash
+    window.location.hash = tabId;
+  });
+});
+
+// Back button
+document.querySelector('.back-btn').addEventListener('click', () => {
+  history.back();
+});
+
+// Hash navigation
+window.addEventListener('load', () => {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const btn = document.querySelector(`[data-tab="${hash}"]`);
+    if (btn) btn.click();
+  }
+});
+</script>
+</body>
+</html>
