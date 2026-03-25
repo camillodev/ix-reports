@@ -16,17 +16,1149 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--ix-bg); color: var(--ix-ink); font-size: 17px; line-height: 1.7; }
+
   .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ix-surface); border-bottom: 1px solid var(--ix-border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 56px; box-shadow: var(--ix-shadow-sm); }
   .topbar .back-btn { background: none; border: none; font: inherit; cursor: pointer; color: var(--ix-green); font-weight: 600; font-size: 15px; }
   .topbar .brand { text-decoration: none; color: var(--ix-ink); font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
   .topbar .brand .x { color: var(--ix-green); }
   .topbar .topbar-title { font-size: 14px; color: var(--ix-muted); font-weight: 500; }
+
+  .tab-nav { position: fixed; top: 56px; left: 0; right: 0; z-index: 99; background: var(--ix-surface); border-bottom: 1px solid var(--ix-border); display: flex; gap: 0; overflow-x: auto; padding: 0 24px; }
+  .tab-btn { background: none; border: none; border-bottom: 3px solid transparent; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; padding: 12px 18px; white-space: nowrap; color: var(--ix-muted); transition: all 0.2s; }
+  .tab-btn:hover { color: var(--ix-ink); }
+  .tab-btn.active { color: var(--ix-green); border-bottom-color: var(--ix-green); }
+
+  .tab-panel { display: none; padding-top: 120px; min-height: 100vh; }
+  .tab-panel.active { display: block; }
+  .content { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .report-header { background: var(--ix-green-tint); border-radius: var(--ix-radius-lg); padding: 40px; margin-bottom: 32px; position: relative; overflow: hidden; }
+  .report-header::after { content: "X"; position: absolute; right: -20px; bottom: -40px; font-size: 220px; font-weight: 900; opacity: 0.06; color: var(--ix-green); pointer-events: none; }
+  .hdr-brand { font-size: 12px; font-weight: 700; color: var(--ix-green); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .hdr-title { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+  .hdr-title em { font-style: normal; color: var(--ix-green); }
+  .hdr-sub { font-size: 16px; color: var(--ix-muted); }
+
+  h1 { font-size: 24px; font-weight: 800; margin: 32px 0 12px; }
+  h2 { font-size: 20px; font-weight: 700; margin: 28px 0 10px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 20px 0 6px; }
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 0 0 14px 24px; }
+  li { margin-bottom: 4px; }
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 20px 0; }
+  .metric-card { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-sm); padding: 16px; box-shadow: var(--ix-shadow-sm); }
+  .metric-card .label { font-size: 11px; color: var(--ix-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .metric-card .value { font-size: 24px; font-weight: 800; color: var(--ix-green); margin: 2px 0; font-family: 'Roboto Mono', monospace; }
+  .metric-card .detail { font-size: 12px; color: var(--ix-muted); }
+
+  .callout { border-radius: var(--ix-radius-sm); padding: 14px 18px; margin: 16px 0; font-size: 14px; border-left: 4px solid; }
+  .callout.info { background: #EFF6FF; border-color: #3B82F6; color: #1E40AF; }
+  .callout.success { background: var(--ix-green-bg); border-color: var(--ix-green); color: var(--ix-green-dark); }
+  .callout.warning { background: #FEF3C7; border-color: var(--ix-warning); color: #92400E; }
+  .callout.danger { background: #FEE2E2; border-color: var(--ix-danger); color: #991B1B; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  thead { background: var(--ix-green-tint); }
+  th { text-align: left; padding: 10px 14px; font-weight: 700; font-size: 12px; color: var(--ix-muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--ix-border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--ix-border); }
+  tbody tr:hover { background: #FAFBFC; }
+
+  code { font-family: 'Roboto Mono', monospace; font-size: 13px; background: #F1F5F9; padding: 2px 6px; border-radius: 4px; }
+  pre { background: #1E293B; color: #E2E8F0; padding: 18px; border-radius: var(--ix-radius-sm); overflow-x: auto; margin: 16px 0; font-size: 13px; line-height: 1.5; }
+  pre code { background: none; padding: 0; color: inherit; }
+
+  .arch-diagram { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-md); padding: 24px; margin: 20px 0; overflow-x: auto; }
+  .arch-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+  .arch-box { background: var(--ix-green-tint); border: 2px solid var(--ix-green); border-radius: var(--ix-radius-sm); padding: 10px 16px; font-weight: 700; font-size: 13px; text-align: center; min-width: 120px; }
+  .arch-box.primary { background: var(--ix-green); color: white; }
+  .arch-box.secondary { background: #EFF6FF; border-color: #3B82F6; }
+  .arch-box.neutral { background: #F1F5F9; border-color: #94A3B8; }
+  .arch-arrow { font-size: 20px; color: var(--ix-muted); font-weight: 700; }
+  .arch-label { font-size: 11px; color: var(--ix-muted); text-align: center; width: 100%; margin: 4px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  .phase { margin: 20px 0; }
+  .phase-label { display: inline-block; background: var(--ix-green); color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+  .phase-content { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-sm); padding: 16px; box-shadow: var(--ix-shadow-sm); }
+
+  .entity-card { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-sm); padding: 16px; margin: 14px 0; box-shadow: var(--ix-shadow-sm); }
+  .entity-card h3 { margin-top: 0; color: var(--ix-green); font-size: 15px; }
+  .entity-card .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 14px; font-size: 13px; }
+  .entity-card .field-name { color: var(--ix-muted); font-weight: 600; font-family: 'Roboto Mono', monospace; font-size: 12px; }
+  .entity-card .field-pk { color: var(--ix-green); font-weight: 700; }
+  .entity-card .field-fk { color: #3B82F6; font-weight: 600; }
+
+  footer { text-align: center; padding: 32px 24px; color: var(--ix-muted); font-size: 13px; border-top: 1px solid var(--ix-border); }
+  footer .brand { font-weight: 800; color: var(--ix-ink); font-size: 15px; margin-bottom: 4px; }
+  footer .brand .x { color: var(--ix-green); }
+
+  @media (max-width: 768px) {
+    .hdr-title { font-size: 22px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .entity-card .fields { grid-template-columns: 1fr; }
+    .tab-btn { padding: 10px 12px; font-size: 12px; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-<h1>Impact X — MVP Kumon Automação</h1>
-<p>PRD document for Kumon Financial Automation MVP</p>
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar" onclick="history.back()">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">MVP — Kumon Automação</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="briefing">Briefing</button>
+  <button type="button" class="tab-btn" data-tab="prd">PRD</button>
+  <button type="button" class="tab-btn" data-tab="overview">Overview</button>
+  <button type="button" class="tab-btn" data-tab="stack">Stack & Arquitetura</button>
+  <button type="button" class="tab-btn" data-tab="data-model">Modelo de Dados</button>
+  <button type="button" class="tab-btn" data-tab="fase1">Fase 1 — Base</button>
+  <button type="button" class="tab-btn" data-tab="fase2">Fase 2 — Cadastro</button>
+  <button type="button" class="tab-btn" data-tab="fase3">Fase 3 — Cobrança</button>
+</nav>
+
+<!-- ═══════════════════════════════ BRIEFING ═══════════════════════════════ -->
+<div class="tab-panel active" data-tab="briefing" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header">
+  <div class="hdr-brand">Kumon Camargos — BH-CAMARGOS (ID 70477111)</div>
+  <h1 class="hdr-title">Briefing: Por que <em>automatizar</em></h1>
+  <p class="hdr-sub">Contexto operacional, dor financeira, e o que precisamos do Rafael Pimenta para começar.</p>
 </div>
+
+<h2>Contexto da Unidade</h2>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="label">Alunos ativos</div>
+    <div class="value">71</div>
+    <div class="detail">Meta: 80 → 95</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Receita mensal</div>
+    <div class="value">R$24.8k</div>
+    <div class="detail">Ticket médio R$350</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Custos fixos</div>
+    <div class="value">R$19.7k</div>
+    <div class="detail">Royalties R$10k (40%)</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Margem</div>
+    <div class="value">20.7%</div>
+    <div class="detail">R$5.143/mês — frágil</div>
+  </div>
+</div>
+
+<h2>A Dor</h2>
+<p>Toda a gestão financeira do Kumon Camargos é <strong>100% manual</strong>. Rafael Pimenta gasta ~12h/mês em tarefas repetitivas que um sistema faz em minutos:</p>
+
+<table>
+  <thead><tr><th>Tarefa manual</th><th>Tempo/mês</th><th>Risco</th></tr></thead>
+  <tbody>
+    <tr><td>Emitir boletos um a um na Cora (~60 responsáveis)</td><td>~3h</td><td>Erro de valor, esquecimento</td></tr>
+    <tr><td>Enviar boletos individualmente por WhatsApp</td><td>~2h</td><td>Responsável não recebe</td></tr>
+    <tr><td>Acompanhar quem pagou/não pagou em planilha</td><td>~2h</td><td>Dados desatualizados</td></tr>
+    <tr><td>Cobrar inadimplentes manualmente</td><td>~3h</td><td>Constrangimento, inconsistência</td></tr>
+    <tr><td>Montar visão financeira do mês</td><td>~1h</td><td>Planilha sempre defasada</td></tr>
+    <tr><td>Consolidar boleto de quem tem +1 filho/disciplina</td><td>~1h</td><td>Valor errado no boleto</td></tr>
+  </tbody>
+</table>
+
+<div class="callout danger">
+  <strong>Impacto financeiro:</strong> A margem de R$5.143 é frágil. Se 8 alunos em risco de churn saírem (-R$2.800/mês), margem cai para R$2.343. Cada hora gasta em operação financeira é hora que não vai para retenção, pedagógico e crescimento.
+</div>
+
+<h2>O que a Planilha Atual Já Tem</h2>
+<p>Analisamos a planilha "ALUNOS KUMON.xlsx" (11 abas). Os dados úteis estão em 4 abas principais:</p>
+
+<table>
+  <thead><tr><th>Aba</th><th>Dados disponíveis</th><th>Rows</th></tr></thead>
+  <tbody>
+    <tr><td><strong>MATEMÁTICA</strong></td><td>Nome aluno, status, telefone, email, aniversário, matrícula, contrato, reuniões</td><td>48 alunos</td></tr>
+    <tr><td><strong>PORTUGUÊS</strong></td><td>Mesmas colunas</td><td>19 alunos</td></tr>
+    <tr><td><strong>INGLÊS</strong></td><td>Mesmas colunas (ordem diferente)</td><td>29 alunos</td></tr>
+    <tr><td><strong>ALUNOS TOTAL</strong></td><td>Nome, disciplinas (EN/PT/MT), responsável financeiro, valor disciplina, valor boleto</td><td>133 linhas (com inativos)</td></tr>
+  </tbody>
+</table>
+
+<h3>Formato dos dados (como chegam da planilha)</h3>
+<table>
+  <thead><tr><th>Campo</th><th>Exemplo real</th><th>Observação</th></tr></thead>
+  <tbody>
+    <tr><td>Nome aluno</td><td><code>APOLLO VIEIRA GOMES</code></td><td>Tudo em maiúsculas</td></tr>
+    <tr><td>Status</td><td><code>Ativo</code> / <code>Inativo</code></td><td>Texto livre</td></tr>
+    <tr><td>Telefone</td><td><code>MÃE NEIVA 31991294426</code></td><td>Parentesco + nome + número misturados</td></tr>
+    <tr><td>Email</td><td><code>neivavieira.vendas@gmail.com</code></td><td>Às vezes na coluna "RESPONSÁVEL"</td></tr>
+    <tr><td>Aniversário</td><td><code>2026-11-30</code></td><td>Datetime</td></tr>
+    <tr><td>Matrícula</td><td><code>2026-02-12</code></td><td>Datetime</td></tr>
+    <tr><td>Contrato</td><td><code>ANUAL</code> / vazio</td><td>Nem todos preenchidos</td></tr>
+    <tr><td>Responsável financeiro</td><td><code>ADRIANA ROCHA DA SILVA MACHADO</code></td><td>Só na aba ALUNOS TOTAL</td></tr>
+    <tr><td>Valor disciplina</td><td><code>347.0</code></td><td>Em reais, não centavos</td></tr>
+    <tr><td>Valor boleto</td><td><code>=I2*E2</code> (fórmula)</td><td>Valor × qtd disciplinas</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning">
+  <strong>Atenção:</strong> A aba INGLÊS tem as colunas em ordem diferente das outras (A tem VLOOKUP, B tem o nome). O parser precisa tratar isso.
+</div>
+
+<h2>O que FALTA — Dados Necessários da Cora</h2>
+
+<div class="callout danger">
+  <strong>BLOQUEANTE:</strong> Sem estes dados, não conseguimos gerar boletos pela API.
+</div>
+
+<table>
+  <thead><tr><th>Dado faltante</th><th>Por que é obrigatório</th><th>Quem fornece</th></tr></thead>
+  <tbody>
+    <tr><td><strong>CPF do responsável financeiro</strong></td><td>Cora API exige <code>customer.document.identity</code> para registrar boleto</td><td>Rafael Pimenta (planilha)</td></tr>
+    <tr><td><strong>Endereço completo do responsável</strong> (CEP, rua, número, bairro, cidade, UF)</td><td>Cora API exige <code>customer.address</code> para boleto registrado</td><td>Rafael Pimenta (planilha)</td></tr>
+    <tr><td><strong>Client ID da Cora</strong></td><td>Autenticação OAuth2</td><td>Rafael Pimenta (CoraWeb)</td></tr>
+    <tr><td><strong>Certificado mTLS</strong> (.crt + .key)</td><td>Mutual TLS obrigatório em toda requisição</td><td>Rafael Pimenta (CoraWeb → Integração via API)</td></tr>
+    <tr><td><strong>Plano CoraPro ativo</strong></td><td>API só disponível no plano Pro (R$44,90/mês)</td><td>Rafael Pimenta (app Cora)</td></tr>
+  </tbody>
+</table>
+
+<h2>Ação Necessária — Rafael Pimenta</h2>
+
+<div class="phase">
+  <span class="phase-label">Imediato — Dados na planilha</span>
+  <div class="phase-content">
+    <p>Adicionar 2 colunas na aba <strong>"ALUNOS TOTAL"</strong> para cada responsável financeiro:</p>
+    <ul>
+      <li><code>CPF RESPONSÁVEL</code> — formato: 000.000.000-00</li>
+      <li><code>ENDEREÇO</code> — texto livre, ex: "Rua das Flores, 123, Centro, BH-MG, 30130-000"</li>
+    </ul>
+    <p>Alternativa: se os responsáveis já estão cadastrados na conta Cora PJ, o CPF e endereço podem já estar lá. Nesse caso, só o CPF basta pra fazer match.</p>
+  </div>
+</div>
+
+<div class="phase">
+  <span class="phase-label">Configuração Cora</span>
+  <div class="phase-content">
+    <ul>
+      <li><strong>Ativar CoraPro</strong> — R$44,90/mês no app Cora (libera acesso à API)</li>
+      <li><strong>Gerar certificado mTLS</strong> — CoraWeb → Integração via API → Gerar certificado</li>
+      <li><strong>Enviar:</strong> Client ID + arquivos .crt e .key (email ou drive seguro)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="phase">
+  <span class="phase-label">Validação — NFS-e em BH</span>
+  <div class="phase-content">
+    <p>A Cora está expandindo a cobertura de NFS-e cidade por cidade. Precisamos verificar se BH já está disponível. Rafael Pimenta pode checar no app Cora ou aguardamos o Client ID para consultar via <code>GET /nfse/cities</code>.</p>
+    <p>Se BH não estiver disponível, NFS-e fica para fase futura com alternativa (Focus NFe ou manual).</p>
+  </div>
+</div>
+
+<h2>Custos Estimados</h2>
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="label">CoraPro</div>
+    <div class="value">R$44,90</div>
+    <div class="detail">/mês — acesso à API</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Boletos (Pix QR)</div>
+    <div class="value">~R$30</div>
+    <div class="detail">~60 boletos × R$0,50</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Infra (Vercel+Supabase)</div>
+    <div class="value">R$0</div>
+    <div class="detail">Free tier suficiente</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Total mensal</div>
+    <div class="value">~R$75</div>
+    <div class="detail">vs. 12h/mês economizadas</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ PRD ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="prd" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>PRD: Kumon Automação Financeira (MVP)</h1>
+
+<h2>Problema</h2>
+<p>A gestão financeira do Kumon Camargos (71 alunos, 3 disciplinas, ~60 responsáveis financeiros) é inteiramente manual: emissão de boletos um a um, envio individual por WhatsApp, acompanhamento de pagamentos em planilha, cobrança de inadimplentes por mensagem. Com o crescimento para 80-95 alunos, esse processo não escala e consome ~12h/mês do orientador em tarefas operacionais que deveriam ser automáticas.</p>
+
+<h2>Quem Sofre</h2>
+<ul>
+  <li><strong>Rafael Pimenta (orientador):</strong> perde tempo em operação financeira repetitiva ao invés de focar em pedagógico, retenção e crescimento da unidade</li>
+  <li><strong>Responsáveis financeiros:</strong> recebem boletos atrasados, sem consolidação quando têm mais de um filho ou disciplina, sem visibilidade do que estão pagando</li>
+</ul>
+
+<h2>Hipóteses</h2>
+<table>
+  <thead><tr><th>ID</th><th>Hipótese</th><th>Métrica</th></tr></thead>
+  <tbody>
+    <tr><td>H1</td><td>Se automatizarmos geração de boletos via Cora API, reduzimos de ~3h para ~5min/mês</td><td>Tempo de emissão mensal</td></tr>
+    <tr><td>H2</td><td>Se consolidarmos boletos por responsável, eliminamos erros de valor e reclamações</td><td>Boletos com valor incorreto → 0</td></tr>
+    <tr><td>H3</td><td>Se enviarmos boleto automaticamente via WhatsApp no momento da geração, aumentamos pontualidade</td><td>% pagos antes do vencimento</td></tr>
+    <tr><td>H4</td><td>Se tivermos dashboard com visão financeira em tempo real, eliminamos planilha manual</td><td>Tempo para visão financeira: 0s</td></tr>
+  </tbody>
+</table>
+
+<h2>User Stories</h2>
+
+<h3>Cadastro de Alunos (Fase 2)</h3>
+<table>
+  <thead><tr><th>ID</th><th>Story</th><th>Prioridade</th></tr></thead>
+  <tbody>
+    <tr><td>US-01</td><td>Como orientador, quero importar alunos e responsáveis via CSV/XLSX da planilha do Kumon, para popular o sistema sem digitar manualmente</td><td>P0</td></tr>
+    <tr><td>US-02</td><td>Como orientador, quero que o sistema detecte registros existentes (por CPF ou nome) e atualize ao invés de duplicar, para poder reimportar sem medo</td><td>P0</td></tr>
+    <tr><td>US-03</td><td>Como orientador, quero ver um preview dos dados antes de confirmar a importação, com erros destacados em vermelho, para validar antes de salvar</td><td>P0</td></tr>
+    <tr><td>US-04</td><td>Como orientador, quero cadastrar/editar alunos manualmente quando necessário (matrícula avulsa)</td><td>P1</td></tr>
+    <tr><td>US-05</td><td>Como orientador, quero vincular múltiplos alunos ao mesmo responsável financeiro, para gerar boleto consolidado</td><td>P0</td></tr>
+    <tr><td>US-06</td><td>Como orientador, quero ver todos os alunos em tabela com busca, filtro por disciplina e status, e ação rápida de WhatsApp</td><td>P0</td></tr>
+  </tbody>
+</table>
+
+<h3>Geração de Boletos (Fase 3)</h3>
+<table>
+  <thead><tr><th>ID</th><th>Story</th><th>Prioridade</th></tr></thead>
+  <tbody>
+    <tr><td>US-07</td><td>Como orientador, quero clicar em "Gerar Boletos do Mês" escolhendo mês e data de vencimento, para gerar todos os boletos de uma vez via Cora API</td><td>P0</td></tr>
+    <tr><td>US-08</td><td>Como sistema, quero consolidar em 1 único boleto quando o responsável tem mais de 1 aluno ou o aluno tem mais de 1 disciplina, com cada item discriminado</td><td>P0</td></tr>
+    <tr><td>US-09</td><td>Como orientador, quero fazer download do boleto PDF individual de cada responsável</td><td>P0</td></tr>
+    <tr><td>US-10</td><td>Como orientador, quero baixar com 1 clique um ZIP com todos os boletos do mês, organizados por pasta</td><td>P1</td></tr>
+    <tr><td>US-11</td><td>Como orientador, quero enviar o boleto para o responsável via WhatsApp (link wa.me com mensagem pré-pronta) com 1 clique</td><td>P0</td></tr>
+    <tr><td>US-12</td><td>Como orientador, quero que o sistema não gere boleto duplicado se eu clicar "Gerar" duas vezes pro mesmo mês (idempotência)</td><td>P0</td></tr>
+  </tbody>
+</table>
+
+<h3>Sync de Pagamentos (Fase 3)</h3>
+<table>
+  <thead><tr><th>ID</th><th>Story</th><th>Prioridade</th></tr></thead>
+  <tbody>
+    <tr><td>US-13</td><td>Como sistema, quero receber webhook da Cora quando um boleto é pago, para atualizar automaticamente o status no sistema</td><td>P0</td></tr>
+    <tr><td>US-14</td><td>Como orientador, quero clicar em "Sync Pagamentos" para forçar reconciliação manual de todos os boletos do mês com a Cora</td><td>P0</td></tr>
+    <tr><td>US-15</td><td>Como orientador, quero ver na tabela de boletos quem pagou, quem está em aberto, e quem está vencido, com status visual</td><td>P0</td></tr>
+  </tbody>
+</table>
+
+<h3>Dashboard (Fase Futura)</h3>
+<table>
+  <thead><tr><th>ID</th><th>Story</th><th>Prioridade</th></tr></thead>
+  <tbody>
+    <tr><td>US-16</td><td>Como orientador, quero ver no dashboard: novos alunos do mês, saídas, caixa atual, tendência (crescendo/caindo), inadimplentes</td><td>P2</td></tr>
+    <tr><td>US-17</td><td>Como orientador, quero receber alerta por email quando alguma automação falhar (boleto não gerado, webhook com erro)</td><td>P1</td></tr>
+  </tbody>
+</table>
+
+<h2>Requisitos Funcionais</h2>
+<table>
+  <thead><tr><th>ID</th><th>Requisito</th><th>P</th></tr></thead>
+  <tbody>
+    <tr><td><code>RF-01</code></td><td>CRUD de alunos: nome, CPF (opcional), aniversário, disciplina(s), turno, modalidade, status, data matrícula, responsável (FK)</td><td>P0</td></tr>
+    <tr><td><code>RF-02</code></td><td>CRUD de responsáveis: nome, CPF (obrigatório — Cora exige), email, WhatsApp, endereço completo (obrigatório — Cora exige)</td><td>P0</td></tr>
+    <tr><td><code>RF-03</code></td><td>Enrollment: 1 registro por aluno × disciplina, com valor mensal individual e status</td><td>P0</td></tr>
+    <tr><td><code>RF-04</code></td><td>Import CSV/XLSX: parse client-side, preview em tabela, validação Zod, detecção de existentes, upsert no banco via Server Action</td><td>P0</td></tr>
+    <tr><td><code>RF-05</code></td><td>Column mapping: interface para mapear colunas do arquivo para campos do sistema (a planilha do Kumon tem nomes diferentes)</td><td>P0</td></tr>
+    <tr><td><code>RF-06</code></td><td>Geração de boletos via Cora API v2 (<code>POST /v2/invoices</code>) com Idempotency-Key, consolidado por responsável</td><td>P0</td></tr>
+    <tr><td><code>RF-07</code></td><td>Invoice contém InvoiceItems discriminando cada aluno + disciplina + valor individual</td><td>P0</td></tr>
+    <tr><td><code>RF-08</code></td><td>Download PDF de boleto individual por responsável</td><td>P0</td></tr>
+    <tr><td><code>RF-09</code></td><td>Download ZIP com todos boletos do mês, organizados em pastas por responsável</td><td>P1</td></tr>
+    <tr><td><code>RF-10</code></td><td>Link wa.me com mensagem pré-pronta (nome, valor, vencimento, link do boleto) por responsável</td><td>P0</td></tr>
+    <tr><td><code>RF-11</code></td><td>Webhook receiver para eventos Cora (invoice.paid, invoice.overdue) com deduplicação por event_id</td><td>P0</td></tr>
+    <tr><td><code>RF-12</code></td><td>Botão "Sync Pagamentos" para reconciliação manual via <code>GET /v2/invoices</code></td><td>P0</td></tr>
+    <tr><td><code>RF-13</code></td><td>Auth: login com Clerk (single user — Rafael Camillo). Webhook route pública com validação.</td><td>P0</td></tr>
+    <tr><td><code>RF-14</code></td><td>Dashboard básico: KPIs (alunos ativos, receita mês, inadimplentes, tendência)</td><td>P2</td></tr>
+    <tr><td><code>RF-15</code></td><td>Alertas por email (Resend) para falhas em geração de boletos ou webhooks</td><td>P1</td></tr>
+  </tbody>
+</table>
+
+<h2>Requisitos Não-Funcionais</h2>
+<table>
+  <thead><tr><th>Categoria</th><th>Requisito</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Performance</strong></td><td>Geração de boletos em lote (71 alunos → ~60 responsáveis) em &lt;60s. Tabelas carregam em &lt;2s.</td></tr>
+    <tr><td><strong>Segurança</strong></td><td>Certificado mTLS Cora em env vars (base64). Secrets nunca no código. HTTPS only. Clerk middleware em todas rotas exceto webhook.</td></tr>
+    <tr><td><strong>Idempotência</strong></td><td>Toda chamada <code>POST /v2/invoices</code> usa Idempotency-Key (UUID). Boleto duplicado no mesmo mês é bloqueado no banco (unique constraint guardian_id + reference_month).</td></tr>
+    <tr><td><strong>Resiliência</strong></td><td>Se Cora retornar erro em 1 boleto, continua gerando os demais. Resultado mostra sucesso/erro por responsável.</td></tr>
+    <tr><td><strong>Observabilidade</strong></td><td>Todos webhooks logados com payload original. Erros de geração logados com detalhes.</td></tr>
+    <tr><td><strong>Escalabilidade</strong></td><td>Projetado para até 200 alunos (dobro da meta 3). Single-tenant.</td></tr>
+  </tbody>
+</table>
+
+<h2>Fora de Escopo (MVP)</h2>
+<ul>
+  <li>Cron jobs automáticos — tudo é click-to-generate</li>
+  <li>NFS-e automática — depende de BH estar disponível na Cora</li>
+  <li>WhatsApp Business API — usa wa.me links (zero custo)</li>
+  <li>Fluxo de cobrança escalonada (D-3, D0, D+3...) — fase futura</li>
+  <li>Dashboard com gráficos de tendência — fase futura</li>
+  <li>Integração KSIS Kumon — sem API pública</li>
+  <li>Multi-unidade — apenas BH-CAMARGOS</li>
+  <li>App mobile para responsáveis</li>
+</ul>
+
+<h2>Dependências</h2>
+<table>
+  <thead><tr><th>Dependência</th><th>Status</th><th>Bloqueante?</th></tr></thead>
+  <tbody>
+    <tr><td>CPF + Endereço dos responsáveis</td><td>Aguardando Rafael Pimenta</td><td><strong>SIM</strong> — sem isso a Cora rejeita o boleto</td></tr>
+    <tr><td>Plano CoraPro (R$44,90/mês)</td><td>Aguardando ativação</td><td><strong>SIM</strong> — API só funciona no Pro</td></tr>
+    <tr><td>Certificado mTLS + Client ID</td><td>Aguardando geração</td><td><strong>SIM</strong> — sem isso não autentica na API</td></tr>
+    <tr><td>NFS-e disponível em BH</td><td>A verificar</td><td>NÃO — não é escopo MVP</td></tr>
+    <tr><td>Clerk account</td><td>Disponível</td><td>Não — free tier</td></tr>
+    <tr><td>Supabase project</td><td>Disponível</td><td>Não — free tier</td></tr>
+    <tr><td>Resend API</td><td>Configurado (rafaelcamillo.com)</td><td>Não — já funciona</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ OVERVIEW ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="overview" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<div class="report-header">
+  <div class="hdr-brand">Kumon Camargos — MVP</div>
+  <h1 class="hdr-title">Automação Financeira <em>v1</em></h1>
+  <p class="hdr-sub">Sistema interno. Click-to-generate. Pronto pra rodar hoje.</p>
+</div>
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="label">Fases</div>
+    <div class="value">3</div>
+    <div class="detail">Base → Cadastro → Cobrança</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Filosofia</div>
+    <div class="value">MVP</div>
+    <div class="detail">Clicks > Crons. Funciona > Perfeito.</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Auth</div>
+    <div class="value">Clerk</div>
+    <div class="detail">Free tier. Zero config.</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Custo Infra</div>
+    <div class="value">R$0</div>
+    <div class="detail">Tudo free tier até escalar</div>
+  </div>
+</div>
+
+<h2>Escopo MVP</h2>
+<table>
+  <thead><tr><th>Fase</th><th>O que faz</th><th>Entrega</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1 — Base</strong></td><td>Projeto Next.js + Clerk + Supabase + UI pronta</td><td>App rodando com auth e layout</td></tr>
+    <tr><td><strong>2 — Cadastro</strong></td><td>Import CSV/XLSX de alunos + responsáveis com upsert inteligente</td><td>Base de dados populada, editável</td></tr>
+    <tr><td><strong>3 — Cobrança</strong></td><td>Botão "Gerar Boletos do Mês" → Cora API. Download individual + ZIP</td><td>Boletos gerados automaticamente via Cora</td></tr>
+  </tbody>
+</table>
+
+<h2>O que NÃO é escopo do MVP</h2>
+<ul>
+  <li>Cron jobs — tudo é click-to-generate</li>
+  <li>NFS-e automática — fase futura (depende de BH estar na Cora)</li>
+  <li>WhatsApp Business API — usa wa.me links manuais</li>
+  <li>Dashboard com gráficos complexos — fase futura</li>
+  <li>Fluxo de cobrança escalonada automática — fase futura</li>
+</ul>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ STACK ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="stack" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Stack & Arquitetura</h1>
+
+<div class="callout success">
+  <strong>Princípio:</strong> Usar o máximo de libs prontas. Zero reinvenção. Tudo free tier.
+</div>
+
+<table>
+  <thead><tr><th>Camada</th><th>Tecnologia</th><th>Por quê</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Framework</strong></td><td>Next.js 15 App Router + TypeScript</td><td>Stack IX. Server Actions pra tudo.</td></tr>
+    <tr><td><strong>Auth</strong></td><td>Clerk (free tier)</td><td>5 min setup. Middleware pronto. Sem Supabase Auth.</td></tr>
+    <tr><td><strong>Database</strong></td><td>Supabase PostgreSQL</td><td>Free tier 500MB. Stack IX.</td></tr>
+    <tr><td><strong>ORM</strong></td><td>Prisma</td><td>Type-safe. Migrations. Stack IX.</td></tr>
+    <tr><td><strong>UI Components</strong></td><td>shadcn/ui</td><td>Copy-paste. Customizável. Tailwind nativo.</td></tr>
+    <tr><td><strong>Tabelas</strong></td><td>@tanstack/react-table + shadcn DataTable</td><td>Sorting, filtering, pagination prontos.</td></tr>
+    <tr><td><strong>Gráficos</strong></td><td>Recharts</td><td>Free. React nativo. Responsivo.</td></tr>
+    <tr><td><strong>CSV/XLSX Parse</strong></td><td>papaparse + xlsx (SheetJS)</td><td>Free. Browser-side. Sem upload pro server.</td></tr>
+    <tr><td><strong>Forms</strong></td><td>React Hook Form + Zod</td><td>Validação type-safe.</td></tr>
+    <tr><td><strong>Email (alertas)</strong></td><td>Resend</td><td>Já configurado na IX. Free 100/dia.</td></tr>
+    <tr><td><strong>Billing API</strong></td><td>Cora API v2</td><td>Boletos + futuramente NFS-e.</td></tr>
+    <tr><td><strong>Deploy</strong></td><td>Vercel</td><td>Free. Preview deploys. Edge.</td></tr>
+  </tbody>
+</table>
+
+<h2>Arquitetura</h2>
+<div class="arch-diagram">
+  <div class="arch-label">Monolito Next.js — tudo em um deploy</div>
+  <div class="arch-row">
+    <div class="arch-box primary">Next.js App<br><small>Pages + Server Actions</small></div>
+    <div class="arch-arrow">↔</div>
+    <div class="arch-box secondary">Clerk<br><small>Auth middleware</small></div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-box">Prisma ORM</div>
+    <div class="arch-arrow">↔</div>
+    <div class="arch-box">Supabase<br><small>PostgreSQL</small></div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-box primary">Server Action<br><small>"Gerar Boletos"</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box neutral">Cora API v2<br><small>mTLS + OAuth2</small></div>
+  </div>
+</div>
+
+<h2>Estrutura de Pastas</h2>
+<pre><code>kumon-app/
+├── prisma/
+│   └── schema.prisma
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx              # ClerkProvider + sidebar
+│   │   ├── page.tsx                # Dashboard (home)
+│   │   ├── sign-in/[[...sign-in]]/ # Clerk sign-in
+│   │   ├── sign-up/[[...sign-up]]/ # Clerk sign-up
+│   │   ├── students/
+│   │   │   ├── page.tsx            # Lista + import CSV
+│   │   │   └── [id]/page.tsx       # Detalhe aluno
+│   │   ├── guardians/
+│   │   │   └── page.tsx            # Lista responsáveis
+│   │   ├── billing/
+│   │   │   └── page.tsx            # Gerar boletos + lista
+│   │   └── api/
+│   │       └── webhooks/cora/route.ts
+│   ├── components/
+│   │   ├── ui/                     # shadcn components
+│   │   ├── data-table.tsx          # TanStack wrapper
+│   │   ├── csv-import.tsx          # Upload + preview + confirm
+│   │   └── sidebar.tsx
+│   ├── lib/
+│   │   ├── prisma.ts               # Prisma client singleton
+│   │   ├── cora.ts                 # Cora API client
+│   │   └── utils.ts
+│   ├── actions/
+│   │   ├── students.ts             # Server actions CRUD
+│   │   ├── guardians.ts
+│   │   └── billing.ts              # Gerar boletos
+│   └── types/
+│       └── index.ts
+├── .env.local
+├── package.json
+└── tailwind.config.ts</code></pre>
+
+<h2>Decisões MVP</h2>
+<table>
+  <thead><tr><th>Decisão</th><th>Alternativa</th><th>Por quê MVP</th></tr></thead>
+  <tbody>
+    <tr><td>Click-to-generate</td><td>Cron jobs</td><td>Sem infra extra. Rafael clica quando quiser.</td></tr>
+    <tr><td>wa.me links</td><td>WhatsApp Business API</td><td>Zero custo. Abre WhatsApp com msg pré-pronta.</td></tr>
+    <tr><td>CSV parse no browser</td><td>Upload pro server</td><td>Mais rápido. Preview instantâneo.</td></tr>
+    <tr><td>Clerk free</td><td>NextAuth / Supabase Auth</td><td>Setup em 5 min. Middleware pronto.</td></tr>
+    <tr><td>Sem NFS-e</td><td>Integração Cora NFS-e</td><td>Precisa validar se BH está disponível primeiro.</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ DATA MODEL ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="data-model" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Modelo de Dados</h1>
+
+<div class="callout info">
+  Valores monetários em <strong>centavos</strong> (integer). R$350,00 = <code>35000</code>. Compatível com Cora API.
+</div>
+
+<div class="entity-card">
+  <h3>Guardian (Responsável Financeiro)</h3>
+  <div class="fields">
+    <span class="field-name field-pk">id</span><span>String @id @default(cuid())</span>
+    <span class="field-name">name</span><span>String</span>
+    <span class="field-name">cpf</span><span>String @unique</span>
+    <span class="field-name">email</span><span>String?</span>
+    <span class="field-name">whatsapp</span><span>String</span>
+    <span class="field-name">address</span><span>Json?</span>
+    <span class="field-name">students</span><span>Student[]</span>
+    <span class="field-name">invoices</span><span>Invoice[]</span>
+    <span class="field-name">createdAt</span><span>DateTime @default(now())</span>
+    <span class="field-name">updatedAt</span><span>DateTime @updatedAt</span>
+  </div>
+</div>
+
+<div class="entity-card">
+  <h3>Student (Aluno)</h3>
+  <div class="fields">
+    <span class="field-name field-pk">id</span><span>String @id @default(cuid())</span>
+    <span class="field-name field-fk">guardianId</span><span>String → Guardian</span>
+    <span class="field-name">name</span><span>String</span>
+    <span class="field-name">cpf</span><span>String? @unique</span>
+    <span class="field-name">birthDate</span><span>DateTime?</span>
+    <span class="field-name">enrollmentDate</span><span>DateTime</span>
+    <span class="field-name">status</span><span>Enum: ACTIVE, INACTIVE, CANCELLED</span>
+    <span class="field-name">shift</span><span>Enum: MORNING, AFTERNOON, EVENING</span>
+    <span class="field-name">modality</span><span>Enum: PAPER, CONNECT</span>
+    <span class="field-name">enrollments</span><span>Enrollment[]</span>
+  </div>
+</div>
+
+<div class="entity-card">
+  <h3>Enrollment (Matrícula por Disciplina)</h3>
+  <div class="fields">
+    <span class="field-name field-pk">id</span><span>String @id @default(cuid())</span>
+    <span class="field-name field-fk">studentId</span><span>String → Student</span>
+    <span class="field-name">subject</span><span>Enum: ENGLISH, PORTUGUESE, MATH</span>
+    <span class="field-name">monthlyFee</span><span>Int (centavos)</span>
+    <span class="field-name">status</span><span>Enum: ACTIVE, CANCELLED, SUSPENDED</span>
+    <span class="field-name">startDate</span><span>DateTime</span>
+    <span class="field-name">endDate</span><span>DateTime?</span>
+  </div>
+</div>
+
+<div class="entity-card">
+  <h3>Invoice (Boleto Consolidado)</h3>
+  <div class="fields">
+    <span class="field-name field-pk">id</span><span>String @id @default(cuid())</span>
+    <span class="field-name field-fk">guardianId</span><span>String → Guardian</span>
+    <span class="field-name">coraInvoiceId</span><span>String? @unique</span>
+    <span class="field-name">idempotencyKey</span><span>String @unique</span>
+    <span class="field-name">referenceMonth</span><span>String (YYYY-MM)</span>
+    <span class="field-name">totalAmount</span><span>Int (centavos)</span>
+    <span class="field-name">paidAmount</span><span>Int @default(0)</span>
+    <span class="field-name">dueDate</span><span>DateTime</span>
+    <span class="field-name">paidAt</span><span>DateTime?</span>
+    <span class="field-name">status</span><span>Enum: PENDING, OPEN, PAID, OVERDUE, CANCELLED</span>
+    <span class="field-name">pdfUrl</span><span>String?</span>
+    <span class="field-name">barcode</span><span>String?</span>
+    <span class="field-name">pixQrCode</span><span>String?</span>
+    <span class="field-name">items</span><span>InvoiceItem[]</span>
+  </div>
+</div>
+
+<div class="entity-card">
+  <h3>InvoiceItem (Discriminação do Boleto)</h3>
+  <div class="fields">
+    <span class="field-name field-pk">id</span><span>String @id @default(cuid())</span>
+    <span class="field-name field-fk">invoiceId</span><span>String → Invoice</span>
+    <span class="field-name field-fk">enrollmentId</span><span>String → Enrollment</span>
+    <span class="field-name">description</span><span>String ("João — Inglês")</span>
+    <span class="field-name">amount</span><span>Int (centavos)</span>
+  </div>
+</div>
+
+<h2>Relações</h2>
+<pre><code>Guardian 1 ──── N Student
+Student  1 ──── N Enrollment (1 por disciplina)
+Guardian 1 ──── N Invoice    (1 por mês, consolidado)
+Invoice  1 ──── N InvoiceItem (discrimina cada aluno+disciplina)</code></pre>
+
+<h2>Lógica de Consolidação</h2>
+<div class="callout warning">
+  <strong>Regra chave:</strong> 1 boleto por Guardian por mês. Se Marina tem Lara (Inglês R$350 + Português R$350) e João (Matemática R$390), o sistema gera 1 Invoice de R$1.090 com 3 InvoiceItems.
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ FASE 1 ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="fase1" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Fase 1 — Base do App</h1>
+
+<div class="callout success">
+  <strong>Entrega:</strong> App rodando com auth Clerk, layout com sidebar, páginas vazias prontas pra receber conteúdo.
+</div>
+
+<h2>Setup Commands</h2>
+<pre><code>npx create-next-app@latest kumon-app --typescript --tailwind --eslint --app --src-dir
+cd kumon-app
+
+# Auth
+npm i @clerk/nextjs
+
+# UI
+npx shadcn@latest init
+npx shadcn@latest add button card input label table badge dialog \
+  dropdown-menu separator sheet tabs toast sonner
+
+# Data table
+npm i @tanstack/react-table
+
+# Charts
+npm i recharts
+
+# DB
+npm i prisma @prisma/client
+npx prisma init
+
+# CSV/XLSX
+npm i papaparse xlsx
+npm i -D @types/papaparse
+
+# Forms
+npm i react-hook-form @hookform/resolvers zod
+
+# Utils
+npm i date-fns lucide-react</code></pre>
+
+<h2>Configurações</h2>
+
+<h3>.env.local</h3>
+<pre><code># Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_...
+CLERK_SECRET_KEY=sk_...
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+# Supabase (PostgreSQL via Prisma)
+DATABASE_URL="postgresql://postgres:..@db...supabase.co:5432/postgres"
+DIRECT_URL="postgresql://postgres:..@db...supabase.co:5432/postgres"
+
+# Cora API (Fase 3)
+CORA_BASE_URL="https://matls-clients.api.cora.com.br"
+CORA_CLIENT_ID=""
+CORA_CERT_BASE64=""
+CORA_KEY_BASE64=""</code></pre>
+
+<h3>middleware.ts</h3>
+<pre><code>import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+
+const isPublicRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/api/webhooks(.*)',
+])
+
+export default clerkMiddleware(async (auth, req) => {
+  if (!isPublicRoute(req)) await auth.protect()
+})
+
+export const config = {
+  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+}</code></pre>
+
+<h3>Layout com Sidebar</h3>
+<p>Sidebar com 4 itens:</p>
+<ul>
+  <li><strong>Dashboard</strong> — <code>/</code> — KPIs básicos</li>
+  <li><strong>Alunos</strong> — <code>/students</code> — Lista + Import CSV</li>
+  <li><strong>Responsáveis</strong> — <code>/guardians</code> — Lista auto-gerada do CSV</li>
+  <li><strong>Cobrança</strong> — <code>/billing</code> — Gerar boletos + lista</li>
+</ul>
+
+<h2>Checklist Fase 1</h2>
+<table>
+  <thead><tr><th>#</th><th>Task</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>1.1</td><td><code>create-next-app</code> + instalar deps</td><td>—</td></tr>
+    <tr><td>1.2</td><td>Configurar Clerk (env + middleware + provider)</td><td>—</td></tr>
+    <tr><td>1.3</td><td>Configurar Prisma + schema + migrate</td><td>—</td></tr>
+    <tr><td>1.4</td><td>Criar layout com sidebar (shadcn Sheet mobile)</td><td>—</td></tr>
+    <tr><td>1.5</td><td>Criar páginas vazias: /, /students, /guardians, /billing</td><td>—</td></tr>
+    <tr><td>1.6</td><td>Criar Prisma client singleton (<code>lib/prisma.ts</code>)</td><td>—</td></tr>
+    <tr><td>1.7</td><td>Deploy na Vercel + verificar auth funciona</td><td>—</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ FASE 2 ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="fase2" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Fase 2 — Cadastro de Alunos e Responsáveis</h1>
+
+<div class="callout success">
+  <strong>Entrega:</strong> Upload CSV/XLSX → preview no browser → confirmar → upsert no banco. Tabela com search, sort, filter.
+</div>
+
+<h2>Fluxo do Import CSV</h2>
+<div class="arch-diagram">
+  <div class="arch-row">
+    <div class="arch-box primary">Upload arquivo<br><small>CSV ou XLSX</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box">Parse no browser<br><small>papaparse / xlsx</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box">Preview em tabela<br><small>Validação Zod</small></div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-arrow">↓</div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-box">Mapeia colunas<br><small>drag or select</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box secondary">Detecta existentes<br><small>match por CPF/nome</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box primary">Upsert confirmado<br><small>Server Action</small></div>
+  </div>
+</div>
+
+<h2>Formato CSV Esperado (v1)</h2>
+<table>
+  <thead><tr><th>Coluna</th><th>Tipo</th><th>Obrigatório</th><th>Exemplo</th></tr></thead>
+  <tbody>
+    <tr><td>aluno_nome</td><td>text</td><td>sim</td><td>Lara Cecília Santiago Leão</td></tr>
+    <tr><td>aluno_cpf</td><td>text</td><td>não</td><td>123.456.789-00</td></tr>
+    <tr><td>disciplina</td><td>enum</td><td>sim</td><td>INGLES / PORTUGUES / MATEMATICA</td></tr>
+    <tr><td>mensalidade</td><td>number</td><td>sim</td><td>350</td></tr>
+    <tr><td>turno</td><td>enum</td><td>não</td><td>MANHA / TARDE / NOITE</td></tr>
+    <tr><td>modalidade</td><td>enum</td><td>não</td><td>PAPEL / CONNECT</td></tr>
+    <tr><td>data_matricula</td><td>date</td><td>não</td><td>2024-06-15</td></tr>
+    <tr><td>responsavel_nome</td><td>text</td><td>sim</td><td>Marina Santiago</td></tr>
+    <tr><td>responsavel_cpf</td><td>text</td><td>sim</td><td>987.654.321-00</td></tr>
+    <tr><td>responsavel_whatsapp</td><td>text</td><td>sim</td><td>31993630649</td></tr>
+    <tr><td>responsavel_email</td><td>text</td><td>não</td><td>marina@email.com</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <strong>Upsert inteligente:</strong> Se <code>responsavel_cpf</code> já existe → atualiza dados do Guardian. Se <code>aluno_nome</code> + <code>guardianId</code> já existe → atualiza. Se disciplina já ativa pro aluno → pula. Assim o CSV pode ser reimportado sem duplicar.
+</div>
+
+<h2>Lógica do Upsert (Server Action)</h2>
+<pre><code>// actions/students.ts — pseudocódigo
+
+async function importStudents(rows: ParsedRow[]) {
+  for (const row of rows) {
+    // 1. Upsert Guardian (by CPF)
+    const guardian = await prisma.guardian.upsert({
+      where: { cpf: cleanCpf(row.responsavel_cpf) },
+      update: { name: row.responsavel_nome, whatsapp: row.responsavel_whatsapp },
+      create: { name: row.responsavel_nome, cpf: cleanCpf(row.responsavel_cpf),
+                whatsapp: row.responsavel_whatsapp, email: row.responsavel_email }
+    })
+
+    // 2. Upsert Student (by name + guardianId)
+    const student = await prisma.student.upsert({
+      where: { name_guardianId: { name: row.aluno_nome, guardianId: guardian.id } },
+      update: { ... },
+      create: { name: row.aluno_nome, guardianId: guardian.id, status: 'ACTIVE', ... }
+    })
+
+    // 3. Upsert Enrollment (by studentId + subject)
+    await prisma.enrollment.upsert({
+      where: { studentId_subject: { studentId: student.id, subject: mapSubject(row.disciplina) } },
+      update: { monthlyFee: row.mensalidade * 100, status: 'ACTIVE' },
+      create: { studentId: student.id, subject: mapSubject(row.disciplina),
+                monthlyFee: row.mensalidade * 100, status: 'ACTIVE', startDate: new Date() }
+    })
+  }
+}</code></pre>
+
+<h2>Páginas</h2>
+
+<h3>/students</h3>
+<ul>
+  <li>DataTable com colunas: Nome, Disciplina(s), Responsável, Status, Mensalidade, WhatsApp</li>
+  <li>Botão "Importar CSV/XLSX" abre dialog com dropzone</li>
+  <li>Search global + filtro por disciplina e status</li>
+  <li>Click no aluno → detalhe com enrollments editáveis</li>
+  <li>Botão wa.me ao lado de cada responsável para mensagem rápida</li>
+</ul>
+
+<h3>/guardians</h3>
+<ul>
+  <li>DataTable: Nome, CPF, WhatsApp, Email, Qtd Alunos, Total Mensal</li>
+  <li>Auto-populado pelo import de alunos</li>
+  <li>Editável inline (click to edit)</li>
+</ul>
+
+<h2>Checklist Fase 2</h2>
+<table>
+  <thead><tr><th>#</th><th>Task</th></tr></thead>
+  <tbody>
+    <tr><td>2.1</td><td>Componente CSVImport: dropzone + parse + preview table</td></tr>
+    <tr><td>2.2</td><td>Column mapping UI (selecionar qual coluna = qual campo)</td></tr>
+    <tr><td>2.3</td><td>Validação Zod das rows (highlight erros em vermelho)</td></tr>
+    <tr><td>2.4</td><td>Detecção de duplicatas (badge "existente" / "novo" / "atualizar")</td></tr>
+    <tr><td>2.5</td><td>Server Action <code>importStudents</code> com upsert</td></tr>
+    <tr><td>2.6</td><td>DataTable /students com search + filtros</td></tr>
+    <tr><td>2.7</td><td>DataTable /guardians</td></tr>
+    <tr><td>2.8</td><td>CRUD manual de aluno (dialog form)</td></tr>
+    <tr><td>2.9</td><td>Seed com dados dos 71 alunos atuais</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ FASE 3 ═══════════════════════════════ -->
+<div class="tab-panel" data-tab="fase3" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h1>Fase 3 — Processo de Cobrança (Cora API)</h1>
+
+<div class="callout success">
+  <strong>Entrega:</strong> Botão "Gerar Boletos de [Mês]" → consolida por responsável → chama Cora API → salva no banco → download individual e ZIP.
+</div>
+
+<h2>Fluxo Click-to-Generate</h2>
+<div class="arch-diagram">
+  <div class="arch-row">
+    <div class="arch-box primary">Click "Gerar Boletos"<br><small>Seleciona mês + vencimento</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box">Query alunos ativos<br><small>+ enrollments ACTIVE</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box">Agrupa por Guardian</div>
+  </div>
+  <div class="arch-row"><div class="arch-arrow">↓</div></div>
+  <div class="arch-row">
+    <div class="arch-box">Gera Idempotency-Key<br><small>UUID por guardian+mês</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box secondary">POST /v2/invoices<br><small>Cora API (loop)</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-box primary">Salva Invoice<br><small>+ InvoiceItems no DB</small></div>
+  </div>
+</div>
+
+<h2>Cora API — Integração</h2>
+
+<h3>Autenticação (lib/cora.ts)</h3>
+<pre><code>class CoraClient {
+  private baseUrl = process.env.CORA_BASE_URL
+  private clientId = process.env.CORA_CLIENT_ID
+  private accessToken: string | null = null
+  private tokenExpiresAt: number = 0
+
+  // Certificado mTLS a partir de base64 env var
+  private getAgent() {
+    const cert = Buffer.from(process.env.CORA_CERT_BASE64!, 'base64')
+    const key = Buffer.from(process.env.CORA_KEY_BASE64!, 'base64')
+    return new https.Agent({ cert, key })
+  }
+
+  async getToken() {
+    if (this.accessToken && Date.now() < this.tokenExpiresAt) {
+      return this.accessToken
+    }
+    const res = await fetch(`${this.baseUrl}/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `grant_type=client_credentials&client_id=${this.clientId}`,
+      agent: this.getAgent(),
+    })
+    const data = await res.json()
+    this.accessToken = data.access_token
+    this.tokenExpiresAt = Date.now() + (data.expires_in * 1000) - 60000
+    return this.accessToken
+  }
+
+  async createInvoice(params: CreateInvoiceParams) {
+    const token = await this.getToken()
+    return fetch(`${this.baseUrl}/v2/invoices/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Idempotency-Key': params.idempotencyKey,
+      },
+      body: JSON.stringify({
+        code: params.code,
+        customer: {
+          name: params.customer.name,
+          document: { identity: params.customer.cpf, type: 'CPF' },
+          email: params.customer.email,
+          address: params.customer.address,
+        },
+        payment_terms: {
+          due_date: params.dueDate, // YYYY-MM-DD
+        },
+        services: params.items.map(item => ({
+          name: item.description,
+          amount: item.amount, // centavos
+        })),
+      }),
+      agent: this.getAgent(),
+    })
+  }
+}</code></pre>
+
+<h3>Server Action — Gerar Boletos</h3>
+<pre><code>// actions/billing.ts
+
+'use server'
+
+async function generateMonthlyInvoices(month: string, dueDate: string) {
+  const cora = new CoraClient()
+
+  // 1. Busca todos guardians com alunos ativos
+  const guardians = await prisma.guardian.findMany({
+    where: { students: { some: { status: 'ACTIVE',
+      enrollments: { some: { status: 'ACTIVE' } } } } },
+    include: { students: { include: { enrollments: true } } }
+  })
+
+  const results = []
+
+  for (const guardian of guardians) {
+    // 2. Checa se já existe invoice pro mês
+    const existing = await prisma.invoice.findFirst({
+      where: { guardianId: guardian.id, referenceMonth: month }
+    })
+    if (existing) { results.push({ guardian, status: 'skipped' }); continue }
+
+    // 3. Calcula items
+    const items = guardian.students
+      .flatMap(s => s.enrollments
+        .filter(e => e.status === 'ACTIVE')
+        .map(e => ({
+          enrollmentId: e.id,
+          description: `${s.name} — ${e.subject}`,
+          amount: e.monthlyFee,
+        }))
+      )
+
+    const totalAmount = items.reduce((sum, i) => sum + i.amount, 0)
+    const idempotencyKey = crypto.randomUUID()
+
+    // 4. Chama Cora API
+    try {
+      const coraRes = await cora.createInvoice({
+        idempotencyKey,
+        code: `KUMON-${month}-${guardian.cpf}`,
+        customer: { name: guardian.name, cpf: guardian.cpf, email: guardian.email },
+        dueDate,
+        items,
+      })
+      const coraData = await coraRes.json()
+
+      // 5. Salva no banco
+      await prisma.invoice.create({
+        data: {
+          guardianId: guardian.id,
+          coraInvoiceId: coraData.id,
+          idempotencyKey,
+          referenceMonth: month,
+          totalAmount,
+          dueDate: new Date(dueDate),
+          status: 'OPEN',
+          pdfUrl: coraData.pdf_url,
+          barcode: coraData.barcode,
+          pixQrCode: coraData.pix_qr_code,
+          items: { create: items.map(i => ({
+            enrollmentId: i.enrollmentId,
+            description: i.description,
+            amount: i.amount,
+          })) }
+        }
+      })
+      results.push({ guardian: guardian.name, status: 'created', amount: totalAmount })
+    } catch (err) {
+      results.push({ guardian: guardian.name, status: 'error', error: err.message })
+    }
+  }
+  return results
+}</code></pre>
+
+<h2>Página /billing</h2>
+<ul>
+  <li><strong>Topo:</strong> Seletor de mês + date picker para vencimento + botão <strong>"Gerar Boletos"</strong></li>
+  <li><strong>Feedback:</strong> Progress bar durante geração + toast com resultado</li>
+  <li><strong>DataTable:</strong> Responsável, Valor, Status (OPEN/PAID/OVERDUE), Ações</li>
+  <li><strong>Ações por linha:</strong>
+    <ul>
+      <li>📄 Download PDF do boleto</li>
+      <li>📱 Enviar via WhatsApp (abre wa.me com mensagem pré-pronta)</li>
+      <li>📧 Enviar via Email (Resend — futuro)</li>
+    </ul>
+  </li>
+  <li><strong>Bulk:</strong> Botão "Baixar todos (ZIP)" — gera ZIP client-side com JSZip</li>
+</ul>
+
+<h2>Webhook Cora (Sync Pagamento)</h2>
+<pre><code>// app/api/webhooks/cora/route.ts
+
+export async function POST(req: Request) {
+  const body = await req.json()
+
+  // Log raw event
+  await prisma.webhookEvent.create({
+    data: { coraEventId: body.id, eventType: body.type, payload: body }
+  })
+
+  if (body.type === 'invoice.paid') {
+    await prisma.invoice.update({
+      where: { coraInvoiceId: body.data.invoice_id },
+      data: {
+        status: 'PAID',
+        paidAmount: body.data.paid_amount,
+        paidAt: new Date(),
+      }
+    })
+  }
+
+  return Response.json({ received: true })
+}</code></pre>
+
+<h2>Mensagem WhatsApp (wa.me)</h2>
+<pre><code>// Gera link wa.me com mensagem pré-pronta
+function getWhatsAppLink(guardian: Guardian, invoice: Invoice) {
+  const msg = encodeURIComponent(
+    `Olá ${guardian.name.split(' ')[0]}! 😊\n\n` +
+    `Segue o boleto do Kumon referente a ${invoice.referenceMonth}.\n` +
+    `Valor: R$${(invoice.totalAmount / 100).toFixed(2)}\n` +
+    `Vencimento: ${format(invoice.dueDate, 'dd/MM/yyyy')}\n\n` +
+    `Link do boleto: ${invoice.pdfUrl}\n\n` +
+    `Qualquer dúvida, estamos à disposição! 🙏`
+  )
+  return `https://wa.me/55${guardian.whatsapp}?text=${msg}`
+}</code></pre>
+
+<h2>Checklist Fase 3</h2>
+<table>
+  <thead><tr><th>#</th><th>Task</th></tr></thead>
+  <tbody>
+    <tr><td>3.1</td><td><code>lib/cora.ts</code> — client com auth mTLS + token cache</td></tr>
+    <tr><td>3.2</td><td>Server Action <code>generateMonthlyInvoices</code></td></tr>
+    <tr><td>3.3</td><td>Página /billing com seletor de mês + botão gerar</td></tr>
+    <tr><td>3.4</td><td>DataTable de invoices com status + ações</td></tr>
+    <tr><td>3.5</td><td>Download PDF individual (proxy ou redirect)</td></tr>
+    <tr><td>3.6</td><td>Link wa.me com mensagem pré-pronta por linha</td></tr>
+    <tr><td>3.7</td><td>Webhook receiver <code>/api/webhooks/cora</code></td></tr>
+    <tr><td>3.8</td><td>Botão "Sync Pagamentos" (manual GET /v2/invoices)</td></tr>
+    <tr><td>3.9</td><td>Download ZIP com todos boletos do mês (JSZip)</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => { p.classList.remove('active'); p.setAttribute('aria-hidden', 'true'); });
+    btn.classList.add('active');
+    const panel = document.querySelector(`.tab-panel[data-tab="${tab}"]`);
+    if (panel) { panel.classList.add('active'); panel.setAttribute('aria-hidden', 'false'); }
+    window.location.hash = tab;
+  });
+});
+if (window.location.hash) { const btn = document.querySelector(`.tab-btn[data-tab="${window.location.hash.slice(1)}"]`); if (btn) btn.click(); }
+</script>
 </body>
 </html>
