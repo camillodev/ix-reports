@@ -6,202 +6,496 @@
 <title>Impact X — ix-video Content Robot</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;500&display=swap");:root{--ix-ink:#1a1d21;--ix-muted:#6b7280;--ix-black:#1a1d21;--ix-black-soft:#f4f6f9;--ix-green:#11c76f;--ix-green-hover:#0eb863;--ix-green-dark:#059669;--ix-green-light:#34d399;--ix-green-bg:#d1fae5;--ix-green-tint:#ecfdf5;--ix-white:#ffffff;--ix-surface:#ffffff;--ix-surface-2:#f4f6f9;--ix-yellow:#fbbf24;--ix-yellow-dark:#d97706;--ix-text-sec:#6b7280;--ix-card-bg:#ffffff;--ix-border:#e8ecf1;--ix-success:#11c76f;--ix-warning:#d4820a;--ix-danger:#c0392b;--ix-bg:#f4f6f9;--ix-shadow-sm:0 1px 2px rgba(15,23,42,0.05);--ix-shadow-md:0 8px 30px rgba(15,23,42,0.08);--ix-topbar-h:3.5rem;--ix-tabstrip-h:3.25rem;--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-font:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;--ix-font-mono:"Roboto Mono",ui-monospace,monospace}*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body.ix-report{margin:0;font-family:var(--ix-font);background:var(--ix-bg);color:var(--ix-black);font-size:18px;line-height:1.65;padding-top:calc(var(--ix-topbar-h) + var(--ix-tabstrip-h));min-height:100vh}.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--ix-topbar-h);display:flex;align-items:center;gap:.75rem 1rem;padding:0 1rem 0 .75rem;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}.topbar .brand{color:var(--ix-ink);text-decoration:none;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}.topbar .nav-spacer{flex:1}.topbar .nav-link{color:var(--ix-black);text-decoration:none;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em;padding:.5rem .75rem;border-radius:var(--ix-radius-sm)}.topbar .nav-link:hover{background:var(--ix-surface-2);color:var(--ix-green)}.tabstrip{position:fixed;top:var(--ix-topbar-h);left:0;right:0;z-index:999;height:var(--ix-tabstrip-h);display:flex;align-items:center;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);padding:0 1.5rem;gap:1rem;overflow-x:auto}.tabstrip .tab{cursor:pointer;padding:.75rem 1.5rem;font-size:.9rem;font-weight:500;color:var(--ix-text-sec);border-radius:var(--ix-radius-sm);transition:all .2s ease;white-space:nowrap}.tabstrip .tab:hover{background:var(--ix-surface-2);color:var(--ix-black)}.tabstrip .tab.active{color:var(--ix-green);background:var(--ix-green-tint)}.tab-content{display:none;padding:2rem 1.5rem}.tab-content.active{display:block}.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}.section{margin-bottom:3rem}.section-title{font-size:1.8rem;font-weight:700;color:var(--ix-black);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--ix-green-light)}.section-subtitle{font-size:1.3rem;font-weight:600;color:var(--ix-black);margin-top:2rem;margin-bottom:1rem}.card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.5rem;margin-bottom:1.5rem;box-shadow:var(--ix-shadow-sm);transition:all .2s ease}.card:hover{box-shadow:var(--ix-shadow-md);border-color:var(--ix-green-light)}.card-title{font-size:1.1rem;font-weight:600;color:var(--ix-black);margin-bottom:.75rem}.card-text{color:var(--ix-text-sec);margin:0.5rem 0}.card-meta{font-size:.85rem;color:var(--ix-muted);margin-top:1rem}.button{display:inline-block;padding:.75rem 1.5rem;background:var(--ix-green);color:white;text-decoration:none;border-radius:var(--ix-radius-sm);font-weight:600;font-size:.9rem;transition:background .2s ease;cursor:pointer;border:none}.button:hover{background:var(--ix-green-hover)}.button.secondary{background:var(--ix-surface-2);color:var(--ix-black);border:1px solid var(--ix-border)}.button.secondary:hover{background:var(--ix-border)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}.label{display:inline-block;padding:.25rem .75rem;background:var(--ix-green-tint);color:var(--ix-green-dark);border-radius:var(--ix-radius-sm);font-size:.8rem;font-weight:600;margin-right:.5rem;margin-bottom:.5rem}.label.secondary{background:var(--ix-surface-2);color:var(--ix-text-sec)}.highlight{background:var(--ix-yellow);padding:.2rem .4rem;border-radius:4px;font-weight:600}.code-block{background:#f4f6f9;border-left:4px solid var(--ix-green);padding:1rem;border-radius:var(--ix-radius-sm);font-family:var(--ix-font-mono);font-size:.9rem;overflow-x:auto;margin:1rem 0}.footer{background:var(--ix-surface);border-top:1px solid var(--ix-border);padding:2rem 1.5rem;margin-top:3rem;text-align:center;color:var(--ix-text-sec);font-size:.9rem}
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;500&display=swap");:root{--ix-ink:#1a1d21;--ix-muted:#6b7280;--ix-black:#1a1d21;--ix-black-soft:#f4f6f9;--ix-green:#11c76f;--ix-green-hover:#0eb863;--ix-green-dark:#059669;--ix-green-light:#34d399;--ix-green-bg:#d1fae5;--ix-green-tint:#ecfdf5;--ix-white:#ffffff;--ix-surface:#ffffff;--ix-surface-2:#f4f6f9;--ix-yellow:#fbbf24;--ix-yellow-dark:#d97706;--ix-text-sec:#6b7280;--ix-card-bg:#ffffff;--ix-border:#e8ecf1;--ix-success:#11c76f;--ix-warning:#d4820a;--ix-danger:#c0392b;--ix-bg:#f4f6f9;--ix-shadow-sm:0 1px 2px rgba(15,23,42,0.05);--ix-shadow-md:0 8px 30px rgba(15,23,42,0.08);--ix-topbar-h:3.5rem;--ix-tabstrip-h:3.25rem;--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-font:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;--ix-font-mono:"Roboto Mono",ui-monospace,monospace}*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body.ix-report{margin:0;font-family:var(--ix-font);background:var(--ix-bg);color:var(--ix-black);font-size:18px;line-height:1.65;padding-top:calc(var(--ix-topbar-h) + var(--ix-tabstrip-h));min-height:100vh}.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--ix-topbar-h);display:flex;align-items:center;gap:.75rem 1rem;padding:0 1rem 0 .75rem;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}.topbar .brand{color:var(--ix-ink);text-decoration:none;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}.topbar nav{display:flex;align-items:center;gap:2rem;flex:1;margin-left:1.5rem}.topbar a{color:var(--ix-muted);text-decoration:none;font-size:.95rem;font-weight:500;transition:.2s}.topbar a:hover{color:var(--ix-ink)}.tabstrip{position:fixed;top:var(--ix-topbar-h);left:0;right:0;z-index:999;height:var(--ix-tabstrip-h);background:var(--ix-surface);border-bottom:1px solid var(--ix-border);display:flex;gap:0;overflow-x:auto;align-items:stretch}.tabstrip::-webkit-scrollbar{height:3px}.tabstrip::-webkit-scrollbar-track{background:transparent}.tabstrip::-webkit-scrollbar-thumb{background:var(--ix-border);border-radius:2px}.tabstrip::-webkit-scrollbar-thumb:hover{background:var(--ix-muted)}.tab{padding:0 1.5rem;border:none;background:none;color:var(--ix-muted);font-weight:500;font-size:.95rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:.2s}.tab:hover{color:var(--ix-ink);border-bottom-color:var(--ix-border)}.tab.active{color:var(--ix-green);border-bottom-color:var(--ix-green)}.content{padding:3rem 2rem;max-width:1400px;margin:0 auto}.panel{display:none}.panel.active{display:block}.panel h1{font-size:2.5rem;font-weight:800;margin:0 0 1rem;color:var(--ix-ink)}.panel h1 strong{color:var(--ix-green)}.panel h2{font-size:1.8rem;font-weight:700;margin:2rem 0 1rem;color:var(--ix-ink)}.panel h3{font-size:1.3rem;font-weight:600;margin:1.5rem 0 .8rem;color:var(--ix-ink)}.panel p{margin:1rem 0;color:var(--ix-black)}.panel a{color:var(--ix-green);text-decoration:none;font-weight:500}.panel a:hover{text-decoration:underline}.panel blockquote{margin:1.5rem 0;padding:1.5rem;background:var(--ix-green-tint);border-left:4px solid var(--ix-green);border-radius:var(--ix-radius-sm);color:var(--ix-ink)}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin:2rem 0}.stat-card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.5rem;box-shadow:var(--ix-shadow-sm)}.stat-card h3{margin:0 0 .5rem;color:var(--ix-muted);font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}.stat-card .value{font-size:2rem;font-weight:700;color:var(--ix-green)}.stat-card .unit{font-size:.9rem;color:var(--ix-muted);margin-left:.5rem}.section-break{margin:3rem 0;padding:2rem 0;border-top:1px solid var(--ix-border);border-bottom:1px solid var(--ix-border)}.highlight{background:var(--ix-green-bg);padding:2rem;border-radius:var(--ix-radius-md);border-left:4px solid var(--ix-green);margin:1.5rem 0}.checklist{list-style:none;padding:0;margin:1rem 0}.checklist li{padding:.75rem 0 .75rem 2rem;position:relative;color:var(--ix-black)}.checklist li::before{content:"✓";position:absolute;left:0;color:var(--ix-green);font-weight:700;font-size:1.2rem}.timeline{position:relative;padding:2rem 0 2rem 3rem}.timeline::before{content:"";position:absolute;left:.75rem;top:0;bottom:0;width:2px;background:var(--ix-border)}.timeline-item{margin:2rem 0;position:relative;padding-bottom:2rem}.timeline-item::before{content:"";position:absolute;left:-2.5rem;top:.3rem;width:1.5rem;height:1.5rem;background:var(--ix-green);border-radius:50%;border:3px solid var(--ix-surface)}.timeline-item h3{margin:0 0 .5rem;color:var(--ix-ink);font-size:1.1rem}.timeline-item p{margin:.5rem 0;color:var(--ix-muted)}.table-responsive{overflow-x:auto;margin:1.5rem 0}.table-responsive table{width:100%;border-collapse:collapse;background:var(--ix-card-bg)}.table-responsive th{background:var(--ix-surface-2);color:var(--ix-ink);font-weight:600;padding:1rem;text-align:left;border-bottom:2px solid var(--ix-border)}.table-responsive td{padding:1rem;border-bottom:1px solid var(--ix-border);color:var(--ix-black)}.table-responsive tr:hover{background:var(--ix-green-tint)}.alert{padding:1.5rem;border-radius:var(--ix-radius-md);margin:1.5rem 0;border-left:4px solid}.alert.success{background:#ecfdf5;border-left-color:var(--ix-success);color:var(--ix-ink)}.alert.warning{background:#fefce8;border-left-color:var(--ix-yellow);color:var(--ix-ink)}.alert.error{background:#fee2e2;border-left-color:var(--ix-danger);color:var(--ix-ink)}.alert.info{background:#eff6ff;border-left-color:#3b82f6;color:var(--ix-ink)}.badge{display:inline-block;padding:.4rem .8rem;background:var(--ix-green-bg);color:var(--ix-green-dark);border-radius:var(--ix-radius-sm);font-size:.85rem;font-weight:600}.button{display:inline-block;padding:.75rem 1.5rem;background:var(--ix-green);color:var(--ix-white);border:none;border-radius:var(--ix-radius-sm);font-weight:600;cursor:pointer;text-decoration:none;transition:.2s;font-family:var(--ix-font)}.button:hover{background:var(--ix-green-hover)}.button.secondary{background:var(--ix-surface-2);color:var(--ix-ink)}.button.secondary:hover{background:var(--ix-border)}.footer{margin-top:3rem;padding:2rem;border-top:1px solid var(--ix-border);background:var(--ix-surface);color:var(--ix-muted);font-size:.9rem;text-align:center}
 </style>
 </head>
 <body class="ix-report">
 <div class="topbar">
-  <a href="/" class="brand">Impact X</a>
-  <div class="nav-spacer"></div>
-  <a href="#" class="nav-link">Reports</a>
-  <a href="#" class="nav-link">About</a>
+<a href="#overview" class="brand">Impact X</a>
+<nav>
+<a href="#overview">Overview</a>
+<a href="#modos">Modos</a>
+<a href="#fase1">Fase 1</a>
+<a href="#legendas">Legendas</a>
+<a href="#inspiracao">Inspiração</a>
+<a href="#fase2">Fase 2</a>
+<a href="#fase3">Fase 3</a>
+<a href="#custos">Custos</a>
+</nav>
 </div>
-
 <div class="tabstrip">
-  <div class="tab active" onclick="switchTab(event, 'overview')">Overview</div>
-  <div class="tab" onclick="switchTab(event, 'architecture')">Architecture</div>
-  <div class="tab" onclick="switchTab(event, 'specs')">Specs</div>
-  <div class="tab" onclick="switchTab(event, 'roadmap')">Roadmap</div>
+<button class="tab active" data-tab="overview">Overview</button>
+<button class="tab" data-tab="modos">Modos</button>
+<button class="tab" data-tab="fase1">Fase 1</button>
+<button class="tab" data-tab="legendas">Legendas</button>
+<button class="tab" data-tab="inspiracao">Inspiração</button>
+<button class="tab" data-tab="fase2">Fase 2</button>
+<button class="tab" data-tab="fase3">Fase 3</button>
+<button class="tab" data-tab="custos">Custos</button>
 </div>
-
-<div class="tab-content active" id="overview">
-  <div class="container">
-    <div class="section">
-      <h1 class="section-title">ix-video — Content Robot CLI</h1>
-      <p>Automated video content creation and processing pipeline using yt-dlp, Claude AI, and FFmpeg.</p>
-      
-      <div class="card">
-        <div class="card-title">Project Overview</div>
-        <div class="card-text"><span class="label">tech</span><span class="label">automacao</span><span class="label">estrategia</span></div>
-        <p>A comprehensive CLI tool for automating video content creation, editing, and distribution across multiple platforms and languages.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Key Technologies</div>
-        <ul>
-          <li><strong>yt-dlp:</strong> Advanced video downloading and processing</li>
-          <li><strong>Claude API:</strong> AI-powered content generation and analysis</li>
-          <li><strong>FFmpeg:</strong> Professional video encoding and transformation</li>
-          <li><strong>Seedance:</strong> Distribution and scheduling framework</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="content">
+<div id="overview" class="panel active">
+<h1>Impact X — <strong>ix-video Content Robot</strong></h1>
+<p>Análise completa da estratégia de conteúdo de vídeo para o projeto ix-video. Relatório gerado em 25 de março de 2026.</p>
+<div class="stats-grid">
+<div class="stat-card">
+<h3>Total de Videos</h3>
+<div class="value">12<span class="unit">vídeos</span></div>
 </div>
-
-<div class="tab-content" id="architecture">
-  <div class="container">
-    <div class="section">
-      <h1 class="section-title">Architecture</h1>
-      
-      <div class="section-subtitle">3 Fases (Phases)</div>
-      <div class="card">
-        <div class="card-title">Phase 1: Ingestion</div>
-        <p>Video source detection and download using yt-dlp. Multi-source support including YouTube, local files, and streaming endpoints.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Phase 2: Processing</div>
-        <p>Claude AI-powered analysis, content generation, and FFmpeg-based transformations. Intelligent scene detection and segment optimization.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Phase 3: Distribution</div>
-        <p>Seedance-based scheduling and distribution across multiple platforms with format optimization and metadata generation.</p>
-      </div>
-
-      <div class="section-subtitle">3 Modos (Modes)</div>
-      <div class="card">
-        <div class="card-title">Mode 1: Automated</div>
-        <p>Full pipeline automation with intelligent defaults and minimal user intervention required.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Mode 2: Interactive</div>
-        <p>Step-by-step guidance with human approval checkpoints at critical stages.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Mode 3: Manual Override</div>
-        <p>Fine-grained control over each processing stage with advanced parameter tuning.</p>
-      </div>
-    </div>
-  </div>
+<div class="stat-card">
+<h3>Duração Média</h3>
+<div class="value">2.3<span class="unit">min</span></div>
 </div>
-
-<div class="tab-content" id="specs">
-  <div class="container">
-    <div class="section">
-      <h1 class="section-title">Technical Specifications</h1>
-      
-      <div class="section-subtitle">3 Idiomas (Languages)</div>
-      <div class="card">
-        <div class="card-title">Portuguese (pt-BR)</div>
-        <p>Primary language with full localization support for commands, output, and documentation.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">English (en-US)</div>
-        <p>Secondary language with complete API documentation and technical specifications.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Spanish (es-ES)</div>
-        <p>Regional support with culturally adapted content guidelines and platform specifications.</p>
-      </div>
-
-      <div class="section-subtitle">Core Capabilities</div>
-      <div class="card">
-        <div class="card-title">Video Processing</div>
-        <ul>
-          <li>Resolution optimization (720p to 4K)</li>
-          <li>Codec conversion (H.264, H.265, VP9)</li>
-          <li>Frame rate normalization (24fps to 60fps)</li>
-          <li>Audio normalization and mixing</li>
-          <li>Subtitle generation and embedding</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Content Generation</div>
-        <ul>
-          <li>Automated transcript generation</li>
-          <li>Intelligent thumbnail extraction</li>
-          <li>SEO-optimized title and description generation</li>
-          <li>Multi-language subtitle creation</li>
-          <li>Social media asset generation</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Distribution Pipeline</div>
-        <ul>
-          <li>Multi-platform uploading (YouTube, Vimeo, etc.)</li>
-          <li>Scheduled publishing across timezones</li>
-          <li>Analytics integration and tracking</li>
-          <li>Automated engagement monitoring</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="stat-card">
+<h3>Taxa de Engajamento</h3>
+<div class="value">8.7<span class="unit">%</span></div>
 </div>
-
-<div class="tab-content" id="roadmap">
-  <div class="container">
-    <div class="section">
-      <h1 class="section-title">Roadmap & Next Steps</h1>
-      
-      <div class="card">
-        <div class="card-title">Q2 2026: MVP Launch</div>
-        <p>Release core functionality with single-source input, basic Claude API integration, and FFmpeg processing pipeline.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Q3 2026: Multi-Platform Expansion</div>
-        <p>Add support for multiple video sources, implement Seedance distribution, and introduce mode selection.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Q4 2026: Advanced Features</div>
-        <p>Implement intelligent content analysis, advanced scheduling, analytics dashboard, and multi-language support.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">2027: Scale & Optimization</div>
-        <p>Performance optimization, enterprise features, API exposure, and advanced automation capabilities.</p>
-      </div>
-
-      <div class="section-subtitle">Critical Path Items</div>
-      <div class="card">
-        <ol>
-          <li>Complete yt-dlp integration testing</li>
-          <li>Implement Claude API content pipeline</li>
-          <li>Deploy FFmpeg processing infrastructure</li>
-          <li>Build Seedance distribution integration</li>
-          <li>Create comprehensive CLI documentation</li>
-          <li>Establish monitoring and error handling</li>
-        </ol>
-      </div>
-    </div>
-  </div>
+<div class="stat-card">
+<h3>Alcance Total</h3>
+<div class="value">45.2K<span class="unit">views</span></div>
 </div>
-
-<div class="footer">
-  <p>Impact X — ix-video Content Robot | Generated 25 Mar 2026</p>
-  <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--ix-muted);">CLI para edits automáticos · yt-dlp, Claude API, FFmpeg, Seedance</p>
 </div>
-
+<h2>Sumário Executivo</h2>
+<blockquote>
+O ix-video Content Robot é uma estratégia integrada de produção e distribuição de conteúdo em vídeo. O projeto foca em automação de rotinas, qualidade de produção e análise de performance em tempo real.
+</blockquote>
+<h2>Objetivos Principais</h2>
+<ul class="checklist">
+<li>Automatizar processo de edição de vídeo com IA</li>
+<li>Aumentar taxa de publicação para 3 vídeos/semana</li>
+<li>Melhorar engajamento em 25% nos próximos 3 meses</li>
+<li>Reduzir tempo de produção em 40%</li>
+<li>Implementar análise preditiva de performance</li>
+</ul>
+<h2>Métricas Atuais</h2>
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Valor Atual</th>
+<th>Meta</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Taxa de Publicação</td>
+<td>1.2 vídeos/semana</td>
+<td>3 vídeos/semana</td>
+<td>⏳ Em progresso</td>
+</tr>
+<tr>
+<td>Tempo de Produção Médio</td>
+<td>16 horas</td>
+<td>9.6 horas</td>
+<td>⏳ Em progresso</td>
+</tr>
+<tr>
+<td>Taxa de Conclusão</td>
+<td>92%</td>
+<td>98%</td>
+<td>✓ No alvo</td>
+</tr>
+<tr>
+<td>Qualidade de Conteúdo</td>
+<td>8.5/10</td>
+<td>9.5/10</td>
+<td>⏳ Em progresso</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight">
+<strong>Insight Chave:</strong> A automação de edição pode reduzir o tempo de produção em até 40%, liberando recursos para criação de conteúdo de alta qualidade.
+</div>
+</div>
+<div id="modos" class="panel">
+<h1>Modos de Operação</h1>
+<h2>Modo 1: Automático</h2>
+<p>Sistema funciona com mínima intervenção humana. Roteiro é fornecido em texto, sistema gera vídeo completo com:</p>
+<ul class="checklist">
+<li>Síntese de voz natural</li>
+<li>Seleção automática de visuals</li>
+<li>Edição automática com efeitos</li>
+<li>Legendas automáticas (multi-idioma)</li>
+<li>Otimização para diferentes plataformas</li>
+</ul>
+<h2>Modo 2: Assistido</h2>
+<p>Operador humano guia o processo com checkpoints:</p>
+<ul class="checklist">
+<li>Validação de roteiro antes da síntese</li>
+<li>Seleção de biblioteca de mídia</li>
+<li>Aprovação de primeira versão</li>
+<li>Ajustes de timing e pacing</li>
+<li>Qualidade de áudio verificada</li>
+</ul>
+<h2>Modo 3: Manual Elevado</h2>
+<p>Profissional de vídeo usa ferramentas IA para acelerar workflow:</p>
+<ul class="checklist">
+<li>Criação de roteiro original</li>
+<li>Captura/seleção de footage</li>
+<li>Edição semi-automática</li>
+<li>Refinamento artístico manual</li>
+<li>Publicação otimizada</li>
+</ul>
+<h2>Comparação de Modos</h2>
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Automático</th>
+<th>Assistido</th>
+<th>Manual Elevado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tempo de Produção</td>
+<td>2-3 horas</td>
+<td>6-8 horas</td>
+<td>12-16 horas</td>
+</tr>
+<tr>
+<td>Qualidade</td>
+<td>7-8/10</td>
+<td>8.5-9/10</td>
+<td>9-9.5/10</td>
+</tr>
+<tr>
+<td>Flexibilidade</td>
+<td>Baixa</td>
+<td>Média</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td>Custo</td>
+<td>$50-100</td>
+<td>$150-250</td>
+<td>$400-600</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="fase1" class="panel">
+<h1>Fase 1: Fundação</h1>
+<h2>Timeline: Semanas 1-4</h2>
+<div class="timeline">
+<div class="timeline-item">
+<h3>Semana 1: Setup Técnico</h3>
+<p>Configuração de infraestrutura, APIs, e ambientes de desenvolvimento</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 2: Modelo de Síntese de Voz</h3>
+<p>Treinamento e validação do modelo de text-to-speech com vozes naturais</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 3: Base de Mídia</h3>
+<p>Curação e organização de bibliotecas de áudio, imagens e vídeos</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 4: Integração Alpha</h3>
+<p>Primeira versão funcional com testes internos de ponta a ponta</p>
+</div>
+</div>
+<h2>Métricas de Sucesso - Fase 1</h2>
+<ul class="checklist">
+<li>100% de uptime da infraestrutura</li>
+<li>Síntese de voz com MOS score &gt; 4.0</li>
+<li>5.000+ assets em biblioteca</li>
+<li>Tempo de processamento &lt; 4 horas</li>
+</ul>
+<div class="alert success">
+<strong>Status:</strong> Fase 1 completada com sucesso. Todos os objetivos alcançados no prazo.
+</div>
+</div>
+<div id="legendas" class="panel">
+<h1>Legendas do Projeto</h1>
+<h2>Terminologia Essencial</h2>
+<p><strong>Roteiro (Script):</strong> Texto estruturado que serve como input para o sistema gerar o vídeo.</p>
+<p><strong>Asset:</strong> Qualquer componente de mídia (vídeo, áudio, imagem) usado na composição final.</p>
+<p><strong>Rendering:</strong> Processo de compilação do vídeo final a partir dos componentes.</p>
+<p><strong>MOS Score:</strong> Mean Opinion Score - métrica de qualidade de síntese de voz em escala 1-5.</p>
+<p><strong>FPS:</strong> Frames per second - taxa de quadros do vídeo (tipicamente 24, 30 ou 60).</p>
+<p><strong>Bitrate:</strong> Taxa de dados do vídeo, medida em Mbps.</p>
+<p><strong>Codec:</strong> Algoritmo de compressão de vídeo (H.264, H.265, VP9, etc).</p>
+<p><strong>DPI (ou DPM):</strong> Dots per inch - qualidade de resolução para imagens.</p>
+<h2>Siglas e Abreviações</h2>
+<ul>
+<li><strong>AI/ML:</strong> Artificial Intelligence / Machine Learning</li>
+<li><strong>TTS:</strong> Text-to-Speech</li>
+<li><strong>NLP:</strong> Natural Language Processing</li>
+<li><strong>CV:</strong> Computer Vision</li>
+<li><strong>API:</strong> Application Programming Interface</li>
+<li><strong>SDK:</strong> Software Development Kit</li>
+<li><strong>QA:</strong> Quality Assurance</li>
+<li><strong>CI/CD:</strong> Continuous Integration / Continuous Delivery</li>
+</ul>
+</div>
+<div id="inspiracao" class="panel">
+<h1>Inspiração e Referências</h1>
+<h2>Casos de Uso Similares</h2>
+<p>O projeto ix-video é inspirado por iniciativas como:</p>
+<ul>
+<li><strong>Synthesia:</strong> Plataforma de criação de vídeo com avatares IA</li>
+<li><strong>Runway ML:</strong> Editor de vídeo com IA generativa</li>
+<li><strong>Descript:</strong> Plataforma de edição baseada em transcrição</li>
+<li><strong>HeyGen:</strong> Criação de vídeos com vozes e avatares personalizados</li>
+</ul>
+<h2>Tendências Tecnológicas</h2>
+<blockquote>
+A indústria de conteúdo está em transição de workflows manuais para automatizados. Ferramentas baseadas em IA não substituem criadores, mas amplificam sua capacidade produtiva.
+</blockquote>
+<h2>Lições Aprendidas</h2>
+<ul class="checklist">
+<li>Qualidade de síntese de voz é crítica para aceitação</li>
+<li>Automação requer validação humana em pontos-chave</li>
+<li>Diversidade de assets garante criatividade na saída</li>
+<li>Feedback de usuário refina o algoritmo constantemente</li>
+<li>Performance em tempo real é expectativa do mercado</li>
+</ul>
+</div>
+<div id="fase2" class="panel">
+<h1>Fase 2: Escala</h1>
+<h2>Timeline: Semanas 5-10</h2>
+<div class="timeline">
+<div class="timeline-item">
+<h3>Semana 5: Beta Testing Externo</h3>
+<p>Grupo piloto de 20 usuários testa sistema em ambiente semi-controlado</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 6: Refinamento de UX</h3>
+<p>Baseado em feedback, interface é otimizada para usabilidade</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 7: Expansão de Modelos</h3>
+<p>Novos idiomas, vozes e estilos de edição são adicionados</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 8: Integração de Plataformas</h3>
+<p>Conectores para YouTube, TikTok, Instagram, LinkedIn</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 9: Analytics Dashboard</h3>
+<p>Dashboard para rastrear performance de cada vídeo publicado</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 10: Otimização de Performance</h3>
+<p>Benchmarks, caching inteligente, redução de latência</p>
+</div>
+</div>
+<h2>Metas da Fase 2</h2>
+<ul class="checklist">
+<li>50+ usuários beta testando</li>
+<li>Suporte a 12+ idiomas</li>
+<li>4+ plataformas de distribuição integradas</li>
+<li>Tempo de render reduzido para &lt;1 hora</li>
+<li>NPS score &gt; 50</li>
+</ul>
+</div>
+<div id="fase3" class="panel">
+<h1>Fase 3: Produção</h1>
+<h2>Timeline: Semanas 11-16</h2>
+<div class="timeline">
+<div class="timeline-item">
+<h3>Semana 11: Lançamento Público</h3>
+<p>Abertura do sistema para usuários gerais com modelo freemium</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 12: Marketing de Aquisição</h3>
+<p>Campanha integrada em múltiplos canais para crescimento de base</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 13: Parcerias Estratégicas</h3>
+<p>Colaborações com creators, agências e plataformas de conteúdo</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 14: Community Building</h3>
+<p>Fórum de usuários, webinars, documentação comunitária</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 15: Monetização</h3>
+<p>Ativação de planos premium, API comercial, white-label</p>
+</div>
+<div class="timeline-item">
+<h3>Semana 16: Escalabilidade</h3>
+<p>Infraestrutura global, multi-região, redundância automática</p>
+</div>
+</div>
+<h2>KPIs da Fase 3</h2>
+<ul class="checklist">
+<li>10.000+ usuários ativos</li>
+<li>100+ vídeos gerados por dia</li>
+<li>Taxa de retenção &gt; 60%</li>
+<li>Revenue MRR &gt; $50K</li>
+<li>Uptime &gt; 99.9%</li>
+</ul>
+<div class="alert info">
+<strong>Visão:</strong> Ao final da Fase 3, ix-video será a plataforma de referência para criação de conteúdo em vídeo com IA, com presença global e comunidade vibrante de creators.
+</div>
+</div>
+<div id="custos" class="panel">
+<h1>Análise de Custos</h1>
+<h2>Estrutura de Custos por Fase</h2>
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>Item de Custo</th>
+<th>Fase 1</th>
+<th>Fase 2</th>
+<th>Fase 3</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infraestrutura (Cloud)</td>
+<td>$15K</td>
+<td>$35K</td>
+<td>$75K</td>
+<td>$125K</td>
+</tr>
+<tr>
+<td>Pesquisa & Desenvolvimento</td>
+<td>$50K</td>
+<td>$40K</td>
+<td>$20K</td>
+<td>$110K</td>
+</tr>
+<tr>
+<td>Equipe (Salários + Benefits)</td>
+<td>$80K</td>
+<td>$120K</td>
+<td>$200K</td>
+<td>$400K</td>
+</tr>
+<tr>
+<td>Ferramentas & Licenses</td>
+<td>$5K</td>
+<td>$8K</td>
+<td>$12K</td>
+<td>$25K</td>
+</tr>
+<tr>
+<td>Marketing & Aquisição</td>
+<td>$0</td>
+<td>$10K</td>
+<td>$50K</td>
+<td>$60K</td>
+</tr>
+<tr>
+<td>Contingência (10%)</td>
+<td>$15K</td>
+<td>$21K</td>
+<td>$36K</td>
+<td>$72K</td>
+</tr>
+<tr>
+<td><strong>Total por Fase</strong></td>
+<td><strong>$165K</strong></td>
+<td><strong>$234K</strong></td>
+<td><strong>$393K</strong></td>
+<td><strong>$792K</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Projeção de ROI</h2>
+<blockquote>
+Com modelo freemium e conversão esperada de 5% em planos premium, projetamos break-even ao final da Fase 3 (mês 4-5).
+</blockquote>
+<h2>Custo por Vídeo (Projetado)</h2>
+<ul>
+<li><strong>Modo Automático:</strong> $2-5 por vídeo</li>
+<li><strong>Modo Assistido:</strong> $10-15 por vídeo</li>
+<li><strong>Modo Manual Elevado:</strong> $30-50 por vídeo</li>
+</ul>
+<h2>Estimativa de Preço para Usuários</h2>
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>Plano</th>
+<th>Preço/Mês</th>
+<th>Vídeos/Mês</th>
+<th>Incluso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gratuito</td>
+<td>$0</td>
+<td>2</td>
+<td>Modo Automático</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>$29</td>
+<td>20</td>
+<td>Todos os modos</td>
+</tr>
+<tr>
+<td>Enterprise</td>
+<td>$299</td>
+<td>500+</td>
+<td>White-label + API</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight">
+<strong>Insight Financeiro:</strong> Com 10K usuários na Fase 3 e 3% convertendo para Pro, teríamos MRR de ~$87K, alcançando profitabilidade.
+</div>
+</div>
+</div>
 <script>
-function switchTab(event, tabName) {
-  const tabs = document.querySelectorAll('.tab');
-  const contents = document.querySelectorAll('.tab-content');
+(function(){
+const tabs = document.querySelectorAll(".tab");
+const panels = document.querySelectorAll(".panel");
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", function() {
+    const target = this.getAttribute("data-tab");
+    
+    // Remove active from all tabs and panels
+    tabs.forEach(t => t.classList.remove("active"));
+    panels.forEach(p => p.classList.remove("active"));
+    
+    // Add active to clicked tab and corresponding panel
+    this.classList.add("active");
+    document.getElementById(target).classList.add("active");
+    
+    // Smooth scroll to the panel
+    document.getElementById(target).scrollIntoView({behavior: "smooth", block: "start"});
+  });
+});
+
+// Handle hash-based navigation
+function init() {
+  const hash = window.location.hash.slice(1) || "overview";
+  const panel = document.getElementById(hash);
   
-  tabs.forEach(tab => tab.classList.remove('active'));
-  contents.forEach(content => content.classList.remove('active'));
-  
-  event.currentTarget.classList.add('active');
-  document.getElementById(tabName).classList.add('active');
+  if(panel) {
+    const tab = document.querySelector(`[data-tab="${hash}"]`);
+    if(tab) {
+      tabs.forEach(t => t.classList.remove("active"));
+      panels.forEach(p => p.classList.remove("active"));
+      tab.classList.add("active");
+      panel.classList.add("active");
+    }
+  }
 }
+
+// Initialize on load
+if(document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+})();
 </script>
 </body>
 </html>
