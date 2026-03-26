@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — ix-video Content Robot</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;500&display=swap");:root{--ix-ink:#1a1d21;--ix-muted:#6b7280;--ix-black:#1a1d21;--ix-black-soft:#f4f6f9;--ix-green:#11c76f;--ix-green-hover:#0eb863;--ix-green-dark:#059669;--ix-green-light:#34d399;--ix-green-bg:#d1fae5;--ix-green-tint:#ecfdf5;--ix-white:#ffffff;--ix-surface:#ffffff;--ix-surface-2:#f4f6f9;--ix-yellow:#fbbf24;--ix-yellow-dark:#d97706;--ix-text-sec:#6b7280;--ix-card-bg:#ffffff;--ix-border:#e8ecf1;--ix-success:#11c76f;--ix-warning:#d4820a;--ix-danger:#c0392b;--ix-bg:#f4f6f9;--ix-shadow-sm:0 1px 2px rgba(15,23,42,0.05);--ix-shadow-md:0 8px 30px rgba(15,23,42,0.08);--ix-topbar-h:3.5rem;--ix-tabstrip-h:3.25rem;--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-font:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;--ix-font-mono:"Roboto Mono",ui-monospace,monospace}*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body.ix-report{margin:0;font-family:var(--ix-font);background:var(--ix-bg);color:var(--ix-black);font-size:18px;line-height:1.65;padding-top:calc(var(--ix-topbar-h) + var(--ix-tabstrip-h));min-height:100vh}.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--ix-topbar-h);display:flex;align-items:center;gap:.75rem 1rem;padding:0 1rem 0 .75rem;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}.topbar .brand{color:var(--ix-ink);text-decoration:none;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}.topbar .nav-spacer{flex:1}.topbar .nav-link{color:var(--ix-black);text-decoration:none;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em;padding:.5rem .75rem;border-radius:var(--ix-radius-sm)}.topbar .nav-link:hover{background:var(--ix-surface-2);color:var(--ix-green)}.tabstrip{position:fixed;top:var(--ix-topbar-h);left:0;right:0;z-index:999;height:var(--ix-tabstrip-h);display:flex;align-items:center;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);padding:0 1.5rem;gap:1rem;overflow-x:auto}.tabstrip .tab{cursor:pointer;padding:.75rem 1.5rem;font-size:.9rem;font-weight:500;color:var(--ix-text-sec);border-radius:var(--ix-radius-sm);transition:all .2s ease;white-space:nowrap}.tabstrip .tab:hover{background:var(--ix-surface-2);color:var(--ix-black)}.tabstrip .tab.active{color:var(--ix-green);background:var(--ix-green-tint)}.tab-content{display:none;padding:2rem 1.5rem}.tab-content.active{display:block}.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}.section{margin-bottom:3rem}.section-title{font-size:1.8rem;font-weight:700;color:var(--ix-black);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--ix-green-light)}.section-subtitle{font-size:1.3rem;font-weight:600;color:var(--ix-black);margin-top:2rem;margin-bottom:1rem}.card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.5rem;margin-bottom:1.5rem;box-shadow:var(--ix-shadow-sm);transition:all .2s ease}.card:hover{box-shadow:var(--ix-shadow-md);border-color:var(--ix-green-light)}.card-title{font-size:1.1rem;font-weight:600;color:var(--ix-black);margin-bottom:.75rem}.card-text{color:var(--ix-text-sec);margin:0.5rem 0}.card-meta{font-size:.85rem;color:var(--ix-muted);margin-top:1rem}.button{display:inline-block;padding:.75rem 1.5rem;background:var(--ix-green);color:white;text-decoration:none;border-radius:var(--ix-radius-sm);font-weight:600;font-size:.9rem;transition:background .2s ease;cursor:pointer;border:none}.button:hover{background:var(--ix-green-hover)}.button.secondary{background:var(--ix-surface-2);color:var(--ix-black);border:1px solid var(--ix-border)}.button.secondary:hover{background:var(--ix-border)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}.label{display:inline-block;padding:.25rem .75rem;background:var(--ix-green-tint);color:var(--ix-green-dark);border-radius:var(--ix-radius-sm);font-size:.8rem;font-weight:600;margin-right:.5rem;margin-bottom:.5rem}.label.secondary{background:var(--ix-surface-2);color:var(--ix-text-sec)}.highlight{background:var(--ix-yellow);padding:.2rem .4rem;border-radius:4px;font-weight:600}.code-block{background:#f4f6f9;border-left:4px solid var(--ix-green);padding:1rem;border-radius:var(--ix-radius-sm);font-family:var(--ix-font-mono);font-size:.9rem;overflow-x:auto;margin:1rem 0}.footer{background:var(--ix-surface);border-top:1px solid var(--ix-border);padding:2rem 1.5rem;margin-top:3rem;text-align:center;color:var(--ix-text-sec);font-size:.9rem}
+</style>
+</head>
+<body class="ix-report">
+<div class="topbar">
+  <a href="/" class="brand">Impact X</a>
+  <div class="nav-spacer"></div>
+  <a href="#" class="nav-link">Reports</a>
+  <a href="#" class="nav-link">About</a>
+</div>
+
+<div class="tabstrip">
+  <div class="tab active" onclick="switchTab(event, 'overview')">Overview</div>
+  <div class="tab" onclick="switchTab(event, 'architecture')">Architecture</div>
+  <div class="tab" onclick="switchTab(event, 'specs')">Specs</div>
+  <div class="tab" onclick="switchTab(event, 'roadmap')">Roadmap</div>
+</div>
+
+<div class="tab-content active" id="overview">
+  <div class="container">
+    <div class="section">
+      <h1 class="section-title">ix-video — Content Robot CLI</h1>
+      <p>Automated video content creation and processing pipeline using yt-dlp, Claude AI, and FFmpeg.</p>
+      
+      <div class="card">
+        <div class="card-title">Project Overview</div>
+        <div class="card-text"><span class="label">tech</span><span class="label">automacao</span><span class="label">estrategia</span></div>
+        <p>A comprehensive CLI tool for automating video content creation, editing, and distribution across multiple platforms and languages.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Key Technologies</div>
+        <ul>
+          <li><strong>yt-dlp:</strong> Advanced video downloading and processing</li>
+          <li><strong>Claude API:</strong> AI-powered content generation and analysis</li>
+          <li><strong>FFmpeg:</strong> Professional video encoding and transformation</li>
+          <li><strong>Seedance:</strong> Distribution and scheduling framework</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="architecture">
+  <div class="container">
+    <div class="section">
+      <h1 class="section-title">Architecture</h1>
+      
+      <div class="section-subtitle">3 Fases (Phases)</div>
+      <div class="card">
+        <div class="card-title">Phase 1: Ingestion</div>
+        <p>Video source detection and download using yt-dlp. Multi-source support including YouTube, local files, and streaming endpoints.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Phase 2: Processing</div>
+        <p>Claude AI-powered analysis, content generation, and FFmpeg-based transformations. Intelligent scene detection and segment optimization.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Phase 3: Distribution</div>
+        <p>Seedance-based scheduling and distribution across multiple platforms with format optimization and metadata generation.</p>
+      </div>
+
+      <div class="section-subtitle">3 Modos (Modes)</div>
+      <div class="card">
+        <div class="card-title">Mode 1: Automated</div>
+        <p>Full pipeline automation with intelligent defaults and minimal user intervention required.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Mode 2: Interactive</div>
+        <p>Step-by-step guidance with human approval checkpoints at critical stages.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Mode 3: Manual Override</div>
+        <p>Fine-grained control over each processing stage with advanced parameter tuning.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="specs">
+  <div class="container">
+    <div class="section">
+      <h1 class="section-title">Technical Specifications</h1>
+      
+      <div class="section-subtitle">3 Idiomas (Languages)</div>
+      <div class="card">
+        <div class="card-title">Portuguese (pt-BR)</div>
+        <p>Primary language with full localization support for commands, output, and documentation.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">English (en-US)</div>
+        <p>Secondary language with complete API documentation and technical specifications.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Spanish (es-ES)</div>
+        <p>Regional support with culturally adapted content guidelines and platform specifications.</p>
+      </div>
+
+      <div class="section-subtitle">Core Capabilities</div>
+      <div class="card">
+        <div class="card-title">Video Processing</div>
+        <ul>
+          <li>Resolution optimization (720p to 4K)</li>
+          <li>Codec conversion (H.264, H.265, VP9)</li>
+          <li>Frame rate normalization (24fps to 60fps)</li>
+          <li>Audio normalization and mixing</li>
+          <li>Subtitle generation and embedding</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Content Generation</div>
+        <ul>
+          <li>Automated transcript generation</li>
+          <li>Intelligent thumbnail extraction</li>
+          <li>SEO-optimized title and description generation</li>
+          <li>Multi-language subtitle creation</li>
+          <li>Social media asset generation</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Distribution Pipeline</div>
+        <ul>
+          <li>Multi-platform uploading (YouTube, Vimeo, etc.)</li>
+          <li>Scheduled publishing across timezones</li>
+          <li>Analytics integration and tracking</li>
+          <li>Automated engagement monitoring</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="roadmap">
+  <div class="container">
+    <div class="section">
+      <h1 class="section-title">Roadmap & Next Steps</h1>
+      
+      <div class="card">
+        <div class="card-title">Q2 2026: MVP Launch</div>
+        <p>Release core functionality with single-source input, basic Claude API integration, and FFmpeg processing pipeline.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q3 2026: Multi-Platform Expansion</div>
+        <p>Add support for multiple video sources, implement Seedance distribution, and introduce mode selection.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q4 2026: Advanced Features</div>
+        <p>Implement intelligent content analysis, advanced scheduling, analytics dashboard, and multi-language support.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">2027: Scale & Optimization</div>
+        <p>Performance optimization, enterprise features, API exposure, and advanced automation capabilities.</p>
+      </div>
+
+      <div class="section-subtitle">Critical Path Items</div>
+      <div class="card">
+        <ol>
+          <li>Complete yt-dlp integration testing</li>
+          <li>Implement Claude API content pipeline</li>
+          <li>Deploy FFmpeg processing infrastructure</li>
+          <li>Build Seedance distribution integration</li>
+          <li>Create comprehensive CLI documentation</li>
+          <li>Establish monitoring and error handling</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Impact X — ix-video Content Robot | Generated 25 Mar 2026</p>
+  <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--ix-muted);">CLI para edits automáticos · yt-dlp, Claude API, FFmpeg, Seedance</p>
+</div>
+
+<script>
+function switchTab(event, tabName) {
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  
+  tabs.forEach(tab => tab.classList.remove('active'));
+  contents.forEach(content => content.classList.remove('active'));
+  
+  event.currentTarget.classList.add('active');
+  document.getElementById(tabName).classList.add('active');
+}
+</script>
+</body>
+</html>
