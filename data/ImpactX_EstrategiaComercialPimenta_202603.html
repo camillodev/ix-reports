@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Estratégia Comercial · Rafael Pimenta</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+  .tag-tier1 { background: #D1FAE5; color: #065F46; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .tag-tier2 { background: #FEF9C3; color: #92400E; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .tag-tier3 { background: #F1F5F9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .agenda-block { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 640px) { .agenda-block { grid-template-columns: 1fr; } }
+  .day-card { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-md); overflow: hidden; }
+  .day-card .day-header { padding: 10px 16px; font-weight: 700; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+  .day-card .day-header.kumon { background: #ECFDF5; color: #065F46; border-bottom: 2px solid #11C76F; }
+  .day-card .day-header.ix { background: #EFF6FF; color: #1E40AF; border-bottom: 2px solid #3B82F6; }
+  .day-card .day-header.mixed { background: #FFF7ED; color: #92400E; border-bottom: 2px solid #F59E0B; }
+  .day-card .day-header.rest { background: #F8FAFC; color: #475569; border-bottom: 2px solid #CBD5E1; }
+  .time-row { display: flex; gap: 8px; padding: 8px 16px; border-bottom: 1px solid #F1F5F9; align-items: flex-start; }
+  .time-row:last-child { border-bottom: none; }
+  .time-label { font-family: 'Roboto Mono', monospace; font-size: 11px; color: var(--ix-muted); min-width: 80px; padding-top: 2px; }
+  .time-content { font-size: 13px; line-height: 1.4; }
+  .badge-ix { display: inline-block; background: #DBEAFE; color: #1E40AF; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 4px; }
+  .badge-kumon { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 4px; }
+  .badge-theo { display: inline-block; background: #FEF3C7; color: #92400E; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 4px; }
+  .badge-gym { display: inline-block; background: #F1F5F9; color: #475569; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 4px; }
+  .badge-en { display: inline-block; background: #FDF4FF; color: #7E22CE; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 4px; }
+  .week-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
+  .week-btn { padding: 7px 18px; border: 1.5px solid var(--ix-border); border-radius: 99px; background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ix-muted); font-family: 'Plus Jakarta Sans', sans-serif; transition: all .15s; }
+  .week-btn.active { background: var(--ix-green); border-color: var(--ix-green); color: #fff; }
+  .week-panel { display: none; }
+  .week-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .mentor-card { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-md); padding: 16px; }
+  .mentor-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--ix-ink); }
+  .mentor-card .role { font-size: 12px; color: var(--ix-muted); margin-bottom: 10px; }
+  .mentor-card .why { font-size: 13px; line-height: 1.5; color: var(--ix-ink); }
+  .mentor-card .how { margin-top: 10px; padding: 8px 12px; background: var(--ix-green-bg); border-radius: 8px; font-size: 12px; color: #065F46; }
+  .pill-green { display: inline-block; background: var(--ix-green-bg); color: #065F46; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+  .pill-blue { display: inline-block; background: #DBEAFE; color: #1E40AF; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+  .pill-yellow { display: inline-block; background: #FEF9C3; color: #92400E; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+  .company-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--ix-border); }
+  .company-row:last-child { border-bottom: none; }
+  .company-num { font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--ix-muted); min-width: 24px; }
+  .company-name { font-weight: 700; font-size: 14px; min-width: 110px; }
+  .company-meta { font-size: 12px; color: var(--ix-muted); flex: 1; }
+  .timeline-item { display: flex; gap: 16px; margin-bottom: 24px; }
+  .tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--ix-green); margin-top: 6px; flex-shrink: 0; position: relative; }
+  .tl-dot::after { content: ''; position: absolute; left: 5px; top: 12px; width: 2px; height: calc(100% + 20px); background: #E8ECF1; }
+  .timeline-item:last-child .tl-dot::after { display: none; }
+  .tl-body { flex: 1; }
+  .tl-period { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ix-green-dark); margin-bottom: 4px; }
+  .tl-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .tl-items { list-style: none; padding: 0; margin: 0; }
+  .tl-items li { font-size: 13px; color: var(--ix-muted); padding: 3px 0 3px 16px; position: relative; }
+  .tl-items li::before { content: '└─'; position: absolute; left: 0; font-size: 11px; }
+  .script-box { background: #1E293B; color: #E2E8F0; border-radius: var(--ix-radius-md); padding: 20px 24px; font-family: 'Roboto Mono', monospace; font-size: 13px; line-height: 1.7; white-space: pre-wrap; margin: 16px 0; }
+  .conflict-row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--ix-border); align-items: flex-start; }
+  .conflict-row:last-child { border-bottom: none; }
+  .conflict-sit { font-size: 13px; font-weight: 600; flex: 1; }
+  .conflict-dec { font-size: 13px; color: var(--ix-muted); flex: 1.5; }
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Estratégia Comercial · Pimenta</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="visao">Visão Geral</button>
+  <button type="button" class="tab-btn" data-tab="estrategia">Estratégia</button>
+  <button type="button" class="tab-btn" data-tab="agenda">Agenda</button>
+  <button type="button" class="tab-btn" data-tab="linkedin">LinkedIn</button>
+  <button type="button" class="tab-btn" data-tab="ingles">Inglês & Mentores</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 1 — VISÃO GERAL -->
+<div class="tab-panel active" data-tab="visao" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span style="color:var(--ix-green)">X</span></div>
+      <div class="hdr-title">Estratégia Comercial <em>Internacional</em></div>
+      <div class="hdr-sub">Rafael Pimenta · Head of Commercial · Versão 3 · Março 2026</div>
+      <div class="hdr-meta">Uso interno · Rafa Camillo + Rafael Pimenta</div>
+    </div>
+
+    <div class="metrics-grid" style="grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); margin-bottom:32px">
+      <div class="metric-card">
+        <div class="metric-label">Disponibilidade</div>
+        <div class="metric-value">~11h</div>
+        <div class="metric-delta positive">por semana (real)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Sem. A (sem Theo FDS)</div>
+        <div class="metric-value">~12,5h</div>
+        <div class="metric-delta positive">semanas ímpares</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Sem. B (com Theo FDS)</div>
+        <div class="metric-value">~9h</div>
+        <div class="metric-delta neutral">semanas alternadas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">DMs / mês</div>
+        <div class="metric-value">14</div>
+        <div class="metric-delta neutral">meta calibrada</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Calls / mês</div>
+        <div class="metric-value">8</div>
+        <div class="metric-delta positive">2/semana</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">MRR alvo (mês 3)</div>
+        <div class="metric-value">$12k</div>
+        <div class="metric-delta positive">1º cliente fechado</div>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-bottom:24px">
+      <strong>Contexto da v3:</strong> G2i removida (demanda era de Dez/2025). Foco 100% internacional. Produto e Kumon ficam internos até validação. Pimenta é a força motriz atuando part-time — agenda mapeada hora a hora considerando Kumon (seg/qua/sex 08–17h · ter/qui 08–20h), guarda do Theo e academia.
+    </div>
+
+    <h2>Os 3 blocos fixos toda semana</h2>
+    <p>Esses blocos acontecem independente de ser Semana A ou B. São a espinha dorsal.</p>
+
+    <table>
+      <thead><tr><th>Bloco</th><th>Dia / Horário</th><th>Duração</th><th>O que acontece</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge-ix">IX</span> Prospecção</td>
+          <td>Segunda <strong>10:30–12h</strong></td>
+          <td>1,5h</td>
+          <td>DMs LinkedIn + pesquisa 3 empresas Tier 1 + Attio</td>
+        </tr>
+        <tr>
+          <td><span class="badge-ix">IX</span> Calls</td>
+          <td>Quarta <strong>09–13h</strong></td>
+          <td>4h</td>
+          <td>Discovery calls + follow-up + post LinkedIn</td>
+        </tr>
+        <tr>
+          <td><span class="badge-ix">IX</span> Fechamento</td>
+          <td>Sexta <strong>09–12h</strong></td>
+          <td>3h</td>
+          <td>Review pipeline + proposta + conteúdo semana seguinte</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning" style="margin-top:24px">
+      <strong>Regra anti-conflito:</strong> Terça e quinta são 100% Kumon (atendimento 09–10:30h + 13–16h + 17–20h). Entrevistas Kumon para novos alunos: somente qua 14–16h ou sex 15–16h — <strong>nunca na manhã</strong> desses dias.
+    </div>
+
+    <h2>Por que foco internacional agora?</h2>
+    <ul>
+      <li>Mercado BR em stand-by — produto Kumon e ferramentas internas ainda em construção</li>
+      <li>Ticket internacional ($12k–$28k/mês) vs consultoria BR é incomparável para validação de receita</li>
+      <li>Demanda por LATAM talent cresceu 250% YoY — o mercado está aquecido</li>
+      <li>Pimenta tem credenciais de tech brasileiro que valem no exterior (Zup, CI&T, Itaú, palestrante)</li>
+      <li>Custo de aquisição do primeiro cliente pode ser zero via LinkedIn orgânico</li>
+    </ul>
+
+    <h2>Critério de sucesso para validação</h2>
+    <p>Não é escalar. É provar que o modelo funciona:</p>
+    <ul>
+      <li>Primeiro cliente fechado → <strong>$12k MRR garantido</strong></li>
+      <li>Canal principal identificado (LinkedIn? Indicação via rede BR?)</li>
+      <li>Playbook documentado que o Pimenta executa de forma autônoma</li>
+    </ul>
+
+    <h2>Posicionamento Impact X</h2>
+    <div class="callout success">
+      <em>"We're not a platform. Every engineer in our network is personally vetted by our founder — a senior dev with 11+ years. You're not getting a resume. You're getting someone we'd hire ourselves."</em>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 2 — ESTRATÉGIA -->
+<div class="tab-panel" data-tab="estrategia" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Estratégia Comercial</h1>
+
+    <h2>ICP — Perfil Ideal de Cliente</h2>
+    <table>
+      <thead><tr><th>Campo</th><th>Definição</th></tr></thead>
+      <tbody>
+        <tr><td>Setor prioritário</td><td>B2B SaaS · Fintech · HealthTech</td></tr>
+        <tr><td>Stage</td><td>Series A–C (50–500 funcionários)</td></tr>
+        <tr><td>Geografia</td><td>EUA (foco) · Canada e UK (fase 2)</td></tr>
+        <tr><td>Dor ativa</td><td>Dev senior americano caro; time eng precisa crescer rápido sem aumentar burn</td></tr>
+        <tr><td>Decisor</td><td>CTO · VP Engineering · Head of Product</td></tr>
+        <tr><td>Ticket esperado</td><td>$12k–$28k/mês por engenheiro</td></tr>
+        <tr><td>Canal de entrada</td><td>LinkedIn (Pimenta) + indicações rede BR com conexão EUA</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Pricing — Modelo de Preço Travado</h2>
+    <table>
+      <thead><tr><th>Tier</th><th>Preço/mês por eng.</th><th>Condição</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>🏆 <strong>Apoiador Fundador</strong> (1–3 clientes)</td>
+          <td style="font-family:'Roboto Mono',monospace;font-weight:700">$12.000</td>
+          <td>Preço travado para sempre enquanto ativo</td>
+        </tr>
+        <tr>
+          <td>⚡ <strong>Early Adopter</strong> (4–10 clientes)</td>
+          <td style="font-family:'Roboto Mono',monospace;font-weight:700">$16.000</td>
+          <td>Travado na data de assinatura</td>
+        </tr>
+        <tr>
+          <td>📈 <strong>Padrão</strong> (escala)</td>
+          <td style="font-family:'Roboto Mono',monospace;font-weight:700">$22.000–$28.000</td>
+          <td>Reajuste anual por CPI EUA</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout info"><strong>Regra de ouro:</strong> Cancelou → perde o preço travado. Nunca aumenta enquanto contrato ativo. Todas as atualizações de serviço incluídas.</div>
+
+    <h2>Competidores — Onde a IX se diferencia</h2>
+    <table>
+      <thead><tr><th>Empresa</th><th>Modelo</th><th>Fraqueza vs. IX</th></tr></thead>
+      <tbody>
+        <tr><td><strong>BairesDev</strong></td><td>Staff aug enterprise</td><td>Grande demais — sem curadoria técnica pessoal do founder</td></tr>
+        <tr><td><strong>Nexton</strong></td><td>Staff aug mid-market</td><td>Plataforma, sem relação pessoal</td></tr>
+        <tr><td><strong>TECLA</strong></td><td>Plataforma + EOR</td><td>Processo automatizado, AI-matching sem curadoria senior</td></tr>
+        <tr><td><strong>Near</strong></td><td>Staff aug + EOR</td><td>Amplo demais, não específico BR</td></tr>
+        <tr><td><strong>Howdy</strong></td><td>Premium + retenção</td><td>Caro, modelo muito pesado para early stage</td></tr>
+        <tr><td><strong>LatamCent</strong></td><td>Boutique B2B SaaS</td><td>Pouco reconhecimento de marca ainda</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Empresas-Alvo</h2>
+
+    <h3>Tier 1 — Alta Prioridade <span class="tag-tier1">Abordar agora</span></h3>
+    <div>
+      <div class="company-row"><span class="company-num">01</span><span class="company-name">Brex</span><span class="tag-tier1">Fintech/SaaS</span><span class="company-meta" style="margin-left:8px">Series D · SF · Scaling rápido, eng. time global · <em>Decisor: CTO, VP Eng</em></span></div>
+      <div class="company-row"><span class="company-num">02</span><span class="company-name">Rippling</span><span class="tag-tier1">HR Tech</span><span class="company-meta" style="margin-left:8px">Series F · SF · 1.000+ funcs, eng. distribuído · <em>VP Engineering</em></span></div>
+      <div class="company-row"><span class="company-num">03</span><span class="company-name">Gusto</span><span class="tag-tier1">HR/Payroll</span><span class="company-meta" style="margin-left:8px">SF · Remote-first histórico, 2.000+ eng · <em>Head of Eng</em></span></div>
+      <div class="company-row"><span class="company-num">04</span><span class="company-name">Navan</span><span class="tag-tier1">Travel/Fintech</span><span class="company-meta" style="margin-left:8px">Series G $9.2B · Palo Alto · Escala rápida · <em>CTO</em></span></div>
+      <div class="company-row"><span class="company-num">05</span><span class="company-name">Rain</span><span class="tag-tier1">Fintech/Payments</span><span class="company-meta" style="margin-left:8px">NY · Stablecoin infra, crescendo · <em>VP Eng</em></span></div>
+      <div class="company-row"><span class="company-num">06</span><span class="company-name">Moov</span><span class="tag-tier1">Payments API</span><span class="company-meta" style="margin-left:8px">Remote · Remote-first, eng. pequeno sênior · <em>CTO</em></span></div>
+      <div class="company-row"><span class="company-num">07</span><span class="company-name">FloQast</span><span class="tag-tier1">Fintech/SaaS</span><span class="company-meta" style="margin-left:8px">Remote · SaaS contábil em escala · <em>VP Engineering</em></span></div>
+      <div class="company-row"><span class="company-num">08</span><span class="company-name">Cortex</span><span class="tag-tier1">Dev Platform</span><span class="company-meta" style="margin-left:8px">Remote · Internal dev portal, eng. culture forte · <em>Head of Eng</em></span></div>
+      <div class="company-row"><span class="company-num">09</span><span class="company-name">Maybern</span><span class="tag-tier1">Fintech</span><span class="company-meta" style="margin-left:8px">NY · Startup crescendo, hiring eng. ativo · <em>CTO</em></span></div>
+      <div class="company-row"><span class="company-num">10</span><span class="company-name">Bestow</span><span class="tag-tier1">InsurTech</span><span class="company-meta" style="margin-left:8px">Dallas · Modernização seguros, tech-first · <em>VP Eng</em></span></div>
+    </div>
+
+    <h3 style="margin-top:24px">Tier 2 — Médio Prazo <span class="tag-tier2">Monitorar</span></h3>
+    <p style="color:var(--ix-muted);font-size:14px">Advisor360° · Airwallex · Upstart · Canoe · Agora · Current · Bloom Credit · Doppler · Machinify · Scratch</p>
+
+    <h3 style="margin-top:16px">Tier 3 — Radar <span class="tag-tier3">Aguardar timing</span></h3>
+    <p style="color:var(--ix-muted);font-size:14px">Kalshi · PrizePicks · Brigit · Unanet · Q2 Holdings · Pie Insurance · ActBlue · Zone & Company</p>
+
+    <h2 style="margin-top:32px">Roadmap 2026</h2>
+    <div style="margin-top:16px">
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-period">Abril 2026</div>
+          <div class="tl-title">Épico 1 — Fundação</div>
+          <ul class="tl-items">
+            <li>LinkedIn Pimenta auditado + reposicionado em EN</li>
+            <li>Arquivo .ics importado no Outlook (3 blocos fixos)</li>
+            <li>14 DMs enviadas (10 Sem A + 4 Sem B)</li>
+            <li>2 calls de descoberta agendadas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-period">Maio–Junho 2026</div>
+          <div class="tl-title">Épico 2 — Primeiras Conversas</div>
+          <ul class="tl-items">
+            <li>8 calls de descoberta realizadas (2/semana)</li>
+            <li>3 propostas enviadas</li>
+            <li>Meta: 1 contrato Apoiador Fundador fechado</li>
+            <li>MRR alvo: $12k · Gatilho → reavaliar dedicação Kumon</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-period">Julho–Setembro 2026</div>
+          <div class="tl-title">Épico 3 — Modelo Validado</div>
+          <ul class="tl-items">
+            <li>2–3 clientes ativos</li>
+            <li>Canal principal documentado (LinkedIn? Indicação?)</li>
+            <li>MRR alvo: $24k–$36k</li>
+            <li>Pimenta executa playbook de forma autônoma</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-period">Outubro–Dezembro 2026</div>
+          <div class="tl-title">Épico 4 — Escala Controlada</div>
+          <ul class="tl-items">
+            <li>Playbook replicável testado</li>
+            <li>Expansão Canada / UK</li>
+            <li>MRR alvo: $50k+</li>
+            <li>Decisão: aumentar dedicação ou contratar 2º vendedor?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h2>KPIs Mensais (2 Semanas A + 2 Semanas B)</h2>
+    <table>
+      <thead><tr><th>Métrica</th><th>Semana A</th><th>Semana B</th><th>Meta/mês</th></tr></thead>
+      <tbody>
+        <tr><td>DMs enviadas</td><td>5</td><td>2</td><td><strong>14</strong></td></tr>
+        <tr><td>Respostas recebidas</td><td>2</td><td>1</td><td><strong>6</strong></td></tr>
+        <tr><td>Calls realizadas</td><td>2</td><td>2</td><td><strong>8</strong></td></tr>
+        <tr><td>Propostas enviadas</td><td>1</td><td>0</td><td><strong>2</strong></td></tr>
+        <tr><td>Posts LinkedIn</td><td>3</td><td>2</td><td><strong>10</strong></td></tr>
+        <tr><td>Novas conexões EUA</td><td>20</td><td>5</td><td><strong>50</strong></td></tr>
+        <tr><td>Sessões de inglês</td><td>3</td><td>1</td><td><strong>8</strong></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 3 — AGENDA -->
+<div class="tab-panel" data-tab="agenda" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Agenda — Hora a Hora</h1>
+    <p>Kumon seg/qua/sex 08–17h · ter/qui 08–20h. Rafa atende alunos 09–10:30h, 13–16h e 17–20h (ter/qui).</p>
+
+    <div class="week-toggle">
+      <button class="week-btn active" onclick="switchWeek('a',this)">Semana A — ~12,5h Impact X</button>
+      <button class="week-btn" onclick="switchWeek('b',this)">Semana B — ~9h Impact X</button>
+    </div>
+
+    <div class="week-panel active" id="week-a">
+      <div class="day-card">
+        <div class="day-header mixed">Segunda</div>
+        <div class="time-row"><span class="time-label">07–08h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia</span></div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos (fixo)</span></div>
+        <div class="time-row"><span class="time-label">10:30–12h</span><span class="time-content"><span class="badge-ix">IX</span> Prospecção — 5 DMs + pesquisa</span></div>
+        <div class="time-row"><span class="time-label">12–13h</span><span class="time-content">Almoço</span></div>
+        <div class="time-row"><span class="time-label">13–16h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos</span></div>
+        <div class="time-row"><span class="time-label">16–17h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Flex / admin</span></div>
+        <div class="time-row"><span class="time-label">17:30–21:30h</span><span class="time-content"><span class="badge-theo">THEO</span> Circo · Dever · Jantar</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header kumon">Terça — 100% Kumon</div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos</span></div>
+        <div class="time-row"><span class="time-label">10:30–12h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Flex / preparo</span></div>
+        <div class="time-row"><span class="time-label">12–13h</span><span class="time-content">Almoço</span></div>
+        <div class="time-row"><span class="time-label">13–20h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos</span></div>
+        <div class="time-row"><span class="time-label">20–21:30h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header ix">Quarta — BLOCO SAGRADO</div>
+        <div class="time-row"><span class="time-label">08–09h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Abertura / admin</span></div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-ix">IX</span> Discovery call #1</span></div>
+        <div class="time-row"><span class="time-label">10:30–12h</span><span class="time-content"><span class="badge-ix">IX</span> Call #2 ou follow-up</span></div>
+        <div class="time-row"><span class="time-label">12–13h</span><span class="time-content">Almoço</span></div>
+        <div class="time-row"><span class="time-label">13–14h</span><span class="time-content"><span class="badge-ix">IX</span> Post LinkedIn + Attio</span></div>
+        <div class="time-row"><span class="time-label">14–16h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Entrevistas novos alunos ← única janela</span></div>
+        <div class="time-row"><span class="time-label">16–17h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Fechamento</span></div>
+        <div class="time-row"><span class="time-label">17:30–21:30h</span><span class="time-content"><span class="badge-theo">THEO</span> Circo · Dever · Jantar</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header kumon">Quinta — 100% Kumon</div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos</span></div>
+        <div class="time-row"><span class="time-label">12–13h</span><span class="time-content">Almoço</span></div>
+        <div class="time-row"><span class="time-label">13–20h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos</span></div>
+        <div class="time-row"><span class="time-label">20–21:30h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header ix">Sexta — Maior output (Sem A)</div>
+        <div class="time-row"><span class="time-label">08–09h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Abertura</span></div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-ix">IX</span> Review pipeline + proposta</span></div>
+        <div class="time-row"><span class="time-label">10:30–12h</span><span class="time-content"><span class="badge-ix">IX</span> Call de fechamento</span></div>
+        <div class="time-row"><span class="time-label">12–13h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia / almoço</span></div>
+        <div class="time-row"><span class="time-label">13–14h</span><span class="time-content"><span class="badge-ix">IX</span> Rascunhar 3 posts semana seguinte</span></div>
+        <div class="time-row"><span class="time-label">14–15h</span><span class="time-content"><span class="badge-ix">IX</span> Mapear 5 empresas + DMs D+7</span></div>
+        <div class="time-row"><span class="time-label">15–16h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Entrevistas / admin</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header rest">Sábado (Sem A)</div>
+        <div class="time-row"><span class="time-label">09–10h</span><span class="time-content"><span class="badge-ix">IX</span> LinkedIn async — responder + conexões ICP</span></div>
+        <div class="time-row"><span class="time-label">10–11h</span><span class="time-content"><span class="badge-en">EN</span> Inglês — role play 3 cenários</span></div>
+        <div class="time-row"><span class="time-label">11h+</span><span class="time-content">Livre</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header rest">Domingo (Sem A)</div>
+        <div class="time-row"><span class="time-label">09–09:30h</span><span class="time-content"><span class="badge-en">EN</span> Inglês — 3 monólogos gravados</span></div>
+        <div class="time-row"><span class="time-label">09:30–10:30h</span><span class="time-content"><span class="badge-ix">IX</span> Planejamento semana — 3 prioridades + lista empresas</span></div>
+        <div class="time-row"><span class="time-label">10:30h+</span><span class="time-content">Livre</span></div>
+      </div>
+    </div>
+
+    <div class="week-panel" id="week-b">
+      <div class="day-card">
+        <div class="day-header mixed">Segunda (Sem B)</div>
+        <div class="time-row"><span class="time-label">07–08:20h</span><span class="time-content"><span class="badge-theo">THEO</span> Leva Theo para escola</span></div>
+        <div class="time-row"><span class="time-label">08:30h+</span><span class="time-content"><span class="badge-kumon">KUMON</span> Abertura</span></div>
+        <div class="time-row"><span class="time-label">10–12h</span><span class="time-content"><span class="badge-ix">IX</span> Tarefas rápidas — follow-up DMs + Attio (sem calls)</span></div>
+        <div class="time-row"><span class="time-label">13–16h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento alunos</span></div>
+        <div class="time-row"><span class="time-label">17:30h+</span><span class="time-content"><span class="badge-theo">THEO</span> Circo · Dever · Jantar</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header kumon">Terça — 100% Kumon</div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento</span></div>
+        <div class="time-row"><span class="time-label">13–20h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento</span></div>
+        <div class="time-row"><span class="time-label">20–21:30h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header ix">Quarta — BLOCO SAGRADO</div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-ix">IX</span> Discovery call #1</span></div>
+        <div class="time-row"><span class="time-label">10:30–12h</span><span class="time-content"><span class="badge-ix">IX</span> Call #2 / follow-up</span></div>
+        <div class="time-row"><span class="time-label">13–14h</span><span class="time-content"><span class="badge-ix">IX</span> Post LinkedIn + Attio</span></div>
+        <div class="time-row"><span class="time-label">14–16h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Entrevistas novos alunos</span></div>
+        <div class="time-row"><span class="time-label">17:30h+</span><span class="time-content"><span class="badge-theo">THEO</span> Circo · Dever · Jantar</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header kumon">Quinta — 100% Kumon</div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento</span></div>
+        <div class="time-row"><span class="time-label">13–20h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Atendimento</span></div>
+        <div class="time-row"><span class="time-label">20–21:30h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header mixed">Sexta (Sem B)</div>
+        <div class="time-row"><span class="time-label">09–10:30h</span><span class="time-content"><span class="badge-ix">IX</span> Review pipeline + fechamento</span></div>
+        <div class="time-row"><span class="time-label">10:30–12h</span><span class="time-content"><span class="badge-ix">IX</span> 1 post + planejamento conservador</span></div>
+        <div class="time-row"><span class="time-label">12–13h</span><span class="time-content"><span class="badge-gym">GYM</span> Academia / almoço</span></div>
+        <div class="time-row"><span class="time-label">13–16:30h</span><span class="time-content"><span class="badge-kumon">KUMON</span> Flex / admin</span></div>
+        <div class="time-row"><span class="time-label">17h+</span><span class="time-content"><span class="badge-theo">THEO</span> Buscar Theo</span></div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header rest">Sáb/Dom (Sem B)</div>
+        <div class="time-row"><span class="time-label">Qualquer 15 min</span><span class="time-content"><span class="badge-en">EN</span> Monólogo gravado em inglês</span></div>
+        <div class="time-row"><span class="time-label">Resto</span><span class="time-content"><span class="badge-theo">THEO</span> Fim de semana com Theo</span></div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:32px">Política Anti-Conflito Kumon × Impact X</h2>
+    <div>
+      <div class="conflict-row">
+        <span class="conflict-sit">Lead Kumon quer entrevista quarta manhã</span>
+        <span class="conflict-dec">Redirecionar para qua 14–16h ou sex 15–16h</span>
+      </div>
+      <div class="conflict-row">
+        <span class="conflict-sit">Urgência Kumon no bloco Impact X</span>
+        <span class="conflict-dec">Pode esperar 2h? Se sim → espera. Emergência real → IX cede</span>
+      </div>
+      <div class="conflict-row">
+        <span class="conflict-sit">Aluno quer remarcar para quarta manhã</span>
+        <span class="conflict-dec">Oferecer terça ou quinta como alternativa</span>
+      </div>
+      <div class="conflict-row">
+        <span class="conflict-sit">Kumon precisa de Rafa sexta tarde</span>
+        <span class="conflict-dec">Não conflita — IX termina 15h, Kumon flex começa 15h</span>
+      </div>
+    </div>
+    <div class="callout warning" style="margin-top:16px"><strong>Regra de ouro até o 1º cliente fechar:</strong> Kumon ganha em emergência real. Quarta 09–13h não é negociável para rotina.</div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 4 — LINKEDIN -->
+<div class="tab-panel" data-tab="linkedin" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Playbook LinkedIn</h1>
+    <p>Reposicionamento do perfil <a href="https://linkedin.com/in/dorafa" target="_blank">linkedin.com/in/dorafa</a> para o mercado internacional.</p>
+
+    <div class="callout warning">
+      <strong>Diagnóstico atual:</strong> Perfil forte para o mercado BR (500+ conexões, 30+ recomendações, narrativa autêntica). Problema: headline e about em português, orientados para RH brasileiro. O CTO americano que ver o perfil hoje não entende o que o Pimenta oferece em 3 segundos.
+    </div>
+
+    <h2>Alterações elemento por elemento</h2>
+    <table>
+      <thead><tr><th>Elemento</th><th>Problema atual</th><th>Novo</th></tr></thead>
+      <tbody>
+        <tr><td>Headline</td><td>Orientado a RH/recrutamento BR em PT</td><td>Em EN comunicando valor para CTO americano</td></tr>
+        <tr><td>About</td><td>Narrativa em PT voltada para networking BR</td><td>Narrativa em EN: problema → solução → credenciais</td></tr>
+        <tr><td>Experiência</td><td>Descrições em PT, foco interno</td><td>Reescrever Zup/CI&T em EN com impacto quantificado</td></tr>
+        <tr><td>Featured</td><td>Vazio ou posts BR</td><td>Case IX + artigo sobre LATAM talent</td></tr>
+        <tr><td>Idioma</td><td>PT como principal</td><td>EN como idioma principal do perfil</td></tr>
+        <tr><td>Banner</td><td>Genérico</td><td>Brand IX + proposta de valor em EN</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Headline — Opções</h2>
+    <div class="callout success" style="margin-bottom:12px">
+      <strong>Opção A (direto):</strong><br>
+      <code>Helping US companies hire senior Brazilian engineers | Head of Commercial @ Impact X</code>
+    </div>
+    <div class="callout info">
+      <strong>Opção B (proposta de valor):</strong><br>
+      <code>Senior Brazilian engineers for US teams — vetted, English-fluent, your timezone | Impact X</code>
+    </div>
+
+    <h2>About / Summary — Texto novo</h2>
+    <div class="script-box">US tech teams are scaling fast — but senior engineers are expensive, scarce, and slow to hire.
+
+I'm Rafael Pimenta, Head of Commercial at Impact X. We connect US companies with senior Brazilian engineers: English-fluent, your timezone, 40-60% less than US equivalents.
+
+Every engineer in our network is personally vetted by our founder — a senior dev with 11+ years of experience. Not a recruiter. A technical peer.
+
+Background:
+• Tech recruiting & employer branding at Zup Innovation (Itaú), CI&T, Hotmart
+• ATS implementation led in English for international offices
+• Speaker at tech events across Brazil
+• Franchise owner (Kumon) — operations background too
+
+If you're a CTO or VP Engineering tired of the 6-month hiring cycle for a role you needed 3 months ago — let's talk.
+
+💬 DM me or email: [email]</div>
+
+    <h2>Estratégia de Conteúdo — 3x por semana</h2>
+    <table>
+      <thead><tr><th>Dia</th><th>Tipo</th><th>Tema</th></tr></thead>
+      <tbody>
+        <tr><td>Segunda</td><td>Post de valor (EN)</td><td>Dado sobre LATAM talent, custo de dev EUA, pain points de CTO</td></tr>
+        <tr><td>Quarta</td><td>Post pessoal/narrativa</td><td>Bastidores da IX, aprendizados, jornada</td></tr>
+        <tr><td>Sexta</td><td>Engajamento (EN)</td><td>Pergunta para CTOs, opinião, poll sobre hiring</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5 Primeiros Posts (em ordem)</h2>
+    <ol style="line-height:2">
+      <li><strong>Apresentação:</strong> <em>"I just joined Impact X as Head of Commercial. Here's why I bet on Brazilian engineering talent."</em></li>
+      <li><strong>Dado de mercado:</strong> <em>"The average time to hire a senior engineer in the US is 6 months. We do it in 2 weeks."</em></li>
+      <li><strong>Por que Brasil:</strong> <em>"Brazil has 750,000 software developers. Most US companies have never heard of them."</em></li>
+      <li><strong>Pergunta para o ICP:</strong> <em>"CTOs: what's the #1 reason you haven't hired remote engineers yet?"</em></li>
+      <li><strong>Case de valor:</strong> <em>"What happens when a US startup hires a senior Brazilian engineer? A breakdown."</em></li>
+    </ol>
+
+    <h2>Regras de engajamento (crescer rede internacional)</h2>
+    <ul>
+      <li>Comentar em 3–5 posts por dia de CTOs/VPs Engineering americanos <strong>antes</strong> de publicar</li>
+      <li>Conectar com toda pessoa que curtir ou comentar os posts</li>
+      <li>Mensagem de conexão sempre personalizada — nunca a padrão do LinkedIn</li>
+      <li>Meta mês 1: +100 conexões de CTOs/VPs EUA</li>
+    </ul>
+
+    <h2>Checklist de implementação — Semana 1</h2>
+    <ul>
+      <li>☐ Headline atualizado (EN)</li>
+      <li>☐ About reescrito (EN)</li>
+      <li>☐ Experiência Zup reescrita em EN com impacto quantificado</li>
+      <li>☐ Impact X adicionada como posição atual</li>
+      <li>☐ Skills reordenadas (Business Dev · International Sales · Staff Augmentation no topo)</li>
+      <li>☐ Banner criado com brand IX</li>
+      <li>☐ Primeiro post publicado (apresentação)</li>
+    </ul>
+
+    <div class="callout danger">
+      <strong>O que NÃO fazer:</strong> Postar em português para o ICP internacional · usar linguagem de RH BR ("vaga", "candidato") · conectar em massa sem personalização · usar buzzwords ("synergy", "disruption", "passionate about") · post sem gancho nas primeiras 2 linhas
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 5 — INGLÊS + MENTORES -->
+<div class="tab-panel" data-tab="ingles" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Inglês & Mentores</h1>
+
+    <h2>Diagnóstico de inglês</h2>
+    <table>
+      <thead><tr><th>Habilidade</th><th>Nível</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td>Reading</td><td><span class="pill-green">B2+</span></td><td>Sólido — consome conteúdo técnico sem dificuldade</td></tr>
+        <tr><td>Listening</td><td><span class="pill-green">B2+</span></td><td>Sólido — entende calls e podcasts em inglês</td></tr>
+        <tr><td>Speaking</td><td><span class="pill-yellow">B1</span></td><td>Trava na fala — vocabulário está, confiança e reflexo não</td></tr>
+        <tr><td>Writing</td><td><span class="pill-green">B2</span></td><td>Escreve bem com apoio de ferramentas</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info"><strong>Causa do travamento:</strong> Não é falta de vocabulário. É falta de fluência motora — o cérebro sabe a palavra mas a boca não tem o reflexo. Resolve com <strong>volume de prática oral</strong>, não com mais estudo teórico.</div>
+
+    <h2>Objetivo em 90 dias</h2>
+    <div class="callout success">Conduzir uma call de vendas de 20–30 min em inglês com um CTO americano sem travar — com confiança e clareza suficientes para qualificar o lead e marcar próximo passo. <strong>Não é objetivo</strong>: falar inglês perfeito.</div>
+
+    <h2>Rotina diária — 45 min</h2>
+    <table>
+      <thead><tr><th>Bloco</th><th>Duração</th><th>Exercício</th></tr></thead>
+      <tbody>
+        <tr><td>Input ativo</td><td>15 min/dia</td><td>SaaStr Podcast ou How I Built This — sem legenda, ouvir de novo se não entender</td></tr>
+        <tr><td>Shadow speaking</td><td>10 min/dia</td><td>Pausar trecho de podcast, repetir em voz alta imitando ritmo e entonação</td></tr>
+        <tr><td>Monólogo de 3 min</td><td>10 min/dia</td><td>Gravar em voz alta sobre um tema — não reler, não editar, só falar</td></tr>
+        <tr><td>Role play</td><td>20 min, 3x/sem</td><td>Simulador aqui ou iTalki/Preply com conversation partner nativo</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Role Plays específicos Impact X</h2>
+
+    <h3>Cold Call — Marcus Chen, VP Eng, Series B SaaS NY</h3>
+    <p>Objetivo: não ser desligado + marcar call de 20 min.</p>
+    <div class="script-box">"Hey [Name], this is Rafael from Impact X. I know you're busy — I'll be quick.
+We help US companies hire senior Brazilian engineers: fluent English, your timezone, 40% less than US equivalents.
+I'm not trying to sell you anything today — I just want to know if this is even a problem you're thinking about.
+Do you have 2 minutes?"</div>
+
+    <h3>Objeção: offshore — James Reed, VP Eng, e-commerce Chicago</h3>
+    <div class="script-box">CTO: "We tried offshore before — India, Eastern Europe — and it was a nightmare."
+
+Resposta:
+"I totally understand that frustration — and it's the most common thing I hear.
+The difference is our engineers are hand-vetted by our founder, a senior dev with 11+ years.
+He wouldn't put someone in front of a client he wouldn't hire himself.
+And we have a 30-day replacement guarantee at no cost.
+What specifically went wrong in those previous experiences?"</div>
+
+    <h3>Objeção: preço — Amy Torres, CTO, B2B SaaS SF</h3>
+    <div class="script-box">CTO: "$16,000 a month feels steep."
+
+Resposta:
+"Let me put that in context. A senior dev in SF costs $180k+ per year in salary alone — that's $15k/month, and that's before benefits, equity, and recruiter fees.
+Our $16k covers everything. No recruiter fee, no equity, no surprises.
+And your rate is locked for life while your contract is active."</div>
+
+    <h2>Dicas anti-travamento</h2>
+    <ul>
+      <li><strong>Quando travar no meio de uma frase:</strong> use fillers naturais — <em>"That's a great point..."</em>, <em>"Let me think about that for a second..."</em>, <em>"What I mean is..."</em></li>
+      <li><strong>Quando não saber uma palavra:</strong> descreva em vez de parar — <em>"the person who runs the tech team"</em> em vez de tentar lembrar "CTO"</li>
+      <li><strong>Antes de calls importantes:</strong> falar em inglês por 5 minutos antes — "aquece" o modo inglês no cérebro</li>
+      <li><strong>Mentalidade:</strong> o prospect não avalia seu inglês. Avalia se você entende o problema deles. <strong>Confiança &gt; perfeição.</strong></li>
+    </ul>
+
+    <h2>Recursos (gratuitos ou quase)</h2>
+    <table>
+      <thead><tr><th>Recurso</th><th>Tipo</th><th>Custo</th></tr></thead>
+      <tbody>
+        <tr><td>Claude (simulador role play)</td><td>Role play B2B</td><td>Gratuito</td></tr>
+        <tr><td>Speechling</td><td>Pronúncia com feedback nativo</td><td>Gratuito</td></tr>
+        <tr><td>SaaStr Podcast</td><td>Input B2B</td><td>Gratuito</td></tr>
+        <tr><td>How I Built This</td><td>Input narrativa natural</td><td>Gratuito</td></tr>
+        <tr><td>iTalki / Preply</td><td>Conversation partner nativo</td><td>~$15–25/h</td></tr>
+        <tr><td>Elsa Speak</td><td>App de pronúncia AI</td><td>~R$20/mês</td></tr>
+        <tr><td>YouGlish</td><td>Pronúncia em contexto real</td><td>Gratuito</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top:40px">Mentores — Quem Buscar</h2>
+    <p>O Pimenta precisa de 3 tipos de mentor para acelerar sem reinventar a roda:</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0">
+      <div class="mentor-card">
+        <h4>Mentor Tático</h4>
+        <div class="role">Alguém que já vendeu nearshore para EUA</div>
+        <div class="why">Pode revisar o pitch, dar feedback nas primeiras calls, indicar erros comuns de quem está começando. Economiza meses de tentativa e erro.</div>
+        <div class="how">Buscar: ex-vendedor de Nexton, Revelo, CI&T International ou LatamCent</div>
+      </div>
+      <div class="mentor-card">
+        <h4>Mentor de Rede</h4>
+        <div class="role">Alguém com conexões de CTO/VP Eng nos EUA</div>
+        <div class="why">Pode fazer warm introductions nos primeiros deals — uma indicação vale mais que 20 cold DMs. Ex-colegas da Zup que foram para empresas americanas são ouro.</div>
+        <div class="how">Buscar: ex-colegas Zup/CI&T com cargo atual em empresa EUA</div>
+      </div>
+      <div class="mentor-card">
+        <h4>Mentor de Inglês B2B</h4>
+        <div class="role">Conversation partner nativo americano</div>
+        <div class="why">Simula calls de vendas com realismo — sotaque, ritmo, objeções reais. 1x/semana já faz diferença significativa em 30 dias.</div>
+        <div class="how">iTalki: buscar "business English" + "sales" · briefar o tutor com o contexto de nearshore</div>
+      </div>
+    </div>
+
+    <h2>Perfis para abordar no LinkedIn</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:16px 0">
+      <div class="mentor-card">
+        <h4>Head of Sales @ Nexton</h4>
+        <div class="role">Busca: "head of sales" Nexton nearshore</div>
+        <div class="why">Nexton é boutique Argentina/Brasil para EUA — modelo idêntico ao IX. Quem está lá já percorreu exatamente esse caminho.</div>
+        <div class="how">✅ Alta prioridade — abordar esta semana</div>
+      </div>
+      <div class="mentor-card">
+        <h4>Sales @ LatamCent</h4>
+        <div class="role">Busca: "LatamCent" sales OR business development</div>
+        <div class="why">Boutique B2B SaaS, mesma pegada. Empresa jovem — fundadores acessíveis e dispostos a ajudar.</div>
+        <div class="how">✅ Alta prioridade</div>
+      </div>
+      <div class="mentor-card">
+        <h4>BD @ Revelo</h4>
+        <div class="role">Busca: Revelo "business development" Brazil</div>
+        <div class="why">Revelo é brasileiro, vende dev para EUA. Time de vendas experiente com histórico documentado.</div>
+        <div class="how">🟡 Média prioridade</div>
+      </div>
+      <div class="mentor-card">
+        <h4>Ex-Zup/CI&T em empresa EUA</h4>
+        <div class="role">Busca: ex-colega no LinkedIn com empresa atual EUA</div>
+        <div class="why">Já têm a confiança estabelecida com o Pimenta. Uma introdução deles para um CTO vale mais que 50 cold DMs.</div>
+        <div class="how">✅ Alta prioridade — rede quente</div>
+      </div>
+      <div class="mentor-card">
+        <h4>Brasileiros em Howdy/Near</h4>
+        <div class="role">Busca: "Howdy.com" OR "Hire with Near" Brazil</div>
+        <div class="why">Empresas que contratam brasileiros para time de vendas de nearshore. Quem está lá sabe o playbook.</div>
+        <div class="how">🟡 Média prioridade</div>
+      </div>
+      <div class="mentor-card">
+        <h4>Founders nearshore BR</h4>
+        <div class="role">Busca: "nearshore" "Brazil" founder OR co-founder</div>
+        <div class="why">Fundadores de nearshore BR que já percorreram o caminho querem ajudar — é uma comunidade. Pedido honesto de 20 min de mentoria tem alta taxa de resposta.</div>
+        <div class="how">✅ Alta prioridade</div>
+      </div>
+    </div>
+
+    <h2>Script de DM para abordar mentor</h2>
+    <p>Usar em português para brasileiros, inglês para americanos:</p>
+    <div class="script-box">Ei [Nome], tudo bem?
+
+Vi que você atua/atuou com vendas de engenharia brasileira para o mercado americano — exatamente o que estou começando a fazer na Impact X.
+
+Não estou pedindo emprego nem parceria — só 20 minutos do seu tempo para entender os maiores erros de quem está começando nesse caminho.
+
+Toparia uma conversa rápida essa semana?
+
+Rafael Pimenta
+Head of Commercial · Impact X</div>
+
+    <h2>Marcos de progressão — inglês</h2>
+    <table>
+      <thead><tr><th>Semana</th><th>Marco</th></tr></thead>
+      <tbody>
+        <tr><td>Semana 4</td><td>Pitch de 3 min sem travar · 5 role plays completos · 20 monólogos gravados</td></tr>
+        <tr><td>Semana 8</td><td>4 calls com conversation partner · responde 5 objeções sem pausar muito</td></tr>
+        <tr><td>Semana 12</td><td>1 cold call real com prospect internacional · conduz discovery call de 20 min sem apoio</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+<script>
+function switchWeek(week, btn) {
+  document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.week-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('week-' + week).classList.add('active');
+}
+</script>
+</body>
+</html>
