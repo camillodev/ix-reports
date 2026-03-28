@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Sistema de Vida v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{--ix-ink:#1A1D21;--ix-muted:#6B7280;--ix-green:#11C76F;--ix-green-hover:#0EB863;--ix-green-dark:#059669;--ix-green-light:#34D399;--ix-green-bg:#D1FAE5;--ix-green-tint:#ECFDF5;--ix-bg:#F4F6F9;--ix-surface:#FFF;--ix-card-bg:#FFF;--ix-border:#E8ECF1;--ix-yellow:#FBBF24;--ix-warning:#D4820A;--ix-danger:#C0392B;--ix-shadow-sm:0 1px 3px rgba(0,0,0,.06);--ix-shadow-md:0 4px 12px rgba(0,0,0,.08);--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-blue:#3B82F6;--ix-purple:#8B5CF6;--ix-orange:#F59E0B;--ix-pink:#EC4899;--ix-cyan:#06B6D4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--ix-bg);color:var(--ix-ink);font-size:17px;line-height:1.7}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}
+.topbar .back-btn{background:none;border:none;font:inherit;cursor:pointer;color:var(--ix-muted);font-size:14px}
+.topbar .brand{font-weight:800;font-size:18px;text-decoration:none;color:var(--ix-ink);letter-spacing:-.5px}
+.topbar .brand .x{color:var(--ix-green)}
+.topbar-title{font-size:13px;color:var(--ix-muted);font-weight:500}
+.tab-nav{position:fixed;top:56px;left:0;right:0;z-index:99;display:flex;gap:4px;padding:8px 16px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;background:transparent;border:none;font:inherit;padding:8px 16px;border-radius:99px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ix-muted);transition:all .2s;white-space:nowrap}
+.tab-btn:hover{background:var(--ix-green-tint);color:var(--ix-green-dark)}
+.tab-btn.active{background:var(--ix-green);color:#fff}
+.tab-panel{display:none;padding-top:120px;padding-bottom:80px}
+.tab-panel.active{display:block}
+.content{max-width:900px;margin:0 auto;padding:0 20px}
+.report-header{background:var(--ix-green-tint);border-radius:var(--ix-radius-lg);padding:44px 36px;margin-bottom:36px;position:relative;overflow:hidden}
+.report-header::after{content:"X";position:absolute;right:-20px;bottom:-40px;font-size:200px;font-weight:900;color:var(--ix-green);opacity:.06;line-height:1}
+.hdr-brand{font-size:12px;font-weight:700;color:var(--ix-green-dark);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.hdr-title{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:8px}
+.hdr-title em{font-style:normal;color:var(--ix-green)}
+.hdr-sub{font-size:15px;color:var(--ix-muted)}
+.hdr-meta{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--ix-muted);flex-wrap:wrap}
+.hdr-meta span{display:flex;align-items:center;gap:5px}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:20px 0}
+.metric-card{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:20px;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border)}
+.mc-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.mc-label{font-size:11px;font-weight:600;color:var(--ix-muted);text-transform:uppercase;letter-spacing:1px}
+.mc-value{font-size:26px;font-weight:800;margin:3px 0}
+.mc-detail{font-size:13px;color:var(--ix-muted)}
+.callout{border-radius:var(--ix-radius-md);padding:18px 22px;margin:20px 0;font-size:14px;line-height:1.6}
+.callout.info{background:#EFF6FF;border-left:4px solid var(--ix-blue)}
+.callout.success{background:var(--ix-green-bg);border-left:4px solid var(--ix-green)}
+.callout.warning{background:#FEF3C7;border-left:4px solid var(--ix-orange)}
+.callout.danger{background:#FEE2E2;border-left:4px solid var(--ix-danger)}
+.callout strong{display:block;font-weight:700;margin-bottom:3px}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+thead th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ix-muted);border-bottom:2px solid var(--ix-border)}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--ix-border);vertical-align:top}
+tbody tr:hover{background:var(--ix-green-tint)}
+.time-block{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:20px 20px 20px 28px;margin:14px 0;border:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm);position:relative}
+.time-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:5px 0 0 5px}
+.time-block.body::before{background:var(--ix-orange)}
+.time-block.work::before{background:var(--ix-blue)}
+.time-block.free::before{background:var(--ix-purple)}
+.time-block.rest::before{background:#6366F1}
+.tb-time{font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;color:var(--ix-muted);margin-bottom:3px}
+.tb-title{font-size:17px;font-weight:700;margin-bottom:5px}
+.tb-desc{font-size:14px;color:var(--ix-muted);line-height:1.6}
+.tb-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.tb-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px}
+.phase-card{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:20px;margin:14px 0;border:1px solid var(--ix-border);border-left:4px solid var(--ix-green)}
+.phase-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.phase-card .phase-meta{font-size:12px;color:var(--ix-muted);margin-bottom:8px}
+h1{font-size:26px;font-weight:800;margin:36px 0 14px}
+h2{font-size:20px;font-weight:700;margin:28px 0 10px}
+h3{font-size:16px;font-weight:700;margin:20px 0 6px}
+p{margin:10px 0}
+ul,ol{margin:10px 0;padding-left:22px}
+li{margin:5px 0;font-size:14px}
+footer{text-align:center;padding:36px 20px;font-size:13px;color:var(--ix-muted);border-top:1px solid var(--ix-border)}
+footer .brand{font-weight:800;font-size:16px;color:var(--ix-ink);margin-bottom:4px}
+footer .brand .x{color:var(--ix-green)}
+.sim-controls{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sim-controls label{font-size:13px;color:var(--ix-muted);min-width:110px}
+.sim-controls input[type=range]{flex:1;height:6px}
+.sim-controls .val{font-size:14px;font-weight:600;min-width:24px;text-align:right}
+.chart-wrap{position:relative;width:100%;height:280px;margin:16px 0}
+@media(max-width:768px){
+  .report-header{padding:28px 20px}
+  .hdr-title{font-size:22px}
+  .metrics-grid{grid-template-columns:1fr}
+  .content{padding:0 14px}
+  .sim-flex{flex-direction:column!important}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button type="button" class="back-btn" onclick="history.back()">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Sistema de Vida v3</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="simulador">🎛️ Simulador</button>
+  <button type="button" class="tab-btn" data-tab="principios">🧠 Princípios</button>
+  <button type="button" class="tab-btn" data-tab="blocos">📅 Blocos do Dia</button>
+  <button type="button" class="tab-btn" data-tab="semana">🗓️ Semana</button>
+  <button type="button" class="tab-btn" data-tab="exercicio">🏄 Exercício</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">🚀 Roadmap</button>
+  <button type="button" class="tab-btn" data-tab="equipe">👥 Equipe</button>
+  <button type="button" class="tab-btn" data-tab="ansiedade">📉 Ansiedade</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 1: SIMULADOR RODA DA VIDA                 -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel active" data-tab="simulador" role="tabpanel" aria-hidden="false">
+<div class="content">
+  <div class="report-header">
+    <div class="hdr-brand">Impact X — Protocolo Pessoal v3</div>
+    <h1 class="hdr-title">Sistema de Vida: <em>Flexível e Nômade</em></h1>
+    <p class="hdr-sub">Princípios, não horários rígidos. Mudança gradual, não revolução de segunda-feira. Desenhado pro cérebro do Rafa — TEA Nível 1 + TDAH + Ansiedade P85.</p>
+    <div class="hdr-meta">
+      <span><i class="bi bi-calendar3"></i> Março 2026</span>
+      <span><i class="bi bi-geo-alt"></i> Nômade: BH · Cabo Frio · Rio</span>
+      <span><i class="bi bi-person"></i> Rafael Camillo, CEO</span>
+    </div>
+  </div>
+
+  <h2>Roda da Vida — ajuste os sliders</h2>
+  <p style="font-size:14px;color:var(--ix-muted)">Seus laudos deram base para o estado atual. Arraste para simular o impacto de cada mudança na ansiedade e equilíbrio geral.</p>
+
+  <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;margin-top:16px" class="sim-flex">
+    <div style="flex:1;min-width:280px"><canvas id="radarChart" width="380" height="380"></canvas></div>
+    <div style="flex:1;min-width:260px" id="sliders-container"></div>
+  </div>
+
+  <div class="metrics-grid" style="margin-top:20px">
+    <div class="metric-card">
+      <div class="mc-label">Score geral</div>
+      <div class="mc-value" id="sim-overall">—</div>
+    </div>
+    <div class="metric-card">
+      <div class="mc-label">Ansiedade projetada (6 meses)</div>
+      <div class="mc-value" id="sim-anxiety">P85</div>
+    </div>
+    <div class="metric-card">
+      <div class="mc-label">Equilíbrio (menor gap = melhor)</div>
+      <div class="mc-value" id="sim-balance">—</div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>Como ler os números</strong>
+    Score geral = média simples. Ansiedade projetada = quanto sua P85 cairia se você sustentar essas mudanças por 6 meses. Equilíbrio = quão uniforme está (100% = todas as áreas iguais).
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 2: PRINCÍPIOS                             -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="principios" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>🧠 Princípios — Não Regras</h1>
+  <p>Regras rígidas quebram. Princípios se adaptam. Esses foram extraídos dos seus 4 laudos + neurociência + Beyoncé + realidade de ser CEO nômade com TDAH.</p>
+
+  <h2>1. Corpo primeiro, decisão depois</h2>
+  <p>Exercício aeróbico libera dopamina e norepinefrina — os mesmos neurotransmissores que medicação de TDAH alvo. Beyoncé começa todo dia com movimento antes de qualquer reunião. Com ansiedade P85, seu corpo precisa descarregar cortisol pela manhã. Não importa O QUE — importa que mexa o corpo antes de abrir o notebook.</p>
+
+  <h2>2. Uma coisa por vez (monotarefa)</h2>
+  <p>Atenção alternada <strong>percentil 1</strong>. Isso não é defeito — é informação. Trocar de tarefa custa mais pra você do que pra 99% das pessoas. Uma missão por bloco, zero alternância. Timer visível de 25 min cria pressão segura (seu cérebro rende melhor sob pressão com tempo restrito — confirmado pelo Wallacy).</p>
+
+  <h2>3. Ambiente faz, você não decide</h2>
+  <p>Autodisciplina T=21. Forçar disciplina é gastar recurso que não tem. A solução:</p>
+  <ul>
+    <li><strong>Gleice</strong> → ambiente físico (comida, roupa, luz)</li>
+    <li><strong>Nicole</strong> → ambiente informacional (briefing, calendário)</li>
+    <li><strong>Claude</strong> → ambiente cognitivo (priorização, decisões mastigadas)</li>
+    <li><strong>Rotina flexível</strong> → mesma sequência, horários elásticos</li>
+  </ul>
+
+  <h2>4. Novidade = dopamina saudável</h2>
+  <p>Abertura T=55, Ideias T=63. Você PRECISA de novidade, mas novidade sem estrutura vira distração. Solução: atividades que ensinam skills (surf, patins, yoga, canoa havaiana). Dão novidade COM estrutura. Bônus: combinam movimento + pensamento = máxima neuroplasticidade.</p>
+
+  <h2>5. Água é medicação</h2>
+  <p>Natação, surf, banho longo — ativam o parassimpático. Com ansiedade P85, contato diário com água não é luxo, é necessidade fisiológica. Se não tem praia, piscina. Se não tem piscina, banho longo.</p>
+
+  <h2>6. Alimentação = princípios, não cardápio</h2>
+  <div class="callout success">
+    <strong>Os 4 princípios da refeição</strong>
+    Cada prato principal precisa ter: <strong>1 proteína</strong> (grelhado, peixe, ovo) + <strong>1 carboidrato</strong> (arroz, batata, quinoa) + <strong>folhas/salada</strong> + <strong>legumes coloridos</strong>. Não conta caloria, não pesa nada. Se o prato é colorido e tem os 4, tá bom. Gleice segue esses 4 princípios — não um cardápio.
+  </div>
+
+  <h2>7. Maconha recreativa = ok</h2>
+  <p>Uso consciente à noite, sem julgamento. Dois cuidados pra proteger o sistema: (a) não usar pra compensar ansiedade que deveria ser trabalhada com exercício/sono, (b) não usar depois das 21h pra não atrapalhar qualidade do sono (THC suprime REM). De resto, relaxa.</p>
+
+  <h2>8. Previsibilidade ≠ rigidez</h2>
+  <p>TEA nível 1: a sequência é o que importa, não o horário exato. "Exercício → trabalho → água → descanso" pode começar às 8h ou às 9h. O que não muda é a ORDEM. Isso protege o cérebro sem aprisionar.</p>
+
+  <h2>9. Social dosado</h2>
+  <p>Extroversão T=42. Esportes coletivos (queimada, gincana, canoa havaiana) = social COM regras claras + objetivo. Happy hour aberto = dreno. Máx 2-3 eventos sociais não-estruturados por semana.</p>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 3: BLOCOS DO DIA                          -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="blocos" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>📅 Blocos do Dia — Sequência, Não Horário</h1>
+
+  <div class="callout warning">
+    <strong>A sequência é fixa. O horário é flexível.</strong>
+    Esses blocos acontecem nessa ORDEM todo dia. Se você acorda às 7:30 ou às 9h, a sequência é a mesma. Nenhum horário é mandatório — os tempos sugeridos são referência.
+  </div>
+
+  <div class="time-block body">
+    <div class="tb-time">~60 min após acordar</div>
+    <div class="tb-title">🌅 Bloco 1: Despertar + Corpo</div>
+    <div class="tb-desc">
+      Acordar → água → café leve → <strong>exercício</strong> (mínimo 30 min, ideal 60 min). Qualquer coisa que goste: natação, caminhada, corrida, yoga, surf. Zero telas até terminar o exercício. Banho pós-treino com 30s frio no final (opcional, ativa norepinefrina). 3 coisas de gratidão (pode ser mental, no banho).
+    </div>
+    <div class="tb-tags">
+      <span class="tb-tag" style="background:#FEF3C7;color:#92400E">Dopamina</span>
+      <span class="tb-tag" style="background:#EDE9FE;color:#5B21B6">Neuroplasticidade</span>
+    </div>
+  </div>
+
+  <div class="time-block free">
+    <div class="tb-time">Manhã restante</div>
+    <div class="tb-title">🌤️ Bloco 2: Manhã Livre</div>
+    <div class="tb-desc">
+      Tempo seu. Café com calma, ler, resolver coisas pessoais, ir ao mercado, existir. <strong>Reuniões pela manhã = exceção, não regra.</strong> Se tiver reunião marcada, ok — mas o padrão é manhã livre. Nicole sabe disso.
+    </div>
+    <div class="tb-tags">
+      <span class="tb-tag" style="background:#F3F4F6;color:#6B7280">Liberdade</span>
+    </div>
+  </div>
+
+  <div class="time-block work">
+    <div class="tb-time">~13h → ~19h (6 horas)</div>
+    <div class="tb-title">💻 Bloco 3: Trabalho (6h pós-almoço)</div>
+    <div class="tb-desc">
+      Almoço sem tela → briefing rápido (Claude: <code>briefing</code>) → deep work com Pomodoro 25/5. Uma missão principal. Regra das duas janelas (1 trabalho + 1 referência). Reuniões se necessário nesse bloco. Fechamento: anotar 1 coisa feita + 1 pra amanhã, fechar todas as abas.<br><br>
+      <strong>Subdivisão sugerida:</strong><br>
+      13h-15:30 → Deep work (a missão do dia)<br>
+      15:30-17:30 → Reuniões se tiver / execução leve<br>
+      17:30-19h → Admin, emails, Slack, fechamento
+    </div>
+    <div class="tb-tags">
+      <span class="tb-tag" style="background:#DBEAFE;color:#1D4ED8">CEO Mode</span>
+      <span class="tb-tag" style="background:#FEF3C7;color:#92400E">Pico Cognitivo</span>
+    </div>
+  </div>
+
+  <div class="time-block body">
+    <div class="tb-time">~19h → ~20h</div>
+    <div class="tb-title">🌊 Bloco 4: Segundo Movimento + Água</div>
+    <div class="tb-desc">
+      Atividade leve com água ou natureza. Natação, caminhada na praia, yoga, banho longo. Isso ativa o parassimpático e marca a transição "CEO desligou, Rafa ligou".
+    </div>
+    <div class="tb-tags">
+      <span class="tb-tag" style="background:#D1FAE5;color:#065F46">Água</span>
+      <span class="tb-tag" style="background:#EDE9FE;color:#5B21B6">Parassimpático</span>
+    </div>
+  </div>
+
+  <div class="time-block rest">
+    <div class="tb-time">~20h → dormir</div>
+    <div class="tb-title">🌙 Bloco 5: Noite Livre</div>
+    <div class="tb-desc">
+      Jantar (princípio: proteína + carb + folhas + legumes, não cardápio). Tempo livre: série, música, hobby, social, maconha recreativa se quiser. <strong>Único guideline de sono:</strong> telas com filtro azul depois das 21h. Meta: na cama antes de meia-noite. Sem rigidez — a consistência vem do exercício matinal, não da hora de dormir.
+    </div>
+    <div class="tb-tags">
+      <span class="tb-tag" style="background:#F3F4F6;color:#6B7280">Descanso</span>
+      <span class="tb-tag" style="background:#FCE7F3;color:#9D174D">Prazer</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 4: MAPA SEMANAL                           -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="semana" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>🗓️ Mapa Semanal — Energia, Não Agenda</h1>
+
+  <div class="callout warning">
+    <strong>Máximo 2 dias de carga cognitiva alta por semana</strong>
+    SEG e QUA = pensar. TER, QUI, SEX = executar o que decidiu. SÁB = experiência. DOM = recovery.
+  </div>
+
+  <table>
+    <thead><tr><th>Dia</th><th>Manhã (corpo)</th><th>Trabalho 13-19h</th><th>Noite</th><th>Energia</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SEG</strong></td><td>Natação / Yoga</td><td>🔥 Estratégia IX, planejamento</td><td>Leve / social dosado</td><td style="color:var(--ix-danger)">Alta</td></tr>
+      <tr><td><strong>TER</strong></td><td>Corrida funcional / circuito</td><td>⚙️ Execução — tickets, código</td><td>Natação noturna ou banho</td><td style="color:var(--ix-green)">Média</td></tr>
+      <tr><td><strong>QUA</strong></td><td>Surf / Patins / Skill sport</td><td>🔥 Deep thinking, decisões</td><td>Yoga leve / alongamento</td><td style="color:var(--ix-danger)">Alta</td></tr>
+      <tr><td><strong>QUI</strong></td><td>Natação / Yoga</td><td>⚙️ Implementar decisões de QUA</td><td>Hobby livre</td><td style="color:var(--ix-green)">Média</td></tr>
+      <tr><td><strong>SEX</strong></td><td>Caminhada leve / praia</td><td>📊 Review + fechar loops</td><td>Social / maconha / sair</td><td style="color:var(--ix-muted)">Baixa</td></tr>
+      <tr><td><strong>SÁB</strong></td><td>Esporte radical / gincana</td><td colspan="2">🌴 Livre — experiência, natureza, pessoas. Sem trabalho.</td><td style="color:var(--ix-purple)">Experiência</td></tr>
+      <tr><td><strong>DOM</strong></td><td>Yoga lenta / meditação</td><td colspan="2">🔋 Recovery — água, leitura, pintura. 15 min prep semana no final.</td><td style="color:var(--ix-blue)">Recovery</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Wellhub Silver+ — Locais Confirmados</h2>
+
+  <h3>BH (a pé da Av. Afonso Pena 1456)</h3>
+  <table>
+    <thead><tr><th>Local</th><th>Atividades</th><th>Distância</th><th>Plano</th></tr></thead>
+    <tbody>
+      <tr><td><strong>UIBH</strong></td><td>Natação, Hidro</td><td>R. Pernambuco 326, ~10 min a pé</td><td style="color:var(--ix-green);font-weight:700">Silver+</td></tr>
+      <tr><td><strong>Bodytech Savassi</strong></td><td>Natação, Yoga, Funcional, Jiu-jitsu, Muay Thai, Dança</td><td>R. Pernambuco 618, ~12 min a pé</td><td>Silver</td></tr>
+      <tr><td><strong>Pure Pilates Savassi</strong></td><td>Pilates (turmas de 4)</td><td>R. Antônio de Albuquerque 335, ~10 min</td><td>Silver</td></tr>
+      <tr><td><strong>Leg Assessoria</strong></td><td>Corrida, Caminhada orientada</td><td>Funcionários, ~600m</td><td>Basic+</td></tr>
+      <tr><td><strong>Actie</strong></td><td>Hatha Yoga, Meditação</td><td>Próx. Palácio da Liberdade</td><td>Silver</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cabo Frio (toda a cidade)</h3>
+  <table>
+    <thead><tr><th>Local</th><th>Atividades</th><th>Plano</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Surf Up Club</strong></td><td>Surf (prancha + aulas)</td><td style="color:var(--ix-green);font-weight:700">Silver+</td></tr>
+      <tr><td><strong>Manakai Wa'a</strong></td><td>Canoa havaiana (7h, 9h, 11h)</td><td>Silver</td></tr>
+      <tr><td><strong>Praia Center</strong></td><td>Funcional, Bike, Step HIIT</td><td>Basic+</td></tr>
+      <tr><td><strong>Ultra Academia</strong></td><td>12 modalidades</td><td>Basic+</td></tr>
+      <tr><td><strong>Praia do Peró</strong></td><td>Corrida, mar, trilha (grátis)</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <strong>Recomendação: Silver+ (R$ 199,99/mês)</strong>
+    Mínimo pra acessar UIBH (natação BH) + Surf Up Club (Cabo Frio). Silver sozinho não cobre esses dois. Gold (R$ 319,99) não justifica — as adições são marginais pro seu perfil.
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 5: EXERCÍCIO                              -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="exercicio" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>🏄 Exercício — Menu, Não Obrigação</h1>
+  <p>Escolha o que quiser do menu. A única regra: <strong>mover o corpo todo dia, pelo menos 30 min</strong>. Variar é melhor que repetir (neuroplasticidade precisa de novidade).</p>
+
+  <table>
+    <thead><tr><th>Categoria</th><th>Opções</th><th>O que treina no cérebro</th><th>Frequência sugerida</th></tr></thead>
+    <tbody>
+      <tr><td>🌊 <strong>Água</strong></td><td>Surf, natação, SUP, canoa havaiana</td><td>Cerebelo + parassimpático + propriocepção</td><td>3-4x/semana</td></tr>
+      <tr><td>🧘 <strong>Mindful</strong></td><td>Yoga, alongamento dinâmico</td><td>Córtex pré-frontal + regulação emocional</td><td>2-3x/semana</td></tr>
+      <tr><td>🏃 <strong>Aeróbico</strong></td><td>Corrida funcional, circuito, gincana</td><td>Dopamina + BDNF (fator de crescimento neural)</td><td>2-3x/semana</td></tr>
+      <tr><td>🛹 <strong>Skill</strong></td><td>Patins, skate, escalada, slackline, malabarismo</td><td>Cerebelo ↔ córtex pré-frontal</td><td>1-2x/semana</td></tr>
+      <tr><td>⚽ <strong>Coletivo</strong></td><td>Queimada, vôlei, futebol praia, gincana</td><td>Cognição social + decisão rápida</td><td>1x/semana (sáb)</td></tr>
+      <tr><td>🧗 <strong>Radical</strong></td><td>Escalada, rapel, trilha longa</td><td>Gestão de medo + flow state</td><td>1-2x/mês</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Exercícios cerebelares — 5 min/dia (Dr. Hallowell, ADHD 2.0)</h2>
+  <div class="callout info">
+    <strong>Warm-up diário antes do exercício principal</strong>
+    Fortalecem a conexão cerebelo → córtex pré-frontal, melhorando funções executivas:
+  </div>
+  <ul>
+    <li>Ficar em uma perna por 1 min (trocar lados)</li>
+    <li>Ficar em uma perna com olhos fechados</li>
+    <li>Tirar/colocar meias sem sentar</li>
+    <li>Malabarismo 3-5 min (aprender = neuroplasticidade pura)</li>
+    <li>Andar em linha reta, pé na frente do outro</li>
+  </ul>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 6: ROADMAP                                -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>🚀 Roadmap — Mudança Gradual</h1>
+  <p>Não mude tudo de uma vez. Cada fase dura 3-4 semanas. Só avança quando a fase atual virou hábito (= faz sem pensar).</p>
+
+  <div class="phase-card" style="border-left-color:#11C76F">
+    <h3>Fase 1: Fundação (semana 1-3)</h3>
+    <div class="phase-meta">Objetivo: criar o hábito de mexer o corpo</div>
+    <ul>
+      <li>30 min de exercício pela manhã (qualquer coisa que goste)</li>
+      <li>Dormir antes de meia-noite (sem meta rígida de horário)</li>
+      <li>Zero telas durante refeição</li>
+      <li>Gleice separa roupa de exercício na noite anterior</li>
+    </ul>
+  </div>
+
+  <div class="phase-card" style="border-left-color:#3B82F6">
+    <h3>Fase 2: Estrutura leve (semana 4-6)</h3>
+    <div class="phase-meta">Objetivo: organizar o trabalho pós-almoço</div>
+    <ul>
+      <li>Aumentar exercício pra 45-60 min</li>
+      <li>5 min de respiração pós-exercício (4-7-8)</li>
+      <li>Trabalho concentrado pós-almoço 13h-19h</li>
+      <li>Nicole começa a mandar briefing matinal</li>
+    </ul>
+  </div>
+
+  <div class="phase-card" style="border-left-color:#8B5CF6">
+    <h3>Fase 3: Água + Rotina (semana 7-10)</h3>
+    <div class="phase-meta">Objetivo: integrar água diária e Pomodoro</div>
+    <ul>
+      <li>Natação ou contato com água 3x/semana mínimo</li>
+      <li>Pomodoro 25/5 no deep work (timer visível)</li>
+      <li>Regra das duas janelas no computador</li>
+      <li>Gleice com checklist noturno completo</li>
+    </ul>
+  </div>
+
+  <div class="phase-card" style="border-left-color:#F59E0B">
+    <h3>Fase 4: Skill + Social (semana 11-16)</h3>
+    <div class="phase-meta">Objetivo: neuroplasticidade avançada</div>
+    <ul>
+      <li>Adicionar 1 skill sport semanal (surf, patins, escalada)</li>
+      <li>1 esporte coletivo no sábado</li>
+      <li>Review semanal automatizado (sexta)</li>
+      <li>Contratar personal organizer pra vida nômade</li>
+    </ul>
+  </div>
+
+  <div class="phase-card" style="border-left-color:#EC4899">
+    <h3>Fase 5: Automático (semana 17+)</h3>
+    <div class="phase-meta">Objetivo: não é mais "rotina" — é quem você é</div>
+    <ul>
+      <li>Reaplicar GAD-7 (meta: queda de 4+ pontos)</li>
+      <li>Ajustar baseado em dados reais, não intuição</li>
+      <li>Sistema nômade rodando com Gleice + Nicole + Claude</li>
+      <li>Vida nômade com assistente pessoal = implementar</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 7: EQUIPE                                 -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="equipe" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>👥 Equipe de Suporte — Quem Faz o Quê</h1>
+
+  <h2>Nicole — Assistente Executiva (remota)</h2>
+  <div class="callout info">
+    <strong>Domínio: Planejamento</strong>
+    <ul>
+      <li>Briefing matinal via "Operação Rafa" (noite anterior ou 7h)</li>
+      <li>Triagem de email (🔴 Hoje, 🟡 Semana, ⚪ Depois, 🗑️ Ignorar)</li>
+      <li>Calendário: reuniões SÓ no bloco de trabalho (13-19h), exceções = confirmar com Rafa</li>
+      <li>Pipeline e follow-ups</li>
+      <li>Supervisão financeira das despesas da Gleice</li>
+    </ul>
+  </div>
+  <h3>Como treinar Nicole neste sistema:</h3>
+  <ol>
+    <li>Compartilhar este report com ela (link do reports.impactxlab.com)</li>
+    <li>Explicar: "Minha manhã é livre. Reuniões pela manhã = exceção que precisa da minha aprovação."</li>
+    <li>Template do briefing: copiar formato da skill ix-adhd-copilot (1 missão, 1 alerta, 3 coisas pra ignorar)</li>
+    <li>Regra do grupo WhatsApp: Nicole posta → Gleice confirma → Rafa só responde se tem DECISÃO</li>
+  </ol>
+
+  <h2>Gleice — Assistente Pessoal (presencial)</h2>
+  <div class="callout success">
+    <strong>Domínio: Execução do ambiente</strong>
+    <ul>
+      <li><strong>Noite (20h):</strong> separar roupa de exercício, preparar lanche da manhã, água com limão na geladeira, reduzir luz da casa</li>
+      <li><strong>Manhã (antes do Rafa):</strong> água na mesa, café em preparo, alerta gentil 7:40 se Rafa não acordou</li>
+      <li><strong>Refeições:</strong> seguir os 4 princípios (proteína + carb + folha + legumes coloridos). Sem cardápio fixo — ela escolhe o quê, dentro dos princípios</li>
+      <li><strong>Confirmação:</strong> ✅ no grupo "Operação Rafa" quando ambiente está pronto</li>
+    </ul>
+  </div>
+  <h3>Como treinar Gleice:</h3>
+  <ol>
+    <li>Imprimir o checklist noturno e matinal (colar na geladeira)</li>
+    <li>Explicar os 4 princípios da refeição (não dar cardápio — dar autonomia)</li>
+    <li>Mostrar como funciona o grupo WhatsApp (ela só faz ✅, não precisa escrever)</li>
+    <li>Ela viaja junto quando Rafa for nômade — adaptar pra cada cidade</li>
+  </ol>
+
+  <h2>Contratação recomendada: Personal Organizer</h2>
+  <div class="callout warning">
+    <strong>Por que contratar</strong>
+    Vida nômade entre 3 cidades = logística que consome energia executiva (que você tem pouca). Um personal organizer resolve: mala cápsula, setup de workspace em cada base, checklist de mudança, coordenação com Gleice. Custo estimado: R$ 1.500-3.000 por consultoria inicial + R$ 500-800/mês manutenção.
+  </div>
+
+  <h2>Comunicação — "Operação Rafa"</h2>
+  <table>
+    <thead><tr><th>Quem</th><th>O Quê</th><th>Quando</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Nicole</strong></td><td>Posta briefing do dia</td><td>Noite anterior ou 7h</td></tr>
+      <tr><td><strong>Gleice</strong></td><td>✅ confirma que leu e preparou</td><td>Pela manhã</td></tr>
+      <tr><td><strong>Rafa</strong></td><td>Só responde quando tem DECISÃO real</td><td>Quando necessário</td></tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB 8: PROJEÇÃO DE ANSIEDADE                  -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="ansiedade" role="tabpanel" aria-hidden="true">
+<div class="content">
+  <h1>📉 Projeção de Ansiedade — Dados Reais</h1>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="mc-icon" style="background:#FEE2E2;color:#DC2626"><i class="bi bi-heart-pulse"></i></div>
+      <div class="mc-label">Ansiedade atual</div>
+      <div class="mc-value" style="color:var(--ix-danger)">P85</div>
+      <div class="mc-detail">EAG-A. Pensamentos preocupantes P95.</div>
+    </div>
+    <div class="metric-card">
+      <div class="mc-icon" style="background:var(--ix-green-bg);color:var(--ix-green-dark)"><i class="bi bi-graph-down-arrow"></i></div>
+      <div class="mc-label">Meta 6 meses</div>
+      <div class="mc-value" style="color:var(--ix-green)">P55-65</div>
+      <div class="mc-detail">Funcional e sustentável. Não é zero.</div>
+    </div>
+    <div class="metric-card">
+      <div class="mc-icon" style="background:#DBEAFE;color:#2563EB"><i class="bi bi-clipboard2-data"></i></div>
+      <div class="mc-label">Mudança clínica</div>
+      <div class="mc-value">GAD-7 -4pts</div>
+      <div class="mc-detail">4+ pontos = mudança clinicamente significativa.</div>
+    </div>
+  </div>
+
+  <h2>Curva de redução projetada</h2>
+  <p style="font-size:14px;color:var(--ix-muted)">Exercício 150+ min/semana + mindfulness + sono 7-9h = redução de 30-40% no GAD-7 em 12-16 semanas (meta-análises). Ajuste os sliders na aba Simulador pra ver projeções personalizadas.</p>
+
+  <div class="chart-wrap" style="height:300px"><canvas id="anxChart"></canvas></div>
+
+  <h2>O que cada fator contribui</h2>
+  <table>
+    <thead><tr><th>Fator</th><th>Redução esperada no GAD-7</th><th>Timeline</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Exercício aeróbico 150+ min/sem</strong></td><td>-15% a -20%</td><td>2-4 semanas pra sentir, 8 semanas pra medir</td></tr>
+      <tr><td><strong>Contato com água diário</strong></td><td>-5% a -10% (parassimpático)</td><td>Imediato, acumula</td></tr>
+      <tr><td><strong>Sono consistente 7-9h</strong></td><td>-10% a -15%</td><td>1-2 semanas</td></tr>
+      <tr><td><strong>Mindfulness 5 min/dia</strong></td><td>-5% a -10%</td><td>4-8 semanas (78% de melhora em estudo UCLA)</td></tr>
+      <tr><td><strong>Terapia continuada</strong></td><td>-10% a -20%</td><td>Contínuo (Rodrigo Gouvêa, 6 anos)</td></tr>
+      <tr><td><strong>Farmacologia (se indicada)</strong></td><td>-20% a -40%</td><td>4-6 semanas pra SSRI estabilizar</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout info">
+    <strong>Piso realista pra seu perfil</strong>
+    Com TEA + traços borderline + histórico de trauma complexo, o piso provável é P50-55. Isso é ansiedade leve-moderada — funcional, produtiva, sem impedir a vida. Abaixo disso depende de farmacologia + terapia de longo prazo, não só lifestyle. O sistema de vida que estamos montando é o que você controla — e ele sozinho pode tirar você de P85 pra P55-65.
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- FOOTER                                        -->
+<!-- ══════════════════════════════════════════════ -->
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- SCRIPTS                                       -->
+<!-- ══════════════════════════════════════════════ -->
+<script>
+// Tab system
+document.addEventListener('DOMContentLoaded', () => {
+  const btns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  function activate(id) {
+    btns.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+    panels.forEach(p => { const a = p.dataset.tab === id; p.classList.toggle('active', a); p.setAttribute('aria-hidden', !a); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  btns.forEach(b => b.addEventListener('click', () => { activate(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); }));
+  const hash = location.hash.slice(1);
+  if (hash && document.querySelector(`[data-tab="${hash}"]`)) activate(hash);
+
+  // ── RADAR CHART (Roda da Vida) ──
+  const cats = [
+    { name: 'Exercício', val: 4 }, { name: 'Sono', val: 3 },
+    { name: 'Impact X', val: 5 }, { name: 'Saúde mental', val: 4 },
+    { name: 'Social', val: 3 }, { name: 'Lazer/prazer', val: 4 },
+    { name: 'Natureza/água', val: 3 }, { name: 'Alimentação', val: 4 }
+  ];
+  const vals = cats.map(c => c.val);
+  const sc = document.getElementById('sliders-container');
+  cats.forEach((c, i) => {
+    const d = document.createElement('div');
+    d.className = 'sim-controls';
+    d.innerHTML = `<label>${c.name}</label><input type="range" min="1" max="10" step="1" value="${c.val}" id="sl${i}"><span class="val" id="vl${i}">${c.val}</span>`;
+    sc.appendChild(d);
+    d.querySelector('input').addEventListener('input', e => { vals[i] = +e.target.value; document.getElementById('vl'+i).textContent = vals[i]; update(); });
+  });
+
+  const radar = new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: { labels: cats.map(c => c.name), datasets: [{ data: [...vals], borderColor: '#11C76F', backgroundColor: 'rgba(17,199,111,.12)', pointBackgroundColor: '#11C76F', borderWidth: 2, pointRadius: 4 }] },
+    options: { responsive: true, maintainAspectRatio: true, scales: { r: { min: 0, max: 10, ticks: { stepSize: 2, color: '#999', backdropColor: 'transparent' }, grid: { color: 'rgba(0,0,0,.06)' }, pointLabels: { font: { size: 12 }, color: '#666' } } }, plugins: { legend: { display: false } } }
+  });
+
+  // ── ANXIETY PROJECTION CHART ──
+  const anxChart = new Chart(document.getElementById('anxChart'), {
+    type: 'line',
+    data: {
+      labels: ['Agora','Mês 1','Mês 2','Mês 3','Mês 4','Mês 5','Mês 6'],
+      datasets: [
+        { label: 'Cenário conservador', data: [85,82,78,74,70,67,65], borderColor: '#F59E0B', backgroundColor: 'rgba(245,158,11,.08)', fill: true, tension: .3, pointRadius: 4, borderWidth: 2 },
+        { label: 'Cenário otimista', data: [85,79,72,65,60,57,55], borderColor: '#11C76F', backgroundColor: 'rgba(17,199,111,.08)', fill: true, tension: .3, pointRadius: 4, borderWidth: 2 },
+        { label: 'Meta (P60)', data: [60,60,60,60,60,60,60], borderColor: '#3B82F6', borderDash: [6,4], borderWidth: 1.5, pointRadius: 0, fill: false }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 40, max: 100, ticks: { callback: v => 'P'+v } }, x: {} }, plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } } }
+  });
+
+  function update() {
+    radar.data.datasets[0].data = [...vals];
+    radar.update();
+    const avg = vals.reduce((a,b) => a+b, 0) / vals.length;
+    const mn = Math.min(...vals), mx = Math.max(...vals);
+    const bal = Math.round((1 - (mx - mn) / 10) * 100);
+    document.getElementById('sim-overall').textContent = avg.toFixed(1) + '/10';
+    const ef = vals[0] >= 7 ? .85 : vals[0] >= 5 ? .9 : 1;
+    const sf = vals[1] >= 7 ? .9 : vals[1] >= 5 ? .95 : 1;
+    const mf = vals[3] >= 7 ? .88 : vals[3] >= 5 ? .93 : 1;
+    const nf = vals[6] >= 6 ? .93 : 1;
+    const proj = Math.max(35, Math.min(85, Math.round(85 * ef * sf * mf * nf)));
+    const el = document.getElementById('sim-anxiety');
+    el.textContent = 'P' + proj;
+    el.style.color = proj <= 55 ? '#11C76F' : proj <= 70 ? '#D4820A' : '#C0392B';
+    const bel = document.getElementById('sim-balance');
+    bel.textContent = bal + '%';
+    bel.style.color = bal >= 70 ? '#11C76F' : bal >= 50 ? '#D4820A' : '#C0392B';
+  }
+  update();
+});
+</script>
+</body>
+</html>
