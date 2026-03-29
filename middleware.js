@@ -1,18 +1,31 @@
 /**
- * Vercel Edge Middleware — Impact X Reports
- * Protects /data/private/* with token-based access control.
+ * Vercel Edge Middleware — Relatório X
  *
- * Tokens are stored in the PRIVATE_TOKENS env var (comma-separated).
- * Each person gets a unique token. Share link as:
- *   https://reports.impactxlab.com/data/private/FILE.html?t=TOKEN
+ * Protects:
+ *   /data/private/*   → pessoal + private reports (requires owner or invite token)
+ *   /data/empresa/*   → empresa reports (requires empresa or owner token)
  *
- * After first visit, a cookie is set so subsequent visits don't need ?t=
+ * Token prefix system:
+ *   ix_own_xxx  → owner/admin — access everything
+ *   ix_emp_xxx  → empresa — access public + empresa
+ *   ix_inv_xxx  → invite — access public + specific private reports
+ *   (no prefix) → legacy token — treated as invite-level
  *
- * Levels (future): use token prefix — ix_l1_xxx = level 1, ix_l2_xxx = level 2
+ * Env vars:
+ *   OWNER_TOKENS    — comma-separated owner tokens
+ *   EMPRESA_TOKENS  — comma-separated empresa tokens
+ *   PRIVATE_TOKENS  — comma-separated private/invite tokens (legacy compat)
+ *
+ * Access flow:
+ *   1. Check token from URL param (?t=) or cookie (ix_auth, ix_emp, ix_pvt)
+ *   2. Validate token against env vars
+ *   3. If URL param, set cookie and redirect to clean URL
+ *   4. If valid, forward request
+ *   5. If invalid, return 403
  */
 
 export const config = {
-  matcher: '/data/private/:path*',
+  matcher: ['/data/private/:path*', '/data/empresa/:path*'],
 };
 
 const ACCESS_DENIED_HTML = `<!DOCTYPE html>
@@ -20,7 +33,7 @@ const ACCESS_DENIED_HTML = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acesso Restrito — Impact X</title>
+<title>Acesso Restrito — Relatório X</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
@@ -37,7 +50,7 @@ const ACCESS_DENIED_HTML = `<!DOCTYPE html>
 <body>
   <div class="box">
     <div class="icon">🔒</div>
-    <div class="brand">IMPACT <span>X</span></div>
+    <div class="brand">Relatorio <span>X</span></div>
     <h1>Acesso Restrito</h1>
     <p>Este documento requer autorização.<br>
     Solicite o link de acesso ao <a href="mailto:hello@rafaelcamillo.com">Impact X</a>.</p>
@@ -45,56 +58,90 @@ const ACCESS_DENIED_HTML = `<!DOCTYPE html>
 </body>
 </html>`;
 
-export default async function middleware(request) {
-  const url = new URL(request.url);
-  const tokenParam = url.searchParams.get('t');
-
-  // Parse cookie header
-  const cookieHeader = request.headers.get('cookie') || '';
-  const cookieToken = cookieHeader
-    .split(';')
-    .map((c) => c.trim())
-    .find((c) => c.startsWith('ix_pvt='))
-    ?.slice('ix_pvt='.length);
-
-  // Load valid tokens from env
-  const rawTokens = process.env.PRIVATE_TOKENS || '';
-  const validTokens = rawTokens
+function parseTokens(envVar) {
+  return (envVar || '')
     .split(',')
     .map((t) => t.trim())
     .filter(Boolean);
+}
 
-  const token = tokenParam || cookieToken;
+function getTokenLevel(token, ownerTokens, empresaTokens, privateTokens) {
+  if (!token) return null;
+  if (ownerTokens.includes(token)) return 'owner';
+  if (empresaTokens.includes(token)) return 'empresa';
+  if (privateTokens.includes(token)) return 'invite';
+  return null;
+}
 
-  // No valid tokens configured → deny (avoids misconfigured open access)
-  if (!validTokens.length) {
-    return new Response(ACCESS_DENIED_HTML, {
-      status: 403,
-      headers: { 'Content-Type': 'text/html;charset=utf-8' },
-    });
+function deny() {
+  return new Response(ACCESS_DENIED_HTML, {
+    status: 403,
+    headers: { 'Content-Type': 'text/html;charset=utf-8' },
+  });
+}
+
+export default async function middleware(request) {
+  const url = new URL(request.url);
+  const isPrivate = url.pathname.startsWith('/data/private/');
+  const isEmpresa = url.pathname.startsWith('/data/empresa/');
+
+  // Parse all token lists
+  const ownerTokens = parseTokens(process.env.OWNER_TOKENS);
+  const empresaTokens = parseTokens(process.env.EMPRESA_TOKENS);
+  const privateTokens = parseTokens(process.env.PRIVATE_TOKENS);
+  const allValidTokens = [...ownerTokens, ...empresaTokens, ...privateTokens];
+
+  // No tokens configured at all → deny (safe default)
+  if (allValidTokens.length === 0) return deny();
+
+  // Extract token from URL param or cookies
+  const tokenParam = url.searchParams.get('t');
+  const cookieHeader = request.headers.get('cookie') || '';
+  const cookies = Object.fromEntries(
+    cookieHeader.split(';').map((c) => {
+      const [k, ...v] = c.trim().split('=');
+      return [k, v.join('=')];
+    })
+  );
+
+  const token = tokenParam || cookies.ix_auth || cookies.ix_pvt || cookies.ix_emp || null;
+
+  // Determine token level
+  const level = getTokenLevel(token, ownerTokens, empresaTokens, privateTokens);
+
+  // Check access
+  if (isPrivate) {
+    // Private requires owner or invite-level (with valid token in allValidTokens)
+    if (!level) return deny();
+    if (level !== 'owner' && level !== 'invite') return deny();
   }
 
-  // Token not present or invalid → 403
-  if (!token || !validTokens.includes(token)) {
-    return new Response(ACCESS_DENIED_HTML, {
-      status: 403,
-      headers: { 'Content-Type': 'text/html;charset=utf-8' },
-    });
+  if (isEmpresa) {
+    // Empresa requires owner or empresa level
+    if (!level) return deny();
+    if (level !== 'owner' && level !== 'empresa') return deny();
   }
 
   // Valid token from URL param → set cookie then redirect to clean URL
-  if (tokenParam) {
+  if (tokenParam && level) {
     const cleanUrl = new URL(url);
     cleanUrl.searchParams.delete('t');
+
+    const cookieName = isPrivate ? 'ix_pvt' : 'ix_emp';
+    const cookiePath = isPrivate ? '/data/private/' : '/data/empresa/';
+
     return new Response(null, {
       status: 302,
       headers: {
         Location: cleanUrl.toString(),
-        'Set-Cookie': `ix_pvt=${token}; Path=/data/private/; HttpOnly; Max-Age=604800; SameSite=Lax`,
+        'Set-Cookie': `${cookieName}=${token}; Path=${cookiePath}; HttpOnly; Max-Age=604800; SameSite=Lax`,
       },
     });
   }
 
   // Cookie valid → forward to static file
-  return fetch(request);
+  if (level) return fetch(request);
+
+  // No valid auth
+  return deny();
 }

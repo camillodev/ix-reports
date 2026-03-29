@@ -1,0 +1,75 @@
+import { PublishReportInput } from '../schemas/index.js';
+export declare const publishReportSchema: import("zod").ZodObject<{
+    filename: import("zod").ZodString;
+    html_content_base64: import("zod").ZodString;
+    title: import("zod").ZodString;
+    slug: import("zod").ZodString;
+    date: import("zod").ZodString;
+    meta: import("zod").ZodString;
+    client: import("zod").ZodString;
+    project: import("zod").ZodOptional<import("zod").ZodNullable<import("zod").ZodString>>;
+    tags: import("zod").ZodArray<import("zod").ZodString, "many">;
+    icon: import("zod").ZodDefault<import("zod").ZodOptional<import("zod").ZodString>>;
+    access: import("zod").ZodDefault<import("zod").ZodOptional<import("zod").ZodEnum<["public", "empresa", "pessoal", "private"]>>>;
+    pinned: import("zod").ZodDefault<import("zod").ZodOptional<import("zod").ZodBoolean>>;
+    allowedTokens: import("zod").ZodOptional<import("zod").ZodArray<import("zod").ZodString, "many">>;
+}, "strip", import("zod").ZodTypeAny, {
+    title: string;
+    slug: string;
+    date: string;
+    meta: string;
+    client: string;
+    tags: string[];
+    icon: string;
+    pinned: boolean;
+    access: "public" | "empresa" | "pessoal" | "private";
+    filename: string;
+    html_content_base64: string;
+    project?: string | null | undefined;
+    allowedTokens?: string[] | undefined;
+}, {
+    title: string;
+    slug: string;
+    date: string;
+    meta: string;
+    client: string;
+    tags: string[];
+    filename: string;
+    html_content_base64: string;
+    project?: string | null | undefined;
+    icon?: string | undefined;
+    pinned?: boolean | undefined;
+    access?: "public" | "empresa" | "pessoal" | "private" | undefined;
+    allowedTokens?: string[] | undefined;
+}>;
+export declare function publishReport(input: typeof PublishReportInput._type): Promise<{
+    success: boolean;
+    error: string;
+    details?: undefined;
+    warnings?: undefined;
+    url?: undefined;
+    slug?: undefined;
+    access?: undefined;
+    commitSha?: undefined;
+    commitUrl?: undefined;
+} | {
+    success: boolean;
+    error: string;
+    details: string[];
+    warnings: string[];
+    url?: undefined;
+    slug?: undefined;
+    access?: undefined;
+    commitSha?: undefined;
+    commitUrl?: undefined;
+} | {
+    success: boolean;
+    url: string;
+    slug: string;
+    access: "public" | "empresa" | "pessoal" | "private";
+    commitSha: string;
+    commitUrl: string;
+    warnings: string[] | undefined;
+    error?: undefined;
+    details?: undefined;
+}>;

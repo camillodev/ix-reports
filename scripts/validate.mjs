@@ -65,6 +65,17 @@ for (const r of reports) {
   if (r.date && !/^\d{4}-\d{2}-\d{2}$/.test(r.date)) {
     fail(`Report "${r.slug}": date "${r.date}" not in YYYY-MM-DD format`);
   }
+
+  // Access level (optional, defaults to "public")
+  const validAccess = ["public", "empresa", "pessoal", "private"];
+  if (r.access && !validAccess.includes(r.access)) {
+    fail(`Report "${r.slug}": invalid access "${r.access}" — must be one of: ${validAccess.join(", ")}`);
+  }
+
+  // allowedTokens must be array if present
+  if (r.allowedTokens && !Array.isArray(r.allowedTokens)) {
+    fail(`Report "${r.slug}": allowedTokens must be an array`);
+  }
 }
 
 // ─── Duplicate slugs ───

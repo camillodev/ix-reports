@@ -55,9 +55,29 @@ When adding a report, add to `data/reports.json`:
   "project": "project-slug-from-clients-json",
   "tags": ["estrategia", "financeiro", "people", "operacoes", "comercial", "cultura", "legal", "tech", "ritual"],
   "icon": "file-earmark-text",
-  "type": "html"
+  "type": "html",
+  "access": "public|empresa|pessoal|private",
+  "allowedTokens": ["ix_inv_token1"]
 }
 ```
+
+### Access Levels
+
+| Level | File Path | Who Sees |
+|-------|-----------|----------|
+| `public` | `data/{file}` | Everyone |
+| `empresa` | `data/{file}` | Company token holders |
+| `pessoal` | `data/private/{file}` | Owner token only |
+| `private` | `data/private/{file}` | Specific invite tokens in `allowedTokens` |
+
+Default is `"public"` — omitting `access` field means public.
+
+### MCP Publishing
+
+Use the MCP server (`mcp/`) to publish reports programmatically:
+- Tool `publish_report`: pushes HTML + updates reports.json atomically
+- Tool `list_reports`: lists reports with optional filters
+- Config: set `GITHUB_TOKEN` env var with a PAT that has repo write access
 
 ## Clients
 

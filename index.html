@@ -3,29 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Relatorio X — Reports</title>
+<title>Relatorio X — Reports Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="assets/css/tokens.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: ['selector', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        ix: {
+          green: 'var(--ix-green)',
+          'green-dark': 'var(--ix-green-dark)',
+          'green-light': 'var(--ix-green-light)',
+          'green-tint': 'var(--ix-green-tint)',
+          ink: 'var(--ix-ink)',
+          muted: 'var(--ix-muted)',
+          bg: 'var(--ix-bg)',
+          surface: 'var(--ix-surface)',
+          'surface-2': 'var(--ix-surface-2)',
+          'surface-3': 'var(--ix-surface-3)',
+          border: 'var(--ix-border)',
+        }
+      },
+      fontFamily: {
+        jakarta: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        mono: ['Roboto Mono', 'ui-monospace', 'monospace'],
+      },
+      boxShadow: {
+        'ix-sm': 'var(--ix-shadow-sm)',
+        'ix-card': 'var(--ix-shadow-card)',
+        'ix-md': 'var(--ix-shadow-md)',
+      },
+      borderRadius: {
+        'ix-sm': 'var(--ix-radius-sm)',
+        'ix-md': 'var(--ix-radius-md)',
+        'ix-lg': 'var(--ix-radius-lg)',
+      }
+    }
+  }
+}
+</script>
 <link href="assets/css/hub.css" rel="stylesheet">
 <link href="assets/css/cmd-k.css" rel="stylesheet">
 </head>
-<body>
+<body class="font-jakarta bg-ix-bg text-ix-ink min-h-screen antialiased">
 
 <!-- Topbar -->
-<header class="topbar">
-  <div class="topbar-left">
-    <button class="icon-btn hamburger" id="hamburger" aria-label="Menu">
+<header class="sticky top-0 z-[100] flex items-center justify-between h-14 px-6 bg-ix-surface border-b border-ix-border shadow-ix-sm max-md:px-4">
+  <div class="flex items-center gap-3.5">
+    <button class="icon-btn hamburger hidden max-md:inline-flex" id="hamburger" aria-label="Menu">
       <i class="bi bi-list"></i>
     </button>
-    <a href="#" class="brand">Relatorio <span class="x">X</span></a>
+    <a href="#" class="text-xl font-extrabold tracking-tight text-ix-ink no-underline">Relatorio <span class="text-ix-green">X</span></a>
   </div>
-  <div class="topbar-right">
-    <button class="cmdk-trigger" id="cmdk-trigger" type="button">
+  <div class="flex items-center gap-2.5">
+    <button class="cmdk-trigger max-md:hidden" id="cmdk-trigger" type="button">
       <i class="bi bi-search"></i>
       <span>Buscar...</span>
       <span class="shortcut">&#8984;K</span>
     </button>
+    <div id="auth-badge" class="hidden items-center gap-1.5 px-2.5 py-1 rounded-ix-sm text-xs font-semibold"></div>
     <button class="icon-btn" id="theme-toggle" title="Alternar tema">
       <i class="bi bi-moon-fill" id="theme-icon"></i>
     </button>
@@ -33,15 +73,16 @@
 </header>
 
 <!-- Sidebar overlay (mobile) -->
-<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="fixed inset-0 bg-black/40 z-[90] hidden" id="sidebar-overlay"></div>
 
 <!-- Layout -->
-<div class="app-layout">
+<div class="flex min-h-[calc(100vh-56px)]">
 
   <!-- Sidebar -->
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-label">Clientes</div>
+  <nav class="w-[280px] shrink-0 bg-ix-surface border-r border-ix-border py-4 overflow-y-auto max-h-[calc(100vh-56px)] sticky top-14 max-md:fixed max-md:top-0 max-md:left-0 max-md:bottom-0 max-md:z-[95] max-md:-translate-x-full max-md:transition-transform max-md:duration-200 max-md:max-h-screen max-md:pt-[72px]" id="sidebar">
+
+    <div class="px-4 mb-2">
+      <div class="text-xs font-bold tracking-wider text-ix-muted px-3 pt-2 mb-2">Clientes</div>
       <button class="nav-item active" id="tree-all-btn" data-filter="all">
         <i class="bi bi-grid-3x3-gap nav-icon"></i>
         <span class="nav-label">Todos</span>
@@ -50,9 +91,14 @@
       <div id="sidebar-tree"></div>
     </div>
 
-    <div class="sidebar-section">
-      <div class="sidebar-label">Categorias</div>
+    <div class="px-4 mb-2">
+      <div class="text-xs font-bold tracking-wider text-ix-muted px-3 pt-2 mb-2">Categorias</div>
       <div id="tag-filters"></div>
+    </div>
+
+    <div class="px-4 mb-2">
+      <div class="text-xs font-bold tracking-wider text-ix-muted px-3 pt-2 mb-2">Acesso</div>
+      <div id="access-filters"></div>
     </div>
 
     <div class="active-filters-bar hidden" id="active-filters">
@@ -62,13 +108,23 @@
   </nav>
 
   <!-- Main -->
-  <main class="main-content">
-    <div class="main-toolbar">
-      <div class="main-toolbar-left">
-        <div class="main-title" id="main-title">Relatorios</div>
-        <div class="main-count"><span id="total-count">0</span> documentos</div>
+  <main class="flex-1 overflow-auto px-12 py-10 min-w-0 max-md:px-4 max-md:py-5">
+    <!-- Toolbar -->
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-8 max-md:flex-col max-md:items-start">
+      <div class="flex items-baseline gap-3">
+        <h1 class="text-2xl font-extrabold tracking-tight" id="main-title">Relatorios</h1>
+        <span class="text-sm text-ix-muted"><span id="total-count">0</span> documentos</span>
       </div>
-      <div class="main-toolbar-right">
+      <div class="flex items-center gap-2">
+        <!-- Sort dropdown -->
+        <select id="sort-select" class="text-sm bg-ix-surface-2 border border-ix-border rounded-ix-sm px-3 py-1.5 text-ix-ink font-medium cursor-pointer focus:outline-none focus:border-ix-green font-jakarta">
+          <option value="date-desc">Data ↓</option>
+          <option value="date-asc">Data ↑</option>
+          <option value="title-asc">Título A-Z</option>
+          <option value="title-desc">Título Z-A</option>
+          <option value="client-asc">Cliente</option>
+        </select>
+        <!-- View toggle -->
         <div class="view-toggle">
           <button class="view-toggle-btn active" data-view="list" title="Lista"><i class="bi bi-list-ul"></i></button>
           <button class="view-toggle-btn" data-view="grid" title="Grid"><i class="bi bi-grid-3x3-gap"></i></button>
@@ -76,23 +132,28 @@
       </div>
     </div>
 
-    <!-- List view -->
+    <!-- Report rows -->
     <div class="reports-list" id="reports-list"></div>
 
     <div class="empty-state hidden" id="empty-state">
-      <div style="font-size:36px;margin-bottom:12px"><i class="bi bi-search"></i></div>
-      <p>Nenhum relatorio encontrado para esse filtro.</p>
+      <div class="text-4xl mb-3 text-ix-muted"><i class="bi bi-search"></i></div>
+      <p class="text-ix-muted">Nenhum relatorio encontrado para esse filtro.</p>
     </div>
 
-    <nav aria-label="Paginacao" class="mt-4" id="pagination-nav">
-      <ul class="pagination" id="pagination"></ul>
-    </nav>
+    <!-- Pagination -->
+    <div class="mt-6" id="pagination-wrap">
+      <div class="text-center text-sm text-ix-muted mb-2" id="pagination-info"></div>
+      <nav aria-label="Paginacao">
+        <ul class="pagination" id="pagination"></ul>
+      </nav>
+    </div>
   </main>
 
 </div>
 
-<footer class="app-footer">
-  Relatorio <span class="x-mark">X</span> — Rafael Camillo · <span id="footer-count">0</span> reports
+<!-- Footer -->
+<footer class="text-sm text-center py-5 border-t border-ix-border text-ix-muted">
+  Relatorio <span class="text-ix-green font-bold">X</span> — Rafael Camillo · <span id="footer-count">0</span> reports
 </footer>
 
 <!-- Cmd+K Palette -->
@@ -111,9 +172,23 @@
   </div>
 </div>
 
+<!-- Token Auth Modal -->
+<div class="fixed inset-0 bg-black/50 z-[200] hidden items-center justify-center" id="auth-modal">
+  <div class="bg-ix-surface rounded-ix-lg p-8 max-w-sm w-full mx-4 shadow-ix-md">
+    <h2 class="text-lg font-bold mb-1">Entrar com Token</h2>
+    <p class="text-sm text-ix-muted mb-4">Cole o token de acesso fornecido por Impact X.</p>
+    <input type="text" id="auth-token-input" placeholder="ix_emp_..." class="w-full px-3 py-2 text-sm bg-ix-surface-2 border border-ix-border rounded-ix-sm focus:outline-none focus:border-ix-green font-mono">
+    <div class="flex gap-2 mt-4">
+      <button id="auth-token-save" class="flex-1 px-4 py-2 bg-ix-green text-white font-semibold text-sm rounded-ix-sm hover:opacity-90 transition-opacity">Entrar</button>
+      <button id="auth-modal-close" class="px-4 py-2 bg-ix-surface-2 text-ix-muted font-semibold text-sm rounded-ix-sm border border-ix-border hover:text-ix-ink transition-colors">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/hub.js"></script>
 <script src="assets/js/cmd-k.js"></script>
 </body>
