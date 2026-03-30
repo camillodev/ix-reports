@@ -176,13 +176,22 @@
 
   window.addEventListener('hashchange', readHash);
 
+  // ─── Helper: accessible reports ───
+  function getAccessibleReports() {
+    return reports.filter(function (r) {
+      return !window.IXAuth || window.IXAuth.canAccess(r);
+    });
+  }
+
   // ─── Sidebar: Clients ───
   function renderTree() {
     sidebarTree.textContent = '';
+    var accessible = getAccessibleReports();
     var clientKeys = Object.keys(clients);
     clientKeys.forEach(function (key) {
       var c = clients[key];
-      var count = reports.filter(function (r) { return r.client === key; }).length;
+      var count = accessible.filter(function (r) { return r.client === key; }).length;
+      if (count === 0) return; // Hide clients with no accessible reports
       var btn = el('button', { className: 'nav-item', 'data-client': key });
       btn.appendChild(el('i', { className: 'bi bi-' + (c.icon || 'building') + ' nav-icon' }));
       btn.appendChild(el('span', { className: 'nav-label', textContent: c.name }));
@@ -194,14 +203,15 @@
       });
       sidebarTree.appendChild(btn);
     });
-    countAll.textContent = reports.length;
+    countAll.textContent = accessible.length;
   }
 
   // ─── Sidebar: Tags ───
   function renderTags() {
     tagFiltersEl.textContent = '';
+    var accessible = getAccessibleReports();
     var tagMap = {};
-    reports.forEach(function (r) {
+    accessible.forEach(function (r) {
       (r.tags || []).forEach(function (t) { tagMap[t] = (tagMap[t] || 0) + 1; });
     });
     var sortedTags = Object.keys(tagMap).sort(function (a, b) { return tagMap[b] - tagMap[a]; });

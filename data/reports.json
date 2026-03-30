@@ -12,7 +12,8 @@
       "comercial"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "ix-video — Content Robot (CLI)",
@@ -29,7 +30,8 @@
     ],
     "icon": "camera-video",
     "type": "html",
-    "pinned": false
+    "pinned": false,
+    "access": "public"
   },
   {
     "title": "PRD — Automação Financeira Kumon (MVP)",
@@ -46,7 +48,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "pinned": false
+    "pinned": false,
+    "access": "empresa"
   },
   {
     "title": "Cargo AE — Diagnóstico & Estrutura",
@@ -62,7 +65,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "pinned": false
+    "pinned": false,
+    "access": "empresa"
   },
   {
     "title": "Agentes Autonomos — Guia Comparativo 2026",
@@ -80,7 +84,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "pinned": true
+    "pinned": true,
+    "access": "empresa"
   },
   {
     "title": "Life Design — Redesenhar pra Existir",
@@ -127,7 +132,8 @@
       "financeiro"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "ConcursoAI — Relatorio Completo",
@@ -142,7 +148,8 @@
       "estrategia"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Relatorio Kumon BH-Camargos",
@@ -157,7 +164,8 @@
       "financeiro"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Viagem Itacare",
@@ -219,7 +227,8 @@
       "comercial"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Guia de Fortalecimento do Ori — Iemanjá & Oxossi",
@@ -248,7 +257,8 @@
       "estrategia"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Manifesto Impact X (PT/EN)",
@@ -262,7 +272,8 @@
       "cultura"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Missão, Visão e Valores",
@@ -308,7 +319,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "00"
+    "num": "00",
+    "access": "empresa"
   },
   {
     "title": "Modelo de Negócio",
@@ -323,7 +335,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "01"
+    "num": "01",
+    "access": "empresa"
   },
   {
     "title": "Projeção Financeira 2026",
@@ -338,7 +351,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "02"
+    "num": "02",
+    "access": "empresa"
   },
   {
     "title": "Estratégia Comercial",
@@ -354,7 +368,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "05"
+    "num": "05",
+    "access": "empresa"
   },
   {
     "title": "Métricas do Negócio",
@@ -370,7 +385,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "06"
+    "num": "06",
+    "access": "empresa"
   },
   {
     "title": "Time Mínimo Recomendado",
@@ -386,7 +402,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "07"
+    "num": "07",
+    "access": "empresa"
   },
   {
     "title": "Roadmap 2026",
@@ -401,7 +418,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "08"
+    "num": "08",
+    "access": "empresa"
   },
   {
     "title": "Action Items",
@@ -417,7 +435,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "09"
+    "num": "09",
+    "access": "empresa"
   },
   {
     "title": "Estratégia G2i — Entrevista",
@@ -432,7 +451,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "10"
+    "num": "10",
+    "access": "empresa"
   },
   {
     "title": "Processo Comercial MVP",
@@ -448,7 +468,8 @@
     ],
     "icon": "file-earmark-text",
     "type": "html",
-    "num": "11"
+    "num": "11",
+    "access": "empresa"
   },
   {
     "title": "Projeto Inglês — Kumon & Comercial",
@@ -463,7 +484,8 @@
       "operacoes"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "G2i Interview Prep — EN Version",
@@ -477,7 +499,8 @@
       "comercial"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Sistema de Skills v2 — Mapa Completo",
@@ -538,7 +561,8 @@
       "financeiro"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "Café · Coworking · Lavanderia — Análise por Cidade",
@@ -553,7 +577,8 @@
       "financeiro"
     ],
     "icon": "file-earmark-text",
-    "type": "html"
+    "type": "html",
+    "access": "empresa"
   },
   {
     "title": "PRD — ConcursoAI",
@@ -568,7 +593,8 @@
       "estrategia"
     ],
     "icon": "file-earmark-code",
-    "type": "md"
+    "type": "md",
+    "access": "empresa"
   },
   {
     "title": "Plano Gamificado de Recuperação (TDAH-proof)",
@@ -598,7 +624,8 @@
       "tech"
     ],
     "icon": "file-earmark-pdf",
-    "type": "pdf"
+    "type": "pdf",
+    "access": "empresa"
   },
   {
     "title": "OpenClaw — Token Optimization Guide",
@@ -612,7 +639,8 @@
       "tech"
     ],
     "icon": "file-earmark-pdf",
-    "type": "pdf"
+    "type": "pdf",
+    "access": "empresa"
   },
   {
     "title": "Conexões Profundas — Competitor Analysis",
@@ -627,7 +655,8 @@
       "estrategia"
     ],
     "icon": "file-earmark-pdf",
-    "type": "pdf"
+    "type": "pdf",
+    "access": "empresa"
   },
   {
     "title": "PRD — Jogo Echoville (3 Atos)",
