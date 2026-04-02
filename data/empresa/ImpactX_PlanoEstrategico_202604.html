@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Plano de Ação Estratégico</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ix-ink:#1A1D21;--ix-muted:#6B7280;--ix-green:#11C76F;--ix-green-dark:#059669;--ix-green-bg:#D1FAE5;--ix-green-tint:#ECFDF5;--ix-bg:#F4F6F9;--ix-surface:#FFF;--ix-border:#E8ECF1;--ix-warning:#D4820A;--ix-danger:#C0392B;--ix-blue:#3B82F6;--ix-blue-tint:#EFF6FF;--ix-purple:#7C3AED;--ix-purple-tint:#EDE9FE;--ix-cyan:#06B6D4;--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-shadow-sm:0 1px 3px rgba(0,0,0,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body.ix-report{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;line-height:1.6;color:var(--ix-ink);background:var(--ix-bg)}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}
+.topbar .back-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;color:var(--ix-muted)}
+.topbar .brand{font-weight:800;font-size:18px;color:var(--ix-ink);text-decoration:none;letter-spacing:.5px}
+.topbar .brand .x{color:var(--ix-green)}
+.topbar-title{font-size:14px;font-weight:600;color:var(--ix-muted)}
+.tab-nav{position:fixed;top:56px;left:0;right:0;z-index:99;display:flex;gap:4px;padding:8px 24px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:var(--ix-muted);padding:8px 16px;border-radius:var(--ix-radius-sm);transition:all .2s;flex-shrink:0}
+.tab-btn:hover{background:var(--ix-green-tint);color:var(--ix-green-dark)}
+.tab-btn.active{background:var(--ix-green);color:#fff}
+.tab-panel{display:none;padding-top:130px;padding-bottom:80px}
+.tab-panel.active{display:block}
+.content{max-width:900px;margin:0 auto;padding:0 24px}
+.report-header{background:var(--ix-green-tint);padding:48px 24px 36px;margin:-130px -24px 32px;padding-top:160px;border-radius:0 0 var(--ix-radius-lg) var(--ix-radius-lg);position:relative;overflow:hidden}
+.report-header::after{content:'X';position:absolute;right:-20px;top:-10px;font-size:280px;font-weight:900;color:var(--ix-green);opacity:.06;pointer-events:none;line-height:1}
+.hdr-brand{font-size:13px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.hdr-title{font-size:32px;font-weight:800;color:var(--ix-ink);margin-bottom:8px}
+.hdr-title em{font-style:normal;color:var(--ix-green)}
+.hdr-sub{font-size:18px;color:var(--ix-muted);margin-bottom:16px}
+.hdr-meta{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--ix-muted)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:24px 0}
+.mc{background:var(--ix-surface);border-radius:var(--ix-radius-md);padding:20px;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border)}
+.mc .label{font-size:13px;font-weight:600;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.5px}
+.mc .value{font-family:'Roboto Mono',monospace;font-size:28px;font-weight:700;color:var(--ix-green);margin:4px 0}
+.mc .detail{font-size:14px;color:var(--ix-muted)}
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--ix-surface);border-radius:var(--ix-radius-md);overflow:hidden;box-shadow:var(--ix-shadow-sm)}
+thead{background:var(--ix-ink)}
+thead th{padding:12px 16px;font-size:13px;font-weight:700;color:#fff;text-align:left;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:12px 16px;font-size:15px;border-bottom:1px solid var(--ix-border)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--ix-green-tint)}
+.callout{padding:16px 20px;border-radius:var(--ix-radius-sm);margin:20px 0;font-size:15px;border-left:4px solid}
+.callout.success{background:var(--ix-green-bg);border-color:var(--ix-green);color:var(--ix-green-dark)}
+.callout.warning{background:#FEF3C7;border-color:var(--ix-warning);color:#92400E}
+.callout.danger{background:#FEE2E2;border-color:var(--ix-danger);color:#991B1B}
+.callout.info{background:var(--ix-green-tint);border-color:#34D399;color:var(--ix-ink)}
+.callout.ai{background:var(--ix-purple-tint);border-color:var(--ix-purple);color:#5B21B6}
+.callout.human{background:var(--ix-blue-tint);border-color:var(--ix-blue);color:#1D4ED8}
+.callout strong{display:block;margin-bottom:4px}
+h2{font-size:24px;font-weight:800;margin:32px 0 16px;color:var(--ix-ink)}
+h3{font-size:18px;font-weight:700;margin:24px 0 12px;color:var(--ix-ink)}
+p{margin-bottom:16px}
+ul,ol{margin:12px 0 16px 24px}
+li{margin-bottom:8px}
+footer{text-align:center;padding:32px 24px;font-size:14px;color:var(--ix-muted)}
+footer .brand{font-weight:800;font-size:16px;color:var(--ix-ink);margin-bottom:4px}
+footer .brand .x{color:var(--ix-green)}
+.action-card{background:var(--ix-surface);border-radius:var(--ix-radius-md);padding:20px;margin:16px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border);border-left:4px solid var(--ix-green)}
+.action-card.human{border-left-color:var(--ix-blue)}
+.action-card.ai{border-left-color:var(--ix-purple)}
+.action-card.hybrid{border-left-color:var(--ix-cyan)}
+.action-card .ac-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.action-card .ac-title{font-size:17px;font-weight:800}
+.action-card .ac-meta{display:flex;gap:6px;flex-wrap:wrap}
+.badge{display:inline-block;font-family:'Roboto Mono',monospace;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.badge.p0{background:#FEE2E2;color:#991B1B}
+.badge.p1{background:#FEF3C7;color:#92400E}
+.badge.p2{background:var(--ix-green-tint);color:var(--ix-green-dark)}
+.badge.human-b{background:var(--ix-blue-tint);color:#1D4ED8}
+.badge.ai-b{background:var(--ix-purple-tint);color:#5B21B6}
+.badge.hybrid-b{background:#ECFEFF;color:#0E7490}
+.badge.cost{background:#F3F4F6;color:#4B5563}
+.ac-desc{font-size:14px;color:var(--ix-muted);margin-bottom:8px}
+.ac-details{font-size:13px}
+.ac-details dt{font-weight:700;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.5px;font-size:12px;margin-top:8px}
+.ac-details dd{margin-left:0}
+.ai-card{background:var(--ix-surface);border-radius:var(--ix-radius-md);padding:20px;margin:16px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border);border-left:4px solid var(--ix-purple)}
+.ai-card .ai-title{font-size:17px;font-weight:800;margin-bottom:6px}
+.ai-card .ai-sub{font-size:13px;color:var(--ix-purple);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.ai-card .ai-body{font-size:14px}
+.ai-card .ai-body dt{font-weight:700;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.5px;font-size:12px;margin-top:10px}
+.ai-card .ai-body dd{margin-left:0;font-size:14px}
+@media(max-width:640px){.hdr-title{font-size:24px}.metrics-grid{grid-template-columns:1fr}.tab-nav{padding:8px 12px}.content{padding:0 16px}}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Plano Estratégico</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="diagnostico">Diagnóstico</button>
+  <button type="button" class="tab-btn" data-tab="acoes">Plano de Ação</button>
+  <button type="button" class="tab-btn" data-tab="custos">Custos</button>
+  <button type="button" class="tab-btn" data-tab="ia">Soluções IA</button>
+</nav>
+
+<!-- ==================== TAB 1: DIAGNÓSTICO ==================== -->
+<div class="tab-panel active" data-tab="diagnostico" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header">
+  <div class="hdr-brand">Impact X · Estratégia</div>
+  <h1 class="hdr-title">Plano de Ação<br><em>IX vs Concorrentes</em></h1>
+  <p class="hdr-sub">Análise de gaps · 18 ações priorizadas · Custos detalhados · Soluções IA</p>
+  <p class="hdr-meta">Abril 2026 · Segmento: Funded Startups (Seed→Series B) · Staff Aug Senior BR Devs</p>
+</div>
+
+<h2>Diagnóstico: onde a IX perde e ganha hoje</h2>
+
+<table>
+  <thead><tr><th>Dimensão</th><th>IX hoje</th><th>Melhor concorrente</th><th>Gap</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Credibilidade</strong></td><td>Zero cases, zero reviews</td><td>Howdy: YC-backed, 98% retention, Inc 5000</td><td style="color:#991B1B"><strong>Crítico</strong></td></tr>
+    <tr><td><strong>Pool de devs</strong></td><td>Rede pessoal do Rafa</td><td>Revelo: 400k+ devs, Howdy: GeekHunter (400k BR)</td><td style="color:#991B1B"><strong>Crítico</strong></td></tr>
+    <tr><td><strong>EOR/Compliance</strong></td><td>Nenhum</td><td>Howdy: full EOR em 7 países, Near: payroll+HR</td><td style="color:#92400E"><strong>Alto</strong></td></tr>
+    <tr><td><strong>Brand awareness</strong></td><td>Nenhum no mercado US</td><td>BEON.tech: content marketing forte, Lemon.io: SEO agressivo</td><td style="color:#92400E"><strong>Alto</strong></td></tr>
+    <tr><td><strong>Velocidade</strong></td><td>5 dias lead→proposta</td><td>Howdy: 4-6 semanas, Revelo: 14 dias</td><td style="color:#059669"><strong>IX lidera</strong></td></tr>
+    <tr><td><strong>Preço</strong></td><td>$10k/projeto (~$40-65/hr)</td><td>TECLA: $15-70/hr, CloudDevs: $45-75/hr</td><td style="color:#059669"><strong>IX competitiva</strong></td></tr>
+    <tr><td><strong>Relação CTO-to-CTO</strong></td><td>Rafa é senior dev, fala a língua</td><td>Concorrentes usam SDRs e account managers</td><td style="color:#059669"><strong>IX lidera</strong></td></tr>
+    <tr><td><strong>Overhead operacional</strong></td><td>3 pessoas + AI</td><td>Howdy: 300+, Revelo: 250, BEON: 100-200</td><td style="color:#059669"><strong>IX lidera (margem)</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="callout danger">
+  <strong>Os 2 gaps que matam deals antes de começar</strong>
+  1. <strong>Sem cases/reviews</strong> — CTO abre o site da IX e não vê nenhum projeto entregue. Vai pro Howdy que tem Coinbase como cliente.<br>
+  2. <strong>Sem pool de devs</strong> — Se o CTO pedir "2 React seniors pra semana que vem", a IX não tem bench. Howdy tem 400k profiles.
+</div>
+
+<div class="callout success">
+  <strong>Os 3 diferenciais que justificam a IX existir</strong>
+  1. <strong>Preço de entrada</strong> — $10k projeto = baixo risco pra testar. Howdy cobra ongoing salary+15%.<br>
+  2. <strong>Velocidade</strong> — 5 dias vs. 4-6 semanas. Startup não espera.<br>
+  3. <strong>Founder-led</strong> — Rafa fala TypeScript, não pitch deck. CTO sente isso na call.
+</div>
+
+<h2>Mapa de ameaças por concorrente</h2>
+
+<table>
+  <thead><tr><th>Concorrente</th><th>Ameaça</th><th>Onde supera a IX</th><th>Onde a IX pode ganhar</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Howdy</strong></td><td style="color:#991B1B"><strong>Alta</strong></td><td>Brand, retention 98%, YC, EOR, GeekHunter BR</td><td>Preço, velocidade, founder-led, projeto vs. ongoing</td></tr>
+    <tr><td><strong>BEON.tech</strong></td><td style="color:#991B1B"><strong>Alta</strong></td><td>Content marketing, posicionamento similar, AR base</td><td>BR talent (mais barato que AR), AI ops, velocidade</td></tr>
+    <tr><td><strong>Revelo</strong></td><td style="color:#92400E">Média</td><td>400k devs, 2-week trial, brand, Series B</td><td>Boutique vs marketplace, preço, relação pessoal</td></tr>
+    <tr><td><strong>Lemon.io</strong></td><td style="color:#92400E">Média</td><td>SEO forte, 48hr match, startup brand</td><td>Staff aug > freelancer, dedicação, senior quality</td></tr>
+    <tr><td><strong>Near</strong></td><td style="color:#92400E">Média</td><td>Multi-role, EOR included, Inc 5000</td><td>Dev-specialized vs generalista, preço</td></tr>
+    <tr><td><strong>CloudDevs</strong></td><td style="color:#059669">Baixa</td><td>500k pool (post-merger), 24hr match</td><td>Vetting quality, senior focus, relação</td></tr>
+    <tr><td><strong>TECLA</strong></td><td style="color:#059669">Baixa</td><td>Preço mais baixo ($15/hr)</td><td>Senior quality, não é body shop</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ==================== TAB 2: PLANO DE AÇÃO ==================== -->
+<div class="tab-panel" data-tab="acoes" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>18 Ações Priorizadas — 90 dias</h2>
+
+<div class="callout info">
+  <strong>Legenda</strong>
+  <span class="badge p0">P0</span> Crítico (semana 1-2) · 
+  <span class="badge p1">P1</span> Alto (semana 3-6) · 
+  <span class="badge p2">P2</span> Importante (semana 7-12) · 
+  <span class="badge human-b">HUMANO</span> · 
+  <span class="badge ai-b">IA</span> · 
+  <span class="badge hybrid-b">HÍBRIDO</span>
+</div>
+
+<h3>🔴 P0 — Semana 1-2 (eliminar blockers)</h3>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">1. Fechar 3 primeiros deals por referral</div>
+    <div class="ac-meta"><span class="badge p0">P0</span><span class="badge human-b">HUMANO</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Sem cases, nada funciona. Os 3 primeiros deals vêm do network pessoal do Rafa — ex-colegas, ex-clientes, contatos G2I.</div>
+  <dl class="ac-details">
+    <dt>Ação</dt><dd>Rafa lista 10 contatos que podem indicar ou contratar. Nicole faz outreach personalizado pra cada um.</dd>
+    <dt>Dono</dt><dd>Rafa (relacionamento) + Nicole (execução outreach)</dd>
+    <dt>Meta</dt><dd>3 deals fechados em 60 dias</dd>
+    <dt>Custo</dt><dd>$0 — só tempo</dd>
+    <dt>Mitiga</dt><dd>Gap de credibilidade — cada deal vira case publicável</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">2. Construir bench de 10 senior devs BR</div>
+    <div class="ac-meta"><span class="badge p0">P0</span><span class="badge hybrid-b">HÍBRIDO</span><span class="badge cost">~$200/mês</span></div>
+  </div>
+  <div class="ac-desc">Sem bench, não escala. Precisa ter 10 devs verificados e prontos pra alocar quando o deal fechar.</div>
+  <dl class="ac-details">
+    <dt>Ação humana</dt><dd>Rafa faz entrevista técnica final (30min cada). Nicole gerencia pipeline de candidatos.</dd>
+    <dt>Ação IA</dt><dd>Claude faz screening inicial de CVs, analisa GitHub/LinkedIn, gera relatório de fit por stack. n8n automatiza coleta de candidatos de fontes (LinkedIn, comunidades BR).</dd>
+    <dt>Meta</dt><dd>10 devs verificados (React, Node, Python, TypeScript) em 30 dias</dd>
+    <dt>Custo</dt><dd>Claude Max ($100/mês) + ferramentas de sourcing (~$100/mês)</dd>
+    <dt>Mitiga</dt><dd>Gap de pool de devs — "temos os perfis, posso mostrar CVs amanhã"</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">3. Site IX com cases e social proof</div>
+    <div class="ac-meta"><span class="badge p0">P0</span><span class="badge hybrid-b">HÍBRIDO</span><span class="badge cost">~$50/mês</span></div>
+  </div>
+  <div class="ac-desc">CTO vai pesquisar a IX antes de aceitar a call. Site precisa existir com: proposta de valor, stack, e (assim que tiver) cases.</div>
+  <dl class="ac-details">
+    <dt>Ação humana</dt><dd>Rafa define messaging e aprova. Nicole popula conteúdo.</dd>
+    <dt>Ação IA</dt><dd>Claude gera copy com brand voice IX. Site em Next.js no Vercel (stack IX, custo zero). Design via Cursor + Claude.</dd>
+    <dt>Meta</dt><dd>Site live em 2 semanas. Seções: Hero, How it works, Stack, Pricing, Cases (placeholder → real)</dd>
+    <dt>Custo</dt><dd>Vercel free tier + domínio (~$15/ano) + Cursor Pro ($20/mês)</dd>
+    <dt>Mitiga</dt><dd>Gap de credibilidade + brand awareness</dd>
+  </dl>
+</div>
+
+<h3>🟡 P1 — Semana 3-6 (construir vantagem)</h3>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">4. Parceria EOR com Deel (contractor plan)</div>
+    <div class="ac-meta"><span class="badge p1">P1</span><span class="badge human-b">HUMANO</span><span class="badge cost">$49/dev/mês</span></div>
+  </div>
+  <div class="ac-desc">Clientes US precisam de compliance. Deel Contractor ($49/mês por dev) resolve sem o custo de EOR full ($599/mês).</div>
+  <dl class="ac-details">
+    <dt>Ação</dt><dd>Rafa configura conta Deel. Iniciar com Contractor plan ($49/dev). Escalar pra EOR ($599) quando volume justificar.</dd>
+    <dt>Por que Deel</dt><dd>Free contractor management pra IX, marca conhecida que dá confiança ao CTO cliente.</dd>
+    <dt>Custo real</dt><dd>$49/dev/mês × 5 devs = $245/mês. Repassável ao cliente no pricing.</dd>
+    <dt>Mitiga</dt><dd>Gap de EOR/compliance — "we handle compliance through Deel"</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">5. Content engine: LinkedIn de Rafa (3x/semana)</div>
+    <div class="ac-meta"><span class="badge p1">P1</span><span class="badge hybrid-b">HÍBRIDO</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">BEON.tech e Lemon.io cresceram por content. Rafa precisa ser "o cara de nearshore BR pra startups" no LinkedIn.</div>
+  <dl class="ac-details">
+    <dt>Ação humana</dt><dd>Rafa revisa e publica. Comenta em posts de CTOs. Engaja com comunidade.</dd>
+    <dt>Ação IA</dt><dd>Claude gera 3 drafts/semana com brand voice IX (ix-content-engine). Temas: nearshore insights, BR dev market, startup hiring tips. Buffer pra agendamento.</dd>
+    <dt>Meta</dt><dd>1000 followers em 90 dias. 2-3 inbound leads/mês via LinkedIn.</dd>
+    <dt>Custo</dt><dd>$0 (Claude Max já pago, Buffer free tier)</dd>
+    <dt>Mitiga</dt><dd>Gap de brand awareness</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">6. Auto-research: Claude pesquisa leads automaticamente</div>
+    <div class="ac-meta"><span class="badge p1">P1</span><span class="badge ai-b">IA</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Howdy tem 300 pessoas. A IX tem 3. Automação de pesquisa de leads é o multiplicador.</div>
+  <dl class="ac-details">
+    <dt>Ação IA</dt><dd>n8n workflow: recebe nome da empresa → Claude pesquisa Crunchbase/LinkedIn/site → preenche campos do HubSpot automaticamente → gera Fit Check score.</dd>
+    <dt>Economia</dt><dd>30min/lead manual → 2min/lead automático. 10 leads/dia vs. 3 leads/dia.</dd>
+    <dt>Custo</dt><dd>$0 (n8n self-hosted + Claude API já no stack)</dd>
+    <dt>Mitiga</dt><dd>Gap de escala na prospecção</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">7. Proposal generator automático</div>
+    <div class="ac-meta"><span class="badge p1">P1</span><span class="badge ai-b">IA</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Após discovery, Claude gera proposta branded via ix-reports em 10 minutos. Concorrentes levam 2-5 dias.</div>
+  <dl class="ac-details">
+    <dt>Ação IA</dt><dd>Template de proposta no ix-reports + n8n trigger pós-discovery → Claude preenche com dados do deal → Rafa/Pimenta revisam e enviam.</dd>
+    <dt>Economia</dt><dd>2-3 horas/proposta manual → 15 minutos review. Proposta sai no mesmo dia da call.</dd>
+    <dt>Mitiga</dt><dd>Amplifica vantagem de velocidade</dd>
+  </dl>
+</div>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">8. Definir nicho de stack: React + Node + TypeScript</div>
+    <div class="ac-meta"><span class="badge p1">P1</span><span class="badge human-b">HUMANO</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">"Fazemos tudo" não vende. "Os melhores senior React/Node BR pra startups" vende. É o stack da IX, é o stack mais demandado.</div>
+  <dl class="ac-details">
+    <dt>Ação</dt><dd>Rafa decide e comunica. Todo material, site, outreach, e bench de devs focam nesse stack.</dd>
+    <dt>Mitiga</dt><dd>Diferenciação vs. generalistas (Near, TECLA, CloudDevs)</dd>
+  </dl>
+</div>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">9. Programa de referral com incentivo</div>
+    <div class="ac-meta"><span class="badge p1">P1</span><span class="badge human-b">HUMANO</span><span class="badge cost">$500-1000/referral</span></div>
+  </div>
+  <div class="ac-desc">CTOs contratam por referral de outros CTOs. Cada deal fechado por indicação = $500-1000 pro indicador.</div>
+  <dl class="ac-details">
+    <dt>Ação</dt><dd>Rafa cria programa simples: "Indique um CTO → se fechar, você ganha $500-1000". Divulga no network e LinkedIn.</dd>
+    <dt>Custo</dt><dd>$500-1000 por deal fechado (só paga se converter). CAC de ~5-10% do deal value.</dd>
+    <dt>Mitiga</dt><dd>Gap de brand awareness + pipeline de leads qualificados</dd>
+  </dl>
+</div>
+
+<h3>🟢 P2 — Semana 7-12 (escalar)</h3>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">10. Funding monitor para Future Pipeline</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge ai-b">IA</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Monitorar Crunchbase/LinkedIn automaticamente pra detectar quando leads do Future Pipeline fecham novo round ou postam vagas.</div>
+  <dl class="ac-details">
+    <dt>Ação IA</dt><dd>n8n cron diário → scrape Crunchbase API + LinkedIn → compara com deals no Future Pipeline → alerta Rafa se houver sinal.</dd>
+    <dt>Mitiga</dt><dd>Reativação automática de leads futuros</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">11. Weekly Pipeline Pulse automatizado</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge ai-b">IA</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Toda sexta: n8n puxa dados do HubSpot → Claude gera relatório semanal do pipeline → envia pra Rafa, Pimenta e Nicole.</div>
+</div>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">12. Coletar reviews e testimonials</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge human-b">HUMANO</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Após cada projeto entregue, pedir testimonial ao CTO. Publicar no site, LinkedIn, e Clutch (quando tiver 3+).</div>
+  <dl class="ac-details">
+    <dt>Meta</dt><dd>3 testimonials em 90 dias. 1 case study detalhado.</dd>
+    <dt>Mitiga</dt><dd>Gap de credibilidade — social proof real</dd>
+  </dl>
+</div>
+
+<div class="action-card hybrid">
+  <div class="ac-header">
+    <div class="ac-title">13. Outreach automatizado (Apollo + Claude)</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge hybrid-b">HÍBRIDO</span><span class="badge cost">~$50/mês</span></div>
+  </div>
+  <div class="ac-desc">Apollo identifica CTOs de funded startups → Claude gera email personalizado com brand voice → Nicole/Rafa revisam e enviam.</div>
+  <dl class="ac-details">
+    <dt>Custo</dt><dd>Apollo free tier (250 emails/mês) ou Pro ($49/mês pra 10k emails)</dd>
+  </dl>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">14. Samantha WhatsApp qualifier</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge ai-b">IA</span><span class="badge cost">~$12/mês</span></div>
+  </div>
+  <div class="ac-desc">Agente WhatsApp (já em build no OpenClaw) qualifica inbound leads com perguntas naturais antes de passar pro Pimenta.</div>
+</div>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">15. Participar de 2 comunidades de CTOs</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge human-b">HUMANO</span><span class="badge cost">$0-200/mês</span></div>
+  </div>
+  <div class="ac-desc">CTO Craft, Rands Leadership Slack, ou equivalentes. Presença onde CTOs trocam referências de staffing.</div>
+</div>
+
+<div class="action-card ai">
+  <div class="ac-header">
+    <div class="ac-title">16. SEO: 4 artigos/mês no blog IX</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge ai-b">IA</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Lemon.io e BEON.tech dominam SEO de "hire LATAM developers". IX precisa competir com conteúdo técnico real, não genérico.</div>
+  <dl class="ac-details">
+    <dt>Ação IA</dt><dd>Claude gera artigos técnicos com insights reais de Rafa. Temas: "React developer cost Brazil vs US", "How to hire senior Node devs in LATAM".</dd>
+  </dl>
+</div>
+
+<div class="action-card human">
+  <div class="ac-header">
+    <div class="ac-title">17. Processo de vetting documentado e publicável</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge human-b">HUMANO</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Howdy fala "98% retention". A IX precisa de um número. Documentar o processo de vetting (técnico + cultural) e publicar no site.</div>
+</div>
+
+<div class="action-card hybrid">
+  <div class="ac-header">
+    <div class="ac-title">18. Dashboard de métricas competitivas</div>
+    <div class="ac-meta"><span class="badge p2">P2</span><span class="badge hybrid-b">HÍBRIDO</span><span class="badge cost">$0</span></div>
+  </div>
+  <div class="ac-desc">Tracker mensal: pipeline velocity IX vs. benchmarks de concorrentes. Claude gera relatório comparativo automático.</div>
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 3: CUSTOS ==================== -->
+<div class="tab-panel" data-tab="custos" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Investimento total — 90 dias</h2>
+
+<div class="metrics-grid">
+  <div class="mc"><div class="label">Custo fixo/mês</div><div class="value">~$320</div><div class="detail">Ferramentas + Deel</div></div>
+  <div class="mc"><div class="label">Custo variável</div><div class="value">$500-1k</div><div class="detail">Por referral (só se converter)</div></div>
+  <div class="mc"><div class="label">Total 90 dias</div><div class="value">~$1.5k</div><div class="detail">Fixo. Excluindo referrals.</div></div>
+  <div class="mc"><div class="label">ROI necessário</div><div class="value">1 deal</div><div class="detail">1 deal de $10k paga 6 meses</div></div>
+</div>
+
+<h3>Breakdown mensal</h3>
+
+<table>
+  <thead><tr><th>Item</th><th>Custo/mês</th><th>Pra quê</th><th>Alternativa grátis</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Claude Max</strong></td><td>$100</td><td>Research, proposals, content, screening</td><td>Claude Pro ($20) com menos volume</td></tr>
+    <tr><td><strong>Deel Contractor</strong></td><td>$49/dev</td><td>Compliance pra devs alocados</td><td>Contrato PJ direto (mais risco)</td></tr>
+    <tr><td><strong>Cursor Pro</strong></td><td>$20</td><td>Dev do site + ferramentas internas</td><td>VS Code + Claude API</td></tr>
+    <tr><td><strong>Apollo</strong></td><td>$0-49</td><td>Prospecção de CTOs</td><td>Free tier (250 emails/mês)</td></tr>
+    <tr><td><strong>HubSpot</strong></td><td>$0</td><td>CRM + Pipeline</td><td>Free tier cobre tudo que precisamos</td></tr>
+    <tr><td><strong>Vercel</strong></td><td>$0</td><td>Site + reports</td><td>Free tier</td></tr>
+    <tr><td><strong>n8n</strong></td><td>$0</td><td>Automações (self-hosted Oracle VPS)</td><td>Já no stack</td></tr>
+    <tr><td><strong>Buffer</strong></td><td>$0</td><td>Social media scheduling</td><td>Free tier (3 channels)</td></tr>
+    <tr><td><strong>Domínio</strong></td><td>~$1.25</td><td>impactxlab.com</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<div class="callout success">
+  <strong>Custo total fixo: ~$170-320/mês</strong>
+  Comparação: Howdy gasta isso em 1 hora de operação com 300 funcionários. A margem da IX é o diferencial competitivo mais forte.
+</div>
+
+<h3>Custos que NÃO valem investir agora</h3>
+
+<table>
+  <thead><tr><th>Item</th><th>Custo</th><th>Por que não agora</th></tr></thead>
+  <tbody>
+    <tr><td>Deel EOR full</td><td>$599/dev/mês</td><td>Contractor plan ($49) resolve por agora. EOR quando tiver 5+ devs alocados.</td></tr>
+    <tr><td>LinkedIn Sales Navigator</td><td>$80/mês</td><td>Apollo free + pesquisa manual cobre o volume atual.</td></tr>
+    <tr><td>Clutch profile</td><td>$0 (listing grátis)</td><td>Só vale quando tiver 3+ reviews reais. Antes disso é perfil vazio.</td></tr>
+    <tr><td>Paid ads (Google/LinkedIn)</td><td>$500+/mês</td><td>CAC muito alto sem brand. Referral e content são melhores canais agora.</td></tr>
+    <tr><td>PandaDoc</td><td>$19/mês</td><td>ix-reports + PDF resolve. Não precisa de assinatura digital ainda.</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ==================== TAB 4: SOLUÇÕES IA ==================== -->
+<div class="tab-panel" data-tab="ia" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>🤖 Soluções IA — Detalhamento</h2>
+
+<p>A IA é o multiplicador que permite 3 pessoas competirem com empresas de 100-300. Cada solução abaixo substitui horas de trabalho manual ou uma contratação.</p>
+
+<div class="callout ai">
+  <strong>Stack de IA da Impact X</strong>
+  Claude (Max/API) → cérebro. n8n (self-hosted) → automação/orquestração. Supabase → dados. Evolution API → WhatsApp. Hono + Maestro → API gateway (OpenClaw).
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #1</div>
+  <div class="ai-title">🔎 Auto-Research Engine</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Recebe nome de empresa → pesquisa automaticamente: funding (Crunchbase), tamanho (LinkedIn), stack (BuiltWith/StackShare), decisor (LinkedIn) → preenche HubSpot → gera Fit Check score.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>30min/lead → 2min/lead.</strong> Rafa/Nicole pesquisam 3 leads/dia manualmente. Com IA: 15-20 leads/dia. 5x mais pipeline com mesmo tempo.</dd>
+    <dt>Como resolver</dt>
+    <dd>n8n workflow: trigger = novo Contact no HubSpot → Claude API (web search) → parse dados → update Contact fields → calcular ix_fit_score → notificar Rafa se score alto.</dd>
+    <dt>IA usada</dt>
+    <dd>Claude API (Sonnet pra custo, Opus pra análise complexa)</dd>
+    <dt>Custo</dt>
+    <dd>~$0.05/lead (Claude API). 20 leads/dia = $1/dia = $30/mês.</dd>
+    <dt>Timeline</dt>
+    <dd>1 semana pra build. n8n + Claude API já no stack.</dd>
+    <dt>Substitui</dt>
+    <dd>~1 SDR part-time ($1,500-2,000/mês)</dd>
+  </dl>
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #2</div>
+  <div class="ai-title">📋 Proposal Generator</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Após discovery call, Claude pega os dados do deal (dor, perfis, budget) → gera proposta branded completa via ix-reports → Rafa/Pimenta revisam → enviam no mesmo dia.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>2-3 horas/proposta → 15 minutos review.</strong> Proposta sai no dia da call. Concorrentes levam 2-5 dias. Startup fecha com quem responde primeiro.</dd>
+    <dt>Como resolver</dt>
+    <dd>Template parametrizado no ix-reports. n8n trigger: deal muda pra "Proposal Sent" → Claude API gera HTML com dados do deal → salva em ix-reports → notifica pra review.</dd>
+    <dt>IA usada</dt>
+    <dd>Claude API (Opus pra qualidade de escrita)</dd>
+    <dt>Custo</dt>
+    <dd>~$0.50/proposta (Opus). 10 propostas/mês = $5/mês.</dd>
+    <dt>Timeline</dt>
+    <dd>3 dias pra build (template + workflow).</dd>
+    <dt>Substitui</dt>
+    <dd>~4-6 horas/semana de trabalho manual de proposta</dd>
+  </dl>
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #3</div>
+  <div class="ai-title">✉️ Outreach Personalizer</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Pega dados da pesquisa (Auto-Research) → Claude gera email de outreach personalizado com brand voice IX → específico pra cada CTO e empresa → Nicole/Rafa revisam e enviam.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>Email personalizado em 30 segundos vs. 15 minutos.</strong> 20 outreach/dia vs. 5/dia. Cada email menciona algo específico da empresa do CTO.</dd>
+    <dt>Como resolver</dt>
+    <dd>n8n: Contact status = "Qualified" → Claude API gera draft → salva como nota no HubSpot → task pra Nicole revisar e enviar.</dd>
+    <dt>IA usada</dt>
+    <dd>Claude API (Sonnet — bom o suficiente pra emails)</dd>
+    <dt>Custo</dt>
+    <dd>~$0.02/email. 100 emails/mês = $2/mês.</dd>
+    <dt>Timeline</dt>
+    <dd>2 dias pra build.</dd>
+    <dt>Substitui</dt>
+    <dd>~1 SDR dedicado a outreach ($2,000/mês)</dd>
+  </dl>
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #4</div>
+  <div class="ai-title">📝 Content Engine (LinkedIn + Blog)</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Claude gera 3 posts LinkedIn/semana + 4 artigos blog/mês com brand voice IX. Temas baseados em tendências de nearshore, dados reais, e insights de Rafa.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>12 posts + 4 artigos/mês com ~30 min/semana de review do Rafa.</strong> BEON.tech e Lemon.io cresceram com content. IX precisa competir nesse canal.</dd>
+    <dt>Como resolver</dt>
+    <dd>ix-content-engine skill já existe. Claude gera drafts → Rafa revisa → Buffer agenda. Blog posts via ix-reports no site.</dd>
+    <dt>IA usada</dt>
+    <dd>Claude Max (interativo pra refinamento de voz)</dd>
+    <dt>Custo</dt>
+    <dd>$0 (já no Claude Max)</dd>
+    <dt>Timeline</dt>
+    <dd>Imediato — skill já existe.</dd>
+    <dt>Substitui</dt>
+    <dd>~1 content writer part-time ($800-1,500/mês)</dd>
+  </dl>
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #5</div>
+  <div class="ai-title">🔮 Funding Monitor (Future Pipeline)</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Monitora diariamente se empresas no Future Pipeline fecharam novo round, postaram vagas de dev, ou mudaram de status. Alerta Rafa pra reativar.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>Nunca perde o timing de reativação.</strong> Sem IA, Rafa precisa checar manualmente todo mês. Com IA, o alerta chega no dia do evento.</dd>
+    <dt>Como resolver</dt>
+    <dd>n8n cron diário → Crunchbase API (ou web search) → compara com lista de companies no Future Pipeline → se match, cria task no Linear + notifica Rafa.</dd>
+    <dt>IA usada</dt>
+    <dd>Claude API (Haiku pra classificação rápida)</dd>
+    <dt>Custo</dt>
+    <dd>~$5/mês (Crunchbase Basic API + Claude Haiku)</dd>
+    <dt>Timeline</dt>
+    <dd>1 semana.</dd>
+    <dt>Substitui</dt>
+    <dd>~2 horas/mês de pesquisa manual</dd>
+  </dl>
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #6</div>
+  <div class="ai-title">🤖 Samantha — WhatsApp Qualifier</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Agente WhatsApp com personalidade natural (inspirada em "Her") que qualifica inbound leads com perguntas conversacionais. Se for ICP, cria deal no HubSpot e notifica Pimenta.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>Qualificação 24/7 sem ação humana.</strong> Lead manda mensagem às 23h → Samantha qualifica → deal criado → Pimenta acorda com lead quente na fila.</dd>
+    <dt>Como resolver</dt>
+    <dd>Já em build no OpenClaw. Evolution API (WhatsApp) → Hono → Maestro (Opus) → Haiku classifier + generate pattern → Supabase.</dd>
+    <dt>IA usada</dt>
+    <dd>Haiku (classificação) + Sonnet (geração de resposta)</dd>
+    <dt>Custo</dt>
+    <dd>~$10-12/mês (estimativa do pattern two-step)</dd>
+    <dt>Timeline</dt>
+    <dd>Em build. MVP em 3-4 semanas.</dd>
+    <dt>Substitui</dt>
+    <dd>~1 SDR part-time pra triagem de inbound</dd>
+  </dl>
+</div>
+
+<div class="ai-card">
+  <div class="ai-sub">Solução IA #7</div>
+  <div class="ai-title">👤 CV Screening + Dev Matching</div>
+  <dl class="ai-body">
+    <dt>O que faz</dt>
+    <dd>Recebe CV/LinkedIn de dev candidato → Claude analisa: stack match, seniority, English level, GitHub activity → gera score + relatório → Rafa só entrevista os top scored.</dd>
+    <dt>Benefício</dt>
+    <dd><strong>20 CVs/hora vs. 5 CVs/hora manual.</strong> Rafa só investe tempo entrevistando devs que já passaram no filtro IA.</dd>
+    <dt>Como resolver</dt>
+    <dd>n8n: novo candidato no pipeline → Claude API analisa CV + LinkedIn → score 1-10 → se ≥7, agenda entrevista com Rafa.</dd>
+    <dt>IA usada</dt>
+    <dd>Claude API (Sonnet)</dd>
+    <dt>Custo</dt>
+    <dd>~$0.10/CV. 100 CVs/mês = $10/mês.</dd>
+    <dt>Timeline</dt>
+    <dd>3 dias.</dd>
+    <dt>Substitui</dt>
+    <dd>~8 horas/mês de screening manual</dd>
+  </dl>
+</div>
+
+<h2>Resumo: economia com IA</h2>
+
+<table>
+  <thead><tr><th>Solução</th><th>Custo IA/mês</th><th>Substitui (custo humano equiv.)</th><th>Economia</th></tr></thead>
+  <tbody>
+    <tr><td>Auto-Research</td><td>$30</td><td>SDR part-time ($1,500)</td><td><strong>$1,470/mês</strong></td></tr>
+    <tr><td>Proposal Generator</td><td>$5</td><td>4-6h/semana ($400)</td><td><strong>$395/mês</strong></td></tr>
+    <tr><td>Outreach Personalizer</td><td>$2</td><td>SDR outreach ($2,000)</td><td><strong>$1,998/mês</strong></td></tr>
+    <tr><td>Content Engine</td><td>$0</td><td>Content writer ($1,000)</td><td><strong>$1,000/mês</strong></td></tr>
+    <tr><td>Funding Monitor</td><td>$5</td><td>Research manual ($200)</td><td><strong>$195/mês</strong></td></tr>
+    <tr><td>Samantha Qualifier</td><td>$12</td><td>SDR triagem ($1,500)</td><td><strong>$1,488/mês</strong></td></tr>
+    <tr><td>CV Screening</td><td>$10</td><td>Screening manual ($300)</td><td><strong>$290/mês</strong></td></tr>
+  </tbody>
+  <tfoot>
+    <tr style="background:var(--ix-green-tint);font-weight:800">
+      <td><strong>TOTAL</strong></td>
+      <td><strong>$64/mês</strong></td>
+      <td><strong>~$6,900/mês</strong></td>
+      <td style="color:var(--ix-green-dark)"><strong>$6,836/mês</strong></td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="callout success">
+  <strong>$64/mês de IA substitui ~$6,900/mês de custo humano equivalente</strong>
+  Isso é o que permite 3 pessoas competirem com Howdy (300) e BEON.tech (100-200). A margem da IX não é acidente — é arquitetura.
+</div>
+
+<h2>Roadmap de implementação IA</h2>
+
+<table>
+  <thead><tr><th>Semana</th><th>Build</th><th>Depende de</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>Content Engine (já existe) + Auto-Research</td><td>n8n + Claude API</td></tr>
+    <tr><td><strong>2</strong></td><td>Outreach Personalizer + CV Screening</td><td>HubSpot + n8n</td></tr>
+    <tr><td><strong>3</strong></td><td>Proposal Generator</td><td>ix-reports template</td></tr>
+    <tr><td><strong>4-6</strong></td><td>Funding Monitor + Samantha MVP</td><td>OpenClaw + Evolution API</td></tr>
+    <tr><td><strong>7-12</strong></td><td>Refinamento + Weekly Pulse + Dashboard</td><td>Dados reais do pipeline</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const tab=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>{p.classList.remove('active');p.setAttribute('aria-hidden','true')});btn.classList.add('active');const panel=document.querySelector('.tab-panel[data-tab="'+tab+'"]');if(panel){panel.classList.add('active');panel.setAttribute('aria-hidden','false')}window.location.hash=tab;window.scrollTo(0,0)})});
+if(window.location.hash){const tab=window.location.hash.slice(1);const btn=document.querySelector('.tab-btn[data-tab="'+tab+'"]');if(btn)btn.click()}
+document.querySelector('.back-btn').addEventListener('click',()=>{if(document.referrer)history.back();else window.location.href='/'});
+</script>
+</body>
+</html>

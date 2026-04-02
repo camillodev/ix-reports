@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Escopo & Onboarding: Gleice</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+  .pill-obg { display: inline-block; background: #FEE2E2; color: #991B1B; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+  .pill-ben { display: inline-block; background: #DBEAFE; color: #1E40AF; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+  .pill-green { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .pill-yellow { display: inline-block; background: #FEF9C3; color: #92400E; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .pill-red { display: inline-block; background: #FEE2E2; color: #991B1B; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .pill-gray { display: inline-block; background: #F1F5F9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .day-card { background: #fff; border: 1px solid var(--ix-border); border-radius: var(--ix-radius-md); overflow: hidden; }
+  .day-header { padding: 10px 16px; font-weight: 700; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; background: #ECFDF5; color: #065F46; border-bottom: 2px solid var(--ix-green); }
+  .day-header.weekend { background: #FFF7ED; color: #92400E; border-bottom-color: #F59E0B; }
+  .day-item { font-size: 13px; padding: 8px 16px; border-bottom: 1px solid #F1F5F9; line-height: 1.5; }
+  .day-item:last-child { border-bottom: none; }
+  .week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+  .sig-area { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 32px; padding-top: 24px; border-top: 2px dashed var(--ix-border); }
+  .sig-block { text-align: center; }
+  .sig-line { border-bottom: 1px solid var(--ix-ink); margin-bottom: 8px; height: 48px; }
+  .sig-label { font-size: 12px; color: var(--ix-muted); font-weight: 600; }
+  .sig-name { font-size: 14px; font-weight: 700; color: var(--ix-ink); margin-top: 2px; }
+  @media (max-width: 640px) { .week-grid { grid-template-columns: 1fr; } .sig-area { grid-template-columns: 1fr; gap: 24px; } }
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Escopo & Onboarding — Gleice</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="contexto">Contexto</button>
+  <button type="button" class="tab-btn" data-tab="escopo">Escopo</button>
+  <button type="button" class="tab-btn" data-tab="rotina">Rotina Semanal</button>
+  <button type="button" class="tab-btn" data-tab="saude">Saúde</button>
+  <button type="button" class="tab-btn" data-tab="contrato">Contrato</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 1 — CONTEXTO -->
+<div class="tab-panel active" data-tab="contexto" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span style="color:var(--ix-green)">X</span></div>
+      <div class="hdr-title">Bem-vinda, Gleice — <em>isso aqui é pra nós dois</em></div>
+      <div class="hdr-sub">Escopo, rotina, obrigações de saúde e contrato de parceria entre mãe e filho</div>
+      <div class="hdr-meta">
+        <span>Abril 2026</span>
+        <span>Uso pessoal · Rafael Camillo</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <div class="metrics-grid" style="grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); margin-bottom:32px">
+      <div class="metric-card">
+        <div class="metric-label">Autonomia semanal</div>
+        <div class="metric-value">R$200</div>
+        <div class="metric-delta positive">sem prestação de contas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Custos de viagem</div>
+        <div class="metric-value">100%</div>
+        <div class="metric-delta positive">cobertos por Rafa</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Terapia + Psiquiatria</div>
+        <div class="metric-value">100%</div>
+        <div class="metric-delta positive">custo coberto</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Exercício mínimo</div>
+        <div class="metric-value">5×30m</div>
+        <div class="metric-delta neutral">obrigatório</div>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-bottom:24px">
+      <strong>Por que existe este documento:</strong> Quando não há escopo claro, o que existe é confusão de expectativas — e confusão vira conflito. Este documento não diminui o que você é pra mim. Faz o oposto: coloca no papel o que importa pra que a gente não precise ficar resolvendo o que já foi combinado.
+    </div>
+
+    <h2>Quem é Gleice nesta estrutura</h2>
+
+    <table>
+      <thead><tr><th>Papel</th><th>O que significa</th><th>Como se diferencia</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Mãe</strong></td>
+          <td>Relação afetiva permanente — incondicional, sem contrato, sem escopo</td>
+          <td>Independe de qualquer acordo profissional</td>
+        </tr>
+        <tr>
+          <td><strong>Assistente Pessoal</strong></td>
+          <td>Papel profissional com responsabilidades definidas, benefícios acordados e obrigações claras</td>
+          <td>Coexiste com a relação de mãe — é complementar, não substituto</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning" style="margin-top:24px">
+      <strong>Os dois papéis não se confundem.</strong> As tarefas do cargo têm escopo e horário. A relação de mãe e filho não tem. Se algo não está no escopo profissional, ainda pode acontecer — mas como escolha afetiva, não como obrigação de cargo.
+    </div>
+
+    <h2>Por que saúde é parte do acordo</h2>
+
+    <p>Rafael tem diagnóstico de Autismo (TEA Nível 1), TDAH tipo misto e está em recuperação de burnout autístico. Cuidadores e familiares próximos de neurodivergentes têm risco elevado de sobrecarga emocional e mental — isso não é fraqueza, é dado.</p>
+
+    <p>A estrutura de saúde existe porque <strong>você não consegue cuidar do outro se não se cuidar primeiro</strong>. Terapia, psiquiatria, remédios e exercício não são exigências arbitrárias — são o mínimo para que os dois estejam bem.</p>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 2 — ESCOPO -->
+<div class="tab-panel" data-tab="escopo" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Escopo & Responsabilidades</h1>
+
+    <div class="callout success" style="margin-bottom:24px">
+      <strong>Critério de tudo que está no escopo:</strong> Se a tarefa é da vida pessoal, doméstica ou de cuidado de Rafa — e se feita por Gleice, libera tempo, energia ou reduz estresse — está no escopo. O cargo existe para que os dois vivam melhor.
+    </div>
+
+    <h2>Dentro do escopo — Assistente Pessoal</h2>
+
+    <table>
+      <thead><tr><th>Responsabilidade</th><th>Como opera</th><th>Frequência</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Compras de supermercado e itens domésticos</strong></td>
+          <td>Com lista pré-combinada. Repõe estoque antes de acabar — não espera acabar para comprar</td>
+          <td><span class="pill-green">Semanal</span></td>
+        </tr>
+        <tr>
+          <td><strong>Refeições e alimentação básica</strong></td>
+          <td>Garante que Rafa tem comida disponível. Pode buscar, encomendar ou organizar. Critério: ele não passa fome nem come de forma caótica</td>
+          <td><span class="pill-green">Diária</span></td>
+        </tr>
+        <tr>
+          <td><strong>Organização e limpeza do espaço</strong></td>
+          <td>Mantém o ambiente funcional. Não é arrumação de hotel — é o mínimo para não causar sobrecarga sensorial</td>
+          <td><span class="pill-green">Semanal</span></td>
+        </tr>
+        <tr>
+          <td><strong>Gestão de roupas e itens pessoais</strong></td>
+          <td>Lavar, dobrar, organizar. Avisar quando algo precisar ser reposto antes de acabar</td>
+          <td><span class="pill-green">Semanal</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ir presencialmente a locais</strong></td>
+          <td>Farmácia, banco, cartório, entrega — qualquer lugar onde presença física é necessária. Cada ida de Rafa é tempo e energia que ele não tem</td>
+          <td><span class="pill-yellow">Conforme demanda</span></td>
+        </tr>
+        <tr>
+          <td><strong>Burocracia pessoal e doméstica</strong></td>
+          <td>Contas de casa, renovações, documentos pessoais. Avisar com antecedência sobre vencimentos — nunca deixar chegar na data</td>
+          <td><span class="pill-yellow">Proativa</span></td>
+        </tr>
+        <tr>
+          <td><strong>Agendamento de consultas de Rafa</strong></td>
+          <td>Médico, dentista, exames. Liga, pesquisa horário, confirma. Rafa aprova antes de fechar</td>
+          <td><span class="pill-yellow">Conforme necessidade</span></td>
+        </tr>
+        <tr>
+          <td><strong>Suporte em viagens de Rafa</strong></td>
+          <td>Ajuda a preparar o que levar, garante que a casa fica em ordem. Não administra as viagens — cuida da base</td>
+          <td><span class="pill-gray">Conforme viagens</span></td>
+        </tr>
+        <tr>
+          <td><strong>Check-in semanal com Rafa</strong></td>
+          <td>Conversa rápida: o que é necessário, o que está acontecendo, o que adiantar. Máximo 20 minutos</td>
+          <td><span class="pill-green">Semanal (seg ou qui)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Radar de vencimentos e compromissos</strong></td>
+          <td>Aluguel, luz, água, internet. Avisa com pelo menos 5 dias de antecedência. Nunca deixa Rafa ser surpreendido</td>
+          <td><span class="pill-green">Contínua</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Fora do escopo por padrão — exige negociação prévia</h2>
+
+    <table>
+      <thead><tr><th>Item</th><th>Por que está fora</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Suporte operacional à Impact X <span class="pill-yellow">Nicole</span></td>
+          <td>Gestão de agenda profissional, emails, reuniões, processos da empresa. Isso é escopo de Nicole (Assistente Executiva). Sem sobreposição.</td>
+        </tr>
+        <tr>
+          <td>Gestão financeira de terceiros</td>
+          <td>Gleice não gerencia finanças da IX, de clientes ou de outras pessoas — apenas as suas próprias (sob orientação de Rafa)</td>
+        </tr>
+        <tr>
+          <td>Tarefas que exijam expertise técnica</td>
+          <td>Legal, contábil, médica — Gleice coordena e agenda, mas não decide. Decisões com Rafa e os profissionais</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Limites permanentes — nunca cruzar</h2>
+
+    <div class="callout danger">
+      <strong>Não toma decisões financeiras por Rafa</strong> sem aprovação explícita. <strong>Não interfere em decisões profissionais da Impact X</strong> — projetos, contratações, deals, parceiros. <strong>Não age sem comunicar</strong> em situações que vão além da rotina combinada. Dúvida? Pergunta antes.
+    </div>
+
+    <h2>Gleice vs Nicole — diferença clara</h2>
+
+    <table>
+      <thead><tr><th>Tarefa</th><th>Gleice (Pessoal)</th><th>Nicole (Executiva)</th></tr></thead>
+      <tbody>
+        <tr><td>Compras pessoais e domésticas</td><td><span class="pill-green">Core</span></td><td><span class="pill-red">Fora</span></td></tr>
+        <tr><td>Alimentação e casa</td><td><span class="pill-green">Core</span></td><td><span class="pill-red">Fora</span></td></tr>
+        <tr><td>Agenda profissional e emails</td><td><span class="pill-red">Fora</span></td><td><span class="pill-green">Core</span></td></tr>
+        <tr><td>Reuniões e briefings de negócio</td><td><span class="pill-red">Fora</span></td><td><span class="pill-green">Core</span></td></tr>
+        <tr><td>Agendar médico de Rafa</td><td><span class="pill-green">Sim</span></td><td><span class="pill-yellow">Pode</span></td></tr>
+        <tr><td>Ir ao banco/cartório pessoal</td><td><span class="pill-green">Core</span></td><td><span class="pill-yellow">Se necessário</span></td></tr>
+        <tr><td>Burocracia doméstica</td><td><span class="pill-green">Core</span></td><td><span class="pill-red">Fora</span></td></tr>
+        <tr><td>Cuidado com casa, roupa, animais</td><td><span class="pill-green">Core</span></td><td><span class="pill-red">Explicitamente fora</span></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 3 — ROTINA SEMANAL -->
+<div class="tab-panel" data-tab="rotina" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Rotina Semanal</h1>
+
+    <div class="callout info" style="margin-bottom:24px">
+      <strong>Como usar esta aba:</strong> Ritmo padrão de referência. Não é CLT — a flexibilidade existe, mas a entrega dos itens fixos não é opcional. O que muda é <em>quando</em> dentro do dia, não <em>se</em> acontece.
+    </div>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-header">Segunda-feira</div>
+        <div class="day-item">Check-in semanal com Rafa (20 min)</div>
+        <div class="day-item">Revisar lista de compras — o que está acabando?</div>
+        <div class="day-item">Checar vencimentos da semana</div>
+        <div class="day-item">Confirmar agenda de saúde (sua terapia, consultas de Rafa)</div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header">Terça-feira</div>
+        <div class="day-item">Compras de supermercado</div>
+        <div class="day-item">Exercício 30 min <span class="pill-obg">obrigatório</span></div>
+        <div class="day-item">Resolver pendências burocráticas se houver</div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header">Quarta-feira</div>
+        <div class="day-item">Organização e limpeza do espaço</div>
+        <div class="day-item">Exercício 30 min <span class="pill-obg">obrigatório</span></div>
+        <div class="day-item">Verificar estoque — repor o que foi usado</div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header">Quinta-feira</div>
+        <div class="day-item">Roupas: lavar, dobrar, organizar</div>
+        <div class="day-item">Exercício 30 min <span class="pill-obg">obrigatório</span></div>
+        <div class="day-item">Avisar Rafa sobre vencimentos nos próximos 5 dias</div>
+        <div class="day-item">Segunda compra semanal se necessário</div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header">Sexta-feira</div>
+        <div class="day-item">Exercício 30 min <span class="pill-obg">obrigatório</span></div>
+        <div class="day-item">Checklist: casa OK? Comida? Pendências fechadas?</div>
+        <div class="day-item">Adiantar qualquer tarefa de segunda</div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header weekend">Sábado</div>
+        <div class="day-item">Dia mais leve — foco em autocuidado</div>
+        <div class="day-item">Exercício 30 min <span class="pill-obg">obrigatório</span></div>
+        <div class="day-item">Remédios no horário (sem exceção)</div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header weekend">Domingo</div>
+        <div class="day-item">Descanso ativo</div>
+        <div class="day-item">Preparação mental: pensar no que fazer na segunda</div>
+        <div class="day-item">Remédios no horário</div>
+      </div>
+    </div>
+
+    <h2>Tarefas para fazer adiantado — antes de precisar</h2>
+
+    <table>
+      <thead><tr><th>Tarefa</th><th>Quando adiantar</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Repor estoque de alimentos e itens básicos</td>
+          <td>Quando restam 30%</td>
+          <td>Neveira vazia = estresse. Neurodivergência + fome = shutdown</td>
+        </tr>
+        <tr>
+          <td>Agendar consultas médicas</td>
+          <td>3–4 semanas antes (exames), 1–2 semanas (consultas)</td>
+          <td>Clínicas lotam. Urgência é tarde demais</td>
+        </tr>
+        <tr>
+          <td>Renovar documentos e contratos</td>
+          <td>30 dias antes do vencimento — mínimo</td>
+          <td>Burocracia de última hora = estresse e custo extra</td>
+        </tr>
+        <tr>
+          <td>Lavar roupas de Rafa</td>
+          <td>Antes de acabar</td>
+          <td>Decisão de roupa com TDAH = paralisia matinal</td>
+        </tr>
+        <tr>
+          <td>Avisar sobre contas a vencer</td>
+          <td>5 dias antes — mínimo</td>
+          <td>Time blindness. Surpresa financeira = colapso cognitivo</td>
+        </tr>
+        <tr>
+          <td>Preparar espaço antes de visitas ou eventos</td>
+          <td>Um dia antes</td>
+          <td>Organização no último momento + autista = caos sensorial</td>
+        </tr>
+        <tr>
+          <td>Informar sua própria agenda de saúde</td>
+          <td>No início da semana</td>
+          <td>Comunicação é prevenção</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>Princípio:</strong> Antecipação é cuidado. Surpresa é estresse. Toda vez que você avisa antes, resolve antes ou repõe antes — você reduz a carga cognitiva de alguém com sistema nervoso constantemente regulado. Não é servilidade. É co-regulação.
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 4 — SAÚDE -->
+<div class="tab-panel" data-tab="saude" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Saúde — o compromisso mais importante</h1>
+
+    <div class="callout danger" style="margin-bottom:24px">
+      <strong>Por que saúde está no contrato e não "recomendada":</strong> Mães de neurodivergentes acumulam carga emocional silenciosa que frequentemente resulta em burnout do cuidador, depressão e ansiedade crônica. Não é fraqueza — é estatística. Saúde é obrigação mútua porque você não consegue estar presente de verdade se não estiver bem.
+    </div>
+
+    <h2>As 4 obrigações de saúde</h2>
+
+    <table>
+      <thead><tr><th>Compromisso</th><th>Regra</th><th>Custeio</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Terapia</strong> <span class="pill-obg">obrigatório</span></td>
+          <td>1 sessão por semana, toda semana. Presencial ou online. Falta legítima = repor na mesma semana ou seguinte. Não cancelar sem reagendar.</td>
+          <td><span class="pill-ben">100% Rafa</span></td>
+        </tr>
+        <tr>
+          <td><strong>Psiquiatria</strong> <span class="pill-obg">obrigatório</span></td>
+          <td>1 consulta por mês. Agendar com antecedência. Manter o médico informado de qualquer mudança de sintoma ou efeito colateral.</td>
+          <td><span class="pill-ben">100% Rafa</span></td>
+        </tr>
+        <tr>
+          <td><strong>Medicação</strong> <span class="pill-obg">obrigatório</span></td>
+          <td>Toda medicação prescrita no horário correto. Sem pular, sem reduzir por conta própria, sem interromper sem orientação médica. Ajuste só com prescrição.</td>
+          <td><span class="pill-ben">100% Rafa</span></td>
+        </tr>
+        <tr>
+          <td><strong>Exercício físico</strong> <span class="pill-obg">obrigatório</span></td>
+          <td>Mínimo 30 minutos, mínimo 5 vezes por semana. Modalidade livre (caminhada, dança, natação, yoga — o critério é movimento). Registro semanal via WhatsApp.</td>
+          <td>Custo próprio / incluso</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Por que esses 4 especificamente</h2>
+
+    <table>
+      <thead><tr><th>Compromisso</th><th>O que protege</th><th>O que acontece sem ele</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Terapia semanal</td>
+          <td>Processamento emocional, prevenção de acúmulo, espaço seguro</td>
+          <td>Emoções acumuladas viram explosão ou silêncio. Ambos prejudicam a relação</td>
+        </tr>
+        <tr>
+          <td>Psiquiatria mensal</td>
+          <td>Ajuste de medicação, monitoramento, prevenção de crises</td>
+          <td>Medicação errada ou desatualizada piora mais do que não medicar</td>
+        </tr>
+        <tr>
+          <td>Medicação rigorosa</td>
+          <td>Estabilidade, regulação emocional, continuidade do tratamento</td>
+          <td>Descontinuidade aumenta risco de crise e recaída</td>
+        </tr>
+        <tr>
+          <td>Exercício regular</td>
+          <td>Regulação do humor, sono, energia — comprovado neurologicamente</td>
+          <td>Corpo parado = sistema nervoso mais reativo, sono pior</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>Reciprocidade de Rafael:</strong> Cobre 100% dos custos de terapia e psiquiatria. Não questiona o que é tratado na terapia — sigilo total. Não cobra resultado de saúde como performance de trabalho. Reconhece que cuidar de si mesma não é ausência — é presença sustentável.
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TAB 5 — CONTRATO -->
+<div class="tab-panel" data-tab="contrato" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span style="color:var(--ix-green)">X</span></div>
+      <div class="hdr-title">Acordo de Parceria e <em>Cuidado Mútuo</em></div>
+      <div class="hdr-sub">Gleice × Rafael Camillo · Assistente Pessoal</div>
+      <div class="hdr-meta">
+        <span>Abril 2026</span>
+        <span>Confidencial</span>
+        <span>Válido após assinatura</span>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:24px; margin-bottom:24px">
+      <strong>Natureza deste acordo:</strong> Não é contrato de emprego formal (CLT ou PJ). É um acordo de parceria pessoal com estrutura, benefícios e compromissos claros. A relação familiar não é extinta — é complementada. Em caso de conflito entre o que diz aqui e o que é combinado verbalmente, prevalece o escrito.
+    </div>
+
+    <h2>Partes do acordo</h2>
+
+    <table>
+      <thead><tr><th>Parte</th><th>Nome</th><th>Papel</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Contratante</strong></td>
+          <td>Rafael Camillo</td>
+          <td>Fundador da Impact X — filho de Gleice — responsável pelos benefícios e consultoria financeira</td>
+        </tr>
+        <tr>
+          <td><strong>Contratada</strong></td>
+          <td>Gleice</td>
+          <td>Mãe de Rafael — Assistente Pessoal — responsável pelo escopo e obrigações de saúde</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Obrigações de Gleice</h2>
+
+    <table>
+      <thead><tr><th>Item</th><th>Descrição</th><th>Tipo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Responsabilidades de escopo</strong></td>
+          <td>Executar tarefas da aba "Escopo" — compras, alimentação, organização, burocracia, agendamentos. Com proatividade e antecipação.</td>
+          <td><span class="pill-obg">obrigatório</span></td>
+        </tr>
+        <tr>
+          <td><strong>Terapia semanal</strong></td>
+          <td>1 sessão/semana, toda semana. Falta = repor na mesma semana ou seguinte.</td>
+          <td><span class="pill-obg">obrigatório</span></td>
+        </tr>
+        <tr>
+          <td><strong>Psiquiatria mensal</strong></td>
+          <td>1 consulta/mês com antecedência. Informar mudanças de sintoma.</td>
+          <td><span class="pill-obg">obrigatório</span></td>
+        </tr>
+        <tr>
+          <td><strong>Medicação prescrita</strong></td>
+          <td>Horário correto, sem pular, sem reduzir por conta. Ajuste só com prescrição.</td>
+          <td><span class="pill-obg">obrigatório</span></td>
+        </tr>
+        <tr>
+          <td><strong>Exercício físico</strong></td>
+          <td>30 min, 5×/semana. Modalidade livre. Registro semanal via mensagem.</td>
+          <td><span class="pill-obg">obrigatório</span></td>
+        </tr>
+        <tr>
+          <td><strong>Comunicação proativa</strong></td>
+          <td>Avisar com antecedência sobre qualquer situação que impacte disponibilidade ou responsabilidades.</td>
+          <td><span class="pill-yellow">esperado</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Benefícios oferecidos por Rafael</h2>
+
+    <table>
+      <thead><tr><th>Benefício</th><th>Descrição</th><th>Regra</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>R$200 semanais</strong> <span class="pill-ben">benefício</span></td>
+          <td>Para Gleice usar como quiser, sem prestação de contas. Autonomia pessoal — não é para despesas da casa.</td>
+          <td>Pagamento toda segunda-feira</td>
+        </tr>
+        <tr>
+          <td><strong>Custos de viagem 100%</strong> <span class="pill-ben">benefício</span></td>
+          <td>Qualquer viagem — lazer, saúde, família ou acompanhamento. Passagem, hospedagem, alimentação.</td>
+          <td>Sem limite de frequência. Planejamento prévio.</td>
+        </tr>
+        <tr>
+          <td><strong>Terapia + psiquiatria</strong> <span class="pill-ben">benefício</span></td>
+          <td>Rafael paga integral: sessões semanais de terapia, consultas mensais de psiquiatria, medicação prescrita.</td>
+          <td>Sem questionamento. Acordado aqui.</td>
+        </tr>
+        <tr>
+          <td><strong>Consultoria financeira</strong> <span class="pill-ben">benefício</span></td>
+          <td>Rafael orienta finanças pessoais de Gleice — organização de gastos, planejamento, reserva de emergência. Não é controle — é parceria.</td>
+          <td>Gleice mantém autonomia. Rafa oferece estrutura.</td>
+        </tr>
+        <tr>
+          <td><strong>Respeito ao sigilo</strong></td>
+          <td>Rafael não questiona terapia. Não usa o cargo como cobrança emocional. Acordo separado da relação afetiva.</td>
+          <td>Permanente</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Vigência e revisão</h2>
+
+    <table>
+      <thead><tr><th>Item</th><th>Definição</th></tr></thead>
+      <tbody>
+        <tr><td>Início</td><td>Data da assinatura de ambas as partes</td></tr>
+        <tr><td>Duração</td><td>Indeterminada — válido enquanto benéfico para os dois</td></tr>
+        <tr><td>Revisão</td><td>A cada 3 meses, ou quando qualquer parte solicitar. Revisão é saudável.</td></tr>
+        <tr><td>Encerramento</td><td>Por acordo mútuo, com aviso prévio de 30 dias. A relação familiar é permanente — o acordo de cargo não.</td></tr>
+        <tr><td>Descumprimento (saúde)</td><td>1ª vez: conversa. 2ª vez: revisão do acordo. Objetivo é ajustar, não punir.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout success" style="margin-top:24px">
+      <strong>O que este acordo representa:</strong> Não é um emprego. É uma parceria de vida estruturada. Rafael e Gleice decidiram construir juntos uma forma de existir sustentável, saudável e respeitosa — para os dois. Este documento é a prova de que se pode combinar amor com clareza, cuidado com estrutura, família com profissionalismo.
+    </div>
+
+    <!-- ASSINATURAS -->
+    <div style="margin-top: 48px; padding: 32px; background: #fff; border-radius: var(--ix-radius-lg); border: 2px dashed var(--ix-border);">
+      <h2 style="text-align:center; margin-bottom:32px;">Assinaturas</h2>
+
+      <div class="sig-area">
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-name">Gleice</div>
+          <div class="sig-label">Assistente Pessoal — Contratada</div>
+          <div class="sig-label" style="margin-top:8px;">Data: ______ / ______ / 2026</div>
+        </div>
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-name">Rafael Camillo</div>
+          <div class="sig-label">Contratante</div>
+          <div class="sig-label" style="margin-top:8px;">Data: ______ / ______ / 2026</div>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top:24px; font-size:13px; color:var(--ix-muted);">
+        Ambas as partes declaram que leram, entenderam e concordam com os termos deste acordo.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo · Abril 2026 · Confidencial
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

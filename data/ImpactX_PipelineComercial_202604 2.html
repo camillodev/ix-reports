@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Pipeline Comercial v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ix-ink:#1A1D21;--ix-muted:#6B7280;--ix-green:#11C76F;--ix-green-hover:#0EB863;--ix-green-dark:#059669;--ix-green-light:#34D399;--ix-green-bg:#D1FAE5;--ix-green-tint:#ECFDF5;--ix-bg:#F4F6F9;--ix-surface:#FFFFFF;--ix-card-bg:#FFFFFF;--ix-border:#E8ECF1;--ix-yellow:#FBBF24;--ix-warning:#D4820A;--ix-danger:#C0392B;--ix-purple:#7C3AED;--ix-purple-light:#A78BFA;--ix-purple-tint:#EDE9FE;--ix-blue:#3B82F6;--ix-blue-tint:#EFF6FF;--ix-blue-dark:#1D4ED8;--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-shadow-sm:0 1px 3px rgba(0,0,0,.06);--ix-shadow-md:0 4px 12px rgba(0,0,0,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body.ix-report{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;line-height:1.6;color:var(--ix-ink);background:var(--ix-bg)}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}
+.topbar .back-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;color:var(--ix-muted)}
+.topbar .back-btn:hover{color:var(--ix-green)}
+.topbar .brand{font-weight:800;font-size:18px;color:var(--ix-ink);text-decoration:none;letter-spacing:.5px}
+.topbar .brand .x{color:var(--ix-green)}
+.topbar-title{font-size:14px;font-weight:600;color:var(--ix-muted)}
+.tab-nav{position:fixed;top:56px;left:0;right:0;z-index:99;display:flex;gap:4px;padding:8px 24px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:var(--ix-muted);padding:8px 16px;border-radius:var(--ix-radius-sm);transition:all .2s;flex-shrink:0}
+.tab-btn:hover{background:var(--ix-green-tint);color:var(--ix-green-dark)}
+.tab-btn.active{background:var(--ix-green);color:#fff}
+.tab-panel{display:none;padding-top:130px;padding-bottom:80px}
+.tab-panel.active{display:block}
+.content{max-width:900px;margin:0 auto;padding:0 24px}
+.report-header{background:var(--ix-green-tint);padding:48px 24px 36px;margin:-130px -24px 32px;padding-top:160px;border-radius:0 0 var(--ix-radius-lg) var(--ix-radius-lg);position:relative;overflow:hidden}
+.report-header::after{content:'X';position:absolute;right:-20px;top:-10px;font-size:280px;font-weight:900;color:var(--ix-green);opacity:.06;pointer-events:none;line-height:1}
+.hdr-brand{font-size:13px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.hdr-title{font-size:32px;font-weight:800;color:var(--ix-ink);margin-bottom:8px}
+.hdr-title em{font-style:normal;color:var(--ix-green)}
+.hdr-sub{font-size:18px;color:var(--ix-muted);margin-bottom:16px}
+.hdr-meta{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--ix-muted)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:24px 0}
+.metric-card{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:20px;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border)}
+.metric-card .label{font-size:13px;font-weight:600;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.5px}
+.metric-card .value{font-family:'Roboto Mono',monospace;font-size:28px;font-weight:700;color:var(--ix-green);margin:4px 0}
+.metric-card .detail{font-size:14px;color:var(--ix-muted)}
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--ix-card-bg);border-radius:var(--ix-radius-md);overflow:hidden;box-shadow:var(--ix-shadow-sm)}
+thead{background:var(--ix-ink)}
+thead th{padding:12px 16px;font-size:13px;font-weight:700;color:#fff;text-align:left;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:12px 16px;font-size:15px;border-bottom:1px solid var(--ix-border)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--ix-green-tint)}
+.callout{padding:16px 20px;border-radius:var(--ix-radius-sm);margin:20px 0;font-size:15px;border-left:4px solid}
+.callout.success{background:var(--ix-green-bg);border-color:var(--ix-green);color:var(--ix-green-dark)}
+.callout.warning{background:#FEF3C7;border-color:var(--ix-warning);color:#92400E}
+.callout.danger{background:#FEE2E2;border-color:var(--ix-danger);color:#991B1B}
+.callout.info{background:var(--ix-green-tint);border-color:var(--ix-green-light);color:var(--ix-ink)}
+.callout.future{background:var(--ix-purple-tint);border-color:var(--ix-purple);color:#5B21B6}
+.callout.prospect{background:var(--ix-blue-tint);border-color:var(--ix-blue);color:var(--ix-blue-dark)}
+.callout strong{display:block;margin-bottom:4px}
+h2{font-size:24px;font-weight:800;margin:32px 0 16px;color:var(--ix-ink)}
+h3{font-size:18px;font-weight:700;margin:24px 0 12px;color:var(--ix-ink)}
+p{margin-bottom:16px}
+ul,ol{margin:12px 0 16px 24px}
+li{margin-bottom:8px}
+footer{text-align:center;padding:32px 24px;font-size:14px;color:var(--ix-muted)}
+footer .brand{font-weight:800;font-size:16px;color:var(--ix-ink);margin-bottom:4px}
+footer .brand .x{color:var(--ix-green)}
+.pipeline-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:28px 0}
+.pf-step{background:var(--ix-card-bg);border:2px solid var(--ix-border);border-radius:var(--ix-radius-sm);padding:14px 28px;font-weight:700;font-size:15px;text-align:center;min-width:300px}
+.pf-step .pf-time{display:block;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;color:var(--ix-muted);margin-top:2px}
+.pf-step .pf-owner{display:block;font-family:'Roboto Mono',monospace;font-size:11px;font-weight:700;color:var(--ix-blue);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+.pf-step.gate{background:var(--ix-ink);color:var(--ix-green);border-color:var(--ix-ink);font-family:'Roboto Mono',monospace;letter-spacing:.5px}
+.pf-step.won{border-color:var(--ix-green);background:var(--ix-green-tint);color:var(--ix-green-dark)}
+.pf-step.future{border-color:var(--ix-purple);background:var(--ix-purple-tint);color:var(--ix-purple)}
+.pf-step.prospect{border-color:var(--ix-blue);background:var(--ix-blue-tint);color:var(--ix-blue-dark)}
+.pf-step.handoff{border:3px dashed var(--ix-green);background:var(--ix-green-tint);color:var(--ix-green-dark);font-weight:800}
+.pf-arrow{font-size:20px;color:var(--ix-green);line-height:1;padding:4px 0}
+.pf-arrow.blue{color:var(--ix-blue)}
+.pf-arrow.purple{color:var(--ix-purple)}
+.pf-divider{width:100%;max-width:400px;border:none;border-top:3px dashed var(--ix-green);margin:12px 0;position:relative}
+.pf-divider-label{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--ix-bg);padding:0 12px;font-family:'Roboto Mono',monospace;font-size:11px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+.pf-branch{display:flex;gap:16px;align-items:flex-start;width:100%;max-width:640px}
+.pf-branch-line{display:flex;flex-direction:column;align-items:center;flex:1}
+.sd-card{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:24px;margin:20px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border);border-left:4px solid var(--ix-green)}
+.sd-card.prospect-card{border-left-color:var(--ix-blue)}
+.sd-card.future-card{border-left-color:var(--ix-purple)}
+.sd-card.gate-card-detail{background:linear-gradient(135deg,var(--ix-ink) 0%,#2d3748 100%);color:#fff;border-left:4px solid var(--ix-green)}
+.sd-card.gate-card-detail .sd-desc{color:#CBD5E0}
+.sd-card.gate-card-detail .sd-props dt{color:var(--ix-green)}
+.sd-card.gate-card-detail .sd-props dd{color:#E2E8F0}
+.sd-card.gate-card-detail ul li{color:#E2E8F0}
+.sd-card.gate-card-detail .gate-rule{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15);font-size:14px;font-weight:700;color:var(--ix-green)}
+.sd-num{font-family:'Roboto Mono',monospace;font-size:13px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.sd-card.prospect-card .sd-num{color:var(--ix-blue)}
+.sd-card.future-card .sd-num{color:var(--ix-purple)}
+.sd-title{font-size:20px;font-weight:800;margin-bottom:10px}
+.sd-desc{font-size:15px;color:var(--ix-muted);margin-bottom:12px}
+.sd-props{margin-top:10px}
+.sd-props dt{font-size:13px;font-weight:700;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:10px}
+.sd-props dd{font-size:15px;margin-left:0}
+.prop-tag{display:inline-block;background:var(--ix-green-tint);color:var(--ix-green-dark);font-family:'Roboto Mono',monospace;font-size:13px;font-weight:500;padding:2px 8px;border-radius:6px;margin:2px 4px 2px 0}
+.prop-tag.blue{background:var(--ix-blue-tint);color:var(--ix-blue-dark)}
+.prop-tag.purple{background:var(--ix-purple-tint);color:var(--ix-purple)}
+.owner-badge{display:inline-block;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.owner-badge.rafa{background:var(--ix-blue-tint);color:var(--ix-blue-dark)}
+.owner-badge.pimenta{background:var(--ix-green-bg);color:var(--ix-green-dark)}
+.owner-badge.claude{background:#F3F4F6;color:#4B5563}
+.owner-badge.nicole{background:#FEF3C7;color:#92400E}
+.auto-card{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:20px;margin:16px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border)}
+.auto-card .auto-label{font-family:'Roboto Mono',monospace;font-size:12px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.auto-card .auto-title{font-size:17px;font-weight:800;margin-bottom:10px}
+.config-step{background:var(--ix-card-bg);border-radius:var(--ix-radius-md);padding:20px;margin:16px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border);border-left:4px solid var(--ix-green)}
+.config-step .step-num{font-family:'Roboto Mono',monospace;font-size:13px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+@media(max-width:640px){.hdr-title{font-size:24px}.metrics-grid{grid-template-columns:1fr}.tab-nav{padding:8px 12px}.content{padding:0 16px}.pf-step{min-width:240px;padding:10px 16px;font-size:14px}.pf-branch{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Pipeline Comercial v3</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="visao">Visão Geral</button>
+  <button type="button" class="tab-btn" data-tab="prospeccao">Prospecção</button>
+  <button type="button" class="tab-btn" data-tab="pipeline">Pipeline</button>
+  <button type="button" class="tab-btn" data-tab="future">Future Pipeline</button>
+  <button type="button" class="tab-btn" data-tab="raci">RACI</button>
+  <button type="button" class="tab-btn" data-tab="propriedades">Propriedades</button>
+  <button type="button" class="tab-btn" data-tab="automacoes">Automações</button>
+  <button type="button" class="tab-btn" data-tab="config">Setup</button>
+</nav>
+
+<!-- ==================== TAB 1: VISÃO GERAL ==================== -->
+<div class="tab-panel active" data-tab="visao" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header">
+  <div class="hdr-brand">Impact X · Comercial</div>
+  <h1 class="hdr-title">Pipeline Comercial v3<br><em>Senior Dev Staff Augmentation</em></h1>
+  <p class="hdr-sub">2 fluxos separados · Prospecção (Rafa) → Pipeline (Pimenta) · Funded startups internacionais</p>
+  <p class="hdr-meta">Abril 2026 · Ticket médio $10k USD · Ciclo: 5 dias úteis lead qualificado → proposta</p>
+</div>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="label">Fluxos</div><div class="value">2</div><div class="detail">Prospecção + Pipeline ativo</div></div>
+  <div class="metric-card"><div class="label">Ticket médio</div><div class="value">$10k</div><div class="detail">USD · Por projeto/alocação</div></div>
+  <div class="metric-card"><div class="label">Handoff → Proposta</div><div class="value">5d</div><div class="detail">Dias úteis (pipeline ativo)</div></div>
+  <div class="metric-card"><div class="label">Future Pipeline</div><div class="value" style="color:var(--ix-purple)">🔮</div><div class="detail">ICP sem timing agora</div></div>
+</div>
+
+<h2>Arquitetura: 2 fluxos, 2 donos</h2>
+
+<div class="callout prospect">
+  <strong>Fluxo 1 — Prospecção (pré-pipeline)</strong>
+  Dono: <span class="owner-badge rafa">Rafa</span> + <span class="owner-badge nicole">Nicole</span> + <span class="owner-badge claude">Claude/Silva</span><br>
+  Vive em: <strong>Contacts/Companies</strong> no HubSpot (não é deal ainda)<br>
+  Objetivo: identificar, pesquisar, qualificar e fazer primeiro contato. Entregar lead quente pro Pimenta.
+</div>
+
+<div class="callout success">
+  <strong>Fluxo 2 — Pipeline ativo (deals)</strong>
+  Dono: <span class="owner-badge pimenta">Pimenta</span><br>
+  Vive em: <strong>Deals</strong> no HubSpot<br>
+  Objetivo: receber lead qualificado, fazer discovery call, enviar proposta, negociar, fechar. 4 stages limpos.
+</div>
+
+<div class="callout info">
+  <strong>Por que separar?</strong>
+  Prospecção é volume — pesquisar 20 leads pra encontrar 5 bons. Pipeline é conversão — cada deal recebe atenção total. Misturar os dois polui métricas e confunde responsabilidades. Rafa foca em gerar leads qualificados, Pimenta foca em fechar.
+</div>
+
+<h2>Fluxo Visual Completo</h2>
+
+<div class="pipeline-flow">
+  <div class="pf-step prospect">🔎 Identificar Lead<span class="pf-owner">Rafa + Nicole + Claude</span></div>
+  <div class="pf-arrow blue">↓</div>
+  <div class="pf-step prospect">📋 Pesquisar + Qualificar<span class="pf-owner">Rafa + Nicole + Claude</span></div>
+  <div class="pf-arrow blue">↓</div>
+  <div class="pf-step prospect">✉️ Primeiro Outreach<span class="pf-owner">Rafa + Nicole</span></div>
+  <div class="pf-arrow blue">↓</div>
+  <div class="pf-step prospect">✅ Lead aceita call<span class="pf-owner">Rafa ou Nicole confirma</span></div>
+  <div class="pf-arrow">↓</div>
+
+  <hr class="pf-divider"><span class="pf-divider-label">🤝 HANDOFF → Cria Deal → Pimenta assume</span>
+
+  <div class="pf-arrow">↓</div>
+  <div class="pf-step">📞 Discovery Call<span class="pf-owner">Pimenta</span></div>
+  <div class="pf-arrow">↓</div>
+
+  <div class="pf-branch">
+    <div class="pf-branch-line">
+      <div class="pf-step" style="width:100%">📋 Proposal Sent<span class="pf-owner">Pimenta</span></div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step" style="width:100%">🤝 Negotiation<span class="pf-owner">Pimenta + Rafa</span></div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step gate" style="width:100%">⛩️ GATE — Delivery Check</div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step won" style="width:100%">✅ Closed Won</div>
+    </div>
+    <div class="pf-branch-line">
+      <div class="pf-step future" style="width:100%">🔮 Future Pipeline<span class="pf-time">revisão mensal</span></div>
+      <div class="pf-arrow purple">↻</div>
+      <div class="pf-step" style="width:100%;border-color:var(--ix-purple);font-size:13px;color:var(--ix-purple)">Re-entra como<br>lead qualificado<br>quando timing mudar</div>
+    </div>
+  </div>
+</div>
+
+<h2>ICP — Ideal Customer Profile</h2>
+<div class="sd-card">
+  <div class="sd-num">Quem a IX busca</div>
+  <div class="sd-title">Funded Startups · Internacional · Need to scale eng</div>
+  <dl class="sd-props">
+    <dt>Funding</dt>
+    <dd><strong>Obrigatório ter investidor externo</strong> — Angel round mínimo. Empresas mantidas exclusivamente por capital do fundador/CEO não são ICP.</dd>
+    <dt>Tamanho</dt><dd>10–300 funcionários · Produto no mercado ou em construção com funding</dd>
+    <dt>Dor típica</dt><dd>Precisa de 1-3 senior devs. Contratar nos EUA: $150-250k/ano. BR sênior: fração do custo, mesma qualidade.</dd>
+    <dt>Geografia</dt><dd>US, UK, EU, Canadá, Israel</dd>
+    <dt>Decisor</dt><dd>CTO, VP Engineering, Head of Eng, fundador técnico</dd>
+    <dt>Budget</dt><dd>$10k+ USD por projeto/alocação</dd>
+  </dl>
+</div>
+<div class="callout danger">
+  <strong>NÃO é ICP</strong>
+  Sem funding externo (bootstrapped pelo CEO) · Quer freelancer barato · Budget < $7k · Body shop rotativo · Sem produto + sem funding · Decisor inacessível
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 2: PROSPECÇÃO ==================== -->
+<div class="tab-panel" data-tab="prospeccao" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>🔎 Prospecção — Fluxo Pré-Pipeline</h2>
+<p>Dono: <span class="owner-badge rafa">Rafa</span> + <span class="owner-badge nicole">Nicole</span> + <span class="owner-badge claude">Claude/Silva</span> · Vive em <strong>Contacts/Companies</strong> no HubSpot · Não cria deal.</p>
+
+<div class="callout prospect">
+  <strong>Regra fundamental</strong>
+  Prospecção NÃO é pipeline. Aqui o objetivo é encontrar, pesquisar, qualificar e aquecer leads. Só quando o lead aceita uma call é que vira Deal e passa pro Pimenta.
+</div>
+
+<div class="sd-card prospect-card">
+  <div class="sd-num">Etapa 1</div>
+  <div class="sd-title">🔎 Identificar Lead</div>
+  <div class="sd-desc">Encontrar startups que são ICP. Fontes: Apollo, LinkedIn, Crunchbase, referrals, inbound, eventos.</div>
+  <dl class="sd-props">
+    <dt>Ação</dt><dd>Adicionar como Contact no HubSpot com status <span class="prop-tag blue">ix_prospect_status</span> = "Identified"</dd>
+    <dt>Campos mínimos</dt>
+    <dd><span class="prop-tag blue">ix_company_name</span> <span class="prop-tag blue">ix_contact_name</span> <span class="prop-tag blue">ix_contact_email</span> <span class="prop-tag blue">ix_source</span></dd>
+    <dt>Dono</dt><dd><span class="owner-badge rafa">Rafa</span> + <span class="owner-badge nicole">Nicole</span></dd>
+    <dt>Volume alvo</dt><dd>10-20 leads/semana identificados</dd>
+  </dl>
+</div>
+
+<div class="sd-card prospect-card">
+  <div class="sd-num">Etapa 2</div>
+  <div class="sd-title">📋 Pesquisar + Qualificar</div>
+  <div class="sd-desc">Pesquisa rápida (30min max): funding, stack, tamanho, necessidade de devs. Passa pelo Fit Check.</div>
+  <dl class="sd-props">
+    <dt>Ação</dt><dd>Pesquisar empresa → Preencher campos → Fit Check → Atualizar status</dd>
+    <dt>Campos obrigatórios pra qualificar</dt>
+    <dd><span class="prop-tag blue">ix_funding_stage</span> <span class="prop-tag blue">ix_country</span> <span class="prop-tag blue">ix_team_size</span> <span class="prop-tag blue">ix_tech_stack</span> <span class="prop-tag blue">ix_need_identified</span></dd>
+    <dt>Dono</dt><dd><span class="owner-badge rafa">Rafa</span> + <span class="owner-badge nicole">Nicole</span> + <span class="owner-badge claude">Claude</span> (pesquisa automatizada)</dd>
+    <dt>Status após</dt><dd>"Qualified" ou "Disqualified" ou "Future"</dd>
+  </dl>
+</div>
+
+<div class="sd-card gate-card-detail">
+  <div class="sd-num">Fit Check — Na prospecção</div>
+  <div class="sd-title">⛩️ "Vale fazer outreach?"</div>
+  <ul>
+    <li><strong>External funding confirmed</strong> — Angel, Seed, Series A+ (not bootstrapped)</li>
+    <li><strong>Needs senior devs</strong> — hiring or planning to scale eng</li>
+    <li><strong>Budget plausível ≥ $10k</strong> — funding/receita comportam</li>
+    <li><strong>Decision-maker identifiable</strong> — CTO, VP Eng, ou founder técnico no LinkedIn</li>
+  </ul>
+  <div class="gate-rule">✅ 3/4 → Qualified (outreach) · ⚠️ Good fit, no timing → Future · ❌ 0-2 → Disqualified</div>
+</div>
+
+<div class="sd-card prospect-card">
+  <div class="sd-num">Etapa 3</div>
+  <div class="sd-title">✉️ Primeiro Outreach</div>
+  <div class="sd-desc">Email ou DM personalizado com brand voice IX. Objetivo único: conseguir uma call.</div>
+  <dl class="sd-props">
+    <dt>Ação</dt><dd>Enviar outreach personalizado → Atualizar status para "Contacted"</dd>
+    <dt>Campos</dt><dd><span class="prop-tag blue">ix_outreach_date</span> <span class="prop-tag blue">ix_outreach_channel</span></dd>
+    <dt>Dono</dt><dd><span class="owner-badge rafa">Rafa</span> + <span class="owner-badge nicole">Nicole</span></dd>
+    <dt>Follow-up</dt><dd>Se sem resposta em 5 dias → follow-up 1. Mais 5 dias → follow-up 2. Depois → "No response" ou "Future".</dd>
+  </dl>
+</div>
+
+<div class="sd-card prospect-card">
+  <div class="sd-num">Etapa 4</div>
+  <div class="sd-title">✅ Lead aceita call → HANDOFF</div>
+  <div class="sd-desc">Lead respondeu e aceitou agendar uma discovery call. Este é o momento do handoff.</div>
+  <dl class="sd-props">
+    <dt>Ação</dt>
+    <dd>
+      <strong>1.</strong> Atualizar status para "Call Accepted"<br>
+      <strong>2.</strong> Criar <strong>Deal</strong> no pipeline IX Commercial<br>
+      <strong>3.</strong> Atribuir deal ao <span class="owner-badge pimenta">Pimenta</span><br>
+      <strong>4.</strong> Incluir na nota do deal: resumo da pesquisa + contexto do outreach
+    </dd>
+    <dt>Dono do handoff</dt><dd><span class="owner-badge rafa">Rafa</span> ou <span class="owner-badge nicole">Nicole</span> cria o deal e passa pro Pimenta</dd>
+  </dl>
+</div>
+
+<div class="callout warning">
+  <strong>Handoff = transferência de contexto, não de responsabilidade cega</strong>
+  Rafa deve incluir no deal: quem é a empresa, funding stage, o que precisam, por que aceitaram a call, e qualquer contexto relevante do outreach. Pimenta não deve entrar na call às cegas.
+</div>
+
+<h2>Prospect Status (campo no Contact)</h2>
+<table>
+  <thead><tr><th>Status</th><th>Significado</th><th>Próxima ação</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Identified</strong></td><td>Lead encontrado, não pesquisado ainda</td><td>Pesquisar + qualificar</td></tr>
+    <tr><td><strong>Qualified</strong></td><td>Passou no Fit Check, pronto pra outreach</td><td>Fazer outreach</td></tr>
+    <tr><td><strong>Contacted</strong></td><td>Outreach enviado, aguardando resposta</td><td>Follow-up em 5 dias</td></tr>
+    <tr><td><strong>Call Accepted</strong></td><td>Aceitou call → <strong>cria Deal</strong></td><td>Handoff → Pimenta</td></tr>
+    <tr><td><strong>No Response</strong></td><td>2 follow-ups sem resposta</td><td>Arquivar ou Future</td></tr>
+    <tr><td><strong>Disqualified</strong></td><td>Não é ICP</td><td>Nada — registrar motivo</td></tr>
+    <tr><td><strong>Future</strong></td><td>É ICP mas timing ruim</td><td>Revisão mensal</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ==================== TAB 3: PIPELINE ==================== -->
+<div class="tab-panel" data-tab="pipeline" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Pipeline Ativo — 4 Stages</h2>
+<p>Dono: <span class="owner-badge pimenta">Pimenta</span> (Head Comercial) · Vive em <strong>Deals</strong> no HubSpot · Só entra lead qualificado com call aceita.</p>
+
+<div class="callout success">
+  <strong>Regra: só entra no pipeline quem já aceitou uma call</strong>
+  Zero lead frio aqui. Toda prospecção e qualificação aconteceu antes. Pimenta recebe lead quente com contexto.
+</div>
+
+<div class="sd-card">
+  <div class="sd-num">Stage 1</div>
+  <div class="sd-title">📞 Discovery Call</div>
+  <div class="sd-desc">Call com lead qualificado. Mapear necessidade técnica, perfis, urgência, budget, processo de decisão.</div>
+  <dl class="sd-props">
+    <dt>Dono</dt><dd><span class="owner-badge pimenta">Pimenta</span></dd>
+    <dt>Ação</dt><dd>Prep (15min, com contexto do handoff) → Call (30min) → Documentar necessidade</dd>
+    <dt>Propriedades obrigatórias</dt>
+    <dd><span class="prop-tag">ix_call_date</span> <span class="prop-tag">ix_need_1</span> <span class="prop-tag">ix_profiles_needed</span> <span class="prop-tag">ix_urgency</span> <span class="prop-tag">ix_budget_range</span> <span class="prop-tag">ix_decision_maker</span></dd>
+    <dt>Urgency</dt><dd>"Yesterday" · "This month" · "This quarter" · "Exploring"</dd>
+    <dt>Budget</dt><dd>"$10-15k" · "$15-25k" · "$25k+" · "Not confirmed"</dd>
+    <dt>Deadline</dt><dd><strong>3 dias úteis</strong> após criação do deal</dd>
+    <dt>Saída</dt><dd>Need documented + urgency ≠ "Exploring" → Stage 2. Se "Exploring" → Future Pipeline.</dd>
+  </dl>
+</div>
+
+<div class="sd-card">
+  <div class="sd-num">Stage 2</div>
+  <div class="sd-title">📋 Proposal Sent</div>
+  <div class="sd-desc">Proposta enviada: perfis propostos, stack match, timeline, pricing.</div>
+  <dl class="sd-props">
+    <dt>Dono</dt><dd><span class="owner-badge pimenta">Pimenta</span> (gera proposta com apoio de Rafa se necessário)</dd>
+    <dt>Propriedades obrigatórias</dt>
+    <dd><span class="prop-tag">ix_proposal_value</span> <span class="prop-tag">ix_sent_date</span> <span class="prop-tag">ix_proposal_link</span> <span class="prop-tag">ix_followup_date</span></dd>
+    <dt>Deadline</dt><dd><strong>2 dias úteis</strong> após discovery</dd>
+  </dl>
+</div>
+
+<div class="sd-card">
+  <div class="sd-num">Stage 3</div>
+  <div class="sd-title">🤝 Negotiation</div>
+  <div class="sd-desc">Alinhando perfis finais, preço, start date. Rafa entra se precisar de decisão técnica ou de pricing.</div>
+  <dl class="sd-props">
+    <dt>Dono</dt><dd><span class="owner-badge pimenta">Pimenta</span> · <span class="owner-badge rafa">Rafa</span> (consulted)</dd>
+    <dt>Propriedades obrigatórias</dt>
+    <dd><span class="prop-tag">ix_objections</span> <span class="prop-tag">ix_final_scope</span> <span class="prop-tag">ix_negotiated_value</span></dd>
+    <dt>Deadline</dt><dd><strong>10 dias úteis</strong></dd>
+  </dl>
+</div>
+
+<div class="sd-card gate-card-detail">
+  <div class="sd-num">Gate — Antes de fechar</div>
+  <div class="sd-title">⛩️ Delivery Check — "Do we have the right dev?"</div>
+  <ul>
+    <li><strong>Dev available</strong> — senior eng confirmed or recruitable in 2 weeks</li>
+    <li><strong>Stack match</strong> — dev masters the client's stack</li>
+    <li><strong>Timezone overlap</strong> — min 4h with client team</li>
+    <li><strong>Margin ≥ 40%</strong></li>
+  </ul>
+  <div class="gate-rule">✅ 4/4 → Fecha · ❌ Any fail → Renegotiate</div>
+</div>
+
+<div class="sd-card" style="border-left-color:var(--ix-green)">
+  <div class="sd-num">Stage 4</div>
+  <div class="sd-title">✅ Closed Won</div>
+  <div class="sd-desc">Contrato assinado. Dev alocado. Onboarding inicia.</div>
+  <dl class="sd-props">
+    <dt>Propriedades</dt>
+    <dd><span class="prop-tag">ix_final_value</span> <span class="prop-tag">ix_start_date</span> <span class="prop-tag">ix_duration</span> <span class="prop-tag">ix_contract_link</span> <span class="prop-tag">ix_dev_allocated</span></dd>
+    <dt>Automação</dt><dd>Notifica Nicole · Cria projeto Linear · Welcome kit · Kickoff call</dd>
+  </dl>
+</div>
+
+<div class="sd-card" style="border-left-color:var(--ix-danger)">
+  <div class="sd-num">Terminal</div>
+  <div class="sd-title">❌ Closed Lost</div>
+  <dl class="sd-props">
+    <dt>Obrigatória</dt><dd><span class="prop-tag">ix_lost_reason</span></dd>
+    <dt>Opções</dt><dd>No budget · Bad timing · Competitor · No tech fit · Ghosted · No funding · Scope unviable · Other</dd>
+  </dl>
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 4: FUTURE PIPELINE ==================== -->
+<div class="tab-panel" data-tab="future" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>🔮 Future Pipeline</h2>
+<p>ICP confirmado, sem timing agora. Pode vir da prospecção (Contact com status "Future") ou do pipeline ativo (deal com urgência "Exploring").</p>
+
+<div class="callout future">
+  <strong>Duas origens, mesmo destino</strong>
+  <strong>Da prospecção:</strong> Contact marcado como "Future" no ix_prospect_status (Rafa gerencia)<br>
+  <strong>Do pipeline:</strong> Deal movido pra Future Pipeline no HubSpot (Pimenta move, Rafa nurture)
+</div>
+
+<div class="sd-card future-card">
+  <div class="sd-num">Critérios de entrada</div>
+  <div class="sd-title">🔮 Quando mover pra Future</div>
+  <dl class="sd-props">
+    <dt>Da prospecção</dt>
+    <dd>Fit Check ok mas: round não fechou ainda, timing ruim, ou "building team first"</dd>
+    <dt>Do pipeline</dt>
+    <dd>Discovery feita + urgency = "Exploring" ou "This quarter" sem budget confirmado</dd>
+    <dt>De Closed Lost</dt>
+    <dd>Motivo = "Bad timing" com nota de re-approach</dd>
+    <dt>Propriedades (no Deal)</dt>
+    <dd><span class="prop-tag purple">ix_future_reason</span> <span class="prop-tag purple">ix_reactivation_date</span> <span class="prop-tag purple">ix_future_notes</span></dd>
+  </dl>
+</div>
+
+<h2>Nurture</h2>
+<table>
+  <thead><tr><th>Ação</th><th>Frequência</th><th>Dono</th></tr></thead>
+  <tbody>
+    <tr><td>Check-in leve por email</td><td>A cada 6 semanas</td><td><span class="owner-badge rafa">Rafa</span> ou <span class="owner-badge nicole">Nicole</span></td></tr>
+    <tr><td>Conteúdo relevante</td><td>Quando genuíno</td><td><span class="owner-badge rafa">Rafa</span> ou <span class="owner-badge nicole">Nicole</span></td></tr>
+    <tr><td>Monitorar Crunchbase/LinkedIn</td><td>Mensal</td><td><span class="owner-badge claude">Claude</span></td></tr>
+  </tbody>
+</table>
+
+<h2>Reativação</h2>
+<div class="sd-card future-card">
+  <div class="sd-num">Triggers</div>
+  <div class="sd-title">Quando mover de volta</div>
+  <dl class="sd-props">
+    <dt>Sinais</dt>
+    <dd>
+      <strong>Novo funding:</strong> fechou round<br>
+      <strong>Hiring signal:</strong> postou vaga de dev<br>
+      <strong>Resposta ao nurture:</strong> perguntou disponibilidade<br>
+      <strong>Data:</strong> ix_reactivation_date chegou
+    </dd>
+    <dt>Ação</dt><dd>Se veio da prospecção → volta como Contact "Qualified" → outreach → handoff<br>Se veio do pipeline → volta como Deal no Stage 1 (Discovery Call) já atribuído ao Pimenta</dd>
+  </dl>
+</div>
+
+<div class="callout warning">
+  <strong>Revisão mensal (dia 1º)</strong>
+  Revisar todos. Sem sinal há 6 meses → arquivar. Não acumule leads mortos.
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 5: RACI ==================== -->
+<div class="tab-panel" data-tab="raci" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>RACI — Quem faz o quê</h2>
+
+<div class="callout info">
+  <strong>R</strong> = Responsible (faz) · <strong>A</strong> = Accountable (responde) · <strong>C</strong> = Consulted · <strong>I</strong> = Informed
+</div>
+
+<h3>Prospecção (pré-pipeline)</h3>
+<table>
+  <thead><tr><th>Atividade</th><th>Rafa</th><th>Nicole</th><th>Pimenta</th><th>Claude</th></tr></thead>
+  <tbody>
+    <tr><td>Identificar leads</td><td><strong>R/A</strong></td><td><strong>R</strong></td><td>I</td><td>C</td></tr>
+    <tr><td>Pesquisar empresa</td><td><strong>R</strong></td><td><strong>R</strong></td><td>—</td><td><strong>R</strong></td></tr>
+    <tr><td>Fit Check (qualificar)</td><td><strong>A</strong></td><td><strong>R</strong></td><td>—</td><td>C</td></tr>
+    <tr><td>Primeiro outreach</td><td><strong>R/A</strong></td><td><strong>R</strong></td><td>I</td><td>C (draft)</td></tr>
+    <tr><td>Follow-ups prospecção</td><td><strong>R</strong></td><td><strong>R</strong></td><td>—</td><td>C</td></tr>
+    <tr><td>Handoff (criar deal)</td><td><strong>A</strong></td><td><strong>R</strong></td><td>I</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h3>Pipeline ativo (deals)</h3>
+<table>
+  <thead><tr><th>Atividade</th><th>Rafa</th><th>Nicole</th><th>Pimenta</th><th>Claude</th></tr></thead>
+  <tbody>
+    <tr><td>Discovery Call</td><td>C</td><td>—</td><td><strong>R/A</strong></td><td>C (prep)</td></tr>
+    <tr><td>Proposta</td><td>C</td><td>—</td><td><strong>R/A</strong></td><td>C (draft)</td></tr>
+    <tr><td>Negotiation</td><td><strong>C</strong></td><td>—</td><td><strong>R/A</strong></td><td>—</td></tr>
+    <tr><td>Decisão de pricing/margem</td><td><strong>A</strong></td><td>—</td><td>R</td><td>—</td></tr>
+    <tr><td>Delivery Check (Gate)</td><td><strong>A</strong></td><td>—</td><td>R</td><td>—</td></tr>
+    <tr><td>Fechamento + contrato</td><td><strong>A</strong></td><td>I</td><td><strong>R</strong></td><td>—</td></tr>
+    <tr><td>Onboarding</td><td>C</td><td><strong>R</strong></td><td>I</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h3>Future Pipeline</h3>
+<table>
+  <thead><tr><th>Atividade</th><th>Rafa</th><th>Nicole</th><th>Pimenta</th><th>Claude</th></tr></thead>
+  <tbody>
+    <tr><td>Nurture emails</td><td><strong>R</strong></td><td><strong>R</strong></td><td>I</td><td>C (draft)</td></tr>
+    <tr><td>Monitorar sinais (Crunchbase)</td><td>I</td><td>I</td><td>—</td><td><strong>R</strong></td></tr>
+    <tr><td>Revisão mensal</td><td><strong>R/A</strong></td><td>C</td><td>C</td><td>C</td></tr>
+    <tr><td>Reativação</td><td><strong>R</strong></td><td><strong>R</strong></td><td>I</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning">
+  <strong>Regra de ouro: Rafa e Nicole não fazem discovery call</strong>
+  Rafa e Nicole geram leads e fazem handoff. Pimenta faz a call, proposta e negociação. Rafa só entra na negociação se precisar de decisão de pricing, margem ou alocação técnica. Isso escala.
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 6: PROPRIEDADES ==================== -->
+<div class="tab-panel" data-tab="propriedades" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Propriedades — HubSpot</h2>
+
+<h3 style="color:var(--ix-blue)">🔎 Contact Properties (Prospecção)</h3>
+<p>Em <strong>Settings → Properties → Contact Properties</strong>. Prefixo <span class="prop-tag blue">ix_</span>.</p>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag blue">ix_prospect_status</span></td><td>Dropdown (Identified / Qualified / Contacted / Call Accepted / No Response / Disqualified / Future)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_company_name</span></td><td>Single-line text</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_contact_name</span></td><td>Single-line text</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_contact_email</span></td><td>Email</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_source</span></td><td>Dropdown (Inbound / LinkedIn / Referral / Outreach / Apollo / Event)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_funding_stage</span></td><td>Dropdown (Angel / Seed / Series A / Series B / Series C+ / Unknown)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_country</span></td><td>Dropdown (US / UK / EU / Canada / Israel / Other)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag blue">ix_team_size</span></td><td>Number</td><td>Não</td></tr>
+    <tr><td><span class="prop-tag blue">ix_tech_stack</span></td><td>Single-line text</td><td>Não</td></tr>
+    <tr><td><span class="prop-tag blue">ix_need_identified</span></td><td>Single-line text</td><td>Não</td></tr>
+    <tr><td><span class="prop-tag blue">ix_outreach_date</span></td><td>Date</td><td>Não</td></tr>
+    <tr><td><span class="prop-tag blue">ix_outreach_channel</span></td><td>Dropdown (Email / LinkedIn DM / Referral intro / Other)</td><td>Não</td></tr>
+    <tr><td><span class="prop-tag blue">ix_disqualify_reason</span></td><td>Dropdown (No funding / Too small / No need / Wrong market / Other)</td><td>Não</td></tr>
+  </tbody>
+</table>
+
+<h3 style="color:var(--ix-green)">📊 Deal Properties (Pipeline)</h3>
+<p>Em <strong>Settings → Properties → Deal Properties</strong>. Prefixo <span class="prop-tag">ix_</span>.</p>
+
+<p><strong>Stage 1 — Discovery Call</strong></p>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag">ix_call_date</span></td><td>Date</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_need_1</span></td><td>Multi-line text</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_profiles_needed</span></td><td>Single-line text</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_urgency</span></td><td>Dropdown (Yesterday / This month / This quarter / Exploring)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_budget_range</span></td><td>Dropdown ($10-15k / $15-25k / $25k+ / Not confirmed)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_decision_maker</span></td><td>Single-line text</td><td>Sim</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Stage 2 — Proposal Sent</strong></p>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag">ix_proposal_value</span></td><td>Currency (USD)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_sent_date</span></td><td>Date</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_proposal_link</span></td><td>URL</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_followup_date</span></td><td>Date</td><td>Sim</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Stage 3 — Negotiation</strong></p>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag">ix_objections</span></td><td>Multi-line text</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_final_scope</span></td><td>Multi-line text</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_negotiated_value</span></td><td>Currency (USD)</td><td>Sim</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Stage 4 — Closed Won</strong></p>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag">ix_final_value</span></td><td>Currency (USD)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_start_date</span></td><td>Date</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_duration</span></td><td>Dropdown (1 month / 3 months / 6 months / Ongoing)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_contract_link</span></td><td>URL</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_dev_allocated</span></td><td>Single-line text</td><td>Sim</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Closed Lost</strong></p>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag">ix_lost_reason</span></td><td>Dropdown (No budget / Bad timing / Competitor / No tech fit / Ghosted / No funding / Scope unviable / Other)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag">ix_lost_notes</span></td><td>Multi-line text</td><td>Não</td></tr>
+  </tbody>
+</table>
+
+<h3 style="color:var(--ix-purple)">🔮 Future Pipeline (Deal Properties)</h3>
+<table>
+  <thead><tr><th>Propriedade</th><th>Tipo</th><th>Obrig.</th></tr></thead>
+  <tbody>
+    <tr><td><span class="prop-tag purple">ix_future_reason</span></td><td>Dropdown (Timing — hiring later / Round not closed / Budget not ready / Building team / Re-approach from Lost)</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag purple">ix_reactivation_date</span></td><td>Date</td><td>Sim</td></tr>
+    <tr><td><span class="prop-tag purple">ix_future_notes</span></td><td>Multi-line text</td><td>Sim</td></tr>
+  </tbody>
+</table>
+
+<div class="callout success"><strong>Total: 13 Contact props + 20 Deal props + 3 Future props = 36</strong></div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 7: AUTOMAÇÕES ==================== -->
+<div class="tab-panel" data-tab="automacoes" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Automações HubSpot</h2>
+
+<h3 style="color:var(--ix-blue)">Prospecção (Contact-based)</h3>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow P1</div>
+  <div class="auto-title">📩 Outreach Follow-up Reminder</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>ix_prospect_status = "Contacted" há 5 dias sem mudança</dd>
+    <dt>Ação</dt><dd>Task para Rafa ou Nicole: "Follow-up outreach — [contact]"</dd>
+  </dl>
+</div>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow P2</div>
+  <div class="auto-title">🤝 Auto-create Deal on Call Accepted</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>ix_prospect_status muda para "Call Accepted"</dd>
+    <dt>Ação</dt><dd>Criar Deal no IX Commercial Pipeline · Stage = Discovery Call · Owner = Pimenta · Copiar campos do Contact pro Deal</dd>
+  </dl>
+</div>
+
+<h3 style="color:var(--ix-green)">Pipeline (Deal-based)</h3>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow D1</div>
+  <div class="auto-title">⏰ Prep Call Reminder</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>Deal criado em "Discovery Call"</dd>
+    <dt>Ação</dt><dd>Task para Pimenta: "Prep Call — [company]" · deadline = ix_call_date - 24h</dd>
+  </dl>
+</div>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow D2</div>
+  <div class="auto-title">📩 Follow-up Sequence</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>Deal → "Proposal Sent"</dd>
+    <dt>Ações</dt><dd><strong>Day 3:</strong> Light follow-up · <strong>Day 7:</strong> Value follow-up · <strong>Day 12:</strong> Final touch</dd>
+    <dt>Stop</dt><dd>Deal sai de "Proposal Sent"</dd>
+  </dl>
+</div>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow D3</div>
+  <div class="auto-title">🚨 Stale Deal Alert</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>Deal em "Negotiation" > 10 dias</dd>
+    <dt>Ação</dt><dd>Notificação para Pimenta + Rafa</dd>
+  </dl>
+</div>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow D4</div>
+  <div class="auto-title">🚀 Onboarding Kickoff</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>Deal → "Closed Won"</dd>
+    <dt>Ações</dt><dd>Email Nicole · Task Linear project · Welcome kit (2d) · Kickoff call (2d)</dd>
+  </dl>
+</div>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow D5</div>
+  <div class="auto-title">🔮 Future Reactivation Alert</div>
+  <dl class="sd-props">
+    <dt>Trigger</dt><dd>ix_reactivation_date = hoje</dd>
+    <dt>Ação</dt><dd>Task para Rafa: "Review Future — [company]"</dd>
+  </dl>
+</div>
+
+<div class="auto-card">
+  <div class="auto-label">Workflow D6</div>
+  <div class="auto-title">📝 Lost Reason Required</div>
+  <dl class="sd-props">
+    <dt>Config</dt><dd>ix_lost_reason obrigatória ao mover para Closed Lost</dd>
+  </dl>
+</div>
+
+<h2>Fase 2 — Automações futuras (n8n + Claude)</h2>
+<table>
+  <thead><tr><th>Automação</th><th>Trigger</th><th>O que faz</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Auto-Research</strong></td><td>Contact "Identified"</td><td>Claude pesquisa Crunchbase/LinkedIn, preenche campos</td></tr>
+    <tr><td><strong>Funding Monitor</strong></td><td>Cron diário</td><td>Monitora Crunchbase pra Future Pipeline</td></tr>
+    <tr><td><strong>Proposal Generator</strong></td><td>Discovery done</td><td>Claude gera draft proposta</td></tr>
+    <tr><td><strong>Weekly Pipeline Pulse</strong></td><td>Sexta 17h</td><td>Relatório semanal consolidado</td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ==================== TAB 8: SETUP ==================== -->
+<div class="tab-panel" data-tab="config" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Guia de Setup no HubSpot</h2>
+<p>8 passos · <strong>~2.5 horas</strong></p>
+
+<div class="config-step">
+  <div class="step-num">Passo 1 — Criar 2 Pipelines de Deal</div>
+  <p><strong>Settings → Objects → Deals → Pipelines</strong></p>
+  <p><strong>1. "IX Commercial Pipeline"</strong> — 4 stages + Closed Lost<br><strong>2. "IX Future Pipeline"</strong> — 1 stage: "Future"</p>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 2 — Stages + Win %</div>
+  <table>
+    <thead><tr><th>#</th><th>Stage</th><th>Win %</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Discovery Call</td><td>25%</td></tr>
+      <tr><td>2</td><td>Proposal Sent</td><td>50%</td></tr>
+      <tr><td>3</td><td>Negotiation</td><td>75%</td></tr>
+      <tr><td>4</td><td>Closed Won</td><td>100%</td></tr>
+      <tr><td>—</td><td>Closed Lost</td><td>0%</td></tr>
+    </tbody>
+  </table>
+  <div class="callout info">
+    <strong>Win % mais alto que antes</strong>
+    Só entra lead que já aceitou call = cada deal tem mais peso. Discovery começa em 25% porque o lead já foi qualificado.
+  </div>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 3 — Contact Properties (prospecção)</div>
+  <p><strong>Settings → Properties → Contact Properties</strong></p>
+  <p>13 propriedades com prefixo <span class="prop-tag blue">ix_</span>. Ver aba "Propriedades".</p>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 4 — Deal Properties (pipeline)</div>
+  <p><strong>Settings → Properties → Deal Properties</strong></p>
+  <p>23 propriedades (20 pipeline + 3 future). Ver aba "Propriedades".</p>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 5 — Obrigatórias por Stage</div>
+  <p><strong>Deals → Pipelines → Conditional stage properties</strong></p>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 6 — 8 Workflows</div>
+  <p>2 Contact-based (prospecção) + 6 Deal-based (pipeline). Ver aba "Automações".</p>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 7 — Views</div>
+  <table>
+    <thead><tr><th>View</th><th>Tipo</th><th>Filtro</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Prospects — To Research</strong></td><td>Contact</td><td>status = Identified</td></tr>
+      <tr><td><strong>Prospects — To Outreach</strong></td><td>Contact</td><td>status = Qualified</td></tr>
+      <tr><td><strong>Prospects — Awaiting Reply</strong></td><td>Contact</td><td>status = Contacted</td></tr>
+      <tr><td><strong>Active Deals</strong></td><td>Deal</td><td>IX Commercial, Stage ≠ Closed</td></tr>
+      <tr><td><strong>Needs Follow-up</strong></td><td>Deal</td><td>Proposal Sent + followup ≤ hoje</td></tr>
+      <tr><td><strong>Future Pipeline</strong></td><td>Deal</td><td>Pipeline = IX Future</td></tr>
+      <tr><td><strong>Lost Analysis</strong></td><td>Deal</td><td>Closed Lost, por lost_reason</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="config-step">
+  <div class="step-num">Passo 8 — Dashboard</div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="label">Report 1</div><div class="value" style="font-size:16px">Prospect Funnel</div><div class="detail">Contacts por status</div></div>
+    <div class="metric-card"><div class="label">Report 2</div><div class="value" style="font-size:16px">Deal Funnel</div><div class="detail">Deals por stage</div></div>
+    <div class="metric-card"><div class="label">Report 3</div><div class="value" style="font-size:16px">Win Rate</div><div class="detail">% Won vs Total</div></div>
+    <div class="metric-card"><div class="label">Report 4</div><div class="value" style="font-size:16px">Conversion</div><div class="detail">Prospect → Deal → Won</div></div>
+  </div>
+</div>
+
+<div class="callout success"><strong>Setup completo!</strong> ~2.5h de config → prospecção + pipeline + future rodando. Itere com dados reais.</div>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const tab=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>{p.classList.remove('active');p.setAttribute('aria-hidden','true')});btn.classList.add('active');const panel=document.querySelector('.tab-panel[data-tab="'+tab+'"]');if(panel){panel.classList.add('active');panel.setAttribute('aria-hidden','false')}window.location.hash=tab;window.scrollTo(0,0)})});
+if(window.location.hash){const tab=window.location.hash.slice(1);const btn=document.querySelector('.tab-btn[data-tab="'+tab+'"]');if(btn)btn.click()}
+document.querySelector('.back-btn').addEventListener('click',()=>{if(document.referrer)history.back();else window.location.href='/'});
+</script>
+</body>
+</html>

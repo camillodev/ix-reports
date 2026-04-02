@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Análise Qualitativa de Concorrentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ix-ink:#1A1D21;--ix-muted:#6B7280;--ix-green:#11C76F;--ix-green-dark:#059669;--ix-green-bg:#D1FAE5;--ix-green-tint:#ECFDF5;--ix-bg:#F4F6F9;--ix-surface:#FFF;--ix-border:#E8ECF1;--ix-warning:#D4820A;--ix-danger:#C0392B;--ix-blue:#3B82F6;--ix-blue-tint:#EFF6FF;--ix-purple:#7C3AED;--ix-purple-tint:#EDE9FE;--ix-radius-sm:10px;--ix-radius-md:16px;--ix-radius-lg:22px;--ix-shadow-sm:0 1px 3px rgba(0,0,0,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body.ix-report{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;line-height:1.6;color:var(--ix-ink);background:var(--ix-bg)}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);box-shadow:var(--ix-shadow-sm)}
+.topbar .back-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;color:var(--ix-muted)}
+.topbar .brand{font-weight:800;font-size:18px;color:var(--ix-ink);text-decoration:none;letter-spacing:.5px}
+.topbar .brand .x{color:var(--ix-green)}
+.topbar-title{font-size:14px;font-weight:600;color:var(--ix-muted)}
+.tab-nav{position:fixed;top:56px;left:0;right:0;z-index:99;display:flex;gap:4px;padding:8px 24px;background:var(--ix-surface);border-bottom:1px solid var(--ix-border);overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:var(--ix-muted);padding:8px 16px;border-radius:var(--ix-radius-sm);transition:all .2s;flex-shrink:0}
+.tab-btn:hover{background:var(--ix-green-tint);color:var(--ix-green-dark)}
+.tab-btn.active{background:var(--ix-green);color:#fff}
+.tab-panel{display:none;padding-top:130px;padding-bottom:80px}
+.tab-panel.active{display:block}
+.content{max-width:900px;margin:0 auto;padding:0 24px}
+.report-header{background:var(--ix-green-tint);padding:48px 24px 36px;margin:-130px -24px 32px;padding-top:160px;border-radius:0 0 var(--ix-radius-lg) var(--ix-radius-lg);position:relative;overflow:hidden}
+.report-header::after{content:'X';position:absolute;right:-20px;top:-10px;font-size:280px;font-weight:900;color:var(--ix-green);opacity:.06;pointer-events:none;line-height:1}
+.hdr-brand{font-size:13px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.hdr-title{font-size:32px;font-weight:800;color:var(--ix-ink);margin-bottom:8px}
+.hdr-title em{font-style:normal;color:var(--ix-green)}
+.hdr-sub{font-size:18px;color:var(--ix-muted);margin-bottom:16px}
+.hdr-meta{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--ix-muted)}
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--ix-surface);border-radius:var(--ix-radius-md);overflow:hidden;box-shadow:var(--ix-shadow-sm)}
+thead{background:var(--ix-ink)}
+thead th{padding:12px 16px;font-size:13px;font-weight:700;color:#fff;text-align:left;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:12px 16px;font-size:15px;border-bottom:1px solid var(--ix-border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--ix-green-tint)}
+.callout{padding:16px 20px;border-radius:var(--ix-radius-sm);margin:20px 0;font-size:15px;border-left:4px solid}
+.callout.success{background:var(--ix-green-bg);border-color:var(--ix-green);color:var(--ix-green-dark)}
+.callout.warning{background:#FEF3C7;border-color:var(--ix-warning);color:#92400E}
+.callout.danger{background:#FEE2E2;border-color:var(--ix-danger);color:#991B1B}
+.callout.info{background:var(--ix-green-tint);border-color:#34D399;color:var(--ix-ink)}
+.callout strong{display:block;margin-bottom:4px}
+h2{font-size:24px;font-weight:800;margin:32px 0 16px;color:var(--ix-ink)}
+h3{font-size:18px;font-weight:700;margin:24px 0 12px;color:var(--ix-ink)}
+p{margin-bottom:16px}
+ul,ol{margin:12px 0 16px 24px}
+li{margin-bottom:8px}
+footer{text-align:center;padding:32px 24px;font-size:14px;color:var(--ix-muted)}
+footer .brand{font-weight:800;font-size:16px;color:var(--ix-ink);margin-bottom:4px}
+footer .brand .x{color:var(--ix-green)}
+.rc{background:var(--ix-surface);border-radius:var(--ix-radius-md);padding:20px;margin:16px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border);border-left:4px solid var(--ix-border)}
+.rc .rc-name{font-size:18px;font-weight:800;margin-bottom:4px}
+.rc .rc-ratings{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--ix-muted);margin-bottom:12px}
+.rc .rc-section{margin-top:12px}
+.rc .rc-section h4{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.rc .rc-section.pos h4{color:var(--ix-green-dark)}
+.rc .rc-section.neg h4{color:var(--ix-danger)}
+.rc .rc-section.opp h4{color:var(--ix-blue)}
+.rc .rc-section ul{margin:4px 0 0 18px;font-size:14px}
+.rc .rc-section li{margin-bottom:4px}
+.badge{display:inline-block;font-family:'Roboto Mono',monospace;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.pipeline-change{background:var(--ix-surface);border-radius:var(--ix-radius-md);padding:20px;margin:16px 0;box-shadow:var(--ix-shadow-sm);border:1px solid var(--ix-border);border-left:4px solid var(--ix-green)}
+.pipeline-change .pc-label{font-family:'Roboto Mono',monospace;font-size:12px;font-weight:700;color:var(--ix-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.pipeline-change .pc-title{font-size:17px;font-weight:800;margin-bottom:8px}
+.pipeline-change .pc-body{font-size:14px}
+.pipeline-change .pc-body dt{font-weight:700;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.5px;font-size:12px;margin-top:8px}
+.pipeline-change .pc-body dd{margin-left:0}
+@media(max-width:640px){.hdr-title{font-size:24px}.tab-nav{padding:8px 12px}.content{padding:0 16px}}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Análise Qualitativa</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="reviews">Reviews por Empresa</button>
+  <button type="button" class="tab-btn" data-tab="dores">Dores do Mercado</button>
+  <button type="button" class="tab-btn" data-tab="pipeline">Ajustes no Pipeline</button>
+</nav>
+
+<!-- ==================== TAB 1: REVIEWS ==================== -->
+<div class="tab-panel active" data-tab="reviews" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header">
+  <div class="hdr-brand">Impact X · Competitive Intel</div>
+  <h1 class="hdr-title">Análise Qualitativa<br><em>Reviews & Dores Reais</em></h1>
+  <p class="hdr-sub">Glassdoor · Trustpilot · G2 · Clutch · Product Hunt · GoodFirms</p>
+  <p class="hdr-meta">Abril 2026 · 7 concorrentes · Dados de devs e clientes</p>
+</div>
+
+<h2>Scores consolidados</h2>
+
+<table>
+  <thead><tr><th>Empresa</th><th>Glassdoor</th><th>Trustpilot</th><th>G2</th><th>Clutch</th><th>Recomenda (%)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>BEON.tech</strong></td><td>4.9/5 (29 reviews)</td><td>—</td><td>Listado</td><td>67 reviews</td><td>98%</td></tr>
+    <tr><td><strong>Howdy</strong></td><td>4.7/5 (46 reviews)</td><td>—</td><td>—</td><td>—</td><td>98%</td></tr>
+    <tr><td><strong>Lemon.io</strong></td><td>4.5+/5</td><td>5/5 (276 reviews)</td><td>58 reviews</td><td>—</td><td>~95%</td></tr>
+    <tr><td><strong>CloudDevs</strong></td><td>—</td><td>4.5/5 (78 reviews)</td><td>—</td><td>—</td><td>~85%</td></tr>
+    <tr><td><strong>TECLA</strong></td><td>3.9/5 (4 reviews)</td><td>—</td><td>—</td><td>Listado</td><td>Poucos dados</td></tr>
+    <tr><td><strong>Revelo</strong></td><td>~4.0/5</td><td>—</td><td>Listado</td><td>—</td><td>~90%</td></tr>
+    <tr><td><strong>Near</strong></td><td>~4.2/5</td><td>—</td><td>—</td><td>—</td><td>Poucos dados</td></tr>
+  </tbody>
+</table>
+
+<!-- HOWDY -->
+<div class="rc" style="border-left-color:#F59E0B">
+  <div class="rc-name">Howdy</div>
+  <div class="rc-ratings">Glassdoor 4.7/5 (46 reviews) · 98% recomenda · Comparably: $115k avg salary</div>
+  
+  <div class="rc-section pos">
+    <h4>✅ O que clientes e devs elogiam</h4>
+    <ul>
+      <li><strong>Job stability:</strong> Se o cliente encerra, o dev é realocado para outro projeto — não é demitido</li>
+      <li><strong>Benefits reais:</strong> Health insurance, 20 dias de férias, English classes, gym perk, equipamento</li>
+      <li><strong>Cultura anti-micromanagement:</strong> "Parceiros são startups que não praticam micromanagement"</li>
+      <li><strong>Salary transparency:</strong> Salário é negociado direto com o cliente, Howdy cobra fee em cima — dev sabe quanto o cliente paga</li>
+      <li><strong>Physical offices:</strong> Howdy Houses em 7 cidades LATAM criam comunidade real</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section neg">
+    <h4>❌ Reclamações recorrentes</h4>
+    <ul>
+      <li><strong>Demissão abrupta:</strong> Dev relatou ser demitido após 1.5 semana sem explicação clara, sem severance inicial</li>
+      <li><strong>Vetting de parceiros fraco:</strong> "Howdy não avalia bem os parceiros" — dev pode cair em projeto ruim</li>
+      <li><strong>Growing pains:</strong> CEO admite que crescimento rápido traz "pontos de fricção" em processos</li>
+      <li><strong>Processo lento:</strong> Entrevistas levam 2-4 meses em alguns casos (screening → tech → client interview)</li>
+      <li><strong>Salários LATAM:</strong> "Não iguala rates US" — compensado por benefícios, mas dev ambicioso pode sair</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section opp">
+    <h4>🎯 Oportunidade para a IX</h4>
+    <ul>
+      <li>IX pode vetter clientes melhor que Howdy — Rafa é técnico, sabe reconhecer projeto tóxico antes de alocar</li>
+      <li>IX é mais rápida — processo de 5 dias vs. 2-4 meses da Howdy</li>
+      <li>IX pode oferecer transparência radical: "aqui está o rate do cliente, aqui está o custo do dev, aqui está a margem da IX"</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BEON.TECH -->
+<div class="rc" style="border-left-color:#8B5CF6">
+  <div class="rc-name">BEON.tech</div>
+  <div class="rc-ratings">Glassdoor 4.9/5 (29 reviews) · 98% recomenda · Clutch 67 reviews · #1 Clutch Staff Aug</div>
+  
+  <div class="rc-section pos">
+    <h4>✅ O que clientes e devs elogiam</h4>
+    <ul>
+      <li><strong>Qualidade consistente:</strong> "hardworking engineers, outstanding quality" — VP Eng da Tessitura</li>
+      <li><strong>Responsiveness:</strong> "ability to shift priorities while maintaining quality output" — 3+ anos de cliente</li>
+      <li><strong>Career development:</strong> Programas de upskilling, AI engineer training, "Committed to Grow" campaign</li>
+      <li><strong>Onboarding cuidadoso:</strong> "From day one, the team genuinely checks in on your well-being"</li>
+      <li><strong>Projetos up to $1M:</strong> Clientes reportam projetos individuais de até $1M USD com BEON</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section neg">
+    <h4>❌ Reclamações recorrentes</h4>
+    <ul>
+      <li><strong>Skillset gaps:</strong> "Sometimes BEON did not have engineer with certain skillset available when needed" — GoodFirms</li>
+      <li><strong>Argentina risk:</strong> Base argentina = risco cambial, instabilidade econômica (não mencionado em reviews, mas real)</li>
+      <li><strong>Sem negative reviews:</strong> Suspeitamente zero reviews negativos no Glassdoor — pode indicar gestão de reviews</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section opp">
+    <h4>🎯 Oportunidade para a IX</h4>
+    <ul>
+      <li>BEON tem gap de skillset disponível — IX pode preencher com bench BR (pool maior que AR)</li>
+      <li>IX com base BR evita risco cambial argentino</li>
+      <li>Content marketing da BEON é forte — IX precisa competir nesse canal, mas com voz autêntica (não corporate)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEMON.IO -->
+<div class="rc" style="border-left-color:#F43F5E">
+  <div class="rc-name">Lemon.io</div>
+  <div class="rc-ratings">Trustpilot 5/5 (276 reviews) · G2 58 reviews · Glassdoor 4.5+/5</div>
+  
+  <div class="rc-section pos">
+    <h4>✅ O que clientes e devs elogiam</h4>
+    <ul>
+      <li><strong>Speed:</strong> "Got my first project within a week" — matching rápido e eficiente</li>
+      <li><strong>Community:</strong> "Lemon has been an amazing community and support system" — dev de 3 anos</li>
+      <li><strong>Onboarding metódico:</strong> "How methodically my skills were assessed" — processo claro e justo</li>
+      <li><strong>Customer service:</strong> "Responsive, quick, and willing to help" — consistente nos reviews</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section neg">
+    <h4>❌ Reclamações recorrentes</h4>
+    <ul>
+      <li><strong>Contrato de $12k/mês que deu errado:</strong> Cliente relatou experiência negativa após contratar por $12k/mês em 2024 — "the whole experience still stings"</li>
+      <li><strong>Modelo freelancer:</strong> Devs não são dedicados — dividem atenção entre projetos</li>
+      <li><strong>Oportunidades difíceis:</strong> "Job opportunities are quite challenging to land" — muita competição interna entre devs</li>
+      <li><strong>Processo longo de hiring do cliente:</strong> "Some client hiring process can be long and tough with many steps"</li>
+      <li><strong>Review/onboarding demorado:</strong> "Takes a little while" antes de começar a receber projetos</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section opp">
+    <h4>🎯 Oportunidade para a IX</h4>
+    <ul>
+      <li>Modelo freelancer Lemon.io = dev não-dedicado. IX oferece staff aug dedicado — dev é "seu" full-time</li>
+      <li>Cliente gastou $12k/mês e ficou insatisfeito — IX com $10k/projeto e scope claro reduz risco</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CLOUDDEVS -->
+<div class="rc" style="border-left-color:#84CC16">
+  <div class="rc-name">CloudDevs / LatHire</div>
+  <div class="rc-ratings">Trustpilot 4.5/5 (78 reviews) · Product Hunt reviews mistos</div>
+  
+  <div class="rc-section pos">
+    <h4>✅ O que elogiam</h4>
+    <ul>
+      <li><strong>Velocidade:</strong> Match em 24 horas — consistently praised</li>
+      <li><strong>Sem markup:</strong> "No agency markup on developer rates" — preço é o rate do dev direto</li>
+      <li><strong>Trial grátis:</strong> 1 semana free trial, $500 deposit reembolsável</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section neg">
+    <h4>❌ Reclamações recorrentes</h4>
+    <ul>
+      <li><strong>Ghosting:</strong> Dev aplicou, fez assessment, esperou 1 mês sem resposta, agendaram call e não apareceram</li>
+      <li><strong>Vetting fraco:</strong> Assessment é "generic PHP script that any intern could solve" — não testa seniority real</li>
+      <li><strong>Comunicação falha:</strong> "Lack of feedback and ghosting" — padrão recorrente nos reviews</li>
+      <li><strong>Sem feedback:</strong> Devs rejeitados não recebem motivo — unprofessional</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section opp">
+    <h4>🎯 Oportunidade para a IX</h4>
+    <ul>
+      <li>Vetting da IX é real — Rafa entrevista pessoalmente cada dev sênior. Isso é o oposto do assessment genérico</li>
+      <li>Comunicação da IX é pessoal — nunca ghostar dev ou cliente</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TECLA -->
+<div class="rc" style="border-left-color:#10B981">
+  <div class="rc-name">TECLA</div>
+  <div class="rc-ratings">Glassdoor 3.9/5 (4 reviews) · Inc 5000 · Poucos reviews públicos</div>
+  
+  <div class="rc-section pos">
+    <h4>✅ O que elogiam</h4>
+    <ul>
+      <li><strong>Preço:</strong> $15-70/hr — mais acessível do mercado</li>
+      <li><strong>Process:</strong> "Timely, responsive, and always kept communication flowing"</li>
+      <li><strong>QA improvement:</strong> Cliente reportou "bug reports reduced by half" após contratação via TECLA</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section neg">
+    <h4>❌ Reclamações</h4>
+    <ul>
+      <li><strong>Pouquíssimos reviews:</strong> 4 reviews Glassdoor = data insuficiente pra confiar</li>
+      <li><strong>Sem pricing transparente:</strong> Range de $15-70/hr é enorme — inconsistência de qualidade</li>
+      <li><strong>Sem Trustpilot:</strong> Ausência em plataformas de review independentes</li>
+      <li><strong>Generalista:</strong> Atende de $15/hr (junior) a $70/hr (senior) — sem foco em seniority</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section opp">
+    <h4>🎯 Oportunidade para a IX</h4>
+    <ul>
+      <li>IX é o oposto: 100% senior, pricing consistente, processo documentado. Não é body shop.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- REVELO -->
+<div class="rc" style="border-left-color:#06B6D4">
+  <div class="rc-name">Revelo</div>
+  <div class="rc-ratings">~4.0/5 Glassdoor · G2 listado · Clutch listado · $500 setup fee</div>
+  
+  <div class="rc-section pos">
+    <h4>✅ O que elogiam</h4>
+    <ul>
+      <li><strong>Trial de 2 semanas:</strong> Risk-free — se não gostar, não paga</li>
+      <li><strong>14-day hiring:</strong> Processo rápido de matching</li>
+      <li><strong>No lock-in:</strong> Cancela a qualquer momento sem penalidade</li>
+      <li><strong>400k+ devs:</strong> Maior pool do Brasil, especialmente pós-aquisições</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section neg">
+    <h4>❌ Reclamações</h4>
+    <ul>
+      <li><strong>$500 non-refundable setup:</strong> Cobrar antes de ver candidatos afasta startups early-stage</li>
+      <li><strong>Marketplace impessoal:</strong> Processo automatizado — sem relação pessoal com o cliente</li>
+      <li><strong>Pricing não claro no site:</strong> $50-70/hr é range publicado, mas detalhes requerem call</li>
+      <li><strong>Retention não divulgado:</strong> Se retention fosse boa, publicariam — silêncio é red flag</li>
+    </ul>
+  </div>
+  
+  <div class="rc-section opp">
+    <h4>🎯 Oportunidade para a IX</h4>
+    <ul>
+      <li>IX não cobra setup fee — $0 pra iniciar conversa. Barreira zero.</li>
+      <li>IX é pessoal: Rafa na call, não um marketplace automatizado</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 2: DORES DO MERCADO ==================== -->
+<div class="tab-panel" data-tab="dores" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>7 Dores Reais Extraídas dos Reviews</h2>
+<p>Padrões que aparecem repetidamente nos reviews de <strong>clientes e devs</strong> de todas as empresas analisadas.</p>
+
+<div class="callout danger">
+  <strong>Dor #1: Dev não-dedicado / dividindo atenção</strong>
+  Plataformas como Lemon.io e CloudDevs alocam freelancers que trabalham em múltiplos projetos. Cliente paga full-time rate mas não recebe full-time attention. Isso gera atraso, comunicação fraca, e sensação de não ser prioridade.
+</div>
+
+<div class="callout danger">
+  <strong>Dor #2: Vetting superficial / dev não é sênior de verdade</strong>
+  CloudDevs usa "generic PHP assessment". TECLA tem range $15-70/hr — mesmo pipeline pra junior e senior. Cliente contrata "senior" que na prática precisa de supervisão constante.
+</div>
+
+<div class="callout danger">
+  <strong>Dor #3: Processo lento demais</strong>
+  Howdy: 2-4 meses em alguns casos. Revelo: 14 dias. Lemon.io: onboarding "takes a while". Startup com funding queimando não tem esse tempo. Quer dev amanhã, não em 2 meses.
+</div>
+
+<div class="callout warning">
+  <strong>Dor #4: Comunicação/ghosting</strong>
+  CloudDevs ghostou devs após assessment. Lemon.io tem clientes que somem. Howdy demitiu dev sem explicação clara. Falta de comunicação transparente é tema recorrente em todas as plataformas.
+</div>
+
+<div class="callout warning">
+  <strong>Dor #5: Parceiro/cliente mal vettado</strong>
+  Devs do Howdy relatam que a empresa "não avalia bem os parceiros" — caem em projetos tóxicos. O inverso também acontece: clientes recebem devs que não têm o perfil prometido.
+</div>
+
+<div class="callout warning">
+  <strong>Dor #6: Custo escondido / pricing opaco</strong>
+  Revelo cobra $500 setup non-refundable. BEON e TECLA não publicam pricing. Howdy cobra "salary + 15% fee" mas o total não é claro upfront. Cliente só descobre o custo real depois da call de vendas.
+</div>
+
+<div class="callout info">
+  <strong>Dor #7: Escala vs. qualidade</strong>
+  Empresas grandes (Howdy, Revelo) têm pool enorme mas qualidade inconsistente. Empresas pequenas (BEON) têm qualidade alta mas gap de skillset. Ninguém resolve os dois ao mesmo tempo.
+</div>
+
+<h2>Como a IX pode resolver cada dor</h2>
+
+<table>
+  <thead><tr><th>Dor</th><th>Como a IX resolve</th><th>Messaging de venda</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>#1 Dev não-dedicado</strong></td>
+      <td>100% staff aug dedicado. Dev é "seu" full-time, não freelancer dividindo projetos.</td>
+      <td>"Your developer works exclusively on your project. No divided attention, ever."</td>
+    </tr>
+    <tr>
+      <td><strong>#2 Vetting fraco</strong></td>
+      <td>Rafa (11+ anos senior dev) entrevista pessoalmente cada dev. Não é assessment genérico.</td>
+      <td>"Every dev is personally vetted by our founder — a senior engineer with 11+ years of experience."</td>
+    </tr>
+    <tr>
+      <td><strong>#3 Processo lento</strong></td>
+      <td>5 dias lead→proposta. Dev profiles em 48h após aceitar.</td>
+      <td>"From first call to developer profiles in 48 hours. We move at startup speed."</td>
+    </tr>
+    <tr>
+      <td><strong>#4 Ghosting</strong></td>
+      <td>Comunicação pessoal, Rafa e Pimenta acessíveis diretamente. Nunca ghostar.</td>
+      <td>"You'll always have a direct line to our team. No tickets, no ghosting."</td>
+    </tr>
+    <tr>
+      <td><strong>#5 Parceiro mal vettado</strong></td>
+      <td>Gate 2 (Delivery Check) protege o dev: IX não aloca em projeto sem escopo claro e margem saudável.</td>
+      <td>"We protect our developers too. If a project doesn't have clear scope, we don't place anyone."</td>
+    </tr>
+    <tr>
+      <td><strong>#6 Pricing opaco</strong></td>
+      <td>$10k/projeto publicado. Transparência radical em custo.</td>
+      <td>"$10k per project. No hidden fees, no setup costs, no surprises."</td>
+    </tr>
+    <tr>
+      <td><strong>#7 Escala vs qualidade</strong></td>
+      <td>Não tenta escalar pra 400k devs. Mantém bench de 10-20 seniors verificados. Quality > quantity.</td>
+      <td>"We don't have 400k developers. We have 10 exceptional ones — and we know each by name."</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout success">
+  <strong>O pitch da IX em uma frase</strong>
+  "We're not a marketplace with 400k profiles. We're a small team of senior engineers who place senior engineers. You talk to the founder, not a sales rep. $10k per project, profiles in 48 hours, no hidden fees."
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 3: AJUSTES NO PIPELINE ==================== -->
+<div class="tab-panel" data-tab="pipeline" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Ajustes no Pipeline Comercial v3</h2>
+<p>Baseado nas dores de mercado e reviews reais, estas mudanças tornam o pipeline da IX mais competitivo.</p>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 1 — Prospecção</div>
+  <div class="pc-title">Adicionar campo: ix_pain_identified (dor do mercado)</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>As 7 dores do mercado são padrões reais. Na prospecção, mapear qual dor o lead provavelmente sente permite personalizar o outreach.</dd>
+    <dt>Campo</dt><dd><strong>ix_pain_identified</strong> — Dropdown: "Slow hiring process" / "Inconsistent dev quality" / "Non-dedicated devs" / "Hidden costs" / "Bad communication" / "Scaling pains" / "Other"</dd>
+    <dt>Onde</dt><dd>Contact Properties (prospecção). Preenchido por Claude na auto-research ou por Rafa/Nicole manualmente.</dd>
+    <dt>Impacto</dt><dd>Outreach personalizado por dor → taxa de resposta maior. "I noticed you're scaling your eng team. Most CTOs I talk to are frustrated with [dor específica]. Here's how we're different."</dd>
+  </dl>
+</div>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 2 — Discovery Call</div>
+  <div class="pc-title">Adicionar campo: ix_current_provider (quem usam hoje)</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>Saber se o lead já usa Howdy, Revelo, ou CloudDevs muda o approach inteiro da call. Cada concorrente tem fraquezas diferentes que a IX pode explorar.</dd>
+    <dt>Campo</dt><dd><strong>ix_current_provider</strong> — Dropdown: "None / In-house only" / "Howdy" / "Revelo" / "BEON.tech" / "Lemon.io" / "CloudDevs" / "TECLA" / "Toptal" / "Other agency" / "Direct contractors"</dd>
+    <dt>Onde</dt><dd>Deal Properties (Discovery Call stage). Pimenta preenche durante/após a call.</dd>
+    <dt>Impacto</dt><dd>Se usa Howdy → falar de velocidade e preço. Se usa CloudDevs → falar de vetting real. Se usa Lemon.io → falar de dedicação full-time.</dd>
+  </dl>
+</div>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 3 — Discovery Call</div>
+  <div class="pc-title">Adicionar campo: ix_current_pain (dor com provider atual)</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>Se já usam uma agência, perguntar "what's not working?" é a pergunta mais valiosa da call. A resposta alimenta a proposta inteira.</dd>
+    <dt>Campo</dt><dd><strong>ix_current_pain</strong> — Multi-line text. Nas palavras do cliente.</dd>
+    <dt>Onde</dt><dd>Deal Properties (Discovery Call stage).</dd>
+    <dt>Impacto</dt><dd>Proposta endereça diretamente a dor com o provider atual. "You told us [dor]. Here's exactly how we solve that."</dd>
+  </dl>
+</div>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 4 — Proposal Sent</div>
+  <div class="pc-title">Incluir seção "Why IX vs [competitor]" na proposta</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>Funded startups avaliam 2-3 opções. A proposta precisa posicionar IX vs. a alternativa que eles estão considerando.</dd>
+    <dt>Ação</dt><dd>Template de proposta (ix-reports) ganha seção opcional: comparativo IX vs. provider atual/alternativo. Baseado no ix_current_provider e nas dores mapeadas.</dd>
+    <dt>Impacto</dt><dd>Proposta não é genérica — é battle card personalizada. CTO sente que a IX entende o mercado.</dd>
+  </dl>
+</div>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 5 — Gate Delivery Check</div>
+  <div class="pc-title">Adicionar critério: "Client-side readiness"</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>Howdy devs reclamam que caem em projetos mal preparados. IX precisa proteger o dev — Gate 2 agora checa se o CLIENTE está preparado pra receber o dev.</dd>
+    <dt>Critério novo</dt><dd><strong>Client prepared</strong> — tem onboarding process, sabe receber dev remoto, tem tooling (Slack/GitHub/Jira), tem alguém pra fazer 1:1 com o dev</dd>
+    <dt>Gate atualizado</dt><dd>5 critérios (era 4): Dev available + Stack match + Timezone + Margin + <strong>Client prepared</strong></dd>
+    <dt>Impacto</dt><dd>Reduz churn, aumenta retention, protege reputação da IX</dd>
+  </dl>
+</div>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 6 — Closed Won</div>
+  <div class="pc-title">Adicionar campo: ix_review_scheduled (data pra pedir testimonial)</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>BEON.tech tem 67 reviews no Clutch. Howdy tem 46 no Glassdoor. IX tem zero. Cada deal fechado PRECISA virar review. Automatizar o pedido.</dd>
+    <dt>Campo</dt><dd><strong>ix_review_scheduled</strong> — Date. Setado automaticamente pra 30 dias após ix_start_date.</dd>
+    <dt>Automação</dt><dd>Workflow: ix_review_scheduled = hoje → task Nicole: "Ask [company] for testimonial/review"</dd>
+    <dt>Impacto</dt><dd>Após 5 projetos, IX terá 5 reviews reais. Após 10, compete com TECLA no Glassdoor.</dd>
+  </dl>
+</div>
+
+<div class="pipeline-change">
+  <div class="pc-label">Ajuste 7 — Closed Lost</div>
+  <div class="pc-title">Adicionar campo: ix_lost_to_competitor (pra quem perdeu)</div>
+  <dl class="pc-body">
+    <dt>Por quê</dt><dd>Saber se perdeu pra Howdy (preço? brand?) ou pra Revelo (trial grátis? pool?) muda a estratégia competitiva.</dd>
+    <dt>Campo</dt><dd><strong>ix_lost_to_competitor</strong> — Dropdown: "Howdy" / "Revelo" / "BEON.tech" / "Lemon.io" / "CloudDevs" / "TECLA" / "In-house" / "Other" / "Unknown"</dd>
+    <dt>Impacto</dt><dd>Dados reais de quem é a competição. Após 20 deals lost, sabe exatamente contra quem precisa ganhar.</dd>
+  </dl>
+</div>
+
+<h2>Resumo: 4 novas Contact Properties + 5 novas Deal Properties</h2>
+
+<table>
+  <thead><tr><th>Campo</th><th>Tipo</th><th>Onde</th><th>Stage</th></tr></thead>
+  <tbody>
+    <tr><td><strong>ix_pain_identified</strong></td><td>Dropdown</td><td>Contact</td><td>Prospecção</td></tr>
+    <tr><td><strong>ix_current_provider</strong></td><td>Dropdown</td><td>Deal</td><td>Discovery</td></tr>
+    <tr><td><strong>ix_current_pain</strong></td><td>Multi-line text</td><td>Deal</td><td>Discovery</td></tr>
+    <tr><td><strong>ix_review_scheduled</strong></td><td>Date</td><td>Deal</td><td>Closed Won</td></tr>
+    <tr><td><strong>ix_lost_to_competitor</strong></td><td>Dropdown</td><td>Deal</td><td>Closed Lost</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <strong>Gate 2 (Delivery Check): 5 critérios agora</strong>
+  Dev available · Stack match · Timezone overlap · Margin ≥ 40% · <strong>Client prepared (novo)</strong>
+</div>
+
+<div class="callout success">
+  <strong>Pipeline v3 atualizado: 13 Contact props + 25 Deal props + 3 Future props = 41 total</strong>
+  Cada campo novo existe porque resolve um gap identificado nos reviews reais dos concorrentes.
+</div>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const tab=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>{p.classList.remove('active');p.setAttribute('aria-hidden','true')});btn.classList.add('active');const panel=document.querySelector('.tab-panel[data-tab="'+tab+'"]');if(panel){panel.classList.add('active');panel.setAttribute('aria-hidden','false')}window.location.hash=tab;window.scrollTo(0,0)})});
+if(window.location.hash){const tab=window.location.hash.slice(1);const btn=document.querySelector('.tab-btn[data-tab="'+tab+'"]');if(btn)btn.click()}
+document.querySelector('.back-btn').addEventListener('click',()=>{if(document.referrer)history.back();else window.location.href='/'});
+</script>
+</body>
+</html>

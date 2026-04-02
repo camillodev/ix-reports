@@ -1,5 +1,71 @@
 [
   {
+    "title": "Pipeline Comercial v3",
+    "slug": "pipeline-comercial-v3-202604",
+    "file": "empresa/ImpactX_PipelineComercial_202604.html",
+    "date": "2026-04-02",
+    "meta": "02 Abr 2026 · Funil, gates, Attio, RACI Rafa/Nicole/Pimenta, Future Pipeline",
+    "client": "impact-x",
+    "project": null,
+    "tags": [
+      "comercial",
+      "operacoes"
+    ],
+    "icon": "diagram-3",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
+    "title": "Plano de Ação Estratégico",
+    "slug": "plano-acao-estrategico-202604",
+    "file": "empresa/ImpactX_PlanoEstrategico_202604.html",
+    "date": "2026-04-02",
+    "meta": "02 Abr 2026 · Funded startups, staff aug, automação comercial, 90 dias",
+    "client": "impact-x",
+    "project": null,
+    "tags": [
+      "estrategia",
+      "comercial",
+      "tech"
+    ],
+    "icon": "compass",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
+    "title": "Análise Qualitativa de Concorrentes",
+    "slug": "analise-qualitativa-concorrentes-202604",
+    "file": "empresa/ImpactX_AnaliseQualitativa_202604.html",
+    "date": "2026-04-02",
+    "meta": "02 Abr 2026 · 7 concorrentes · reviews devs e clientes",
+    "client": "impact-x",
+    "project": null,
+    "tags": [
+      "comercial",
+      "estrategia"
+    ],
+    "icon": "bar-chart-line",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
+    "title": "Escopo & Onboarding — Gleice (Assistente Pessoal)",
+    "slug": "escopo-gleice-202604",
+    "file": "private/ImpactX_EscopoGleice_202604.html",
+    "date": "2026-04-01",
+    "meta": "01 Abr 2026 · Onboarding, escopo, rotina semanal, obrigações de saúde e contrato de parceria",
+    "client": "pessoal",
+    "project": null,
+    "tags": [
+      "people",
+      "operacoes",
+      "legal"
+    ],
+    "icon": "person-heart",
+    "type": "html",
+    "access": "pessoal"
+  },
+  {
     "title": "Estratégia Comercial Internacional · Rafael Pimenta",
     "slug": "estrategia-comercial-pimenta-202603",
     "file": "ImpactX_EstrategiaComercialPimenta_202603.html",
