@@ -1,5 +1,21 @@
 [
   {
+    "title": "Samantha — The Plan",
+    "slug": "samantha-the-plan-202604",
+    "file": "data/ImpactX_Samantha_ThePlan_202604.html",
+    "date": "2026-04-04",
+    "meta": "04 Abr 2026 · Assistente AI 24/7, arquitetura, roadmap 16 semanas, budget control, security",
+    "client": "impact-x",
+    "project": "samantha",
+    "tags": [
+      "tech",
+      "estrategia"
+    ],
+    "icon": "robot",
+    "type": "html",
+    "access": "owner"
+  },
+  {
     "title": "Pipeline Comercial v3",
     "slug": "pipeline-comercial-v3-202604",
     "file": "empresa/ImpactX_PipelineComercial_202604.html",
