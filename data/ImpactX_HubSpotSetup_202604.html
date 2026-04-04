@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — HubSpot Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">HubSpot Setup Guide</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="status">Status</button>
+  <button type="button" class="tab-btn" data-tab="manual">Setup Manual</button>
+  <button type="button" class="tab-btn" data-tab="stages">Stage Properties</button>
+  <button type="button" class="tab-btn" data-tab="views">Views</button>
+  <button type="button" class="tab-btn" data-tab="dashboard">Dashboard</button>
+  <button type="button" class="tab-btn" data-tab="automacoes">Automacoes</button>
+  <button type="button" class="tab-btn" data-tab="n8n">Workflows n8n</button>
+</nav>
+
+<!-- ==================== TAB 1: STATUS ==================== -->
+<div class="tab-panel active" data-tab="status" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header">
+  <div class="hdr-brand">Impact X · HubSpot</div>
+  <h1 class="hdr-title">HubSpot Setup <em>Complete Guide</em></h1>
+  <p class="hdr-sub">O que o script fez + o que falta fazer manualmente (~30min)</p>
+  <p class="hdr-meta">04 Abril 2026 · Source of truth: Pipeline Comercial v3</p>
+</div>
+
+<h2>Resultado da Auditoria Automatizada</h2>
+<p>Script <code>hubspot-complete-setup.js</code> rodou em 04/04/2026.</p>
+
+<div class="metrics-grid">
+  <div class="metric-card"><div class="label">Contact Props</div><div class="value">13/13</div><div class="detail">Todas ix_* criadas</div></div>
+  <div class="metric-card"><div class="label">Deal Props</div><div class="value">23/23</div><div class="detail">Target completo</div></div>
+  <div class="metric-card"><div class="label">Pipelines</div><div class="value">2/2</div><div class="detail">Existem, precisam cleanup</div></div>
+  <div class="metric-card"><div class="label">Manual</div><div class="value">~30min</div><div class="detail">5 tarefas restantes</div></div>
+</div>
+
+<h2>O que ja esta pronto</h2>
+
+<div class="callout success">
+  <strong>13 Contact Properties (Prospeccao)</strong>
+  ix_prospect_status, ix_company_name, ix_contact_name, ix_contact_email, ix_source, ix_funding_stage, ix_country, ix_team_size, ix_tech_stack, ix_need_identified, ix_outreach_date, ix_outreach_channel, ix_disqualify_reason
+</div>
+
+<div class="callout success">
+  <strong>23 Deal Properties (Pipeline + Future)</strong>
+  ix_deal_source, ix_call_date, ix_need_1, ix_profiles_needed, ix_urgency, ix_budget_range, ix_decision_maker, ix_proposal_value, ix_sent_date, ix_proposal_link, ix_followup_date, ix_objections, ix_final_scope, ix_negotiated_value, ix_final_value, ix_start_date, ix_duration, ix_contract_link, ix_dev_allocated, ix_lost_reason, ix_lost_notes, ix_future_reason, ix_reactivation_date, ix_future_notes
+</div>
+
+<h2>O que falta (manual)</h2>
+
+<div class="callout warning">
+  <strong>5 tarefas manuais (~30min total)</strong>
+  <ol>
+    <li>Limpar stages extras dos pipelines</li>
+    <li>Convidar Pimenta + Nicole como users</li>
+    <li>Configurar propriedades condicionais por stage</li>
+    <li>Criar 7 saved views</li>
+    <li>Criar dashboard "IX Sales Cockpit"</li>
+  </ol>
+</div>
+
+<h2>Properties Legacy (podem ser removidas)</h2>
+<p>Estas properties foram criadas pelo script antigo e nao fazem parte do Pipeline Comercial v3:</p>
+<table>
+  <thead><tr><th>Property</th><th>Status</th><th>Acao</th></tr></thead>
+  <tbody>
+    <tr><td><code>ix_budget_monthly</code></td><td>Substituida por ix_budget_range</td><td>Remover quando vazio</td></tr>
+    <tr><td><code>ix_contract_duration</code></td><td>Substituida por ix_duration</td><td>Remover quando vazio</td></tr>
+    <tr><td><code>ix_team_size_needed</code></td><td>Nao esta no v3</td><td>Remover quando vazio</td></tr>
+    <tr><td><code>ix_tech_requirements</code></td><td>Nao esta no v3</td><td>Remover quando vazio</td></tr>
+    <tr><td><code>ix_lose_reason</code></td><td>Naming errado (substituida por ix_lost_reason)</td><td>Remover quando vazio</td></tr>
+  </tbody>
+</table>
+
+<h2>Token: Scopes faltando</h2>
+<div class="callout danger">
+  <strong>Adicionar scopes ao Private App</strong>
+  Settings &rarr; Integrations &rarr; Private Apps &rarr; Editar &rarr; Scopes:<br>
+  <code>crm.schemas.contacts.read</code> (para auditar contacts)<br>
+  <code>crm.objects.owners.read</code> (para buscar owners)
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 2: SETUP MANUAL ==================== -->
+<div class="tab-panel" data-tab="manual" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Setup Manual — 5 Passos (~30min)</h2>
+
+<div class="callout info">
+  <strong>Pre-requisito</strong>
+  Todos os 36 properties e 2 pipelines ja existem. As tarefas abaixo sao configuracoes que so podem ser feitas pela UI do HubSpot.
+</div>
+
+<h3>Passo 1 — Limpar Stages dos Pipelines (5min)</h3>
+
+<p><strong>Settings &rarr; Objects &rarr; Deals &rarr; Pipelines</strong></p>
+
+<p><strong>IX Commercial Pipeline</strong> — remover stages extras:</p>
+<table>
+  <thead><tr><th>Stage Atual</th><th>Acao</th></tr></thead>
+  <tbody>
+    <tr><td>Apollo Outreach</td><td style="color:var(--ix-danger)">Remover (era da v1)</td></tr>
+    <tr><td>Call Booked</td><td style="color:var(--ix-danger)">Remover (era da v1)</td></tr>
+    <tr><td>Follow Up</td><td style="color:var(--ix-danger)">Remover (era da v1)</td></tr>
+    <tr><td>Contract Signed</td><td style="color:var(--ix-danger)">Remover (substituido por Closed Won)</td></tr>
+    <tr><td>Future - Nurturing</td><td style="color:var(--ix-danger)">Remover (agora vive no IX Future Pipeline)</td></tr>
+    <tr><td><strong>Discovery Call</strong></td><td style="color:var(--ix-green)">Manter — Win 25%</td></tr>
+    <tr><td><strong>Proposal Sent</strong></td><td style="color:var(--ix-green)">Manter — Win 50%</td></tr>
+    <tr><td><strong>Negotiation</strong></td><td style="color:var(--ix-green)">Manter — Win 75%</td></tr>
+    <tr><td><strong>Closed Won</strong></td><td style="color:var(--ix-green)">Manter — Win 100%</td></tr>
+    <tr><td><strong>Closed Lost</strong></td><td style="color:var(--ix-green)">Manter — Win 0%</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning">
+  <strong>Antes de remover</strong>
+  Se houver deals em stages que serao removidos, mova-os primeiro para o stage correto. Ao remover um stage, o HubSpot pede pra qual stage mover os deals existentes.
+</div>
+
+<p><strong>IX Future Pipeline</strong> — simplificar para 1 stage:</p>
+<table>
+  <thead><tr><th>Stage Atual</th><th>Acao</th></tr></thead>
+  <tbody>
+    <tr><td>Future - Identified</td><td>Renomear para <strong>"Future"</strong></td></tr>
+    <tr><td>Future - Nurturing</td><td style="color:var(--ix-danger)">Remover (mover deals para "Future")</td></tr>
+    <tr><td>Future - Reactivation</td><td style="color:var(--ix-danger)">Remover (mover deals para "Future")</td></tr>
+  </tbody>
+</table>
+
+<h3>Passo 2 — Convidar Users (5min)</h3>
+<p><strong>Settings &rarr; Users &amp; Teams</strong></p>
+<table>
+  <thead><tr><th>Pessoa</th><th>Email</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Rafa</strong></td><td>hello@rafaelcamillo.com</td><td>Super Admin (ja ativo)</td></tr>
+    <tr><td><strong>Pimenta</strong></td><td>Verificar email correto</td><td>Sales — Deal owner</td></tr>
+    <tr><td><strong>Nicole</strong></td><td>Verificar email correto</td><td>Sales — Prospect owner</td></tr>
+  </tbody>
+</table>
+<div class="callout info">
+  <strong>Apos convidar</strong>
+  Volte em Settings &rarr; Users e copie o Owner ID de cada um. Isso sera usado nas automacoes n8n para atribuir deals automaticamente.
+</div>
+
+<h3>Passo 3 — Stage-Conditional Properties (10min)</h3>
+<p>Detalhado na aba <strong>"Stage Properties"</strong>.</p>
+
+<h3>Passo 4 — Saved Views (5min)</h3>
+<p>Detalhado na aba <strong>"Views"</strong>.</p>
+
+<h3>Passo 5 — Dashboard (5min)</h3>
+<p>Detalhado na aba <strong>"Dashboard"</strong>.</p>
+
+</div>
+</div>
+
+<!-- ==================== TAB 3: STAGE PROPERTIES ==================== -->
+<div class="tab-panel" data-tab="stages" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Propriedades Condicionais por Stage</h2>
+<p><strong>Deals &rarr; Pipelines &rarr; IX Commercial Pipeline &rarr; Edit pipeline &rarr; Conditional stage properties</strong></p>
+
+<div class="callout info">
+  <strong>O que sao?</strong>
+  Properties que aparecem (e podem ser obrigatorias) quando um deal entra em determinado stage. Forca o time a preencher dados certos no momento certo.
+</div>
+
+<h3>Stage 1 — Discovery Call</h3>
+<table>
+  <thead><tr><th>Property</th><th>Required?</th></tr></thead>
+  <tbody>
+    <tr><td>ix_call_date</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_need_1</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_profiles_needed</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_urgency</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_budget_range</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_decision_maker</td><td><strong>Sim</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Stage 2 — Proposal Sent</h3>
+<table>
+  <thead><tr><th>Property</th><th>Required?</th></tr></thead>
+  <tbody>
+    <tr><td>ix_proposal_value</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_sent_date</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_proposal_link</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_followup_date</td><td><strong>Sim</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Stage 3 — Negotiation</h3>
+<table>
+  <thead><tr><th>Property</th><th>Required?</th></tr></thead>
+  <tbody>
+    <tr><td>ix_objections</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_final_scope</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_negotiated_value</td><td><strong>Sim</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Stage 4 — Closed Won</h3>
+<table>
+  <thead><tr><th>Property</th><th>Required?</th></tr></thead>
+  <tbody>
+    <tr><td>ix_final_value</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_start_date</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_duration</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_contract_link</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_dev_allocated</td><td><strong>Sim</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Terminal — Closed Lost</h3>
+<table>
+  <thead><tr><th>Property</th><th>Required?</th></tr></thead>
+  <tbody>
+    <tr><td>ix_lost_reason</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_lost_notes</td><td>Nao</td></tr>
+  </tbody>
+</table>
+
+<h3>IX Future Pipeline — Stage "Future"</h3>
+<table>
+  <thead><tr><th>Property</th><th>Required?</th></tr></thead>
+  <tbody>
+    <tr><td>ix_future_reason</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_reactivation_date</td><td><strong>Sim</strong></td></tr>
+    <tr><td>ix_future_notes</td><td><strong>Sim</strong></td></tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ==================== TAB 4: VIEWS ==================== -->
+<div class="tab-panel" data-tab="views" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>7 Saved Views</h2>
+<p>Criar em <strong>Contacts</strong> e <strong>Deals</strong> respectivamente.</p>
+
+<h3>Contact Views (Prospeccao)</h3>
+
+<table>
+  <thead><tr><th>View Name</th><th>Filtro</th><th>Colunas</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Prospects — To Research</strong></td>
+      <td>ix_prospect_status = "Identified"</td>
+      <td>ix_company_name, ix_contact_name, ix_source, createdate</td>
+    </tr>
+    <tr>
+      <td><strong>Prospects — To Outreach</strong></td>
+      <td>ix_prospect_status = "Qualified"</td>
+      <td>ix_company_name, ix_contact_name, ix_funding_stage, ix_country, ix_need_identified</td>
+    </tr>
+    <tr>
+      <td><strong>Prospects — Awaiting Reply</strong></td>
+      <td>ix_prospect_status = "Contacted"</td>
+      <td>ix_company_name, ix_contact_name, ix_outreach_date, ix_outreach_channel</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Deal Views (Pipeline)</h3>
+
+<table>
+  <thead><tr><th>View Name</th><th>Filtro</th><th>Colunas</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Active Deals</strong></td>
+      <td>Pipeline = IX Commercial AND Stage NOT IN (Closed Won, Closed Lost)</td>
+      <td>dealname, dealstage, ix_urgency, ix_budget_range, amount, closedate</td>
+    </tr>
+    <tr>
+      <td><strong>Needs Follow-up</strong></td>
+      <td>Stage = "Proposal Sent" AND ix_followup_date &le; hoje</td>
+      <td>dealname, ix_proposal_value, ix_sent_date, ix_followup_date</td>
+    </tr>
+    <tr>
+      <td><strong>Future Pipeline</strong></td>
+      <td>Pipeline = IX Future Pipeline</td>
+      <td>dealname, ix_future_reason, ix_reactivation_date, ix_future_notes</td>
+    </tr>
+    <tr>
+      <td><strong>Lost Analysis</strong></td>
+      <td>Stage = "Closed Lost"</td>
+      <td>dealname, ix_lost_reason, ix_lost_notes, amount, closedate</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <strong>Como criar cada view</strong>
+  <ol>
+    <li>Va em Contacts (ou Deals)</li>
+    <li>Clique "Add filter" e selecione o campo/valor indicado</li>
+    <li>Clique "Save view" &rarr; nomeie conforme a tabela</li>
+    <li>Ajuste as colunas: clique "Edit columns" e adicione as colunas listadas</li>
+  </ol>
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 5: DASHBOARD ==================== -->
+<div class="tab-panel" data-tab="dashboard" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Dashboard: IX Sales Cockpit</h2>
+<p><strong>Reports &rarr; Dashboards &rarr; Create dashboard</strong></p>
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="label">Report 1</div>
+    <div class="value" style="font-size:18px">Prospect Funnel</div>
+    <div class="detail">Contacts por ix_prospect_status</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Report 2</div>
+    <div class="value" style="font-size:18px">Deal Funnel</div>
+    <div class="detail">Deals por stage (IX Commercial)</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Report 3</div>
+    <div class="value" style="font-size:18px">Win Rate</div>
+    <div class="detail">% Won vs Total deals closed</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Report 4</div>
+    <div class="value" style="font-size:18px">Conversion</div>
+    <div class="detail">Prospect &rarr; Deal &rarr; Won</div>
+  </div>
+</div>
+
+<h3>Report 1 — Prospect Funnel</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Tipo</td><td>Single object &rarr; Contacts</td></tr>
+    <tr><td>Chart</td><td>Funnel ou Bar chart</td></tr>
+    <tr><td>Group by</td><td>ix_prospect_status</td></tr>
+    <tr><td>Measure</td><td>Count of contacts</td></tr>
+  </tbody>
+</table>
+
+<h3>Report 2 — Deal Funnel</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Tipo</td><td>Single object &rarr; Deals</td></tr>
+    <tr><td>Filter</td><td>Pipeline = IX Commercial Pipeline</td></tr>
+    <tr><td>Chart</td><td>Funnel</td></tr>
+    <tr><td>Group by</td><td>Deal stage</td></tr>
+    <tr><td>Measure</td><td>Count of deals</td></tr>
+  </tbody>
+</table>
+
+<h3>Report 3 — Win Rate</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Tipo</td><td>Single object &rarr; Deals</td></tr>
+    <tr><td>Filter</td><td>Pipeline = IX Commercial, Stage IN (Closed Won, Closed Lost)</td></tr>
+    <tr><td>Chart</td><td>Pie / Donut</td></tr>
+    <tr><td>Group by</td><td>Deal stage</td></tr>
+    <tr><td>Measure</td><td>Count of deals</td></tr>
+  </tbody>
+</table>
+
+<h3>Report 4 — Full Conversion</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Tipo</td><td>Custom report builder</td></tr>
+    <tr><td>Data sources</td><td>Contacts + Deals</td></tr>
+    <tr><td>Chart</td><td>Bar chart horizontal</td></tr>
+    <tr><td>Metrics</td><td>Total contacts (ix_prospect_status = Qualified), Total deals criados, Total Closed Won</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <strong>Dica</strong>
+  No Free/Starter plan do HubSpot, Custom Report Builder tem limitacoes. Se o Report 4 nao for possivel, crie 2 reports simples: um de contacts qualificados e outro de deals won.
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 6: AUTOMACOES STARTER ==================== -->
+<div class="tab-panel" data-tab="automacoes" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>Automacoes HubSpot (Starter Plan)</h2>
+<p>O Starter plan permite automacoes simples de tasks por stage change. Automacoes mais complexas vao no n8n (aba seguinte).</p>
+
+<div class="callout info">
+  <strong>Onde configurar</strong>
+  Automation &rarr; Workflows &rarr; Create workflow &rarr; Deal-based
+</div>
+
+<h3>Workflow 1 — Task: Prep Call</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Trigger</td><td>Deal enters stage "Discovery Call"</td></tr>
+    <tr><td>Action</td><td>Create task</td></tr>
+    <tr><td>Task title</td><td>"Prep Call — " + Deal name</td></tr>
+    <tr><td>Assigned to</td><td>Deal owner (Pimenta)</td></tr>
+    <tr><td>Due date</td><td>1 day from trigger</td></tr>
+  </tbody>
+</table>
+
+<h3>Workflow 2 — Task: Send Proposal</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Trigger</td><td>Deal stage changes from "Discovery Call" to "Proposal Sent"</td></tr>
+    <tr><td>Action</td><td>Create task</td></tr>
+    <tr><td>Task title</td><td>"Follow-up proposal — " + Deal name</td></tr>
+    <tr><td>Assigned to</td><td>Deal owner</td></tr>
+    <tr><td>Due date</td><td>3 days from trigger</td></tr>
+  </tbody>
+</table>
+
+<h3>Workflow 3 — Task: Stale Negotiation Alert</h3>
+<table>
+  <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Trigger</td><td>Deal enters stage "Negotiation"</td></tr>
+    <tr><td>Action 1</td><td>Delay 10 business days</td></tr>
+    <tr><td>Action 2</td><td>If/then: deal STILL in "Negotiation"</td></tr>
+    <tr><td>Action 3</td><td>Create task: "Stale deal alert — " + Deal name</td></tr>
+    <tr><td>Assigned to</td><td>Deal owner + Rafa</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning">
+  <strong>Limitacao do Starter</strong>
+  O Starter plan nao suporta "If/then" branches complexos. Se a Workflow 3 nao funcionar, simplifique: apenas crie a task apos delay de 10 dias.
+</div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 7: WORKFLOWS N8N ==================== -->
+<div class="tab-panel" data-tab="n8n" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<h2>6 Workflows n8n</h2>
+<p>Automacoes mais poderosas que rodam no n8n (gratis, ja configurado). Substituem a necessidade do HubSpot Professional ($90/mo).</p>
+
+<div class="callout info">
+  <strong>Vantagem n8n vs HubSpot Pro</strong>
+  n8n e gratis, permite integracao com Linear, Gmail, Slack, Claude. HubSpot Professional custa $90/mo e nao integra com nossas ferramentas.
+</div>
+
+<h3>P1 — Outreach Follow-up Reminder</h3>
+<table>
+  <thead><tr><th>Spec</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trigger</strong></td><td>Cron: diario as 9h (dia util)</td></tr>
+    <tr><td><strong>Step 1</strong></td><td>HubSpot API: buscar contacts com ix_prospect_status = "Contacted" AND ix_outreach_date &le; 5 dias atras</td></tr>
+    <tr><td><strong>Step 2</strong></td><td>Filtrar: excluir quem ja mudou de status</td></tr>
+    <tr><td><strong>Step 3</strong></td><td>Para cada: criar task no HubSpot "Follow-up outreach — [contact name]" assigned to Rafa</td></tr>
+    <tr><td><strong>Prioridade</strong></td><td>P1 — roda desde dia 1</td></tr>
+  </tbody>
+</table>
+
+<h3>P2 — Auto-create Deal on Call Accepted</h3>
+<table>
+  <thead><tr><th>Spec</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trigger</strong></td><td>HubSpot webhook: contact property change (ix_prospect_status = "Call Accepted")</td></tr>
+    <tr><td><strong>Step 1</strong></td><td>Buscar dados do contact (ix_company_name, ix_need_identified, ix_funding_stage, etc)</td></tr>
+    <tr><td><strong>Step 2</strong></td><td>Criar Deal no IX Commercial Pipeline, stage = "Discovery Call"</td></tr>
+    <tr><td><strong>Step 3</strong></td><td>Atribuir deal ao Pimenta (owner ID)</td></tr>
+    <tr><td><strong>Step 4</strong></td><td>Adicionar nota no deal com contexto da prospeccao</td></tr>
+    <tr><td><strong>Prioridade</strong></td><td>P1 — core do handoff</td></tr>
+  </tbody>
+</table>
+
+<h3>D2 — Proposal Follow-up Sequence</h3>
+<table>
+  <thead><tr><th>Spec</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trigger</strong></td><td>HubSpot webhook: deal stage change to "Proposal Sent"</td></tr>
+    <tr><td><strong>Day 3</strong></td><td>Task: "Light follow-up — [deal]" para Pimenta</td></tr>
+    <tr><td><strong>Day 7</strong></td><td>Task: "Value follow-up — [deal]" para Pimenta</td></tr>
+    <tr><td><strong>Day 12</strong></td><td>Task: "Final touch — [deal]" para Pimenta + notifica Rafa</td></tr>
+    <tr><td><strong>Stop condition</strong></td><td>Deal sai de "Proposal Sent" (check antes de cada step)</td></tr>
+    <tr><td><strong>Prioridade</strong></td><td>P2</td></tr>
+  </tbody>
+</table>
+
+<h3>D3 — Stale Deal Alert</h3>
+<table>
+  <thead><tr><th>Spec</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trigger</strong></td><td>Cron: diario as 10h</td></tr>
+    <tr><td><strong>Step 1</strong></td><td>HubSpot API: buscar deals em "Negotiation" ha mais de 10 dias</td></tr>
+    <tr><td><strong>Step 2</strong></td><td>Para cada: notificar Pimenta + Rafa (task HubSpot + email opcional)</td></tr>
+    <tr><td><strong>Prioridade</strong></td><td>P2</td></tr>
+  </tbody>
+</table>
+
+<h3>D5 — Future Reactivation Alert</h3>
+<table>
+  <thead><tr><th>Spec</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trigger</strong></td><td>Cron: diario as 9h</td></tr>
+    <tr><td><strong>Step 1</strong></td><td>HubSpot API: buscar deals no IX Future Pipeline onde ix_reactivation_date = hoje</td></tr>
+    <tr><td><strong>Step 2</strong></td><td>Para cada: task "Review Future — [company]" assigned to Rafa</td></tr>
+    <tr><td><strong>Prioridade</strong></td><td>P2</td></tr>
+  </tbody>
+</table>
+
+<h3>Weekly Pulse — Pipeline Report</h3>
+<table>
+  <thead><tr><th>Spec</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trigger</strong></td><td>Cron: sexta 17h</td></tr>
+    <tr><td><strong>Step 1</strong></td><td>HubSpot API: buscar todos deals ativos + metrics</td></tr>
+    <tr><td><strong>Step 2</strong></td><td>Calcular: total pipeline value, deals por stage, win rate, avg cycle time</td></tr>
+    <tr><td><strong>Step 3</strong></td><td>Gerar summary formatado</td></tr>
+    <tr><td><strong>Step 4</strong></td><td>Enviar email para Rafa + Pimenta com summary</td></tr>
+    <tr><td><strong>Prioridade</strong></td><td>P3 — nice to have, implementar apos pipeline ter dados</td></tr>
+  </tbody>
+</table>
+
+<div class="callout success">
+  <strong>Implementacao</strong>
+  Workflows P1 e P2 sao prioridade. Criar primeiro e validar com 1-2 contacts de teste antes de ativar os demais.
+</div>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
