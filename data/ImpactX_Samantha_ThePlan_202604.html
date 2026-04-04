@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Samantha: The Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+.arch-diagram{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.5rem;overflow-x:auto;margin:1.5rem 0}
+.arch-diagram pre{font-family:'Roboto Mono',monospace;font-size:.85rem;line-height:1.6;color:var(--ix-ink);margin:0;white-space:pre}
+.sprint-timeline{display:grid;gap:1rem;margin:1.5rem 0}
+.sprint-card{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.25rem;position:relative;border-left:4px solid var(--ix-green)}
+.sprint-card h3{margin:0 0 .5rem;font-size:1.1rem;color:var(--ix-ink)}
+.sprint-card .sprint-meta{font-family:'Roboto Mono',monospace;font-size:.8rem;color:var(--ix-muted);margin-bottom:.75rem}
+.sprint-card ul{margin:0;padding-left:1.25rem}
+.sprint-card li{margin-bottom:.35rem;font-size:.95rem}
+.feature-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+.feature-table th{background:var(--ix-green-tint);color:var(--ix-ink);padding:.75rem 1rem;text-align:left;font-weight:600;font-size:.9rem}
+.feature-table td{padding:.65rem 1rem;border-bottom:1px solid var(--ix-border);font-size:.9rem}
+.feature-table tr:hover{background:var(--ix-green-tint)}
+.priority-badge{display:inline-block;padding:.15rem .5rem;border-radius:6px;font-family:'Roboto Mono',monospace;font-size:.75rem;font-weight:600}
+.p0{background:#D1FAE5;color:#065F46}
+.p1{background:#DBEAFE;color:#1E40AF}
+.p2{background:#FEF3C7;color:#92400E}
+.p3{background:#F3F4F6;color:#4B5563}
+.budget-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+.budget-card{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.25rem;text-align:center}
+.budget-card .budget-label{font-size:.8rem;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem}
+.budget-card .budget-value{font-family:'Roboto Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--ix-green)}
+.budget-card .budget-alert{font-family:'Roboto Mono',monospace;font-size:.85rem;color:var(--ix-warning)}
+.security-level{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-radius:var(--ix-radius-sm);margin-bottom:.5rem}
+.security-level.public{background:#D1FAE5}
+.security-level.internal{background:#DBEAFE}
+.security-level.confidential{background:#FEF3C7}
+.security-level.secret{background:#FEE2E2}
+.security-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.security-level.public .security-dot{background:#059669}
+.security-level.internal .security-dot{background:#2563EB}
+.security-level.confidential .security-dot{background:#D97706}
+.security-level.secret .security-dot{background:#DC2626}
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0}
+.stack-item{background:var(--ix-surface);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1rem}
+.stack-item .stack-label{font-size:.8rem;color:var(--ix-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem}
+.stack-item .stack-value{font-size:1rem;font-weight:600;color:var(--ix-ink)}
+.stack-item .stack-note{font-size:.85rem;color:var(--ix-muted);margin-top:.25rem}
+.risk-row{display:flex;gap:1rem;padding:1rem;border-bottom:1px solid var(--ix-border);align-items:flex-start}
+.risk-label{font-weight:600;min-width:180px;color:var(--ix-ink)}
+.risk-mitigation{color:var(--ix-muted);flex:1}
+.model-bar{display:flex;height:32px;border-radius:var(--ix-radius-sm);overflow:hidden;margin:1rem 0}
+.model-bar div{display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;color:#fff}
+.model-ollama{background:#6B7280;flex:50}
+.model-flash{background:var(--ix-green);flex:35}
+.model-sonnet{background:#2563EB;flex:12}
+.model-opus{background:#7C3AED;flex:3}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Samantha: The Plan</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="visao-geral">Visao Geral</button>
+  <button type="button" class="tab-btn" data-tab="arquitetura">Arquitetura</button>
+  <button type="button" class="tab-btn" data-tab="mvp">MVP</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">Roadmap</button>
+  <button type="button" class="tab-btn" data-tab="budget-security">Budget & Security</button>
+  <button type="button" class="tab-btn" data-tab="stack-infra">Stack & Infra</button>
+</nav>
+
+<!-- ==================== VISAO GERAL ==================== -->
+<div class="tab-panel active" data-tab="visao-geral" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span class="x">X</span></div>
+      <h1 class="hdr-title">Samantha <em>The Plan</em></h1>
+      <p class="hdr-sub">Assistente AI pessoal 24/7 — inspirada no filme "Her"</p>
+      <div class="hdr-meta">Abril 2026 · Documento Estrategico · v1.0</div>
+    </div>
+
+    <h2>O que e Samantha?</h2>
+    <p>Samantha e a assistente AI pessoal e corporativa do Rafael Camillo, fundador da Impact X. Ela esta disponivel <strong>24 horas por dia, 7 dias por semana</strong>, via texto e voz, conectada a todos os dados pessoais e da empresa com controles rigorosos de budget e seguranca.</p>
+
+    <div class="callout info">
+      <strong>Inspiracao:</strong> Assim como no filme "Her" (2013), Samantha nao e apenas um chatbot — e uma companheira inteligente que entende contexto, toma iniciativa e evolui com o usuario.
+    </div>
+
+    <h2>Por que agora?</h2>
+    <p>A infraestrutura ja existe: OpenClaw rodando na VPS Oracle (24GB RAM), 14+ MCPs configurados (Linear, Notion, Gmail, Calendar, GitHub, Vercel, Supabase), Finance Agent ativo, Silva no Slack, Composio para 500+ apps. Falta unificar tudo numa experiencia coesa.</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">24/7</div>
+        <div class="metric-label">Disponibilidade</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">14+</div>
+        <div class="metric-label">MCPs Conectados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">500+</div>
+        <div class="metric-label">Apps via Composio</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~$40</div>
+        <div class="metric-label">Custo Mensal Est.</div>
+      </div>
+    </div>
+
+    <h2>Principios</h2>
+    <table>
+      <thead>
+        <tr><th>Principio</th><th>O que significa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Privacy-first</strong></td><td>Dados classificados em 4 niveis. Secrets nunca acessados. Audit log completo.</td></tr>
+        <tr><td><strong>Cost-aware</strong></td><td>LLM routing por complexidade. 50% Ollama local (custo zero). Budget Gate com hard limits.</td></tr>
+        <tr><td><strong>Autonomia com limites</strong></td><td>Leituras auto-aprovadas. Escritas pedem confirmacao. Acoes externas com timeout.</td></tr>
+        <tr><td><strong>XP + Lean UX</strong></td><td>TDD, small releases, build-measure-learn. MVP em 4 semanas.</td></tr>
+        <tr><td><strong>Reuso maximo</strong></td><td>OpenClaw ja resolve sessions/memory/heartbeat. Reusar, nao reescrever.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Canais de Comunicacao</h2>
+    <table>
+      <thead>
+        <tr><th>Canal</th><th>Tipo</th><th>Uso</th><th>Sprint</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>WhatsApp</strong></td><td>Texto + Voz</td><td>Canal pessoal principal</td><td>1 (texto) / 3 (voz)</td></tr>
+        <tr><td><strong>Slack</strong></td><td>Texto</td><td>Canal corporativo (via Silva)</td><td>1</td></tr>
+        <tr><td><strong>Telegram</strong></td><td>Texto</td><td>Fallback / canal extra</td><td>7</td></tr>
+        <tr><td><strong>Dashboard Web</strong></td><td>Visual</td><td>Metricas e configuracao</td><td>8</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ==================== ARQUITETURA ==================== -->
+<div class="tab-panel" data-tab="arquitetura" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Arquitetura do Sistema</h1>
+
+    <h2>Diagrama Geral</h2>
+    <div class="arch-diagram">
+<pre>
+                        CANAIS DE ENTRADA
+                  ┌──────────────────────────────┐
+                  │  WhatsApp    Slack    Telegram │
+                  │  (Baileys)  (silva2)  (Bot API)│
+                  │  Text+Voice  Text      Text    │
+                  └──────────┬───────────────────┘
+                             │
+                  ┌──────────▼───────────────────┐
+                  │    GATEWAY LAYER (Fastify)     │
+                  │  ┌─────────────────────────┐  │
+                  │  │  Message Router          │  │
+                  │  │  Auth / Rate Limit       │  │
+                  │  │  Budget Gate             │  │
+                  │  └────────┬────────────────┘  │
+                  └───────────┼────────────────────┘
+                             │
+                  ┌──────────▼───────────────────┐
+                  │    ORCHESTRATION (OpenClaw)    │
+                  │  ┌─────────────────────────┐  │
+                  │  │  Intent Classifier       │  │
+                  │  │  (Ollama qwen2.5:7b)     │  │
+                  │  └────────┬────────────────┘  │
+                  │  ┌────────▼────────────────┐  │
+                  │  │  LLM Router              │  │
+                  │  │  Ollama → Flash → Sonnet │  │
+                  │  └────────┬────────────────┘  │
+                  │  ┌────────▼────────────────┐  │
+                  │  │  Session Manager         │  │
+                  │  │  (context, memory, state)│  │
+                  │  └────────┬────────────────┘  │
+                  └───────────┼────────────────────┘
+                             │
+        ┌────────────────────┼────────────────────────┐
+        │                    │                         │
+┌───────▼──────┐   ┌────────▼──────────┐   ┌────────▼──────────┐
+│  VOICE LAYER │   │  TOOL EXECUTION   │   │  RAG / KNOWLEDGE  │
+│  ElevenLabs  │   │  (MCP Clients)    │   │  Supabase pgvector│
+│  STT → LLM   │   │                   │   │  + Ollama embed   │
+│  LLM → TTS   │   │  Calendar, Email  │   │                   │
+│  WhatsApp    │   │  Linear, GitHub   │   │  Notion pages     │
+│  voice msgs  │   │  Notion, Pluggy   │   │  Obsidian vault   │
+│              │   │  Vercel, Supabase │   │  Company docs     │
+└──────────────┘   │  Composio (500+)  │   └───────────────────┘
+                   └───────────────────┘
+                             │
+                  ┌──────────▼───────────────────┐
+                  │    PERSISTENCE LAYER           │
+                  │  Supabase PostgreSQL            │
+                  │  - conversations                │
+                  │  - budget_ledger                │
+                  │  - embeddings (pgvector)        │
+                  │  - audit_log                    │
+                  │  - tool_executions              │
+                  └────────────────────────────────┘
+</pre>
+    </div>
+
+    <h2>Decisao Arquitetural</h2>
+    <div class="callout info">
+      <strong>OpenClaw "sam" + Bridges Custom</strong> — O agente "sam" ja esta bootstrapped no OpenClaw com workspace, sessions, heartbeat e multi-LLM routing. Construir bridges TypeScript para WhatsApp, voice e RAG. Nao reinventar a roda.
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Alternativa</th><th>Pros</th><th>Contras</th><th>Decisao</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>100% OpenClaw</td>
+          <td>Tudo integrado</td>
+          <td>WhatsApp bridge nao existe no framework</td>
+          <td>Parcial</td>
+        </tr>
+        <tr>
+          <td>100% Custom (Fastify)</td>
+          <td>Controle total</td>
+          <td>Reescrever sessions, memory, heartbeat</td>
+          <td>Rejeitado</td>
+        </tr>
+        <tr>
+          <td><strong>Hibrido (escolhido)</strong></td>
+          <td>Reusa OpenClaw + bridges custom</td>
+          <td>Duas camadas para manter</td>
+          <td><strong>Aprovado</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Fluxo de uma Mensagem</h2>
+    <div class="phase">
+      <div class="phase-label">1. Entrada</div>
+      <div class="phase-content">
+        <p>Rafael envia "o que tenho na agenda amanha?" no WhatsApp.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">2. Gateway</div>
+      <div class="phase-content">
+        <p>Baileys recebe → Fastify valida auth (numero do Rafael) → Budget Gate estima custo → Forward para OpenClaw gateway HTTP (localhost:18789).</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">3. Orquestracao</div>
+      <div class="phase-content">
+        <p>Intent Classifier (Ollama, custo $0) identifica: <code>calendar.list_events</code>. LLM Router seleciona Gemini Flash ($0.075/1M). Session Manager carrega contexto.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">4. Execucao</div>
+      <div class="phase-content">
+        <p>MCP Google Calendar lista eventos de amanha. LLM formata resposta natural.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">5. Resposta</div>
+      <div class="phase-content">
+        <p>Texto volta pelo gateway → WhatsApp Bridge → Rafael recebe no celular. Custo logado no budget_ledger. Acao logada no audit_log.</p>
+      </div>
+    </div>
+
+    <h2>LLM Routing</h2>
+    <p>Distribuicao esperada de uso por modelo:</p>
+    <div class="model-bar">
+      <div class="model-ollama">Ollama 50%</div>
+      <div class="model-flash">Flash 35%</div>
+      <div class="model-sonnet">Sonnet 12%</div>
+      <div class="model-opus">3%</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Modelo</th><th>Uso</th><th>Input/1M</th><th>Output/1M</th><th>Quando</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ollama qwen2.5:7b</td><td>50%</td><td>$0</td><td>$0</td><td>Intent, embedding, trivial</td></tr>
+        <tr><td>Gemini 2.0 Flash</td><td>35%</td><td>$0.075</td><td>$0.30</td><td>Conversacao, tools</td></tr>
+        <tr><td>Claude Sonnet 4.6</td><td>12%</td><td>$3.00</td><td>$15.00</td><td>Codigo, analise complexa</td></tr>
+        <tr><td>Claude Opus 4.6</td><td>3%</td><td>$15.00</td><td>$75.00</td><td>Arquitetura critica</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Integracoes (MCPs & Tools)</h2>
+    <table>
+      <thead>
+        <tr><th>Servico</th><th>Tipo</th><th>Status</th><th>Sprint</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Google Calendar</td><td>MCP nativo</td><td>Configurado</td><td>1</td></tr>
+        <tr><td>Gmail</td><td>MCP nativo</td><td>Configurado</td><td>1</td></tr>
+        <tr><td>Linear</td><td>MCP nativo</td><td>Configurado</td><td>1</td></tr>
+        <tr><td>Notion</td><td>MCP nativo</td><td>Configurado</td><td>2</td></tr>
+        <tr><td>GitHub</td><td>MCP nativo</td><td>Configurado</td><td>2</td></tr>
+        <tr><td>Vercel</td><td>MCP deferred</td><td>Configurado</td><td>2</td></tr>
+        <tr><td>Supabase</td><td>MCP deferred</td><td>Configurado</td><td>0</td></tr>
+        <tr><td>Slack</td><td>Socket Mode (Silva)</td><td>Rodando</td><td>1</td></tr>
+        <tr><td>Pluggy (Open Finance)</td><td>REST API</td><td>Finance Agent ativo</td><td>5</td></tr>
+        <tr><td>Composio (500+ apps)</td><td>HTTP MCP</td><td>API key configurada</td><td>6</td></tr>
+        <tr><td>ElevenLabs</td><td>REST API</td><td>Pendente</td><td>3</td></tr>
+        <tr><td>Seedance</td><td>REST API</td><td>Pendente</td><td>7</td></tr>
+        <tr><td>n8n</td><td>MCP deferred</td><td>URL pendente</td><td>7</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ==================== MVP ==================== -->
+<div class="tab-panel" data-tab="mvp" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>MVP — Minimum Viable Product</h1>
+    <p>Samantha funcional via texto no WhatsApp e Slack, com acesso basico a dados e controle de budget. <strong>Entrega em 4 semanas.</strong></p>
+
+    <div class="callout success">
+      <strong>Criterio de sucesso:</strong> Rafael envia "o que tenho na agenda amanha?" no WhatsApp e recebe resposta correta em menos de 5 segundos.
+    </div>
+
+    <h2>Features do MVP</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">5</div>
+        <div class="metric-label">Features Core</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">4</div>
+        <div class="metric-label">Semanas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">4</div>
+        <div class="metric-label">Integracoes</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">$5/dia</div>
+        <div class="metric-label">Budget Limit</div>
+      </div>
+    </div>
+
+    <table class="feature-table">
+      <thead>
+        <tr><th>#</th><th>Feature</th><th>Descricao</th><th>Sprint</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Configurar agente "sam"</strong></td>
+          <td>Preencher IDENTITY.md (persona Samantha), USER.md (dados Rafael), models.json (LLM routing)</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>WhatsApp Bridge</strong></td>
+          <td>Baileys (TypeScript) — QR code auth, receber/enviar texto, forward para OpenClaw gateway</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Budget Gate v1</strong></td>
+          <td>Interceptor pre-request: estima custo, checa limites (R$5/dia, R$100/mes), alerta 80%, hard stop</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Integracoes basicas</strong></td>
+          <td>Google Calendar (eventos), Gmail (emails recentes), Linear (issues), Notion (paginas)</td>
+          <td>1-2</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Slack via Silva</strong></td>
+          <td>Reusar bot silva2 existente — sam recebe mensagens do canal designado</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>O que NAO entra no MVP</h2>
+    <div class="callout warning">
+      <p>Estas features sao importantes mas vem depois do MVP validado:</p>
+      <ul>
+        <li>Voice (ElevenLabs TTS/STT) — Sprint 3</li>
+        <li>RAG / Knowledge Base — Sprint 3-4</li>
+        <li>Financial monitoring (Pluggy) — Sprint 5</li>
+        <li>Video generation (Seedance) — Sprint 7</li>
+        <li>Dashboard web — Sprint 8</li>
+      </ul>
+    </div>
+
+    <h2>Cenarios de Uso do MVP</h2>
+
+    <div class="phase">
+      <div class="phase-label">Cenario 1</div>
+      <div class="phase-content">
+        <p><strong>"O que tenho na agenda amanha?"</strong></p>
+        <p>WhatsApp → Gateway → Intent: calendar → MCP Google Calendar → Lista eventos → Resposta formatada → WhatsApp</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Cenario 2</div>
+      <div class="phase-content">
+        <p><strong>"Quais issues estao abertas no Linear?"</strong></p>
+        <p>WhatsApp → Gateway → Intent: task → MCP Linear → Lista issues In Progress → Resposta → WhatsApp</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Cenario 3</div>
+      <div class="phase-content">
+        <p><strong>"Tenho emails urgentes?"</strong></p>
+        <p>WhatsApp → Gateway → Intent: email → MCP Gmail → Busca unread + priority → Resumo → WhatsApp</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label">Cenario 4</div>
+      <div class="phase-content">
+        <p><strong>"Cria uma issue no Linear: bug no login"</strong></p>
+        <p>WhatsApp → Gateway → Intent: task.create → Pede confirmacao → Rafael confirma → MCP Linear cria issue → Confirma → WhatsApp</p>
+      </div>
+    </div>
+
+    <h2>Arquitetura do MVP</h2>
+    <div class="arch-diagram">
+<pre>
+  WhatsApp (Baileys)          Slack (Silva2)
+       │                           │
+       └──────────┬────────────────┘
+                  │
+         ┌────────▼────────┐
+         │  Fastify Gateway │
+         │  + Budget Gate   │
+         └────────┬────────┘
+                  │
+         ┌────────▼────────┐
+         │  OpenClaw "sam"  │
+         │  + Intent Class. │
+         │  + LLM Router    │
+         └────────┬────────┘
+                  │
+    ┌─────────────┼─────────────┐
+    │             │             │
+ Calendar      Email        Linear
+ (MCP)         (MCP)        (MCP)
+</pre>
+    </div>
+
+    <h2>Definition of Done (MVP)</h2>
+    <table>
+      <thead>
+        <tr><th>Criterio</th><th>Validacao</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>WhatsApp texto bidirecional</td><td>Enviar e receber mensagem em &lt;5s</td></tr>
+        <tr><td>Calendar query</td><td>"agenda de amanha" retorna eventos corretos</td></tr>
+        <tr><td>Email query</td><td>"emails urgentes" retorna resumo</td></tr>
+        <tr><td>Linear CRUD</td><td>Criar issue com confirmacao</td></tr>
+        <tr><td>Budget Gate</td><td>Bloqueia apos limite diario</td></tr>
+        <tr><td>Uptime 24h</td><td>pm2 mantendo processo vivo</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ==================== ROADMAP ==================== -->
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Roadmap de Desenvolvimento</h1>
+    <p>8 sprints de 2 semanas cada, seguindo <strong>Extreme Programming</strong> (TDD, pair programming, continuous integration, small releases) e <strong>Lean UX</strong> (build-measure-learn, MVPs validados).</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">8</div>
+        <div class="metric-label">Sprints</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">16</div>
+        <div class="metric-label">Semanas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">17</div>
+        <div class="metric-label">Features Total</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">4</div>
+        <div class="metric-label">Epics</div>
+      </div>
+    </div>
+
+    <h2>Epic 1 — Fundacao (Sprints 0-2)</h2>
+    <div class="sprint-timeline">
+      <div class="sprint-card">
+        <h3>Sprint 0: Infraestrutura & Seguranca</h3>
+        <div class="sprint-meta">Semana 1 · Setup · Sem entrega externa</div>
+        <ul>
+          <li>Preencher IDENTITY.md com persona "Samantha" — tom, personalidade, limites</li>
+          <li>Preencher USER.md com dados do Rafael — preferencias, contexto, AuDHD</li>
+          <li>Configurar models.json: Ollama + Gemini Flash + Claude Sonnet/Opus</li>
+          <li>Criar tabelas Supabase: <code>sam_conversations</code>, <code>sam_budget_ledger</code>, <code>sam_audit_log</code></li>
+          <li>Configurar tool groups no OpenClaw (calendar, email, linear, notion)</li>
+          <li>Testar HTTP gateway → sam → resposta funcional</li>
+          <li>Limpeza de disco (11GB livre → liberar 5GB+)</li>
+        </ul>
+      </div>
+      <div class="sprint-card">
+        <h3>Sprint 1: WhatsApp + Budget Gate</h3>
+        <div class="sprint-meta">Semanas 2-3 · MVP Core · Entrega: texto no WhatsApp</div>
+        <ul>
+          <li>Criar projeto <code>~/samantha/</code> (TypeScript + Fastify + Baileys)</li>
+          <li>WhatsApp Bridge: autenticacao QR, receber/enviar texto</li>
+          <li>Message Router: forward para OpenClaw gateway HTTP</li>
+          <li>Budget Gate v1: tabela ledger, estimativa pre-request, limites diario/mensal</li>
+          <li>Auth: aceitar apenas numero do Rafael</li>
+          <li>pm2 config para uptime 24/7</li>
+          <li>TDD: testes unitarios para Budget Gate + integration tests gateway</li>
+        </ul>
+      </div>
+      <div class="sprint-card">
+        <h3>Sprint 2: Integracoes Basicas</h3>
+        <div class="sprint-meta">Semanas 3-4 · MVP Completo · Entrega: 4 integracoes</div>
+        <ul>
+          <li>Tool wrappers para MCP Calendar: listar eventos, checar disponibilidade</li>
+          <li>Tool wrappers para MCP Gmail: listar, buscar, draft</li>
+          <li>Tool wrappers para MCP Linear: listar issues, criar, atualizar</li>
+          <li>Tool wrappers para MCP Notion: buscar paginas, ler conteudo</li>
+          <li>Intent classifier (Ollama qwen2.5:7b): calendar, email, task, knowledge, chat</li>
+          <li>Slack integration via Silva2 existente</li>
+          <li>Testes E2E: mensagem WhatsApp → tool → resposta</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Epic 2 — Sentidos (Sprints 3-4)</h2>
+    <div class="sprint-timeline">
+      <div class="sprint-card">
+        <h3>Sprint 3: Voice</h3>
+        <div class="sprint-meta">Semanas 5-6 · Voz · Entrega: audio bidirecional</div>
+        <ul>
+          <li>WhatsApp voice message handler (ogg/opus via Baileys)</li>
+          <li>STT: Whisper local (Ollama) ou API — converter audio → texto</li>
+          <li>ElevenLabs TTS: selecionar voz, texto → audio</li>
+          <li>Enviar voice message no WhatsApp como resposta</li>
+          <li>Config: texto para mensagens curtas, voz para longas (threshold configuravel)</li>
+          <li>TDD: testes de conversao audio, latencia &lt;3s</li>
+        </ul>
+      </div>
+      <div class="sprint-card">
+        <h3>Sprint 4: RAG & Knowledge Base</h3>
+        <div class="sprint-meta">Semanas 7-8 · Conhecimento · Entrega: busca contextualizada</div>
+        <ul>
+          <li>Habilitar pgvector no Supabase (extensao ja disponivel)</li>
+          <li>Pipeline de embedding: Ollama nomic-embed-text (custo zero)</li>
+          <li>Indexar Notion workspace Impact X (paginas, databases)</li>
+          <li>Indexar Obsidian vault (Daily, Projects, Journal)</li>
+          <li>Cron job re-indexacao (1x/dia, madrugada)</li>
+          <li>Query: pergunta → embedding → pgvector similarity → contexto → LLM</li>
+          <li>Intent classifier decide: RAG vs. tool direto</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Epic 3 — Inteligencia (Sprints 5-6)</h2>
+    <div class="sprint-timeline">
+      <div class="sprint-card">
+        <h3>Sprint 5: Financial Monitoring</h3>
+        <div class="sprint-meta">Semanas 9-10 · Financas · Entrega: consultas + alertas</div>
+        <ul>
+          <li>Integrar Pluggy Open Finance (reusar finance-agent tools: pluggy.ts, tools.ts)</li>
+          <li>Comandos: saldo, gastos do mes, transacoes recentes, investimentos</li>
+          <li>Cora / Inter PJ API: saldo conta empresa</li>
+          <li>Alertas automaticos: transacao &gt; R$500, saldo baixo, fatura vencendo</li>
+          <li>Seguranca: dados financeiros = CONFIDENTIAL, log obrigatorio</li>
+        </ul>
+      </div>
+      <div class="sprint-card">
+        <h3>Sprint 6: Autonomia Avancada</h3>
+        <div class="sprint-meta">Semanas 11-12 · Proatividade · Entrega: acoes autonomas</div>
+        <ul>
+          <li>Action confirmation system (3 niveis):
+            <ul>
+              <li>Leitura: auto-aprovada</li>
+              <li>Escrita interna (criar issue, draft): confirmacao via WhatsApp</li>
+              <li>Acao externa (enviar email, publicar): confirmacao + timeout 5min</li>
+            </ul>
+          </li>
+          <li>Heartbeat proativo (OpenClaw cron, 3x/dia):
+            <ul>
+              <li>Checar emails urgentes, eventos proximos, deploys com falha</li>
+              <li>Notificar Rafael no WhatsApp se relevante</li>
+            </ul>
+          </li>
+          <li>Horario silencioso: 23h-8h (so emergencias)</li>
+          <li>Scheduler: "agenda reuniao com fulano quinta 14h" → Calendar</li>
+          <li>Composio: conectar apps sob demanda</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Epic 4 — Escala (Sprints 7-8)</h2>
+    <div class="sprint-timeline">
+      <div class="sprint-card">
+        <h3>Sprint 7: Integracoes Avancadas</h3>
+        <div class="sprint-meta">Semanas 13-14 · Expansao · Entrega: +5 integracoes</div>
+        <ul>
+          <li>GitHub + Vercel monitoring (status deploys, PRs abertas)</li>
+          <li>n8n workflow triggers (disparar workflows por comando)</li>
+          <li>Seedance video generation (quando solicitado)</li>
+          <li>Telegram bridge (canal extra / fallback)</li>
+          <li>Make / Pipedream webhooks (integracao bidirecional)</li>
+        </ul>
+      </div>
+      <div class="sprint-card">
+        <h3>Sprint 8: Dashboard & Polish</h3>
+        <div class="sprint-meta">Semanas 15-16 · Finalizacao · Entrega: dashboard + docs</div>
+        <ul>
+          <li>Dashboard web (Next.js + Tailwind, deploy Vercel):
+            <ul>
+              <li>Metricas: conversas/dia, tokens gastos, custo por modelo</li>
+              <li>Logs de acoes autonomas</li>
+              <li>Configuracao de limites de budget</li>
+              <li>Status dos servicos conectados</li>
+            </ul>
+          </li>
+          <li>Documentacao completa</li>
+          <li>Testes de carga e estabilidade 24/7</li>
+          <li>Report final publicado</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Feature Backlog Completo</h2>
+    <table class="feature-table">
+      <thead>
+        <tr><th>P</th><th>Feature</th><th>Sprint</th><th>Dependencia</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="priority-badge p0">P0</span></td><td>Configurar sam OpenClaw</td><td>0</td><td>—</td></tr>
+        <tr><td><span class="priority-badge p0">P0</span></td><td>WhatsApp Bridge (texto)</td><td>1</td><td>sam configurado</td></tr>
+        <tr><td><span class="priority-badge p0">P0</span></td><td>Budget Gate</td><td>1</td><td>—</td></tr>
+        <tr><td><span class="priority-badge p0">P0</span></td><td>Calendar + Email + Linear</td><td>1-2</td><td>sam configurado</td></tr>
+        <tr><td><span class="priority-badge p1">P1</span></td><td>Notion read/write</td><td>2</td><td>sam configurado</td></tr>
+        <tr><td><span class="priority-badge p1">P1</span></td><td>GitHub + Vercel monitoring</td><td>2</td><td>sam configurado</td></tr>
+        <tr><td><span class="priority-badge p1">P1</span></td><td>Voice input (WhatsApp → STT)</td><td>3</td><td>WhatsApp Bridge</td></tr>
+        <tr><td><span class="priority-badge p1">P1</span></td><td>Voice output (ElevenLabs TTS)</td><td>3</td><td>WhatsApp Bridge</td></tr>
+        <tr><td><span class="priority-badge p1">P1</span></td><td>RAG: Notion + pgvector</td><td>3-4</td><td>Supabase</td></tr>
+        <tr><td><span class="priority-badge p1">P1</span></td><td>RAG: Obsidian vault</td><td>4</td><td>RAG base</td></tr>
+        <tr><td><span class="priority-badge p2">P2</span></td><td>Pluggy Open Finance</td><td>5</td><td>sam configurado</td></tr>
+        <tr><td><span class="priority-badge p2">P2</span></td><td>Acoes autonomas + confirmacao</td><td>5-6</td><td>Integracoes base</td></tr>
+        <tr><td><span class="priority-badge p2">P2</span></td><td>Heartbeat proativo</td><td>5-6</td><td>Integracoes base</td></tr>
+        <tr><td><span class="priority-badge p3">P3</span></td><td>Composio apps sob demanda</td><td>6</td><td>sam configurado</td></tr>
+        <tr><td><span class="priority-badge p3">P3</span></td><td>n8n workflow triggers</td><td>7</td><td>n8n URL</td></tr>
+        <tr><td><span class="priority-badge p3">P3</span></td><td>Seedance video</td><td>7-8</td><td>API key</td></tr>
+        <tr><td><span class="priority-badge p3">P3</span></td><td>Dashboard web</td><td>8</td><td>Todas</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ==================== BUDGET & SECURITY ==================== -->
+<div class="tab-panel" data-tab="budget-security" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Budget Control & Security</h1>
+
+    <h2>Sistema de Controle de Budget</h2>
+    <p>O Budget Gate intercepta toda request antes de chegar ao LLM. Estima custo, checa limites, faz downgrade de modelo se necessario, e bloqueia se o budget estourou.</p>
+
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="budget-label">Por Request</div>
+        <div class="budget-value">$0.50</div>
+        <div class="budget-alert">Rejeita se estimativa exceder</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-label">Diario</div>
+        <div class="budget-value">$5.00</div>
+        <div class="budget-alert">Alerta em $4.00</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-label">Semanal</div>
+        <div class="budget-value">$25.00</div>
+        <div class="budget-alert">Alerta em $20.00</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-label">Mensal</div>
+        <div class="budget-value">$100.00</div>
+        <div class="budget-alert">Alerta em $80.00</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Estimativa mensal realista: ~$30-50</strong> com routing agressivo para Ollama (50% das requests, custo zero) e Gemini Flash (35%, $0.075/1M input).
+    </div>
+
+    <h2>Fluxo do Budget Gate</h2>
+    <div class="arch-diagram">
+<pre>
+  Request chega
+       │
+  ┌────▼────┐
+  │ Estimar  │  ← modelo + tokens estimados → custo
+  │ Custo    │
+  └────┬────┘
+       │
+  ┌────▼────┐
+  │ Checar   │  ← per-request > $0.50? → REJEITA
+  │ Limites  │  ← daily > $5.00? → DOWNGRADE para Ollama
+  └────┬────┘  ← monthly > $100? → BLOQUEIA (so Ollama)
+       │
+  ┌────▼────┐
+  │ Executar │  ← processa normalmente
+  │ Request  │
+  └────┬────┘
+       │
+  ┌────▼────┐
+  │ Logar    │  ← registra custo real no budget_ledger
+  │ Custo    │
+  └─────────┘
+</pre>
+    </div>
+
+    <h2>Tabela budget_ledger</h2>
+    <div class="arch-diagram">
+<pre>
+CREATE TABLE sam_budget_ledger (
+  id          UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at  TIMESTAMPTZ DEFAULT now(),
+  model       TEXT NOT NULL,        -- 'ollama:qwen2.5:7b', 'gemini-flash', etc.
+  input_tokens  INT NOT NULL,
+  output_tokens INT NOT NULL,
+  cost_usd    DECIMAL(10,6) NOT NULL,
+  intent      TEXT,                 -- 'calendar', 'email', 'chat', etc.
+  channel     TEXT,                 -- 'whatsapp', 'slack', 'heartbeat'
+  session_id  TEXT
+);
+</pre>
+    </div>
+
+    <h2>Modelo de Seguranca</h2>
+
+    <h3>Classificacao de Dados</h3>
+    <div class="security-level public">
+      <span class="security-dot"></span>
+      <div><strong>PUBLIC</strong> — Docs publicos, repos open-source, informacoes gerais. Acesso livre.</div>
+    </div>
+    <div class="security-level internal">
+      <span class="security-dot"></span>
+      <div><strong>INTERNAL</strong> — Linear issues, Notion pages da empresa, GitHub privado. Leitura auto-aprovada.</div>
+    </div>
+    <div class="security-level confidential">
+      <span class="security-dot"></span>
+      <div><strong>CONFIDENTIAL</strong> — Email, Calendar, transacoes financeiras. Leitura auto-aprovada, escrita com confirmacao.</div>
+    </div>
+    <div class="security-level secret">
+      <span class="security-dot"></span>
+      <div><strong>SECRET</strong> — .env, SSH keys, API keys, senhas. NUNCA acessar ou expor. Hard block.</div>
+    </div>
+
+    <h3>Autenticacao por Canal</h3>
+    <table>
+      <thead>
+        <tr><th>Canal</th><th>Auth</th><th>Validacao</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>WhatsApp</td><td>Numero de telefone</td><td>So aceita mensagens do numero do Rafael</td></tr>
+        <tr><td>Slack</td><td>Channel + User ID</td><td>Canal designado ou DM com U0AKXQTV50Q</td></tr>
+        <tr><td>HTTP</td><td>Bearer token</td><td>Token em env var, rotacionado mensalmente</td></tr>
+        <tr><td>Telegram</td><td>Chat ID</td><td>So aceita do chat do Rafael</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Niveis de Confirmacao</h3>
+    <table>
+      <thead>
+        <tr><th>Acao</th><th>Nivel</th><th>Exemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Leitura</td><td>Auto-aprovada</td><td>Listar eventos, buscar emails, ver issues</td></tr>
+        <tr><td>Escrita interna</td><td>Confirmacao simples</td><td>Criar issue, draft email, atualizar Notion</td></tr>
+        <tr><td>Acao externa</td><td>Confirmacao + timeout 5min</td><td>Enviar email, publicar, deploy</td></tr>
+        <tr><td>Destrutiva</td><td>Bloqueada por padrao</td><td>Deletar, force-push, drop table</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Audit Log</h3>
+    <div class="arch-diagram">
+<pre>
+CREATE TABLE sam_audit_log (
+  id          UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at  TIMESTAMPTZ DEFAULT now(),
+  action      TEXT NOT NULL,       -- 'tool_call', 'message_sent', 'budget_alert'
+  tool        TEXT,                -- 'calendar.create_event', 'gmail.send_draft'
+  channel     TEXT,                -- 'whatsapp', 'slack', 'cron'
+  status      TEXT,                -- 'approved', 'rejected', 'auto_approved'
+  details     JSONB,
+  cost_usd    DECIMAL(10,6)
+);
+</pre>
+    </div>
+
+    <h2>Riscos e Mitigacoes</h2>
+    <table>
+      <thead>
+        <tr><th>Risco</th><th>Impacto</th><th>Mitigacao</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baileys quebra (lib nao-oficial)</td>
+          <td>WhatsApp offline</td>
+          <td>Telegram como fallback; monitorar releases; pin version</td>
+        </tr>
+        <tr>
+          <td>Disco cheio na VPS (11G livre)</td>
+          <td>Sistema para</td>
+          <td>Limpeza sprint 0; mover logs antigos; R2 para storage</td>
+        </tr>
+        <tr>
+          <td>Custo de API escala</td>
+          <td>Budget estoura</td>
+          <td>Budget Gate com hard limits; routing agressivo para Ollama</td>
+        </tr>
+        <tr>
+          <td>Ollama sobrecarrega VPS</td>
+          <td>Latencia alta</td>
+          <td>1 modelo loaded por vez; offload embedding para noite</td>
+        </tr>
+        <tr>
+          <td>OpenClaw atualiza e quebra sam</td>
+          <td>Agent offline</td>
+          <td>Pin version; testar updates em staging primeiro</td>
+        </tr>
+        <tr>
+          <td>Dados pessoais expostos</td>
+          <td>Privacy breach</td>
+          <td>4 niveis de classificacao; audit log; nunca logar SECRET</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ==================== STACK & INFRA ==================== -->
+<div class="tab-panel" data-tab="stack-infra" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Stack Tecnologica & Infraestrutura</h1>
+
+    <h2>Decisoes Tecnicas</h2>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-label">Orquestracao</div>
+        <div class="stack-value">OpenClaw (agente "sam")</div>
+        <div class="stack-note">Sessions, memory, heartbeat, multi-LLM ja prontos</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">WhatsApp</div>
+        <div class="stack-value">Baileys (TypeScript)</div>
+        <div class="stack-note">Open-source, sem custo, suporte voice messages</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Slack</div>
+        <div class="stack-value">Silva2 (existente)</div>
+        <div class="stack-note">Socket Mode, ja funcional</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Voice STT</div>
+        <div class="stack-value">Whisper (Ollama local)</div>
+        <div class="stack-note">Custo zero, roda na VPS</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Voice TTS</div>
+        <div class="stack-value">ElevenLabs API</div>
+        <div class="stack-note">Melhor qualidade, voz customizavel</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">RAG</div>
+        <div class="stack-value">pgvector + Ollama embed</div>
+        <div class="stack-note">Supabase nativo, embedding custo zero</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Intent Classifier</div>
+        <div class="stack-value">Ollama qwen2.5:7b</div>
+        <div class="stack-note">32K context, custo zero, rapido</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">LLM Principal</div>
+        <div class="stack-value">Gemini 2.0 Flash</div>
+        <div class="stack-note">$0.075/1M input, bom para conversacao</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">LLM Critico</div>
+        <div class="stack-value">Claude Sonnet 4.6</div>
+        <div class="stack-note">Codigo, analise complexa, decisoes</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Database</div>
+        <div class="stack-value">Supabase PostgreSQL</div>
+        <div class="stack-note">Ja na stack Impact X, pgvector disponivel</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Framework</div>
+        <div class="stack-value">Fastify (TypeScript)</div>
+        <div class="stack-note">Padrao Impact X, alta performance</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-label">Process Manager</div>
+        <div class="stack-value">pm2</div>
+        <div class="stack-note">Ja usado pelo Finance Agent</div>
+      </div>
+    </div>
+
+    <h2>Recursos da VPS Oracle (24GB RAM)</h2>
+    <table>
+      <thead>
+        <tr><th>Servico</th><th>RAM Estimado</th><th>CPU</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenClaw gateway</td><td>500 MB</td><td>0.5 core</td><td>Rodando</td></tr>
+        <tr><td>Ollama (2 modelos)</td><td>10 GB</td><td>1 core (burst)</td><td>Rodando</td></tr>
+        <tr><td>Samantha Gateway (Fastify)</td><td>200 MB</td><td>0.2 core</td><td>Sprint 1</td></tr>
+        <tr><td>WhatsApp Bridge (Baileys)</td><td>200 MB</td><td>0.1 core</td><td>Sprint 1</td></tr>
+        <tr><td>Finance Agent</td><td>150 MB</td><td>0.1 core</td><td>Rodando</td></tr>
+        <tr><td>Silva (Slack bot)</td><td>150 MB</td><td>0.1 core</td><td>Rodando</td></tr>
+        <tr><td><strong>Total Estimado</strong></td><td><strong>~11.5 GB</strong></td><td><strong>~2 cores</strong></td><td>—</td></tr>
+        <tr><td><strong>Buffer Disponivel</strong></td><td><strong>~12.5 GB</strong></td><td><strong>~2 cores</strong></td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning">
+      <strong>Alerta de disco:</strong> 11GB livre de 45GB. Limpeza obrigatoria no Sprint 0: remover logs antigos, imagens Docker nao utilizadas, cache npm/Ollama.
+    </div>
+
+    <h2>Estimativa de Custo Mensal</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Custo/Mes</th><th>Notas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>VPS Oracle</td><td>$0</td><td>Always Free tier (24GB ARM)</td></tr>
+        <tr><td>Ollama (local)</td><td>$0</td><td>Modelos open-source na VPS</td></tr>
+        <tr><td>Gemini Flash</td><td>~$10-15</td><td>35% do uso, $0.075-0.30/1M</td></tr>
+        <tr><td>Claude Sonnet</td><td>~$15-25</td><td>12% do uso, $3-15/1M</td></tr>
+        <tr><td>Claude Opus</td><td>~$5-10</td><td>3% do uso, so critico</td></tr>
+        <tr><td>ElevenLabs</td><td>~$5</td><td>Free tier + uso moderado</td></tr>
+        <tr><td>Supabase</td><td>$0</td><td>Free tier (500MB DB, 1GB storage)</td></tr>
+        <tr><td>Vercel</td><td>$0</td><td>Free tier (dashboard)</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>~$30-50</strong></td><td>Budget Gate limita a $100/mes max</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Automacao & Workflows</h2>
+    <table>
+      <thead>
+        <tr><th>Plataforma</th><th>Uso</th><th>Sprint</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>n8n</strong></td><td>Workflows complexos, triggers, webhooks</td><td>7</td></tr>
+        <tr><td><strong>Make</strong></td><td>Integracoes visuais rapidas</td><td>7</td></tr>
+        <tr><td><strong>Pipedream</strong></td><td>Webhooks + code steps</td><td>7</td></tr>
+        <tr><td><strong>Composio</strong></td><td>500+ apps on-demand via MCP</td><td>6</td></tr>
+        <tr><td><strong>Custom MCP</strong></td><td>Integracoes especificas Impact X</td><td>Conforme necessidade</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Projeto Relacionados</h2>
+    <table>
+      <thead>
+        <tr><th>Projeto</th><th>Relacao com Samantha</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Plane</strong></td><td>Project management — Samantha monitora tasks e sprints</td><td>Integrar via API/Composio</td></tr>
+        <tr><td><strong>Paperclip</strong></td><td>Task manager pessoal — Samantha sincroniza tarefas</td><td>Integrar via API/Composio</td></tr>
+        <tr><td><strong>Notion</strong></td><td>Knowledge base — fonte primaria para RAG</td><td>MCP configurado</td></tr>
+        <tr><td><strong>Obsidian</strong></td><td>Notas pessoais — segunda fonte para RAG</td><td>Vault local na VPS</td></tr>
+        <tr><td><strong>LangGraph</strong></td><td>Grafos de agentes complexos — orquestracao avancada</td><td>Avaliar Sprint 7+</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Metodologia XP + Lean UX</h2>
+    <table>
+      <thead>
+        <tr><th>Pratica</th><th>Aplicacao</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>TDD</strong></td><td>Testes unitarios para Budget Gate, intent classifier, tool wrappers. Integration tests E2E.</td></tr>
+        <tr><td><strong>Pair Programming</strong></td><td>Rafael + Claude para definir persona, testar integracoes, revisar PRs.</td></tr>
+        <tr><td><strong>Continuous Integration</strong></td><td>GitHub Actions para lint + type check + tests em cada push.</td></tr>
+        <tr><td><strong>Small Releases</strong></td><td>Cada sprint entrega funcionalidade usavel. MVP em 4 semanas.</td></tr>
+        <tr><td><strong>Build-Measure-Learn</strong></td><td>Cada sprint valida hipotese. Se voice nao agrega valor, pivotar para texto-only.</td></tr>
+        <tr><td><strong>Sustainable Pace</strong></td><td>2 semanas por sprint. Sem crunch. Budget controla custo, nao velocidade.</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
