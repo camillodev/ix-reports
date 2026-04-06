@@ -1,22 +1,11 @@
-/**
- * MCP Report Publisher — Configuration
- * Reads from environment variables.
- */
-
 export const config = {
-  github: {
-    token: process.env.GITHUB_TOKEN || '',
-    owner: process.env.GITHUB_OWNER || 'camillodev',
-    repo: process.env.GITHUB_REPO || 'ix-reports',
-    branch: process.env.GITHUB_BRANCH || 'master',
-  },
-  site: {
-    domain: process.env.SITE_DOMAIN || 'reports.impactxlab.com',
-  },
+  publishApiUrl: process.env.PUBLISH_API_URL || 'https://reports.impactxlab.com/api/publish',
+  publishToken: process.env.PUBLISH_TOKEN || '',
+  siteDomain: process.env.SITE_DOMAIN || 'reports.impactxlab.com',
 };
 
 export function validateConfig(): string[] {
   const errors: string[] = [];
-  if (!config.github.token) errors.push('GITHUB_TOKEN is required');
+  if (!config.publishToken) errors.push('PUBLISH_TOKEN is required');
   return errors;
 }

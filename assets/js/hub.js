@@ -342,7 +342,11 @@
     titleDiv.appendChild(document.createTextNode(r.title));
 
     var metaDiv = el('div', { className: 'rr-meta', textContent: r.meta || r.date });
-    a.appendChild(el('div', { className: 'rr-info' }, [titleDiv, metaDiv]));
+    var infoChildren = [titleDiv, metaDiv];
+    if (r.owner) {
+      infoChildren.push(el('div', { className: 'rr-owner', textContent: r.owner }));
+    }
+    a.appendChild(el('div', { className: 'rr-info' }, infoChildren));
 
     var tagsDiv = el('div', { className: 'rr-tags' });
     if (r.client) {

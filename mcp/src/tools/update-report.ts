@@ -1,9 +1,9 @@
 import { callPublishApi } from '../services/api-client.js';
-import { PublishReportInput } from '../schemas/index.js';
+import { UpdateReportInput } from '../schemas/index.js';
 
-export const publishReportSchema = PublishReportInput;
+export const updateReportSchema = UpdateReportInput;
 
-export async function publishReport(input: typeof PublishReportInput._type) {
+export async function updateReport(input: typeof UpdateReportInput._type) {
   let html: string;
   try {
     html = Buffer.from(input.html_content_base64, 'base64').toString('utf-8');
@@ -13,8 +13,8 @@ export async function publishReport(input: typeof PublishReportInput._type) {
 
   const body = {
     html,
-    title: input.title,
     slug: input.slug,
+    title: input.title,
     date: input.date,
     meta: input.meta,
     client: input.client,
@@ -23,12 +23,11 @@ export async function publishReport(input: typeof PublishReportInput._type) {
     icon: input.icon || 'file-earmark-text',
     access: input.access || 'public',
     pinned: input.pinned || false,
-    allowedTokens: input.allowedTokens,
     ...(input.owner ? { owner: input.owner } : {}),
   };
 
   try {
-    const result = await callPublishApi('POST', body);
+    const result = await callPublishApi('PUT', body);
     return result;
   } catch (err) {
     return { success: false, error: `API call failed: ${err}` };

@@ -20,13 +20,54 @@
  *   1. Check token from URL param (?t=) or cookie (ix_auth, ix_emp, ix_pvt)
  *   2. Validate token against env vars
  *   3. If URL param, set cookie and redirect to clean URL
- *   4. If valid, forward request
+ *   4. If valid, continue chain to static file (x-middleware-next — NOT fetch(request))
  *   5. If invalid, return 403
  */
 
 export const config = {
   matcher: ['/data/private/:path*', '/data/empresa/:path*'],
 };
+
+/** Vercel Routing Middleware: pass request to static asset handler */
+function continueToStatic() {
+  return new Response(null, {
+    headers: { 'x-middleware-next': '1' },
+  });
+}
+
+const AUTH_NOT_CONFIGURED_HTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auth não configurado — Relatório X</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:#F4F6F9;color:#1A1D21;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+  .box{background:#fff;border-radius:22px;padding:40px 32px;max-width:520px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+  .brand{font-weight:800;font-size:18px;margin-bottom:20px;letter-spacing:-.5px}
+  .brand span{color:#11C76F}
+  h1{font-size:20px;font-weight:800;margin-bottom:12px}
+  p,li{font-size:14px;color:#4B5563;line-height:1.65;margin-bottom:12px}
+  code{font-size:12px;background:#F3F4F6;padding:2px 6px;border-radius:4px}
+  ul{margin:12px 0 0 20px}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="brand">Relatorio <span>X</span></div>
+    <h1>Proteção ativa, tokens não configurados</h1>
+    <p>Rotas <code>/data/empresa/</code> e <code>/data/private/</code> exigem variáveis de ambiente na Vercel:</p>
+    <ul>
+      <li><code>OWNER_TOKENS</code> — tokens admin completos, ex. <code>ix_own_suaSenha</code></li>
+      <li><code>EMPRESA_TOKENS</code> — tokens time, ex. <code>ix_emp_suaSenha</code> (mesmo valor que o cookie após login no hub)</li>
+      <li><code>PRIVATE_TOKENS</code> — convites legado, ex. <code>ix_inv_...</code></li>
+    </ul>
+    <p>Vá em <strong>Project → Settings → Environment Variables</strong>, adicione pelo menos uma lista (vírgula para vários), faça <strong>Redeploy</strong>.</p>
+  </div>
+</body>
+</html>`;
 
 const ACCESS_DENIED_HTML = `<!DOCTYPE html>
 <html lang="pt-BR">
