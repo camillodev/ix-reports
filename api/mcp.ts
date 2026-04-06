@@ -251,9 +251,11 @@ export default async function handler(req: any, res: any) {
     return res.status(204).end();
   }
 
-  // Auth
+  // Auth — aceita Bearer header OU query param ?token=xxx (para Claude.ai connectors)
   const authHeader = (req.headers['authorization'] ?? '') as string;
-  const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+  const tokenFromHeader = authHeader.replace(/^Bearer\s+/i, '').trim();
+  const tokenFromQuery = (req.query?.token ?? '') as string;
+  const token = tokenFromHeader || tokenFromQuery;
   if (!token || !process.env.PUBLISH_TOKEN || token !== process.env.PUBLISH_TOKEN) {
     return res.status(401).json({ error: 'Invalid or missing PUBLISH_TOKEN' });
   }
