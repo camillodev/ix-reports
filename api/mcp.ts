@@ -21,7 +21,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { z } from 'zod';
 
-const SITE_DOMAIN = process.env.SITE_DOMAIN ?? 'reports.impactxlabs.com';
+const SITE_DOMAIN = process.env.SITE_DOMAIN ?? 'reports.impactxlab.com';
 const PUBLISH_API_URL = process.env.PUBLISH_API_URL ?? `https://${SITE_DOMAIN}/api/publish`;
 
 // ─── Schemas ──────────────────────────────────────────────────────────────────

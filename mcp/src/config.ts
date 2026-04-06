@@ -1,7 +1,7 @@
 export const config = {
-  publishApiUrl: process.env.PUBLISH_API_URL || 'https://reports.impactxlabs.com/api/publish',
+  publishApiUrl: process.env.PUBLISH_API_URL || 'https://reports.impactxlab.com/api/publish',
   publishToken: process.env.PUBLISH_TOKEN || '',
-  siteDomain: process.env.SITE_DOMAIN || 'reports.impactxlabs.com',
+  siteDomain: process.env.SITE_DOMAIN || 'reports.impactxlab.com',
 };
 
 export function validateConfig(): string[] {
