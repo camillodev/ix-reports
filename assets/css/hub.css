@@ -183,6 +183,7 @@
 .rr-info { flex: 1; min-width: 0; }
 .rr-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .rr-meta { font-size: 12px; color: var(--ix-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rr-owner { font-size: 11px; color: var(--ix-muted); font-weight: 500; margin-top: 1px; opacity: 0.75; }
 .rr-tags { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; width: 100%; padding-left: 46px; margin-top: 3px; }
 .rr-tag { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.2px; }
 .rr-tag-empresa { color: #fff; }

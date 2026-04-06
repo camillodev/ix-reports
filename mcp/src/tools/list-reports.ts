@@ -2,11 +2,11 @@
  * Tool: list_reports
  *
  * Lists published reports from reports.json with optional filters.
- * Fetches the latest data from GitHub to ensure accuracy.
+ * Fetches the latest data from the public site URL.
  */
 import { config } from '../config.js';
 import { ListReportsInput, type ReportEntry } from '../schemas/index.js';
-import { getFileContent } from '../services/github.js';
+import { fetchReportsJson } from '../services/api-client.js';
 
 export const listReportsSchema = ListReportsInput;
 
@@ -14,8 +14,8 @@ export async function listReports(input: typeof ListReportsInput._type) {
   // Fetch current reports.json
   let reports: ReportEntry[];
   try {
-    const json = await getFileContent('data/reports.json');
-    reports = JSON.parse(json);
+    const data = await fetchReportsJson();
+    reports = data as ReportEntry[];
   } catch (err) {
     return { success: false, error: `Failed to fetch reports.json: ${err}` };
   }
@@ -46,10 +46,8 @@ export async function listReports(input: typeof ListReportsInput._type) {
   const limited = filtered.slice(0, input.limit);
 
   // Build response
-  const domain = config.site.domain;
+  const domain = config.siteDomain;
   const items = limited.map((r) => {
-    const isProtected = (r.access === 'pessoal' || r.access === 'private') ||
-      r.file.startsWith('private/');
     const path = r.file.startsWith('private/') || r.file.startsWith('downloads/')
       ? `data/${r.file}`
       : `data/${r.file}`;

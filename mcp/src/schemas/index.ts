@@ -27,6 +27,7 @@ export const ReportEntry = z.object({
   // Access control
   access: AccessLevel.default('public'),
   allowedTokens: z.array(z.string()).optional(),
+  owner: z.string().optional(),
 });
 export type ReportEntry = z.infer<typeof ReportEntry>;
 
@@ -49,6 +50,7 @@ export const PublishReportInput = z.object({
   access: AccessLevel.optional().default('public'),
   pinned: z.boolean().optional().default(false),
   allowedTokens: z.array(z.string()).optional(),
+  owner: z.string().optional(),
 });
 export type PublishReportInput = z.infer<typeof PublishReportInput>;
 
@@ -60,3 +62,27 @@ export const ListReportsInput = z.object({
   limit: z.number().min(1).max(100).optional().default(50),
 });
 export type ListReportsInput = z.infer<typeof ListReportsInput>;
+
+// ─── update_report input ───
+export const UpdateReportInput = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/, 'Slug must be kebab-case'),
+  filename: z.string().regex(/^[a-z0-9-]+\.html$/),
+  html_content_base64: z.string().min(100),
+  title: z.string().min(1),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  meta: z.string().min(1),
+  client: z.string().min(1),
+  project: z.string().nullable().optional(),
+  tags: z.array(z.string()).min(1),
+  icon: z.string().optional().default('file-earmark-text'),
+  access: AccessLevel.optional().default('public'),
+  pinned: z.boolean().optional().default(false),
+  owner: z.string().optional(),
+});
+export type UpdateReportInput = z.infer<typeof UpdateReportInput>;
+
+// ─── delete_report input ───
+export const DeleteReportInput = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/, 'Slug must be kebab-case'),
+});
+export type DeleteReportInput = z.infer<typeof DeleteReportInput>;
