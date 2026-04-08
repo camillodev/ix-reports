@@ -1,0 +1,284 @@
+/*
+ * IX Brand PDF CSS — para uso com Pandoc + WeasyPrint
+ * Referência visual: mesma paleta de report.css
+ *
+ * Uso local:
+ *   pandoc analysis.md -o analysis.pdf \
+ *     --pdf-engine=weasyprint \
+ *     --css=assets/css/pandoc.css \
+ *     --standalone
+ *
+ * Uso no Modal (app.py): usa @font-face com caminhos locais do container.
+ * Este arquivo usa Google Fonts como fallback para desenvolvimento local.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap');
+
+:root {
+  --ix-green:       #11C76F;
+  --ix-green-dark:  #059669;
+  --ix-green-tint:  #ECFDF5;
+  --ix-yellow:      #FBBF24;
+  --ix-ink:         #1A1D21;
+  --ix-muted:       #6B7280;
+  --ix-bg:          #F4F6F9;
+  --ix-surface:     #FFFFFF;
+  --ix-border:      #E8ECF1;
+  --ix-danger:      #C0392B;
+  --ix-warning:     #D4820A;
+}
+
+/* ------------------------------------------------------------------ Page */
+
+@page {
+  size: A4;
+  margin: 20mm 25mm 25mm;
+
+  @bottom-left {
+    content: "IMPACT X — Feito por Rafael Camillo";
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 9px;
+    color: #9CA3AF;
+    padding-top: 8px;
+    border-top: 1px solid #E8ECF1;
+  }
+
+  @bottom-right {
+    content: "Página " counter(page) " de " counter(pages);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 9px;
+    color: #9CA3AF;
+    padding-top: 8px;
+    border-top: 1px solid #E8ECF1;
+  }
+}
+
+/* ----------------------------------------------------------------- Reset */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------------ Body */
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ix-ink);
+  background: #FFFFFF;
+}
+
+/* ---------------------------------------------- Title block (pandoc) */
+
+#title-block-header {
+  background: var(--ix-ink);
+  color: #FFFFFF;
+  padding: 36px 40px 28px;
+  margin: -20mm -25mm 28px;  /* sai para as margens da página */
+  page-break-inside: avoid;
+}
+
+#title-block-header::before {
+  content: "IMPACT X";
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--ix-green);
+  margin-bottom: 12px;
+}
+
+h1.title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.25;
+  max-width: 540px;
+}
+
+p.subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 8px;
+}
+
+p.author,
+p.date {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 4px;
+}
+
+/* ------------------------------------------------------- Headings */
+
+h1 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ix-ink);
+  margin: 28px 0 10px;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ix-green-dark);
+  margin: 24px 0 8px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--ix-green);
+}
+
+h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ix-ink);
+  margin: 18px 0 6px;
+}
+
+h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ix-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 14px 0 4px;
+}
+
+/* ------------------------------------------------------- Paragraphs */
+
+p {
+  margin: 8px 0;
+}
+
+/* ------------------------------------------------------- Lists */
+
+ul, ol {
+  margin: 8px 0 8px 20px;
+}
+
+li {
+  margin: 4px 0;
+}
+
+li::marker {
+  color: var(--ix-green);
+}
+
+/* ------------------------------------------------------- Strong / Em */
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+  color: var(--ix-muted);
+}
+
+/* ------------------------------------------------------- Code */
+
+code {
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 11.5px;
+  background: var(--ix-bg);
+  border: 1px solid var(--ix-border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--ix-green-dark);
+}
+
+pre {
+  background: var(--ix-ink);
+  color: #E2E8F0;
+  padding: 16px 18px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 12px 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* ------------------------------------------------------- Blockquote → callout */
+
+blockquote {
+  background: var(--ix-green-tint);
+  border-left: 3px solid var(--ix-green);
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ix-green-dark);
+}
+
+/* ------------------------------------------------------- Tables */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 12px;
+  background: var(--ix-surface);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background: var(--ix-ink);
+  color: #FFFFFF;
+}
+
+th {
+  padding: 9px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--ix-border);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) td {
+  background: var(--ix-bg);
+}
+
+/* ------------------------------------------------------- Horizontal rule */
+
+hr {
+  border: none;
+  border-top: 1px solid var(--ix-border);
+  margin: 24px 0;
+}
+
+/* ------------------------------------------------------- Page breaks */
+
+h2 {
+  page-break-after: avoid;
+}
+
+table, blockquote, pre {
+  page-break-inside: avoid;
+}
