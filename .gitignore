@@ -1,2 +1,11 @@
 .vercel
 .env*.local
+.DS_Store
+data/.DS_Store
+.playwright-mcp/
+docs/
+ImpactX_Apollo_CopyPaste.md
+ImpactX_Apollo_StaffingOnly.md
+/ImpactX_BusinessPlaybook_202604.html
+node_modules/
+mcp/node_modules/
