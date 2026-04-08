@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Business Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+  .value-card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.5rem;transition:box-shadow .2s}
+  .value-card:hover{box-shadow:var(--ix-shadow-md)}
+  .value-card .v-icon{font-size:2rem;margin-bottom:.5rem}
+  .value-card .v-title{font-weight:700;color:var(--ix-ink);margin-bottom:.25rem}
+  .value-card .v-tag{font-family:var(--ix-font-mono);font-size:.8rem;color:var(--ix-green);margin-bottom:.5rem}
+  .value-card .v-desc{font-size:.95rem;color:var(--ix-muted);line-height:1.5}
+  .values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin:1.5rem 0}
+  .journey-step{display:flex;gap:1.25rem;align-items:flex-start;padding:1.25rem 0;border-bottom:1px solid var(--ix-border)}
+  .journey-step:last-child{border-bottom:none}
+  .j-num{font-family:var(--ix-font-mono);font-size:2rem;font-weight:700;color:var(--ix-green);min-width:3rem;line-height:1}
+  .j-body h3{margin:0 0 .25rem;font-size:1.1rem}
+  .j-body p{margin:0;color:var(--ix-muted);line-height:1.5}
+  .pricing-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--ix-radius-md);overflow:hidden;border:1px solid var(--ix-border);margin:1.5rem 0}
+  .pricing-table th{background:var(--ix-green);color:#fff;padding:1rem;text-align:left;font-weight:600}
+  .pricing-table td{padding:.85rem 1rem;border-bottom:1px solid var(--ix-border)}
+  .pricing-table tr:last-child td{border-bottom:none}
+  .pricing-table tr:nth-child(even) td{background:var(--ix-green-tint)}
+  .roadmap-phase{margin-bottom:2rem}
+  .roadmap-phase .rp-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+  .roadmap-phase .rp-badge{background:var(--ix-green);color:#fff;padding:.35rem 1rem;border-radius:var(--ix-radius-sm);font-weight:700;font-size:.9rem;white-space:nowrap}
+  .roadmap-phase .rp-title{font-size:1.15rem;font-weight:700}
+  .roadmap-phase ul{list-style:none;padding:0;margin:0}
+  .roadmap-phase li{padding:.5rem 0 .5rem 1.5rem;position:relative;color:var(--ix-muted);line-height:1.5}
+  .roadmap-phase li::before{content:"";position:absolute;left:0;top:.85rem;width:8px;height:8px;border-radius:50%;background:var(--ix-green)}
+  .comp-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--ix-border);align-items:center}
+  .comp-row.comp-header{font-weight:700;color:var(--ix-ink);border-bottom:2px solid var(--ix-green)}
+  .comp-row span:nth-child(2),.comp-row span:nth-child(3){text-align:center}
+  .check{color:var(--ix-green);font-weight:700}
+  .cross{color:var(--ix-danger);font-weight:700}
+  .proof-card{background:var(--ix-green-tint);border-left:4px solid var(--ix-green);border-radius:0 var(--ix-radius-sm) var(--ix-radius-sm) 0;padding:1.25rem 1.5rem;margin:1rem 0}
+  .proof-card .pf-metric{font-family:var(--ix-font-mono);font-size:1.75rem;font-weight:700;color:var(--ix-green)}
+  .proof-card .pf-label{color:var(--ix-muted);margin-top:.25rem}
+  .cta-box{background:linear-gradient(135deg,var(--ix-green),var(--ix-green-dark));color:#fff;border-radius:var(--ix-radius-lg);padding:2.5rem;text-align:center;margin:2rem 0}
+  .cta-box h2{color:#fff;margin:0 0 .75rem}
+  .cta-box p{opacity:.9;margin:0 0 1.5rem;max-width:600px;margin-left:auto;margin-right:auto}
+  .cta-btn{display:inline-block;background:#fff;color:var(--ix-green);font-weight:700;padding:.85rem 2rem;border-radius:var(--ix-radius-sm);text-decoration:none;font-size:1rem;transition:transform .15s}
+  .cta-btn:hover{transform:translateY(-2px)}
+  .cta-btn+.cta-btn{margin-left:1rem}
+  .resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin:1.5rem 0}
+  .resource-card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.25rem;transition:box-shadow .2s}
+  .resource-card:hover{box-shadow:var(--ix-shadow-md)}
+  .resource-card .rc-type{font-family:var(--ix-font-mono);font-size:.75rem;color:var(--ix-green);text-transform:uppercase;letter-spacing:.05em}
+  .resource-card .rc-title{font-weight:700;margin:.35rem 0 .25rem}
+  .resource-card .rc-desc{color:var(--ix-muted);font-size:.9rem;line-height:1.4}
+  .pain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin:1.5rem 0}
+  .pain-card{background:var(--ix-card-bg);border:1px solid var(--ix-border);border-radius:var(--ix-radius-md);padding:1.5rem}
+  .pain-card .pc-persona{font-family:var(--ix-font-mono);font-size:.8rem;color:var(--ix-green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+  .pain-card h3{margin:0 0 .75rem;font-size:1.05rem}
+  .pain-card ul{margin:0;padding-left:1.25rem;color:var(--ix-muted)}
+  .pain-card li{margin-bottom:.35rem;line-height:1.4}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Business Playbook 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="mvv">Missão, Visão &amp; Valores</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">Roadmap 2026</button>
+  <button type="button" class="tab-btn" data-tab="produtos">Produtos &amp; Serviços</button>
+  <button type="button" class="tab-btn" data-tab="proposta">Proposta de Valor</button>
+  <button type="button" class="tab-btn" data-tab="cliente">Perfil do Cliente</button>
+  <button type="button" class="tab-btn" data-tab="jornada">Jornada do Cliente</button>
+  <button type="button" class="tab-btn" data-tab="pricing">Pricing</button>
+  <button type="button" class="tab-btn" data-tab="vantagens">Vantagens Competitivas</button>
+  <button type="button" class="tab-btn" data-tab="prova">Prova Social &amp; CTA</button>
+  <button type="button" class="tab-btn" data-tab="recursos">Recursos</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 1: MISSÃO, VISÃO & VALORES                     -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel active" data-tab="mvv" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+    <div class="report-header" data-ix-watermark="X">
+      <div class="hdr-brand">IMPACT <span class="x">X</span></div>
+      <h1 class="hdr-title">Business <em>Playbook</em></h1>
+      <p class="hdr-sub">Definições estratégicas, produtos, posicionamento e roadmap — tudo em um lugar só.</p>
+      <p class="hdr-meta">Abril 2026 · Gerado a partir dos reports do repositório ix-reports</p>
+    </div>
+
+    <h2>Missão</h2>
+    <div class="callout success">
+      <strong>Externa:</strong> Usar tecnologia invisível para devolver tempo às pessoas — e ajudar pequenos e médios empreendedores a competirem com qualquer um.
+    </div>
+    <div class="callout info">
+      <strong>Interna:</strong> Construir uma empresa onde a vida vem antes do trabalho — onde profissionais negros e LGBT encontram não apenas emprego, mas carreira com dignidade, qualidade de vida e crescimento real.
+    </div>
+
+    <h2>Visão</h2>
+    <p>Ser um grupo de produtos reconhecido por criar <strong>tecnologia que liberta</strong> — que serve às pessoas sem prender sua atenção, e que constrói pontes entre talentos marginalizados e oportunidades reais.</p>
+    <p style="color:var(--ix-muted)">Meta de longo prazo: ser reconhecida como a empresa brasileira que mais investe na qualidade de vida dos colaboradores, com o menor turnover voluntário do Brasil.</p>
+
+    <h2>8 Valores</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="v-icon">🫥</div>
+        <div class="v-title">Tecnologia invisível</div>
+        <div class="v-tag">"Se você notou, ainda não está pronto"</div>
+        <div class="v-desc">Sistemas tão fluidos que o usuário esquece que existem. A tecnologia trabalha por trás, sem exigir atenção.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🎯</div>
+        <div class="v-title">Foco profundo</div>
+        <div class="v-tag">"Uma coisa, feita excepcionalmente"</div>
+        <div class="v-desc">Cada produto faz uma coisa excepcionalmente bem. Escopo reduzido, qualidade máxima.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">❤️</div>
+        <div class="v-title">Obsessão pelo cliente</div>
+        <div class="v-tag">"Cada cliente é o mais importante"</div>
+        <div class="v-desc">Profundidade sobre volume. Cada cliente sente que é o único — porque recebe atenção real.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🌱</div>
+        <div class="v-title">Sustentabilidade real</div>
+        <div class="v-tag">"Lucro é consequência, não objetivo"</div>
+        <div class="v-desc">Trabalho bom → valor → receita → cuidado com as pessoas. Nessa ordem, sem atalhos.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🕐</div>
+        <div class="v-title">Vida em primeiro lugar</div>
+        <div class="v-tag">"O trabalho serve a vida, não o contrário"</div>
+        <div class="v-desc">Tempo com quem importa é insubstituível. Nunca sacrifique isso por um deadline.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">✊🏿</div>
+        <div class="v-title">Equidade ativa</div>
+        <div class="v-tag">"Intencionalmente includente"</div>
+        <div class="v-desc">Construímos espaços onde profissionais negros e LGBTQ+ são maioria, não exceção. Por convicção, não cota.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🤖</div>
+        <div class="v-title">Automação com propósito</div>
+        <div class="v-tag">"IA como ferramenta, nunca como centro"</div>
+        <div class="v-desc">IA amplifica capacidade humana. Nunca substitui julgamento, empatia ou criatividade.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🔓</div>
+        <div class="v-title">Transparência ativa</div>
+        <div class="v-tag">"Dizemos o que pensamos, com cuidado"</div>
+        <div class="v-desc">Posicionamento público sobre direitos trabalhistas, ética e tecnologia. Sem medo, com responsabilidade.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 2: ROADMAP 2026                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Roadmap Estratégico</h1>
+    <p>Visão de curto, médio e longo prazo extraída do VTO/EOS e planos ativos.</p>
+
+    <div class="roadmap-phase">
+      <div class="rp-header">
+        <span class="rp-badge">2026 — Agora</span>
+        <span class="rp-title">Fundação &amp; Primeiro Lucro</span>
+      </div>
+      <ul>
+        <li>Fechar parceria G2I — alocação de 20+ devs até Q4</li>
+        <li>Atingir R$200k+ MRR em margem de staffing</li>
+        <li>Presença digital ativa: 3x/semana (LinkedIn + Instagram)</li>
+        <li>Site institucional Impact X no ar</li>
+        <li>Sistema Claude OS operacional — automações internas eliminando trabalho repetitivo</li>
+        <li>Time intencional: Rafa, Nicole, Pimenta + Tech Recruiter</li>
+        <li>30%+ da receita vindo de fontes não-G2I</li>
+      </ul>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="rp-header">
+        <span class="rp-badge" style="background:var(--ix-green-dark)">2027–2028</span>
+        <span class="rp-title">Escala &amp; Primeiros Produtos</span>
+      </div>
+      <ul>
+        <li>Primeiro Dengo operacional — espaço físico com calor humano</li>
+        <li>Hub de produtos independentes com identidades próprias</li>
+        <li>Equipe expandida mantendo cultura intencional</li>
+        <li>Margem de staffing sustentando novos produtos</li>
+        <li>Micro-SaaS de automação para PMEs lançado</li>
+      </ul>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="rp-header">
+        <span class="rp-badge" style="background:var(--ix-muted)">2029–2031</span>
+        <span class="rp-title">Plataformas &amp; Comunidade</span>
+      </div>
+      <ul>
+        <li>Mercado Negro e Gueto pra Gueto — plataformas de circulação econômica comunitária</li>
+        <li>Múltiplos Dengos operando no Brasil</li>
+        <li>Reconhecida pela cultura e benefícios ao time</li>
+        <li>PLR, previdência privada e equity para colaboradores</li>
+      </ul>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="rp-header">
+        <span class="rp-badge" style="background:var(--ix-ink)">2031–2036</span>
+        <span class="rp-title">Referência Global</span>
+      </div>
+      <ul>
+        <li>Referência em produtos focados e tecnologia invisível</li>
+        <li>Dengos em múltiplas cidades internacionalmente</li>
+        <li>Menor turnover voluntário do Brasil</li>
+        <li>"Provar que uma empresa predominantemente negra e LGBTQ+ pode ser excelente, lucrativa, inovadora e admirada."</li>
+      </ul>
+    </div>
+
+    <h2>Metas Q2–Q4 2026</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">5</div>
+        <div class="metric-label">Devs alocados · Q2</div>
+        <div class="metric-sub">R$50k MRR margem</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15</div>
+        <div class="metric-label">Devs alocados · Q3</div>
+        <div class="metric-sub">R$150k MRR margem</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">20+</div>
+        <div class="metric-label">Devs alocados · Q4</div>
+        <div class="metric-sub">R$200k+ MRR margem</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">30%</div>
+        <div class="metric-label">Receita não-G2I</div>
+        <div class="metric-sub">Meta até Mar/2027</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 3: PRODUTOS & SERVIÇOS                         -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="produtos" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Produtos &amp; Serviços</h1>
+    <p>Impact X não é uma empresa de tecnologia. É uma empresa de <strong>tempo e liberdade</strong> que usa tecnologia para chegar lá.</p>
+
+    <h2>Ativos Agora</h2>
+
+    <div class="callout success">
+      <h3 style="margin-top:0">Developer Staffing (G2I Model)</h3>
+      <p>Alocação de desenvolvedores LATAM para empresas US/EU. 300+ devs pré-mapeados, onboarding assíncrono em 3 dias. Modelo de margem sobre alocação — receita previsível e escalável.</p>
+      <p><strong>Pitch:</strong> "Vocês queriam me contratar. Posso trazer 80 iguais a mim."</p>
+    </div>
+
+    <div class="callout info">
+      <h3 style="margin-top:0">AI Training / RLHF</h3>
+      <p>Projetos de treinamento de modelos de IA em colaboração com OpenAI e Anthropic. Aproveitando a expertise técnica do time para projetos de alta complexidade.</p>
+    </div>
+
+    <div class="callout info">
+      <h3 style="margin-top:0">Automações sob medida (n8n)</h3>
+      <p>Microserviços de automação para vendas, recrutamento e operações. Soluções customizadas usando n8n como orquestrador.</p>
+    </div>
+
+    <h2>Em Construção</h2>
+    <table>
+      <thead><tr><th>Produto</th><th>Status</th><th>Horizonte</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Site Impact X</strong></td><td>Planejamento</td><td>2026</td></tr>
+        <tr><td><strong>Sistema Claude OS</strong></td><td>Em construção</td><td>2026</td></tr>
+        <tr><td><strong>Micro-SaaS Automação</strong></td><td>Ideação</td><td>2027</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Futuro (3–10 anos)</h2>
+    <table>
+      <thead><tr><th>Produto</th><th>O que é</th><th>Horizonte</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dengos</strong></td><td>Espaços físicos comunitários — casas para existir junto, não escritórios. Trabalhar, se encontrar, ficar, hospedar eventos.</td><td>Piloto 1–2 anos · Rede BR 3–5 anos · Internacional 5+</td></tr>
+        <tr><td><strong>Mercado Negro</strong></td><td>Plataforma de consumo consciente dentro de comunidades negras e LGBTQ+</td><td>5 anos</td></tr>
+        <tr><td><strong>Gueto pra Gueto</strong></td><td>Plataforma de circulação econômica comunitária — comprar, vender, aprender e crescer juntos</td><td>5 anos</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 4: PROPOSTA DE VALOR + PAIN POINTS              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="proposta" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Proposta de Valor</h1>
+
+    <div class="callout success" style="font-size:1.15rem">
+      <strong>"Devolvemos tempo às pessoas através de tecnologia invisível — para que usem esse tempo no que realmente importa."</strong>
+    </div>
+
+    <h2>Para cada público</h2>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="v-icon">🏢</div>
+        <div class="v-title">Para empresas US/EU</div>
+        <div class="v-desc">Acesso a 300+ devs LATAM pré-mapeados, prontos em 3 dias. Volume com qualidade — credenciais brasileiras + padrão enterprise americano. Sem recruiting interno.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🧑‍💼</div>
+        <div class="v-title">Para PMEs</div>
+        <div class="v-desc">Democratizar ferramentas de IA e automação para que empreendedores independentes tenham o poder operacional de uma grande corporação — sem precisar de time de tech.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">👩🏿‍💻</div>
+        <div class="v-title">Para Devs LATAM</div>
+        <div class="v-desc">Carreira com dignidade e qualidade de vida real. Acesso a oportunidades internacionais em um ambiente que valoriza quem você é, não apenas o que entrega.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🏳️‍🌈</div>
+        <div class="v-title">Para comunidades</div>
+        <div class="v-desc">Plataformas de circulação econômica comunitária — comprar, vender, aprender e crescer entre os seus. Não como nicho, mas como escolha consciente de poder.</div>
+      </div>
+    </div>
+
+    <h2>Dores que resolvemos</h2>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pc-persona">Usuários finais</div>
+        <h3>Tecnologia que rouba tempo</h3>
+        <ul>
+          <li>Vício tecnológico e interrupção constante</li>
+          <li>Ferramentas com curvas de aprendizado altas</li>
+          <li>Falta de tempo para relacionamentos por fricção digital</li>
+          <li>Burnout de sistemas que exigem atenção constante</li>
+        </ul>
+      </div>
+      <div class="pain-card">
+        <div class="pc-persona">Pequenos empreendedores</div>
+        <h3>Desigualdade operacional</h3>
+        <ul>
+          <li>Não podem pagar ferramentas enterprise ou times de tech</li>
+          <li>Competição desigual contra corporações com recursos</li>
+          <li>Trabalho manual repetitivo consumindo capacidade</li>
+        </ul>
+      </div>
+      <div class="pain-card">
+        <div class="pc-persona">Devs LATAM</div>
+        <h3>Subvalorização sistêmica</h3>
+        <ul>
+          <li>Desvalorização no mercado apesar do talento</li>
+          <li>Crescimento de carreira limitado no mercado doméstico</li>
+          <li>Falta de ambientes de trabalho centrados em qualidade de vida</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Resultados-chave</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.5rem">3 dias</div>
+        <div class="metric-label">Onboarding de dev</div>
+        <div class="metric-sub">vs. semanas no modelo tradicional</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.5rem">300+</div>
+        <div class="metric-label">Devs pré-mapeados</div>
+        <div class="metric-sub">Prontos para alocação</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.5rem">Zero</div>
+        <div class="metric-label">Curva de aprendizado</div>
+        <div class="metric-sub">Tecnologia invisível</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.5rem">80+</div>
+        <div class="metric-label">Engenheiros disponíveis</div>
+        <div class="metric-sub">Imediatamente via G2I</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 5: PERFIL DO CLIENTE                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="cliente" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Perfil do Cliente (ICP)</h1>
+
+    <h2>ICP Primário — Staffing</h2>
+    <table>
+      <thead><tr><th>Dimensão</th><th>Perfil</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cargo</strong></td><td>VPs de Engineering, Technical Recruiting Leads, C-suite de hiring</td></tr>
+        <tr><td><strong>Tamanho da empresa</strong></td><td>50–500 pessoas</td></tr>
+        <tr><td><strong>Geografia</strong></td><td>EUA e Europa</td></tr>
+        <tr><td><strong>Necessidade</strong></td><td>Acesso a devs de qualidade sem infraestrutura de recruiting interna</td></tr>
+        <tr><td><strong>Decision maker</strong></td><td>VP Engineering ou Head of Talent</td></tr>
+        <tr><td><strong>Budget</strong></td><td>$40/hora+ por dev alocado</td></tr>
+      </tbody>
+    </table>
+
+    <h2>ICP Secundário — Automação para PMEs</h2>
+    <table>
+      <thead><tr><th>Dimensão</th><th>Perfil</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cargo</strong></td><td>Founders, donos de negócios, product owners</td></tr>
+        <tr><td><strong>Tamanho da empresa</strong></td><td>1–50 pessoas</td></tr>
+        <tr><td><strong>Geografia</strong></td><td>Brasil, LATAM (expandindo)</td></tr>
+        <tr><td><strong>Necessidade</strong></td><td>Automação e ferramentas de IA sem expertise técnica</td></tr>
+        <tr><td><strong>Decision maker</strong></td><td>Fundador ou dono do produto</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Perfil do Colaborador Ideal</h2>
+    <div class="callout info">
+      <p>Profissionais negros e/ou LGBTQ+ que valorizam vida antes do trabalho, comunicação assíncrona forte, autonomia com responsabilidade, e alinhamento com os valores da empresa. Por convicção, não cota.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 6: JORNADA DO CLIENTE                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="jornada" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Jornada do Cliente</h1>
+    <p>Fluxo end-to-end desde o primeiro contato até expansão.</p>
+
+    <h2>Para empresas contratando devs</h2>
+
+    <div class="journey-step">
+      <div class="j-num">01</div>
+      <div class="j-body">
+        <h3>Descoberta</h3>
+        <p>Empresa encontra Impact X via LinkedIn, referência direta de Rafa, ou rede G2I. Conteúdo de presença digital (3x/semana) posiciona autoridade.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">02</div>
+      <div class="j-body">
+        <h3>Qualificação</h3>
+        <p>Pesquisa via Apollo.io → enriquecimento no Attio → prep automática da call via ix-sales-pipeline. Empresa recebe contexto personalizado antes da primeira reunião.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">03</div>
+      <div class="j-body">
+        <h3>Call &amp; Diagnóstico</h3>
+        <p>Reunião gravada no Fathom → transcrição automática → summary + action items gerados por IA. Cliente sente: "essa empresa me ouviu de verdade".</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">04</div>
+      <div class="j-body">
+        <h3>Proposta</h3>
+        <p>Proposta branded gerada via ix-reports → enviada pelo PandaDoc. Visual profissional, dados concretos, sem buzzwords. Assinatura eletrônica integrada.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">05</div>
+      <div class="j-body">
+        <h3>Onboarding (3 dias)</h3>
+        <p>Dev alocado com prep assíncrona. Cliente recebe developer pronto para entregar — sem semanas de ramping. nagringa.dev como catálogo.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">06</div>
+      <div class="j-body">
+        <h3>Entrega &amp; Acompanhamento</h3>
+        <p>Entregas contínuas com check-ins periódicos. N8n monitora satisfação e alerta sobre riscos automaticamente.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">07</div>
+      <div class="j-body">
+        <h3>Expansão</h3>
+        <p>Cliente satisfeito → mais devs alocados → referências orgânicas. Follow-up automatizado pela pipeline mantém relacionamento ativo.</p>
+      </div>
+    </div>
+
+    <h2>Para PMEs (Automação)</h2>
+
+    <div class="journey-step">
+      <div class="j-num">01</div>
+      <div class="j-body">
+        <h3>Contato inicial</h3>
+        <p>Empreendedor identifica dor operacional → encontra Impact X via conteúdo ou rede.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">02</div>
+      <div class="j-body">
+        <h3>Diagnóstico gratuito</h3>
+        <p>Análise rápida de processos usando metodologia de diagnóstico IX (11 dimensões). Relatório branded entregue.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">03</div>
+      <div class="j-body">
+        <h3>Implementação</h3>
+        <p>Automações n8n sob medida. Setup, teste e entrega com documentação clara.</p>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="j-num">04</div>
+      <div class="j-body">
+        <h3>Autonomia</h3>
+        <p>Cliente opera sozinho com suporte assíncrono. Tecnologia invisível — funciona sem precisar pensar.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 7: PRICING                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="pricing" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Modelo de Pricing</h1>
+
+    <h2>Developer Staffing (G2I)</h2>
+    <p>Modelo de margem sobre alocação. Bill rate de ~$40/hora por dev, com margem de ~R$10k/dev/mês.</p>
+
+    <table class="pricing-table">
+      <thead><tr><th>Cenário</th><th>Devs alocados</th><th>Receita anual</th><th>MRR margem</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Conservador</strong></td><td>20</td><td>R$1.072M</td><td>~R$89k</td></tr>
+        <tr><td><strong>Base</strong></td><td>40</td><td>R$2.672M</td><td>~R$222k</td></tr>
+        <tr><td><strong>Agressivo</strong></td><td>80</td><td>R$5.612M</td><td>~R$467k</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>Break-even:</strong> 2–3 devs alocados cobrem toda a operação. Cenário base prevê break-even em Maio/2026.
+    </div>
+
+    <h2>Estrutura de custos operacional</h2>
+    <table class="pricing-table">
+      <thead><tr><th>Item</th><th>Custo mensal</th></tr></thead>
+      <tbody>
+        <tr><td>Rafa (PJ)</td><td>R$10.000</td></tr>
+        <tr><td>Nicole (Assistente Executiva)</td><td>R$3.000 → R$5.000</td></tr>
+        <tr><td>Pimenta (Tech)</td><td>R$10.000</td></tr>
+        <tr><td>Tech Recruiter</td><td>R$500 → R$4.000</td></tr>
+        <tr><td>Stack de ferramentas</td><td>~$585–$1.007 USD</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Automação para PMEs</h2>
+    <p>Modelo tiered planejado — pricing por complexidade da automação. Detalhes sendo definidos conforme produto amadurece.</p>
+
+    <h2>Benefícios para colaboradores (planejado)</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="v-icon">💰</div>
+        <div class="v-title">PLR</div>
+        <div class="v-desc">Participação nos lucros e resultados</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🏦</div>
+        <div class="v-title">Previdência privada</div>
+        <div class="v-desc">Plano de aposentadoria complementar</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">📈</div>
+        <div class="v-title">Equity</div>
+        <div class="v-desc">Stock options para todos os colaboradores</div>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🏠</div>
+        <div class="v-title">Dengos</div>
+        <div class="v-desc">Acesso a espaços físicos comunitários (opcional)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 8: VANTAGENS COMPETITIVAS                       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="vantagens" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Vantagens Competitivas</h1>
+
+    <div class="comp-row comp-header">
+      <span>Dimensão</span>
+      <span>Impact X</span>
+      <span>Concorrentes</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Volume + qualidade</strong><br><small style="color:var(--ix-muted)">300+ devs pré-mapeados, 3 dias de onboarding</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Semanas</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Credencial BR + padrão US</strong><br><small style="color:var(--ix-muted)">Fluência cultural + delivery enterprise</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Um ou outro</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Capital relacional</strong><br><small style="color:var(--ix-muted)">80+ engenheiros disponíveis imediatamente</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Cold pipeline</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Filosofia de produto</strong><br><small style="color:var(--ix-muted)">Tecnologia invisível → baixo churn</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Feature bloat</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Diversidade intencional</strong><br><small style="color:var(--ix-muted)">Time negro e LGBTQ+ por convicção</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Cota / marketing</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Cuidado como diferencial</strong><br><small style="color:var(--ix-muted)">Vida antes do trabalho → menor turnover</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Burnout shops</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Credibilidade do founder</strong><br><small style="color:var(--ix-muted)">11+ anos, reputação no ecossistema LATAM</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Genérico</span>
+    </div>
+    <div class="comp-row">
+      <span><strong>Posicionamento ético público</strong><br><small style="color:var(--ix-muted)">Contra 6x1, pela CLT, PJ ética, IA responsável</small></span>
+      <span class="check">✓</span>
+      <span class="cross">✗ Neutro / silente</span>
+    </div>
+
+    <div class="callout success" style="margin-top:2rem">
+      <strong>Moat central:</strong> A cultura é o fosso competitivo. O posicionamento ético atrai tanto talento de elite cansado de burnout shops quanto clientes que valorizam alinhamento de valores. Concorrentes podem copiar o modelo — não a autenticidade.
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 9: PROVA SOCIAL & CTA                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="prova" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Prova Social</h1>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin:1.5rem 0">
+      <div class="proof-card">
+        <div class="pf-metric">300+</div>
+        <div class="pf-label">Desenvolvedores pré-mapeados em nagringa.dev</div>
+      </div>
+      <div class="proof-card">
+        <div class="pf-metric">80+</div>
+        <div class="pf-label">Engenheiros disponíveis imediatamente via rede pessoal</div>
+      </div>
+      <div class="proof-card">
+        <div class="pf-metric">8.000+</div>
+        <div class="pf-label">Engenheiros no marketplace G2I</div>
+      </div>
+      <div class="proof-card">
+        <div class="pf-metric">11+ anos</div>
+        <div class="pf-label">Experiência do founder em engenharia de software</div>
+      </div>
+    </div>
+
+    <h2>Posicionamentos públicos</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="v-title">Contra o 6x1</div>
+        <div class="v-desc">Posicionamento público contra a escala 6x1 de trabalho no Brasil.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-title">Pela CLT</div>
+        <div class="v-desc">Defesa ativa da CLT quando protetora. PJ só quando ético.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-title">IA Responsável</div>
+        <div class="v-desc">IA como ferramenta, nunca como centro. Amplifica, não substitui.</div>
+      </div>
+      <div class="value-card">
+        <div class="v-title">Diversidade real</div>
+        <div class="v-desc">Time construído intencionalmente — por convicção, não cota.</div>
+      </div>
+    </div>
+
+    <h2>Chamada para Ação</h2>
+
+    <div class="cta-box">
+      <h2>Pronto para devolver tempo ao que importa?</h2>
+      <p>Seja contratando devs de elite, automatizando sua operação ou fazendo parte de um time que coloca vida antes do trabalho.</p>
+      <a href="mailto:hello@rafaelcamillo.com" class="cta-btn">Fale com Rafa</a>
+      <a href="https://nagringa.dev" class="cta-btn" style="background:var(--ix-green-tint);color:var(--ix-green-dark)">Ver devs disponíveis</a>
+    </div>
+
+    <div class="cta-box" style="background:linear-gradient(135deg,var(--ix-ink),#374151)">
+      <h2>Quer fazer parte do time?</h2>
+      <p>Profissionais negros e LGBTQ+ que acreditam em tecnologia que liberta. Vagas abertas para quem alinha com nossos valores.</p>
+      <a href="mailto:hello@rafaelcamillo.com?subject=Quero%20fazer%20parte%20do%20time%20Impact%20X" class="cta-btn">Candidate-se</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 10: RECURSOS                                    -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" data-tab="recursos" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+    <h1>Recursos &amp; Links</h1>
+    <p>Documentos estratégicos e operacionais da Impact X — todos em <a href="https://reports.impactxlabs.com" style="color:var(--ix-green)">reports.impactxlabs.com</a>.</p>
+
+    <h2>Documentos Estratégicos</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="rc-type">Institucional</div>
+        <div class="rc-title">Manifesto</div>
+        <div class="rc-desc">Filosofia completa, posicionamento e identidade da Impact X.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Estratégia</div>
+        <div class="rc-title">Missão, Visão &amp; Valores</div>
+        <div class="rc-desc">Definições estratégicas detalhadas com exemplos práticos.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Estratégia</div>
+        <div class="rc-title">VTO / EOS Framework</div>
+        <div class="rc-desc">Roadmap estratégico 1-3-5-10 anos com metas trimestrais.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Cultura</div>
+        <div class="rc-title">Cultura &amp; People</div>
+        <div class="rc-desc">Práticas de trabalho, benefícios, Dengos e perfil do colaborador.</div>
+      </div>
+    </div>
+
+    <h2>Documentos Operacionais</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="rc-type">Tech</div>
+        <div class="rc-title">Plano de Automação</div>
+        <div class="rc-desc">Stack de ferramentas, workflows n8n e arquitetura de automação.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Tech</div>
+        <div class="rc-title">Sistema Claude OS</div>
+        <div class="rc-desc">8 skills, 6 automações, 4 workflows encadeados.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Skills</div>
+        <div class="rc-title">Skills V2 — Mapa Completo</div>
+        <div class="rc-desc">Mapeamento de todas as skills e automações disponíveis.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Comercial</div>
+        <div class="rc-title">G2I Interview Prep</div>
+        <div class="rc-desc">Preparação para parceria com G2I marketplace.</div>
+      </div>
+    </div>
+
+    <h2>Diagnósticos</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="rc-type">Diagnóstico</div>
+        <div class="rc-title">Série Diagnósticos (00–11)</div>
+        <div class="rc-desc">11 dimensões analisadas: estratégia, financeiro, people, operações, comercial, cultura, legal, tech e mais.</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-type">Financeiro</div>
+        <div class="rc-title">Análise Financeira Kumon</div>
+        <div class="rc-desc">Estudo financeiro detalhado do projeto Kumon.</div>
+      </div>
+    </div>
+
+    <h2>Ferramentas &amp; Plataformas</h2>
+    <table>
+      <thead><tr><th>Categoria</th><th>Ferramenta</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><strong>PM</strong></td><td>Linear</td><td>Gestão de projetos e backlog</td></tr>
+        <tr><td><strong>Docs</strong></td><td>Notion</td><td>Documentação, ATS, calendário editorial</td></tr>
+        <tr><td><strong>CRM</strong></td><td>Attio</td><td>Pipeline comercial</td></tr>
+        <tr><td><strong>Prospecção</strong></td><td>Apollo.io</td><td>Dados e outreach</td></tr>
+        <tr><td><strong>Calls</strong></td><td>Fathom</td><td>Gravação e transcrição</td></tr>
+        <tr><td><strong>Contratos</strong></td><td>PandaDoc</td><td>Propostas e assinatura</td></tr>
+        <tr><td><strong>Automação</strong></td><td>n8n</td><td>Orquestração de workflows</td></tr>
+        <tr><td><strong>IA</strong></td><td>Claude Desktop</td><td>Assistente principal (este sistema)</td></tr>
+        <tr><td><strong>Código</strong></td><td>GitHub</td><td>Repositórios e CI/CD</td></tr>
+        <tr><td><strong>Deploy</strong></td><td>Vercel + Cloudflare</td><td>Hosting e edge</td></tr>
+        <tr><td><strong>DB</strong></td><td>Supabase</td><td>Backend e banco de dados</td></tr>
+        <tr><td><strong>Devs</strong></td><td>nagringa.dev</td><td>Catálogo de 300+ desenvolvedores</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Contato</h2>
+    <div class="callout success">
+      <p><strong>Rafael Camillo</strong> — Founder &amp; CEO</p>
+      <p>Email: <a href="mailto:hello@rafaelcamillo.com" style="color:var(--ix-green)">hello@rafaelcamillo.com</a></p>
+      <p>Reports Hub: <a href="https://reports.impactxlabs.com" style="color:var(--ix-green)">reports.impactxlabs.com</a></p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
