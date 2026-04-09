@@ -7,13 +7,21 @@
     "@modelcontextprotocol/sdk": "^1.12.1",
     "zod": "^3.24.4"
   },
+  "devDependencies": {
+    "@types/node": "^22.19.17",
+    "typescript": "^5.9.3"
+  },
   "scripts": {
     "dev": "npx serve . -l 3000 --no-clipboard",
     "start": "npx serve . -l 3000 --no-clipboard",
     "validate": "node scripts/validate.mjs",
     "count": "node -e \"const g=require('fs').readdirSync('data').filter(f=>f.endsWith('.html'));console.log(g.length+' HTML reports in data/');\""
   },
-  "keywords": ["impact-x", "reports", "static"],
+  "keywords": [
+    "impact-x",
+    "reports",
+    "static"
+  ],
   "author": "Rafael Camillo",
   "license": "UNLICENSED"
 }
