@@ -256,7 +256,8 @@ export default async function handler(req: any, res: any) {
   const tokenFromHeader = authHeader.replace(/^Bearer\s+/i, '').trim();
   const tokenFromQuery = (req.query?.token ?? '') as string;
   const token = tokenFromHeader || tokenFromQuery;
-  if (!token || !process.env.PUBLISH_TOKEN || token !== process.env.PUBLISH_TOKEN) {
+  const storedToken = (process.env.PUBLISH_TOKEN ?? '').trim();
+  if (!token || !storedToken || token !== storedToken) {
     return res.status(401).json({ error: 'Invalid or missing PUBLISH_TOKEN' });
   }
 
