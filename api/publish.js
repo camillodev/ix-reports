@@ -28,7 +28,7 @@
 const GITHUB_OWNER = 'camillodev';
 const GITHUB_REPO = 'ix-reports';
 const GITHUB_BRANCH = 'master';
-const SITE_DOMAIN = 'reports.impactxlabs.com';
+const SITE_DOMAIN = 'reports.impactxlab.com';
 
 // ── Validation ──────────────────────────────────────────────────────────────
 

@@ -12,8 +12,8 @@
  *
  * Required env vars:
  *   PUBLISH_TOKEN   — Bearer token for /api/publish
- *   PUBLISH_API_URL — API URL (default: https://reports.impactxlabs.com/api/publish)
- *   SITE_DOMAIN     — Deployed domain (default: reports.impactxlabs.com)
+ *   PUBLISH_API_URL — API URL (default: https://reports.impactxlab.com/api/publish)
+ *   SITE_DOMAIN     — Deployed domain (default: reports.impactxlab.com)
  */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';

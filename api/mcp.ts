@@ -11,7 +11,7 @@
  *   {
  *     "ix-report-publisher": {
  *       "type": "http",
- *       "url": "https://reports.impactxlabs.com/api/mcp",
+ *       "url": "https://reports.impactxlab.com/api/mcp",
  *       "headers": { "Authorization": "Bearer YOUR_PUBLISH_TOKEN" }
  *     }
  *   }
@@ -94,7 +94,7 @@ function createServer() {
   // ── publish_report ──
   server.tool(
     'publish_report',
-    `Publishes a new HTML report to the Relatorio X platform (reports.impactxlabs.com).
+    `Publishes a new HTML report to the Relatorio X platform (reports.impactxlab.com).
 HTML must follow the gold-standard template (topbar, tab-nav, report-header, footer).
 Returns the live URL. Access defaults to "empresa".`,
     PublishInput.shape,
@@ -196,7 +196,7 @@ Returns the live URL. Access defaults to "empresa".`,
   // ── list_reports ──
   server.tool(
     'list_reports',
-    'Lists published reports from reports.impactxlabs.com. Supports filters by client, tag, and access level.',
+    'Lists published reports from reports.impactxlab.com. Supports filters by client, tag, and access level.',
     ListInput.shape,
     async (input) => {
       const res = await fetch(`https://${SITE_DOMAIN}/data/reports.json`);
