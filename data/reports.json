@@ -1,5 +1,21 @@
 [
   {
+    "title": "Retrospectiva Sprint W15",
+    "slug": "retro-sprint-w15",
+    "file": "ImpactX_RetroSprintW15_202604.html",
+    "date": "2026-04-10",
+    "meta": "10 Abr 2026 · Sprint W15 Sailboat Retro — 31 issues, 35% conclusao, 3 action items",
+    "client": "impact-x",
+    "project": null,
+    "tags": [
+      "operacoes",
+      "comercial"
+    ],
+    "icon": "clipboard-check",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
     "title": "Analise de Mercado e Concorrentes",
     "slug": "analise-mercado-concorrentes-202604",
     "file": "ImpactX_AnaliseMercado_202604.html",
