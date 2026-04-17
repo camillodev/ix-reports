@@ -1,31 +1,29 @@
-/*
- * IX Brand PDF CSS — para uso com Pandoc + WeasyPrint
- * Referência visual: mesma paleta de report.css
- *
- * Uso local:
- *   pandoc analysis.md -o analysis.pdf \
- *     --pdf-engine=weasyprint \
- *     --css=assets/css/pandoc.css \
- *     --standalone
- *
- * Uso no Modal (app.py): usa @font-face com caminhos locais do container.
- * Este arquivo usa Google Fonts como fallback para desenvolvimento local.
- */
-
+/* IX v2 prototype — both @imports must be at top */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css');
+
 
 :root {
-  --ix-green:       #11C76F;
-  --ix-green-dark:  #059669;
-  --ix-green-tint:  #ECFDF5;
-  --ix-yellow:      #FBBF24;
-  --ix-ink:         #1A1D21;
-  --ix-muted:       #6B7280;
-  --ix-bg:          #F4F6F9;
-  --ix-surface:     #FFFFFF;
-  --ix-border:      #E8ECF1;
-  --ix-danger:      #C0392B;
-  --ix-warning:     #D4820A;
+  --ix-green:         #11C76F;
+  --ix-green-hover:   #0EB863;
+  --ix-green-dark:    #059669;
+  --ix-green-light:   #D1FAE5;
+  --ix-green-tint:    #ECFDF5;
+  --ix-yellow:        #FBBF24;
+  --ix-ink:           #1A1D21;
+  --ix-ink-secondary: #374151;
+  --ix-muted:         #6B7280;
+  --ix-bg:            #F4F6F9;
+  --ix-surface:       #FFFFFF;
+  --ix-border:        #E8ECF1;
+  --ix-danger:        #C0392B;
+  --ix-warning:       #D4820A;
+  --ix-success:       #11C76F;
+  --ix-radius-sm:     8px;
+  --ix-radius-md:     16px;
+  --ix-shadow-card:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --ix-font:          'Plus Jakarta Sans', 'Open Sans', Arial, sans-serif;
+  --ix-font-mono:     'Roboto Mono', 'Courier New', monospace;
 }
 
 /* ------------------------------------------------------------------ Page */
@@ -44,7 +42,7 @@
   }
 
   @bottom-right {
-    content: "Página " counter(page) " de " counter(pages);
+    content: "Pag. " counter(page) " / " counter(pages);
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 9px;
     color: #9CA3AF;
@@ -64,21 +62,37 @@
 /* ------------------------------------------------------------------ Body */
 
 body {
-  font-family: 'Plus Jakarta Sans', 'Open Sans', Arial, sans-serif;
+  font-family: var(--ix-font);
   font-size: 13px;
   line-height: 1.75;
   color: var(--ix-ink);
-  background: #FFFFFF;
+  background: var(--ix-bg);
 }
 
-/* ---------------------------------------------- Title block (pandoc) */
+/* ----------------------------------------- Title block / Cover (pandoc) */
 
 #title-block-header {
-  background: var(--ix-ink);
-  color: #FFFFFF;
+  background: var(--ix-green-tint);
+  color: var(--ix-ink);
   padding: 36px 40px 28px;
-  margin: -20mm -25mm 28px;  /* sai para as margens da página */
+  margin: -20mm -25mm 28px;
+  border-bottom: 2px solid var(--ix-green);
   page-break-inside: avoid;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Watermark "X" decorativo */
+#title-block-header::after {
+  content: "X";
+  position: absolute;
+  right: 40px;
+  bottom: -16px;
+  font-size: 180px;
+  font-weight: 900;
+  color: var(--ix-green);
+  opacity: 0.07;
+  line-height: 1;
 }
 
 #title-block-header::before {
@@ -87,28 +101,28 @@ body {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 3px;
-  color: var(--ix-green);
+  color: var(--ix-ink);
   margin-bottom: 12px;
 }
 
 h1.title {
   font-size: 22px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--ix-ink);
   line-height: 1.25;
   max-width: 540px;
 }
 
 p.subtitle {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--ix-muted);
   margin-top: 8px;
 }
 
 p.author,
 p.date {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--ix-muted);
   margin-top: 4px;
 }
 
@@ -180,7 +194,7 @@ em {
 /* ------------------------------------------------------- Code */
 
 code {
-  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-family: var(--ix-font-mono);
   font-size: 11.5px;
   background: var(--ix-bg);
   border: 1px solid var(--ix-border);
@@ -193,7 +207,7 @@ pre {
   background: var(--ix-ink);
   color: #E2E8F0;
   padding: 16px 18px;
-  border-radius: 8px;
+  border-radius: var(--ix-radius-sm);
   overflow-x: auto;
   margin: 12px 0;
   font-size: 11.5px;
@@ -208,14 +222,14 @@ pre code {
   font-size: inherit;
 }
 
-/* ------------------------------------------------------- Blockquote → callout */
+/* ------------------------------------------------------- Blockquote -> callout */
 
 blockquote {
   background: var(--ix-green-tint);
   border-left: 3px solid var(--ix-green);
   padding: 12px 16px;
   margin: 14px 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--ix-radius-sm) var(--ix-radius-sm) 0;
 }
 
 blockquote p {
@@ -232,13 +246,14 @@ table {
   margin: 14px 0;
   font-size: 12px;
   background: var(--ix-surface);
-  border-radius: 8px;
+  border-radius: var(--ix-radius-sm);
   overflow: hidden;
+  box-shadow: var(--ix-shadow-card);
 }
 
 thead {
-  background: var(--ix-ink);
-  color: #FFFFFF;
+  background: var(--ix-green-tint);
+  color: var(--ix-ink);
 }
 
 th {
@@ -246,9 +261,7 @@ th {
   text-align: left;
   font-weight: 600;
   font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  white-space: nowrap;
+  letter-spacing: 0.3px;
 }
 
 td {
@@ -262,7 +275,7 @@ tr:last-child td {
 }
 
 tr:nth-child(even) td {
-  background: var(--ix-bg);
+  background: #FAFBFC;
 }
 
 /* ------------------------------------------------------- Horizontal rule */
@@ -273,12 +286,982 @@ hr {
   margin: 24px 0;
 }
 
+/* ======================================================= */
+/* COMPONENTES DO MODELO PDF                               */
+/* ======================================================= */
+
+/* ------------------------------------------------------- Section Header */
+/* Barra verde lateral com nome da secao em caps            */
+
+.section-header {
+  background: var(--ix-green);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  margin: 32px -25mm 16px;
+  page-break-after: avoid;
+}
+
+/* ------------------------------------------------------- Metric Row */
+
+.metric-row {
+  display: flex;
+  gap: 16px;
+  margin: 18px 0;
+  page-break-inside: avoid;
+}
+
+.metric {
+  flex: 1;
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-top: 3px solid var(--ix-green);
+  border-radius: var(--ix-radius-md);
+  box-shadow: var(--ix-shadow-card);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.metric .value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ix-green);
+  line-height: 1.2;
+}
+
+.metric .label {
+  font-size: 11px;
+  color: var(--ix-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* ------------------------------------------------------- Callouts */
+
+.callout {
+  background: var(--ix-green-tint);
+  border-left: 4px solid var(--ix-green);
+  border-radius: 0 var(--ix-radius-sm) var(--ix-radius-sm) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: var(--ix-green-dark);
+  page-break-inside: avoid;
+}
+
+.callout.warning {
+  background: #fef3e2;
+  border-left-color: var(--ix-warning);
+  color: #92400e;
+}
+
+.callout.danger {
+  background: #fdecea;
+  border-left-color: var(--ix-danger);
+  color: #991b1b;
+}
+
+/* ------------------------------------------------------- Priority badges */
+
+.priority {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+}
+
+.priority.p0 {
+  background: #fdecea;
+  color: var(--ix-danger);
+}
+
+.priority.p1 {
+  background: #fef3e2;
+  color: var(--ix-warning);
+}
+
+.priority.p2 {
+  background: var(--ix-green-tint);
+  color: var(--ix-green-dark);
+}
+
+.priority.p3 {
+  background: #F3F4F6;
+  color: #4B5563;
+}
+
+/* ------------------------------------------------------- Item Cards */
+/* Card branco com emoji, titulo, descricao e badge         */
+
+.item-card {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-sm);
+  box-shadow: var(--ix-shadow-card);
+  padding: 14px 18px;
+  margin: 10px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  page-break-inside: avoid;
+}
+
+.item-card .icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+
+.item-card .card-body {
+  flex: 1;
+}
+
+.item-card .card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ix-ink);
+  margin: 0 0 4px;
+}
+
+.item-card .card-desc {
+  font-size: 12px;
+  color: var(--ix-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------- Badges (nivel) */
+
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.badge.alto {
+  background: #fdecea;
+  color: var(--ix-danger);
+}
+
+.badge.medio {
+  background: #fef3e2;
+  color: var(--ix-warning);
+}
+
+.badge.baixo {
+  background: var(--ix-green-tint);
+  color: var(--ix-green-dark);
+}
+
+/* ------------------------------------------------------- Card Grid (2-3 colunas) */
+
+.card-grid {
+  display: flex;
+  gap: 14px;
+  margin: 18px 0;
+  page-break-inside: avoid;
+}
+
+.card-grid .card {
+  flex: 1;
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-top: 3px solid var(--ix-green);
+  border-radius: var(--ix-radius-sm);
+  box-shadow: var(--ix-shadow-card);
+  padding: 16px 18px;
+}
+
+.card-grid .card h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ix-green-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 10px;
+}
+
+.card-grid .card p,
+.card-grid .card li {
+  font-size: 12px;
+  color: var(--ix-ink-secondary);
+}
+
+/* ------------------------------------------------------- Alert Cards */
+/* Cards coloridos com titulo + descricao + acao             */
+
+.alert-card {
+  border-radius: var(--ix-radius-sm);
+  padding: 14px 18px;
+  margin: 10px 0;
+  page-break-inside: avoid;
+}
+
+.alert-card .alert-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.alert-card .alert-desc {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.alert-card.red {
+  background: #fdecea;
+  border-left: 4px solid var(--ix-danger);
+}
+.alert-card.red .alert-title { color: #991b1b; }
+.alert-card.red .alert-desc { color: #7f1d1d; }
+
+.alert-card.orange {
+  background: #fef3e2;
+  border-left: 4px solid #F59E0B;
+}
+.alert-card.orange .alert-title { color: #92400e; }
+.alert-card.orange .alert-desc { color: #78350f; }
+
+.alert-card.yellow {
+  background: #FFFBEB;
+  border-left: 4px solid var(--ix-yellow);
+}
+.alert-card.yellow .alert-title { color: #92400e; }
+.alert-card.yellow .alert-desc { color: #78350f; }
+
+.alert-card.green {
+  background: var(--ix-green-tint);
+  border-left: 4px solid var(--ix-green);
+}
+.alert-card.green .alert-title { color: var(--ix-green-dark); }
+.alert-card.green .alert-desc { color: #065F46; }
+
+/* ------------------------------------------------------- Timeline */
+
+.timeline {
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-left: 2px solid var(--ix-border);
+  margin-left: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ix-green);
+}
+
+.timeline-item.red::before { background: var(--ix-danger); }
+.timeline-item.orange::before { background: #F59E0B; }
+.timeline-item.yellow::before { background: var(--ix-yellow); }
+
+.timeline-item .tl-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ix-ink);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.timeline-item .tl-desc {
+  font-size: 12px;
+  color: var(--ix-ink-secondary);
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------- Energy Scale */
+/* Tabela com indicadores coloridos de nivel                 */
+
+.energy-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.energy-dot.green  { background: var(--ix-green); }
+.energy-dot.yellow { background: var(--ix-yellow); }
+.energy-dot.orange { background: #F59E0B; }
+.energy-dot.red    { background: var(--ix-danger); }
+
+/* ------------------------------------------------------- Tag badges (inline) */
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin: 2px 4px 2px 0;
+  background: var(--ix-bg);
+  color: var(--ix-ink-secondary);
+  border: 1px solid var(--ix-border);
+}
+
+.tag.green {
+  background: var(--ix-green-tint);
+  color: var(--ix-green-dark);
+  border-color: var(--ix-green-light);
+}
+
+.tag.yellow {
+  background: #FEF3C7;
+  color: #92400E;
+  border-color: #FDE68A;
+}
+
+.tag.blue {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+}
+
+.tag.purple {
+  background: #F5F3FF;
+  color: #6D28D9;
+  border-color: #DDD6FE;
+}
+
+/* ------------------------------------------------------- Delegation table badges */
+
+.owner-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+.owner-badge.rafa     { background: #DBEAFE; color: #1E40AF; }
+.owner-badge.nicole   { background: #FCE7F3; color: #9D174D; }
+.owner-badge.pimenta  { background: #D1FAE5; color: #065F46; }
+.owner-badge.ai       { background: #EDE9FE; color: #5B21B6; }
+
+/* ------------------------------------------------------- Footer */
+
+.ix-footer {
+  text-align: center;
+  padding: 24px 0 0;
+  margin-top: 32px;
+  border-top: 1px solid var(--ix-border);
+}
+
+.ix-footer .brand {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--ix-ink);
+}
+
+.ix-footer .brand .x {
+  color: var(--ix-green);
+}
+
+.ix-footer .attribution {
+  font-size: 11px;
+  color: var(--ix-muted);
+  margin-top: 4px;
+}
+
 /* ------------------------------------------------------- Page breaks */
 
 h2 {
   page-break-after: avoid;
 }
 
-table, blockquote, pre {
+table, blockquote, pre, .metric-row, .callout, .card-grid, .item-card, .alert-card {
   page-break-inside: avoid;
+}
+
+/* ------------------------------------------------------- Print utilities */
+
+.page-break {
+  page-break-before: always;
+}
+
+.no-break {
+  page-break-inside: avoid;
+}
+
+/* =================================================================== */
+/* ========================= IX BRAND v2 ADDITIONS =================== */
+/* =================================================================== */
+
+:root {
+  --ix-orange:        #FF6B00;
+  --ix-orange-tint:   #FFE4D9;
+  --ix-yellow-tint:   #FFF4CC;
+  --ix-blue-tint:     #EEF2FF;
+  --ix-blue-accent:   #4F46E5;
+  --ix-gray-tint:     #F4F6F9;
+  --ix-gray-accent:   #6B7280;
+}
+
+.box-dica, .box-atencao, .box-resumo, .box-exemplo, .box-insight {
+  border-left: 4px solid;
+  border-radius: 10px;
+  padding: 1.1rem 1.35rem;
+  margin: 1.4rem 0;
+  font-size: 13px;
+  line-height: 1.65;
+  position: relative;
+  page-break-inside: avoid;
+}
+.box-dica .box-title, .box-atencao .box-title, .box-resumo .box-title,
+.box-exemplo .box-title, .box-insight .box-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.box-dica .box-title::before, .box-atencao .box-title::before,
+.box-resumo .box-title::before, .box-exemplo .box-title::before,
+.box-insight .box-title::before {
+  font-family: 'Phosphor';
+  font-weight: 400;
+  font-size: 16px;
+  margin-right: 8px;
+  vertical-align: -2px;
+}
+.box-dica { background: #ECFDF5; border-color: var(--ix-green); }
+.box-dica .box-title { color: var(--ix-green-dark); }
+.box-dica .box-title::before { content: "\f2b4"; }
+
+.box-atencao { background: var(--ix-orange-tint); border-color: var(--ix-orange); }
+.box-atencao .box-title { color: #B91C1C; }
+.box-atencao .box-title::before { content: "\f4fa"; }
+
+.box-resumo { background: var(--ix-green-tint); border-color: var(--ix-green); }
+.box-resumo .box-title { color: var(--ix-green-dark); }
+.box-resumo .box-title::before { content: "\f1ac"; }
+
+.box-exemplo { background: var(--ix-gray-tint); border-color: var(--ix-gray-accent); font-style: italic; }
+.box-exemplo .box-title { color: var(--ix-gray-accent); font-style: normal; }
+.box-exemplo .box-title::before { content: "\f152"; }
+
+.box-insight { background: var(--ix-blue-tint); border-color: var(--ix-blue-accent); }
+.box-insight .box-title { color: var(--ix-blue-accent); }
+.box-insight .box-title::before { content: "\f426"; }
+
+.section-anchor {
+  position: relative;
+  padding-top: 50px;
+  padding-left: 0;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  page-break-inside: avoid;
+  overflow: hidden;
+}
+.section-anchor::before {
+  content: attr(data-n);
+  position: absolute;
+  top: -10px; left: 0;
+  font-size: 96px;
+  font-weight: 900;
+  color: var(--ix-green);
+  opacity: 0.12;
+  line-height: 1;
+  font-family: var(--ix-font);
+  pointer-events: none;
+  z-index: 0;
+}
+.section-anchor > * { position: relative; z-index: 1; }
+
+body.life { max-width: 700px; margin: 0 auto; padding: 1.5rem; }
+body.life h1 { font-size: 30px; }
+body.life h2 { font-size: 22px; border-bottom: none; background: none; padding: 0; margin-top: 2rem; }
+body.life p, body.life li { font-size: 14px; line-height: 1.8; }
+body.life .report-header, body.life .section-header { display: none; }
+
+@page life { size: A4; margin: 30mm 30mm 28mm; }
+body.life { page: life; }
+
+/* =================================================================== */
+/* ====================== v2.1 — CAPA + FONTES GRANDES =============== */
+/* =================================================================== */
+
+/* ---- Capa full-bleed (estilo Nubank IX verde) ---- */
+@page cover {
+  size: A4;
+  margin: 0;
+  @top-center { content: none; }
+  @top-left { content: none; }
+  @top-right { content: none; }
+  @bottom-left { content: none; }
+  @bottom-center { content: none; }
+  @bottom-right { content: none; }
+}
+.ix-cover { page: cover; }
+
+@page :first {
+  margin: 0;
+  @top-center { content: none; }
+  @top-left { content: none; }
+  @top-right { content: none; }
+  @bottom-left { content: none; }
+  @bottom-center { content: none; }
+  @bottom-right { content: none; }
+}
+
+/* Sempre escondemos title-block autom\u00e1tico do pandoc; capa vem da div .ix-cover */
+#title-block-header { display: none !important; }
+
+.ix-cover {
+  background: #11C76F;
+  color: #FFFFFF;
+  width: 210mm;
+  height: 297mm;
+  margin: 0;
+  padding: 30mm 22mm;
+  page-break-after: always;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.ix-cover .ix-cover-logo {
+  position: absolute;
+  top: 25mm;
+  left: 22mm;
+  font-family: var(--ix-font);
+  font-size: 26pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 1;
+}
+.ix-cover .ix-cover-logo .x { color: #FBBF24; }
+.ix-cover h1.ix-cover-title {
+  font-size: 78pt;
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: #FFFFFF;
+  margin: 0 0 18pt 0;
+  max-width: 100%;
+  border-bottom: none;
+  text-align: left;
+}
+.ix-cover h1.ix-cover-title .accent {
+  font-style: italic;
+  font-weight: 900;
+  color: #FBBF24;
+  display: block;
+}
+.ix-cover .ix-cover-subtitle {
+  font-size: 17pt;
+  font-weight: 500;
+  color: #FFFFFF;
+  opacity: 0.95;
+  line-height: 1.35;
+  max-width: 85%;
+  margin: 0 0 0 0;
+}
+.ix-cover .ix-cover-meta {
+  position: absolute;
+  bottom: 25mm;
+  left: 22mm;
+  right: 22mm;
+  font-size: 11pt;
+  font-weight: 500;
+  color: #FFFFFF;
+  opacity: 0.88;
+  text-align: left;
+  letter-spacing: 0.02em;
+}
+.ix-cover .ix-cover-xmark { display: none; }
+
+/* ---- Fonte corpo Descomplica-style + ragged-right ---- */
+body {
+  font-size: 15px;
+  line-height: 1.75;
+  text-align: left;
+}
+body p, body li {
+  font-size: 15px;
+  line-height: 1.75;
+  text-align: left;
+  hyphens: none;
+}
+h1 { font-size: 30px; line-height: 1.2; font-weight: 700; color: var(--ix-ink); }
+h2 { font-size: 22px; line-height: 1.3; font-weight: 700; color: var(--ix-green-dark); }
+h3 { font-size: 18px; line-height: 1.35; font-weight: 700; color: var(--ix-ink); }
+
+/* Bold inline estilo Descomplica — peso forte, cor verde pra destaque */
+body strong, body b {
+  font-weight: 800;
+  color: var(--ix-green-dark);
+}
+
+/* Header verde fino Nubank-style nas páginas internas (não-capa) */
+@page {
+  @top-center {
+    content: string(doctitle);
+    font-family: var(--ix-font);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ix-green-dark);
+    padding-top: 8px;
+  }
+}
+@page :first {
+  @top-center { content: none; }
+}
+h1.title { string-set: doctitle content(); }
+
+/* Section heading Descomplica-style: "01. TITULO" em verde com underline */
+.section-heading {
+  color: var(--ix-green-dark);
+  font-size: 26px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 2.5rem 0 1rem 0;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--ix-green);
+  display: inline-block;
+}
+.section-heading .num {
+  color: var(--ix-green);
+  margin-right: 10px;
+}
+
+/* ---- Cards numéricos estilo Nubank (1a Linha / 2a Linha) ---- */
+.num-cards {
+  display: flex;
+  gap: 12px;
+  margin: 1.5rem 0;
+  page-break-inside: avoid;
+}
+.num-card {
+  flex: 1;
+  background: var(--ix-green);
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 20px 18px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+.num-card.alt  { background: var(--ix-green-dark); }
+.num-card.alt2 { background: #047857; }
+.num-card .nc-num {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+  color: #FFFFFF;
+}
+.num-card .nc-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+}
+.num-card .nc-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  opacity: 0.92;
+  color: #FFFFFF;
+}
+
+/* Body lead paragraph — primeiro parágrafo maior */
+.lead {
+  font-size: 18px;
+  line-height: 1.75;
+  font-weight: 500;
+  color: var(--ix-ink);
+  margin: 1.5rem 0;
+}
+
+/* Life: ainda mais generoso — ajuste para a nova base */
+body.life p, body.life li { font-size: 16px; line-height: 1.9; }
+body.life h1 { font-size: 34px; }
+body.life h2 { font-size: 24px; }
+
+/* Callouts com fonte ajustada pra nova base */
+.box-dica, .box-atencao, .box-resumo, .box-exemplo, .box-insight {
+  font-size: 15px;
+  line-height: 1.75;
+}
+.box-dica .box-title, .box-atencao .box-title, .box-resumo .box-title,
+.box-exemplo .box-title, .box-insight .box-title {
+  font-size: 12px;
+}
+
+/* =================================================================== */
+/* ====================== v2.2 — TOC + DIAGRAMAS ===================== */
+/* =================================================================== */
+
+/* ---- TOC (Tabela de Conteúdo com links) — pandoc gera nav#TOC ---- */
+nav#TOC, .toc, #toc {
+  page-break-after: always;
+  padding: 20mm 10mm;
+  background: #FFFFFF;
+}
+nav#TOC::before, .toc::before, #toc::before {
+  content: "Índice";
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ix-green-dark);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+  border-bottom: 3px solid var(--ix-green);
+  padding-bottom: 14px;
+}
+nav#TOC ul, .toc ul, #toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+nav#TOC > ul > li, .toc > ul > li, #toc > ul > li {
+  counter-increment: toc-section;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px dotted #D1D5DB;
+  font-size: 15px;
+}
+nav#TOC > ul > li::before, .toc > ul > li::before, #toc > ul > li::before {
+  content: counter(toc-section, decimal-leading-zero);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ix-green);
+  min-width: 40px;
+  flex-shrink: 0;
+}
+nav#TOC a, .toc a, #toc a {
+  color: var(--ix-ink);
+  text-decoration: none;
+  font-weight: 600;
+  flex: 1;
+}
+nav#TOC ul ul, .toc ul ul, #toc ul ul {
+  width: 100%;
+  margin-top: 8px;
+  padding-left: 55px;
+}
+nav#TOC ul ul li, .toc ul ul li, #toc ul ul li {
+  font-size: 13px;
+  padding: 4px 0;
+  border: none;
+  color: var(--ix-muted);
+}
+nav#TOC ul ul a, .toc ul ul a, #toc ul ul a {
+  color: var(--ix-muted);
+  font-weight: 500;
+}
+
+/* ---- Organograma (org-chart) ---- */
+.org-chart {
+  margin: 2rem 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+.org-chart .org-node {
+  display: inline-block;
+  background: var(--ix-surface);
+  border: 2px solid var(--ix-green);
+  border-radius: 12px;
+  padding: 12px 18px;
+  min-width: 160px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  position: relative;
+}
+.org-chart .org-node.root {
+  background: var(--ix-green);
+  color: #FFFFFF;
+  border-color: var(--ix-green-dark);
+}
+.org-chart .org-node.root .org-name { color: #FFFFFF; }
+.org-chart .org-node.root .org-role { color: #FFFFFF; opacity: 0.9; }
+.org-chart .org-node .org-name {
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ix-ink);
+  line-height: 1.2;
+}
+.org-chart .org-node .org-role {
+  font-size: 11px;
+  color: var(--ix-muted);
+  margin-top: 3px;
+}
+.org-chart .org-level {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 36px;
+  position: relative;
+  flex-wrap: wrap;
+}
+.org-chart .org-level::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 2px;
+  height: 18px;
+  background: var(--ix-green);
+}
+.org-chart .org-level.branches::after {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: var(--ix-green);
+}
+
+/* ---- Fluxo horizontal (flow-steps) ---- */
+.flow-steps {
+  display: flex;
+  gap: 0;
+  margin: 2rem 0;
+  page-break-inside: avoid;
+  align-items: stretch;
+}
+.flow-steps .step {
+  flex: 1;
+  background: var(--ix-green-tint);
+  border-left: 4px solid var(--ix-green);
+  padding: 14px 18px;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.flow-steps .step + .step { margin-left: 12px; }
+.flow-steps .step::after {
+  content: "▶";
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ix-green);
+  font-size: 14px;
+  z-index: 2;
+}
+.flow-steps .step:last-child::after { content: none; }
+.flow-steps .step .step-num {
+  display: inline-block;
+  background: var(--ix-green);
+  color: #FFFFFF;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 100%;
+  font-size: 11px;
+  font-weight: 800;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.flow-steps .step .step-title {
+  font-weight: 800;
+  color: var(--ix-ink);
+  font-size: 13px;
+  display: inline;
+}
+.flow-steps .step .step-desc {
+  display: block;
+  margin-top: 6px;
+  color: var(--ix-ink-secondary);
+  font-size: 12px;
+}
+.flow-steps .step.active {
+  background: var(--ix-green);
+  border-left-color: var(--ix-green-dark);
+}
+.flow-steps .step.active .step-title,
+.flow-steps .step.active .step-desc { color: #FFFFFF; }
+.flow-steps .step.active .step-num {
+  background: #FFFFFF;
+  color: var(--ix-green-dark);
+}
+
+/* ---- Fluxo vertical (flow-vertical) para processos longos ---- */
+.flow-vertical {
+  margin: 2rem 0 2rem 20px;
+  position: relative;
+  page-break-inside: auto;
+}
+.flow-vertical::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--ix-green);
+}
+.flow-vertical .step {
+  position: relative;
+  padding: 6px 0 16px 40px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.flow-vertical .step::before {
+  content: attr(data-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--ix-green);
+  color: #FFFFFF;
+  border-radius: 100%;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 24px;
+}
+.flow-vertical .step .step-title {
+  font-weight: 800;
+  color: var(--ix-ink);
+  font-size: 14px;
+}
+.flow-vertical .step .step-desc {
+  color: var(--ix-muted);
+  font-size: 13px;
+  margin-top: 2px;
 }
