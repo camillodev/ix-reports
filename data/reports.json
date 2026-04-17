@@ -1,5 +1,22 @@
 [
   {
+    "title": "PRD Sistema Kumon Camargos",
+    "slug": "prd-sistema-kumon",
+    "file": "ImpactX_PRDSistemaKumon_202604.html",
+    "date": "2026-04-16",
+    "meta": "PRD v1.0 Protótipo · Sistema de gestão unificado da unidade Kumon Camargos",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "prd",
+      "produto",
+      "kumon"
+    ],
+    "icon": "file-earmark-text",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
     "title": "Retrospectiva Sprint W15",
     "slug": "retro-sprint-w15",
     "file": "ImpactX_RetroSprintW15_202604.html",
