@@ -1,5 +1,56 @@
 [
   {
+    "title": "Kumon-app — Cobrança Sem Barreira Bancária",
+    "slug": "kumon-sem-barreira-bancaria",
+    "file": "downloads/ImpactX_KumonSemBarreiraBancaria_202604.pdf",
+    "date": "2026-04-17",
+    "meta": "Como emitir boleto/PIX no banco que a escola já tem — Inter, Sicoob, Stark Bank e Open Finance sem virar banco",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "estrategia",
+      "produto",
+      "kumon"
+    ],
+    "icon": "file-earmark-pdf",
+    "type": "pdf",
+    "access": "empresa"
+  },
+  {
+    "title": "Kumon-app para Várias Unidades — Versão Executiva",
+    "slug": "kumon-varias-unidades-executivo",
+    "file": "downloads/ImpactX_KumonAppVariasUnidades_Executivo_202604.pdf",
+    "date": "2026-04-17",
+    "meta": "Resumo sem jargão técnico: gateway, nota fiscal, arquitetura e custos pra MVP multi-unidade",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "estrategia",
+      "produto",
+      "kumon"
+    ],
+    "icon": "file-earmark-pdf",
+    "type": "pdf",
+    "access": "empresa"
+  },
+  {
+    "title": "Kumon-app Multi-tenant — Pesquisa Técnica Completa",
+    "slug": "kumon-multi-tenant-tecnico",
+    "file": "downloads/ImpactX_KumonAppMultiTenant_202604.pdf",
+    "date": "2026-04-16",
+    "meta": "Pesquisa técnica: 7 gateways BR, 5 emissores NFS-e, cenários de custo 10/50/200 unidades, migration path",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "estrategia",
+      "engenharia",
+      "kumon"
+    ],
+    "icon": "file-earmark-pdf",
+    "type": "pdf",
+    "access": "empresa"
+  },
+  {
     "title": "Benchmark Isaac — Ideias para o Sistema Kumon",
     "slug": "benchmark-isaac",
     "file": "ImpactX_BenchmarkIsaac_202604.html",
