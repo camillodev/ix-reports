@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — PRD Sistema Kumon Camargos</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://reports.impactxlab.com/assets/css/report.css" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+</head>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">PRD Sistema Kumon Camargos</span>
+</header>
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="contexto">01 · Contexto</button>
+  <button type="button" class="tab-btn" data-tab="dados">02 · Dados</button>
+  <button type="button" class="tab-btn" data-tab="workflows">03 · Workflows</button>
+  <button type="button" class="tab-btn" data-tab="financeiro">04 · Financeiro</button>
+  <button type="button" class="tab-btn" data-tab="telas">05 · Telas</button>
+  <button type="button" class="tab-btn" data-tab="farol">06 · Farol</button>
+  <button type="button" class="tab-btn" data-tab="comunicacao">07 · Comunicação</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">08 · Roadmap</button>
+</nav>
+
+<div class="tab-panel active" data-tab="contexto" role="tabpanel" aria-hidden="false">
+<div class="content">
+<div class="report-header">
+<div class="hdr-brand">IMPACT <span class="x">X</span></div>
+<h1 class="hdr-title">Sistema de Gestão Kumon Camargos</h1>
+<p class="hdr-sub">Product Requirements Document — v1.0 Protótipo</p>
+<p class="hdr-meta">16/04/2026 · Rafael Camillo · Confidencial</p>
+</div>
+
+<h2>Contexto &amp; Personas</h2>
+<p class="lead">A unidade Kumon Camargos opera hoje com <strong>múltiplos sistemas desconectados</strong>: Ksis, MOL, Trello, Autentique, WhatsApp, Google Forms e planilhas Excel. Isso gera retrabalho manual a cada matrícula (~25 itens de checklist), controle de contratos na mão, sem presença digital, feedbacks sem rastreabilidade e informações espalhadas entre 6+ ferramentas.</p>
+
+<div class="callout success"><strong>Objetivo:</strong> Centralizar a gestão operacional da unidade em uma plataforma única, eliminando processos manuais e dando visibilidade ao orientador, auxiliares e famílias.</div>
+
+<h3>1.1 Roles</h3>
+<div class="card-grid">
+<div class="card"><h4>Orientador</h4><p><strong>Rafael · dono</strong></p><ul><li>CRUD total do sistema</li><li>Financeiro completo</li><li>Aprovações e configurações</li><li>Relatórios consolidados</li><li>Ver tudo sem restrição</li></ul></div>
+<div class="card"><h4>Auxiliar</h4><p><strong>Dois subtipos · acumuláveis</strong></p><ul><li>Subtipo Atendimento</li><li>Subtipo Administrativo</li><li>Pode ter os dois juntos</li><li>Vê alunos atribuídos</li><li>Filtro p/ alunos de outras</li></ul></div>
+<div class="card"><h4>Familiar</h4><p><strong>Pai / mãe / responsável</strong></p><ul><li>Read-only do filho</li><li>Progresso, feedbacks, metas</li><li>Contrato e boletos</li><li>Assina e responde</li><li>Múltiplos filhos vinculados</li></ul></div>
+</div>
+
+<h3>Subtipos de Auxiliar</h3>
+<div class="callout info">Uma mesma pessoa pode acumular os <strong>dois subtipos</strong>. O sistema controla via flags independentes — <code>is_atendimento</code> + <code>is_administrativo</code> — não como roles exclusivos.</div>
+
+<div class="card-grid">
+<div class="card"><h4>Auxiliar — Atendimento</h4><ul><li>Atende alunos no dia-a-dia</li><li>Corrige material e boletins</li><li>Registra presença</li><li>Escreve feedbacks semanais</li><li>Define e acompanha metas</li><li>Programa material da aula / casa</li></ul></div>
+<div class="card"><h4>Auxiliar — Administrativo</h4><ul><li>Tudo que o Atendimento faz +</li><li>Emissão e controle de boletos</li><li>Cadastros completos de alunos</li><li>Gestão de matrículas</li><li>Configurações da unidade</li><li>Contas a receber e inadimplência</li></ul></div>
+</div>
+
+<h3>1.2 Regras de Permissão</h3>
+<table>
+<thead><tr><th>REGRA</th><th>DETALHE</th></tr></thead>
+<tbody>
+<tr><td>Visão padrão da auxiliar</td><td>Vê alunos <strong>atribuídos a ela</strong> por padrão</td></tr>
+<tr><td>Visão expandida</td><td>Pode <strong>filtrar e visualizar alunos de outras</strong> — coberturas de turno</td></tr>
+<tr><td>Ações em alunos de terceiros</td><td>Pode registrar presença e feedback</td></tr>
+<tr><td>Auxiliar Administrativo</td><td>Boletos, cadastros completos, configurações, financeiro básico</td></tr>
+<tr><td>Orientador</td><td>Vê <strong>tudo</strong> — todos alunos, auxiliares, financeiro completo</td></tr>
+<tr><td>Familiar</td><td>Vê <strong>apenas</strong> dados do(s) filho(s). Pode ter múltiplos vinculados</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="dados" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Modelo de Dados</h2>
+
+<h3>Diagrama de Entidades</h3>
+<pre><code>User (1) ——— (N) Student              (role: familiar)
+User (1) ——— (N) Student              (role: auxiliar — atribuição)
+Student (1) — (N) Enrollment          (matrícula por disciplina)
+Student (1) — (N) Contract
+Student (1) — (N) Attendance
+Student (1) — (N) Feedback
+Student (1) — (N) MonthlyGoal
+Student (1) — (N) ProgressRecord
+Student (1) — (N) Meeting
+Student (1) — (1) OnboardingChecklist
+Enrollment (1) — (N) Charge           ← 4 tipos de cobrança
+Enrollment (1) — (0..1) Cancellation</code></pre>
+
+<h3>2.1 users — com subtipos de auxiliar</h3>
+<pre><code>id              UUID PRIMARY KEY
+name            VARCHAR(255) NOT NULL
+email           VARCHAR(255) UNIQUE NOT NULL
+phone           VARCHAR(20)
+cpf             VARCHAR(14)
+role            ENUM('orientador','auxiliar','familiar') NOT NULL
+
+-- Flags independentes e acumuláveis (só para auxiliares)
+is_atendimento     BOOLEAN DEFAULT false
+is_administrativo  BOOLEAN DEFAULT false
+
+avatar_url      VARCHAR(500)
+created_at      TIMESTAMP
+updated_at      TIMESTAMP</code></pre>
+
+<h3>2.2 charges — tabela unificada de cobranças</h3>
+<div class="callout info">Centraliza os <strong>4 tipos de cobrança</strong> que o sistema emite (detalhes na aba Financeiro).</div>
+<pre><code>id               UUID PRIMARY KEY
+student_id       UUID REFERENCES students(id)
+enrollment_id    UUID REFERENCES enrollments(id)
+
+type             ENUM('taxa_matricula','mensalidade','multa','outros') NOT NULL
+subtype          VARCHAR(50)
+
+description      VARCHAR(255) NOT NULL
+amount           DECIMAL(10,2) NOT NULL
+due_date         DATE NOT NULL
+paid_date        DATE
+paid_amount      DECIMAL(10,2)
+payment_method   ENUM('boleto','pix','dinheiro','cartao','outro')
+status           ENUM('pendente','pago','atrasado','cancelado','negociado') DEFAULT 'pendente'
+
+cancellation_id  UUID
+reference_month  INT
+reference_year   INT
+boleto_url       VARCHAR(500)
+nosso_numero     VARCHAR(50)
+notes            TEXT
+created_at       TIMESTAMP
+updated_at       TIMESTAMP</code></pre>
+
+<h3>2.3 cancellations — pedidos de cancelamento</h3>
+<pre><code>id                        UUID PRIMARY KEY
+enrollment_id             UUID REFERENCES enrollments(id) NOT NULL
+student_id                UUID REFERENCES students(id) NOT NULL
+request_date              DATE NOT NULL
+day_of_request            INT NOT NULL
+scenario                  ENUM('antes_dia_5','apos_dia_5') NOT NULL
+effective_date            DATE NOT NULL
+reason                    TEXT
+feedback_score            INT
+feedback_text             TEXT
+
+charge_mensalidade_id     UUID REFERENCES charges(id)
+charge_multa_id           UUID REFERENCES charges(id)
+
+family_portal_access      BOOLEAN DEFAULT true
+negotiated_by_orientador  BOOLEAN DEFAULT false
+processed_at              TIMESTAMP
+created_at                TIMESTAMP</code></pre>
+
+<h3>2.4 Outras tabelas (resumo)</h3>
+<table>
+<thead><tr><th>TABELA</th><th>FINALIDADE</th></tr></thead>
+<tbody>
+<tr><td><code>students</code></td><td>Dados do aluno, modalidade, horários, status, auxiliar atribuída</td></tr>
+<tr><td><code>enrollments</code></td><td>Matrícula por disciplina (1 aluno pode ter múltiplas)</td></tr>
+<tr><td><code>contracts</code></td><td>Contrato vinculado à matrícula, status Autentique, IPCA</td></tr>
+<tr><td><code>attendance</code></td><td>Presença diária do aluno</td></tr>
+<tr><td><code>feedbacks</code></td><td>Feedback semanal da auxiliar para a família</td></tr>
+<tr><td><code>monthly_goals</code></td><td>Meta mensal por aluno/disciplina + brinde</td></tr>
+<tr><td><code>progress_records</code></td><td>Relatório 2: estágio, folhas, ST1/ST2 por mês</td></tr>
+<tr><td><code>meetings</code></td><td>Reuniões 1º/3º/6º mês + pré-férias + pontual + cancelamento</td></tr>
+<tr><td><code>medals</code></td><td>Medalhas Bronze/Prata/Ouro/Platinum + Série Escolar</td></tr>
+<tr><td><code>onboarding_checklists</code></td><td>25 itens do processo de matrícula</td></tr>
+<tr><td><code>student_risk_scores</code></td><td>Score de churn</td></tr>
+<tr><td><code>communication_log</code></td><td>Registro centralizado de comunicação com famílias</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="workflows" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Workflows</h2>
+
+<h3>3.1 Fluxo de Matrícula</h3>
+<pre><code>[1] Família preenche ficha no MOL
+    ↓ sistema recebe via webhook ou input manual
+[2] Matrícula criada → status "pendente"
+    ↓ orientador revisa
+[3] Orientador aprova → status "aprovada"
+    → auto: calcula valores por faixa de data
+    → auto: gera checklist de 25 itens
+    → auto: gera template WhatsApp de confirmação
+[4] Confirmação via WhatsApp → marca item no checklist
+[5] Contrato gerado → Autentique → status "enviado"
+[6] Contrato assinado → status "assinado"
+[7] Checklist 100% → matrícula "ativa"</code></pre>
+
+<h3>3.2 Fluxo de Cancelamento</h3>
+<div class="callout warning"><strong>Decisão crítica: dia do pedido.</strong> O dia em que a família solicita o cancelamento define inteiramente as cobranças geradas e o período em que o aluno mantém acesso.</div>
+
+<h4>Cenário A · Pedido até o dia 5 do mês</h4>
+<div class="callout success"><strong>Dia ≤ 5 · Cancelamento suave</strong>
+<ul><li>Família paga apenas a <strong>mensalidade do mês corrente</strong></li><li>A partir do <strong>próximo mês, matrícula fica cancelada</strong></li><li>Pais mantêm acesso ao sistema (portal), mas status = <code>cancelado</code></li><li><strong>Sem boleto do mês seguinte</strong></li></ul></div>
+
+<pre><code>enrollment.status          = "cancelada"
+enrollment.last_study_date = fim do mês corrente
+cancellation.scenario      = "antes_dia_5"
+charge gerada              = apenas mensalidade corrente (se não paga)
+family_portal_access       = true (acesso read-only mantido)</code></pre>
+
+<h4>Cenário B · Pedido a partir do dia 6</h4>
+<div class="callout warning"><strong>Dia ≥ 6 · Cancelamento com mês adicional</strong>
+<ul><li>Boleto do mês seguinte é gerado (a menos que negociado com o orientador)</li><li>Aluno mantém matrícula no <strong>mês corrente + mês seguinte</strong></li><li>Possibilidade de <strong>boleto extra de multa contratual</strong> (semestral/anual dentro do prazo)</li></ul></div>
+
+<pre><code>enrollment.status          = "cancelada"
+enrollment.last_study_date = fim do MÊS SEGUINTE
+cancellation.scenario      = "apos_dia_5"
+
+charges geradas:
+  → mensalidade corrente (se ainda não paga)
+  → mensalidade do mês seguinte (type='mensalidade')
+  → multa contratual — se aplicável (type='multa', subtype='multa_rescisoria')
+
+Override: orientador pode negociar e não gerar mensalidade seguinte
+         → cancellation.negotiated_by_orientador = true</code></pre>
+
+<div class="callout info"><strong>Multa contratual</strong> aplica-se apenas a contratos <strong>semestrais ou anuais</strong> cancelados <strong>dentro do prazo</strong>. Cálculo: <code>meses_faltantes × mensalidade × 20%</code>.</div>
+
+<h3>3.3 Rotina Semanal da Auxiliar</h3>
+<pre><code>Ter/Qui — Dia de aula
+  → Registrar presença · Corrigir material · Atualizar programação
+
+Sexta — Feedback semanal
+  → Para cada aluno: resumo + plano próxima semana
+  → Enviar no WhatsApp → marcar como enviado
+
+Início do mês
+  → Definir meta · Comunicar família · Registrar
+
+Virada do mês — Dia da Meta
+  → Verificar quem bateu · Registrar conquista · Entregar brinde</code></pre>
+
+<h3>3.4 Reuniões e Relatório 2</h3>
+<div class="card-grid">
+<div class="card"><h4>Reuniões (auto-agendadas)</h4><pre><code>1º mês → "primeiro_mes"
+3º mês → "terceiro_mes"
+6º mês → "sexto_mes"
+Jun/Jul → "pre_ferias"</code></pre></div>
+<div class="card"><h4>Relatório 2 (mensal)</h4><pre><code>Auxiliar: estágio + folhas + ST1/ST2
+Sistema consolida
+Orientador aprova
+Exporta para Ksis</code></pre></div>
+</div>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="financeiro" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Regras &amp; Financeiro</h2>
+
+<h3>4.1 Sistema de Cobranças — 4 Tipos</h3>
+<p>Toda cobrança emitida pelo sistema pertence a um destes quatro tipos. A tabela <code>charges</code> centraliza tudo.</p>
+
+<div class="card-grid">
+<div class="card"><p class="card-eyebrow">TIPO 01</p><h4>Taxa de Matrícula</h4><p>Cobrada na entrada. Valor cheio / metade / isento conforme faixa de data.</p></div>
+<div class="card"><p class="card-eyebrow">TIPO 02</p><h4>Mensalidade</h4><p>Recorrente. Inclui a 1ª (cheia/metade/isenta) e as subsequentes no valor integral.</p></div>
+<div class="card"><p class="card-eyebrow">TIPO 03</p><h4>Multa</h4><p>Subtipos: rescisória (cancelamento antecipado) e atraso (inadimplência).</p></div>
+<div class="card"><p class="card-eyebrow">TIPO 04</p><h4>Outros</h4><p>Material adquirido, bolsa mensalidade, convites para eventos, taxas extras.</p></div>
+</div>
+
+<h4>Subtipos por categoria</h4>
+<table>
+<thead><tr><th>TIPO</th><th>SUBTIPOS</th><th>EXEMPLOS</th></tr></thead>
+<tbody>
+<tr><td><code>taxa_matricula</code></td><td><code>cheia</code>, <code>metade</code>, <code>isenta</code></td><td>R$250 / R$125 / R$0</td></tr>
+<tr><td><code>mensalidade</code></td><td><code>primeira</code>, <code>regular</code>, <code>cancelamento_pos_dia_5</code></td><td>R$350 regular, R$175 primeira metade</td></tr>
+<tr><td><code>multa</code></td><td><code>multa_rescisoria</code>, <code>multa_atraso</code></td><td>Rescisória: meses faltantes × 20%. Atraso: 2% + juros 2%/mês</td></tr>
+<tr><td><code>outros</code></td><td><code>material</code>, <code>bolsa_mensalidade</code>, <code>evento</code>, <code>taxa_extra</code></td><td>Livro extra, ingresso workshop, material avulso</td></tr>
+</tbody>
+</table>
+
+<h3>4.2 Cálculo de Valores na Matrícula</h3>
+<p>O Kumon considera o mês como o período entre <strong>dia 21 do mês anterior</strong> e <strong>dia 20 do mês corrente</strong>.</p>
+<table>
+<thead><tr><th>DIA</th><th>FAIXA</th><th>1ª MENSALIDADE</th><th>TAXA MATRÍCULA</th><th>ROYALTY</th></tr></thead>
+<tbody>
+<tr><td>01 a 10</td><td><span class="badge alto">Cheia</span></td><td>100%</td><td>100%</td><td>Cheio</td></tr>
+<tr><td>11 a 20</td><td><span class="badge medio">Metade</span></td><td>50%</td><td>50%</td><td>50%</td></tr>
+<tr><td>21 a 31</td><td><span class="badge baixo">Isenta</span></td><td>0 (orientador decide)</td><td>0</td><td>Isento</td></tr>
+</tbody>
+</table>
+
+<h3>Cálculo de Cancelamento</h3>
+
+<h4>Contrato Mensal</h4>
+<table>
+<thead><tr><th>DIA DO PEDIDO</th><th>CENÁRIO</th><th>COBRANÇA GERADA</th><th>ESTUDA ATÉ</th></tr></thead>
+<tbody>
+<tr><td>≤ 5</td><td><code>antes_dia_5</code></td><td>Só mensalidade corrente (se não paga)</td><td>Fim do mês corrente</td></tr>
+<tr><td>≥ 6</td><td><code>apos_dia_5</code></td><td>Mensalidade corrente + seguinte</td><td>Fim do mês seguinte</td></tr>
+</tbody>
+</table>
+
+<h4>Contrato Semestral / Anual</h4>
+<div class="callout warning">Contrato <strong>expirado</strong> → segue regras do mensal. <strong>Dentro do prazo</strong> → adiciona multa rescisória.</div>
+
+<pre><code>// Dentro do prazo — pedido até dia 5
+multa             = mesesFaltantes × mensalidade × 20%
+mensalidadeSeguinte = não
+podeEstudarAte    = fim do mês corrente
+
+// Dentro do prazo — pedido a partir do dia 6
+multa             = (mesesFaltantes - 1) × mensalidade × 20%
+mensalidadeSeguinte = sim (salvo negociação)
+podeEstudarAte    = fim do mês seguinte</code></pre>
+
+<h3>4.3 Medalhas</h3>
+<table>
+<thead><tr><th>TIPO</th><th>CONDIÇÃO</th><th>OFICIAL?</th></tr></thead>
+<tbody>
+<tr><td>Série Escolar</td><td>Alcançou estágio da sua série</td><td>Não (unidade)</td></tr>
+<tr><td>Bronze</td><td>6 meses adiantado</td><td>Sim</td></tr>
+<tr><td>Prata</td><td>2 anos adiantado</td><td>Sim</td></tr>
+<tr><td>Ouro</td><td>3 anos adiantado</td><td>Sim</td></tr>
+<tr><td>Platinum</td><td>5 anos adiantado</td><td>Sim</td></tr>
+</tbody>
+</table>
+
+<div class="card-grid">
+<div class="card"><h4>Reajuste Anual</h4><ul><li><strong>Quando:</strong> outubro</li><li><strong>Índice:</strong> IPCA-IBGE (jul→jun)</li><li>Alerta em setembro</li></ul></div>
+<div class="card"><h4>Inventário</h4><ul><li>2× por ano</li><li>Physical vs System count</li><li>Divergência &gt; 20% = perde auxílio frete</li></ul></div>
+</div>
+
+<h3>Inadimplência</h3>
+<table>
+<thead><tr><th>ATRASO</th><th>AÇÃO AUTOMÁTICA</th><th>COBRANÇA GERADA</th></tr></thead>
+<tbody>
+<tr><td>1+ dias</td><td>Template WA gentil</td><td>+juros 2%/mês + multa 2% → <code>multa_atraso</code></td></tr>
+<tr><td>5+ dias</td><td>Template WA firme + alerta orientador</td><td>—</td></tr>
+<tr><td>10+ dias</td><td>Suspensão de fornecimento de material</td><td>—</td></tr>
+<tr><td>30+ dias</td><td>Protesto cartório / SPC/SERASA</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h3>Priorização de Pagamentos</h3>
+<table>
+<thead><tr><th>PRIORIDADE</th><th>LABEL</th><th>CATEGORIAS</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><span class="badge alto">Crítico</span></td><td>Salários, impostos, royalties Kumon</td></tr>
+<tr><td>2</td><td><span class="badge medio">Essencial</span></td><td>Aluguel, internet, energia</td></tr>
+<tr><td>3</td><td><span class="badge baixo">Operacional</span></td><td>Material, frete, contabilidade</td></tr>
+<tr><td>4</td><td><span class="tag blue">Pode esperar</span></td><td>Marketing, manutenção</td></tr>
+<tr><td>5</td><td><span class="tag purple">Após tudo pago</span></td><td>Retirada do orientador</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="telas" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Telas Sugeridas</h2>
+<table>
+<thead><tr><th>TELA</th><th>ROLE</th><th>FUNCIONALIDADES</th></tr></thead>
+<tbody>
+<tr><td><strong>Dashboard Orientador</strong></td><td>Orientador</td><td>KPIs, alertas, contratos pendentes, inadimplências, gráfico entradas vs saídas</td></tr>
+<tr><td><strong>Dashboard Auxiliar</strong></td><td>Auxiliar</td><td>Alunos do dia, feedbacks pendentes, metas. Filtro p/ alunos de outras</td></tr>
+<tr><td><strong>Dashboard Familiar</strong></td><td>Familiar</td><td>Card do filho, feedbacks, progresso, boletos, próxima reunião</td></tr>
+<tr><td><strong>Matrícula Wizard</strong></td><td>Orient. / Admin</td><td>6 steps: aluno → responsável → disciplina → plano → revisão → checklist</td></tr>
+<tr><td><strong>Perfil do Aluno</strong></td><td>Todos</td><td>Tabs: Progresso, Presença, Feedbacks, Metas, Reuniões, Relatório 2, Contrato, Financeiro</td></tr>
+<tr><td><strong>Lista de Alunos</strong></td><td>Orient. / Auxiliar</td><td>Filtros por status, disciplina, auxiliar, modalidade. Busca por nome</td></tr>
+<tr><td><strong>Checklist Onboarding</strong></td><td>Orient. / Auxiliar</td><td>Progresso visual, itens condicionais, quem fez e quando</td></tr>
+<tr><td><strong>Registro de Presença</strong></td><td>Auxiliar</td><td>View por dia, toggle rápido presente/ausente/justificado</td></tr>
+<tr><td><strong>Feedbacks</strong></td><td>Auxiliar</td><td>View semanal, editor, marcar como enviado WA</td></tr>
+<tr><td><strong>Metas Mensais</strong></td><td>Auxiliar / Orient.</td><td>View por mês, Dia da Meta, brinde selecionado</td></tr>
+<tr><td><strong>Reuniões</strong></td><td>Orientador</td><td>Calendário, auto-sugestão, template de notas</td></tr>
+<tr><td><strong>Financeiro · Receber</strong></td><td>Orient. / Admin</td><td>Mensalidades, multas, outros — agrupados por tipo de charge</td></tr>
+<tr><td><strong>Financeiro · Pagar</strong></td><td>Orientador</td><td>Despesas ordenadas por prioridade + vencimento</td></tr>
+<tr><td><strong>Cobranças (visão unificada)</strong></td><td>Orient. / Admin</td><td>Lista dos 4 tipos com filtros. Emissão boleto/pix</td></tr>
+<tr><td><strong>Simulador de Cancelamento</strong></td><td>Orient. / Admin</td><td>Input data + aluno → mostra cenário e charges geradas</td></tr>
+<tr><td><strong>Farol de Risco</strong></td><td>Orient. / Auxiliar</td><td>Lista ordenada por score, filtros por farol, drill-down</td></tr>
+<tr><td><strong>Relatórios</strong></td><td>Orientador</td><td>Relatório 2, Inventário, Relatório 1 consolidado</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="farol" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Farol de Risco</h2>
+<p class="lead">Prevenção de churn com score automático por aluno. Integra presença, progresso, inadimplência e feedbacks em um único indicador acionável.</p>
+
+<h3>Dados Reais (mar/2026)</h3>
+<div class="metrics-grid">
+<div class="metric-card"><div class="value">76</div><div class="label">Alunos jan/26</div></div>
+<div class="metric-card"><div class="value">68</div><div class="label">Alunos mar/26</div></div>
+<div class="metric-card"><div class="value">-12</div><div class="label">Saldo Q1</div></div>
+<div class="metric-card"><div class="value">41%</div><div class="label">Saídas &lt; 3 meses</div></div>
+</div>
+
+<div class="callout danger"><strong>Insight crítico:</strong> quase metade dos desistentes sai antes de completar 3 meses. As reuniões de 1º e 3º mês são a maior oportunidade de retenção.</div>
+
+<h3>Fatores de Risco</h3>
+<table>
+<thead><tr><th>FATOR</th><th>PESO</th><th>VERDE</th><th>AMARELO</th><th>VERMELHO</th></tr></thead>
+<tbody>
+<tr><td>Ausências consecutivas</td><td>25</td><td>0 faltas</td><td>1-2 faltas</td><td>3+ faltas</td></tr>
+<tr><td>Taxa presença (30d)</td><td>20</td><td>&gt;80%</td><td>50-80%</td><td>&lt;50%</td></tr>
+<tr><td>Tempo de permanência</td><td>15</td><td>&gt;6 meses</td><td>3-6 meses</td><td>&lt;3 meses</td></tr>
+<tr><td>Inadimplência</td><td>15</td><td>Em dia</td><td>1-10 dias</td><td>10+ dias</td></tr>
+<tr><td>Progresso estagnado</td><td>10</td><td>Avançou estágio</td><td>2 meses parado</td><td>3+ meses parado</td></tr>
+<tr><td>Feedback negativo</td><td>10</td><td>Sem sinais</td><td>Dúvidas</td><td>Insatisfação</td></tr>
+<tr><td>Reunião pendente</td><td>5</td><td>Em dia</td><td>1 atrasada</td><td>2+ atrasadas</td></tr>
+</tbody>
+</table>
+
+<h3>Ações por Nível</h3>
+<table>
+<thead><tr><th>FAROL</th><th>SCORE</th><th>AÇÃO AUTOMÁTICA</th></tr></thead>
+<tbody>
+<tr><td><span class="badge baixo">VERDE</span></td><td>0–30</td><td>Rotina normal</td></tr>
+<tr><td><span class="badge medio">AMARELO</span></td><td>31–60</td><td>Alerta dashboard + sugestão contato + lembrete WA se ausência</td></tr>
+<tr><td><span class="badge alto">VERMELHO</span></td><td>61–100</td><td>Notificação urgente + auto-sugestão reunião + alerta financeiro</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="comunicacao" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Comunicação com Famílias</h2>
+
+<h3>Problemas Identificados</h3>
+<table>
+<thead><tr><th>PROBLEMA</th><th>IMPACTO</th></tr></thead>
+<tbody>
+<tr><td>Feedbacks enviados sem rastreio</td><td>Não sabe se foi enviado, família pode não ler</td></tr>
+<tr><td>Assinatura manual de contrato</td><td>Contratos pendentes sem follow-up</td></tr>
+<tr><td>Sem registro de comunicações</td><td>Histórico perdido ao trocar auxiliar</td></tr>
+<tr><td>Metas comunicadas informalmente</td><td>Família sem visibilidade do progresso</td></tr>
+<tr><td>Ausências não notificadas</td><td>Família pode não saber que aluno faltou</td></tr>
+</tbody>
+</table>
+
+<h3>Automações de Comunicação</h3>
+<table>
+<thead><tr><th>TRIGGER</th><th>AÇÃO</th><th>CANAL</th></tr></thead>
+<tbody>
+<tr><td>Aluno faltou à aula</td><td>Template de ausência</td><td>WA</td></tr>
+<tr><td>Sexta sem feedback</td><td>Alerta: "Feedback de X pendente"</td><td>Sistema</td></tr>
+<tr><td>Meta do mês definida</td><td>Mensagem com meta para família</td><td>WA</td></tr>
+<tr><td>Aluno bateu meta</td><td>Mensagem de parabéns</td><td>WA</td></tr>
+<tr><td>Contrato não assinado 3d</td><td>Alerta orientador + lembrete família</td><td>Sistema + WA</td></tr>
+<tr><td>Contrato não assinado 7d</td><td>Escalar ao orientador</td><td>Sistema (alerta)</td></tr>
+<tr><td>Reunião se aproxima</td><td>Sugerir agendamento</td><td>Sistema</td></tr>
+<tr><td>Pagamento atrasado 5d</td><td>Lembrete gentil</td><td>WA</td></tr>
+<tr><td>Pagamento atrasado 10d</td><td>Alerta + template firme</td><td>Sistema + WA</td></tr>
+<tr><td>Farol amarelo</td><td>Sugerir contato proativo</td><td>Sistema</td></tr>
+<tr><td>Farol vermelho</td><td>Notificação urgente ao orientador</td><td>Sistema</td></tr>
+<tr><td>Medalha conquistada</td><td>Mensagem de celebração</td><td>WA</td></tr>
+<tr><td><strong>Cancelamento processado</strong></td><td>Email + WA com datas, cobranças, acesso portal</td><td>Sistema + WA</td></tr>
+</tbody>
+</table>
+
+<h3>Template — Confirmação de Matrícula</h3>
+<pre><code>Bem-vindos à família Kumon.
+Recebemos a matrícula do seu filho. Verifique se está tudo correto.
+
+Nome do aluno:     {student.name}
+Horário:           {student.study_time}
+Dias de aula:      {student.study_days}
+Modalidade:        ( ) Papel  ( ) Kumon Connect
+Disciplina:        ( ) Matemática  ( ) Inglês  ( ) Português
+Vencimento:        Dia {enrollment.due_day}
+Ponto de Partida:  {enrollment.starting_point}
+Primeira aula:     {student.start_date}
+Contrato:          ( ) Mensal  ( ) Semestral  ( ) Anual
+Valor Matrícula:   {enrollment.enrollment_fee_display}
+Valor Mensalidade: R${enrollment.monthly_fee}
+Chave Pix:         {enrollment.pix_key}
+
+Vamos juntos nessa jornada!</code></pre>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Roadmap, Stack &amp; Glossário</h2>
+
+<h3>MVP em 3 Fases</h3>
+<div class="card-grid">
+<div class="card"><p class="card-eyebrow">FASE 1 · CORE</p><h4>Deve ter</h4><ul><li>Login com roles</li><li>Cadastro + matrícula wizard</li><li>Checklist de onboarding (25 itens)</li><li>Perfil do aluno com progresso</li><li>Registro de presença</li><li>Feedbacks semanais</li><li>Metas mensais</li><li>Farol de risco</li></ul></div>
+<div class="card"><p class="card-eyebrow">FASE 2 · GESTÃO</p><h4>Gestão &amp; Comunicação</h4><ul><li>Contratos (geração + tracking)</li><li><strong>Módulo de cobranças (4 tipos)</strong></li><li>Reuniões (agendamento + registro)</li><li><strong>Cancelamento regra dia 5</strong></li><li>Simulador de cancelamento</li><li>Dashboard orientador com farol</li><li>Communication log centralizado</li><li>Templates WhatsApp</li></ul></div>
+<div class="card"><p class="card-eyebrow">FASE 3 · FINANCEIRO</p><h4>Financeiro &amp; Relatórios</h4><ul><li>Contas a pagar priorizadas</li><li>Provisões e retiradas</li><li>Fluxo de caixa + projeção 3m</li><li>Relatório 2 (export Ksis)</li><li>Inventário de material</li><li>Medalhas automáticas</li><li>Portal do familiar</li><li>Integração Autentique API</li></ul></div>
+</div>
+
+<h3>Stack Sugerida</h3>
+<table>
+<thead><tr><th>CAMADA</th><th>TECNOLOGIA</th><th>JUSTIFICATIVA</th></tr></thead>
+<tbody>
+<tr><td>Frontend</td><td><strong>Next.js + TypeScript + Tailwind</strong></td><td>SSR nativo, forms complexos, bom DX</td></tr>
+<tr><td>UI Components</td><td><strong>shadcn/ui</strong></td><td>Componentes prontos sem lock-in</td></tr>
+<tr><td>Backend</td><td><strong>Next.js API Routes ou Hono</strong></td><td>Simplicidade para protótipo</td></tr>
+<tr><td>Database</td><td><strong>Supabase (Postgres)</strong></td><td>Auth built-in, real-time, RLS para permissões</td></tr>
+<tr><td>Auth</td><td><strong>Supabase Auth</strong></td><td>Roles via metadata, magic link p/ famílias</td></tr>
+<tr><td>Storage</td><td><strong>Supabase Storage</strong></td><td>PDFs de contrato, comprovantes</td></tr>
+<tr><td>Deploy</td><td><strong>Vercel</strong></td><td>Zero config com Next.js</td></tr>
+</tbody>
+</table>
+
+<h3>Glossário</h3>
+<table>
+<thead><tr><th>TERMO</th><th>SIGNIFICADO</th></tr></thead>
+<tbody>
+<tr><td><strong>Ksis</strong></td><td>Sistema oficial do Kumon</td></tr>
+<tr><td><strong>MOL</strong></td><td>CRM do Kumon para captação</td></tr>
+<tr><td><strong>Kumon Connect</strong></td><td>App de estudos digital (tablet)</td></tr>
+<tr><td><strong>Relatório 2</strong></td><td>Relatório mensal de consumo e progresso</td></tr>
+<tr><td><strong>Relatório 1</strong></td><td>Consolidado da unidade (alunos, entradas, saídas)</td></tr>
+<tr><td><strong>ST1 / ST2</strong></td><td>Standard Tests de finalização de estágio</td></tr>
+<tr><td><strong>Estágio</strong></td><td>Nível do material (3A, 2A, A, B, C, D, ...)</td></tr>
+<tr><td><strong>PP</strong></td><td>Ponto de Partida definido pelo teste diagnóstico</td></tr>
+<tr><td><strong>Corrente</strong></td><td>Aluno ativo que frequenta aulas</td></tr>
+<tr><td><strong>Ausente</strong></td><td>Aluno que parou mas não cancelou</td></tr>
+<tr><td><strong>Orientador</strong></td><td>Franqueado/responsável pela unidade</td></tr>
+<tr><td><strong>Auxiliar</strong></td><td>Atendimento, administrativo ou ambos</td></tr>
+<tr><td><strong>Autentique</strong></td><td>Plataforma de assinatura digital</td></tr>
+<tr><td><strong>Dia da Meta</strong></td><td>Celebração mensal dos alunos que bateram meta</td></tr>
+<tr><td><strong>Kumon Time</strong></td><td>Horário fixo de estudo em casa</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<footer>
+<div class="brand">IMPACT <span class="x">X</span></div>
+Feito por Impact X — Rafael Camillo · rafael@impactxlab.com
+</footer>
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
