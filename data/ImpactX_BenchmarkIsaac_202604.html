@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Benchmark Isaac</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://reports.impactxlab.com/assets/css/report.css" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+</head>
+<body class="ix-report">
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Benchmark Isaac</span>
+</header>
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="sumario">01 · Sumário</button>
+  <button type="button" class="tab-btn" data-tab="publico">02 · Público-alvo</button>
+  <button type="button" class="tab-btn" data-tab="features">03 · Features</button>
+  <button type="button" class="tab-btn" data-tab="dores">04 · Dores</button>
+  <button type="button" class="tab-btn" data-tab="modelo">05 · Modelo</button>
+  <button type="button" class="tab-btn" data-tab="roadmap">06 · Roadmap</button>
+</nav>
+
+<div class="tab-panel active" data-tab="sumario" role="tabpanel" aria-hidden="false">
+<div class="content">
+<div class="report-header">
+<div class="hdr-brand">IMPACT <span class="x">X</span></div>
+<h1 class="hdr-title">Benchmark Isaac</h1>
+<p class="hdr-sub">Ideias de UX e features para o Sistema Kumon Camargos</p>
+<p class="hdr-meta">16/04/2026 · Rafael Camillo · Confidencial</p>
+</div>
+
+<h2>Sumário Executivo</h2>
+<p class="lead">O Isaac é a maior plataforma financeira para escolas privadas no Brasil — parte da Arco Educação, atende K-12 e faculdades. Modelo: antecipa recebíveis em troca de comissão sobre a mensalidade. Duas interfaces: <strong>Plataforma isaac</strong> (gestor) e <strong>meu isaac</strong> (família, mobile-first). Dominam backend financeiro, mas escorregam no atendimento por terceirização.</p>
+
+<div class="metrics-grid">
+<div class="metric-card"><div class="value">2.000+</div><div class="label">Escolas parceiras</div></div>
+<div class="metric-card"><div class="value">650k</div><div class="label">Alunos impactados</div></div>
+<div class="metric-card"><div class="value">R$5bi</div><div class="label">Garantidos/ano</div></div>
+<div class="metric-card"><div class="value">8.3/10</div><div class="label">Reclame Aqui</div></div>
+</div>
+
+<div class="callout info"><strong>Tese:</strong> Isaac domina o backend financeiro escolar, mas o suporte terceirizado gera ping-pong com as famílias (família ↔ escola ↔ Isaac). Nosso diferencial no Sistema Kumon: <strong>ticket system interno</strong> que mantém o orientador no comando da resolução, com escalação para Impact X via WhatsApp apenas quando o orientador não consegue resolver. A família nunca fala direto com o fornecedor do sistema.</div>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="publico" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Público-alvo: overlap &amp; divergência</h2>
+<p>O Isaac atende escolas privadas K-12 e faculdades — <strong>nunca franquias de reforço</strong>. O overlap com o Sistema Kumon Camargos existe <strong>apenas no módulo financeiro</strong>. Tudo que envolve progresso, estágio, feedback semanal, farol de churn e regra dia 5 é território nosso.</p>
+
+<table>
+<thead><tr><th>DIMENSÃO</th><th>ISAAC</th><th>KUMON CAMARGOS</th></tr></thead>
+<tbody>
+<tr><td>Segmento</td><td>Escolas privadas K-12 + faculdades</td><td>Franquia Kumon (reforço)</td></tr>
+<tr><td>Escala</td><td>100+ alunos, múltiplas séries</td><td>68 alunos, 1 unidade</td></tr>
+<tr><td>Ciclo</td><td>Ano letivo, matrícula anual</td><td>Contínuo — entra e sai o ano todo</td></tr>
+<tr><td>Financeiro</td><td>Mensalidade única por aluno</td><td>4 tipos de cobrança (taxa, mens., multa, outros)</td></tr>
+<tr><td>Cancelamento</td><td>Raro, ligado ao ano letivo</td><td>Frequente (41% saem em &lt;3 meses), regra dia 5</td></tr>
+<tr><td>Comunicação</td><td>Financeiro + apps pedagógicos separados (ClassApp)</td><td>Unificada (WA + sistema)</td></tr>
+<tr><td>Suporte</td><td>Terceirizado (Isaac atende família direto)</td><td>Orientador atende, Impact X só no backoffice</td></tr>
+</tbody>
+</table>
+
+<div class="callout success"><strong>Conclusão:</strong> overlap real só no módulo financeiro. Para o resto, o Isaac é benchmark de <strong>execução e UX</strong>, não de feature-set.</div>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="features" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Features que valem copiar</h2>
+<p>Organizadas por prioridade de incorporação no roadmap do Sistema Kumon.</p>
+
+<h3>P0 · Já previstas no PRD — Isaac mostra execução forte</h3>
+<p><span class="priority p0">P0</span> <strong>App mobile-first para a família</strong> — o <code>meu isaac</code> usa login por CPF com magic link no primeiro acesso, mostra boletos/Pix/cartão em uma tela, negocia atraso em poucos cliques. Nosso <strong>Dashboard Familiar</strong> deve herdar essa clareza: uma tela, poucas ações, zero cognição desnecessária.</p>
+<p><span class="priority p0">P0</span> <strong>Pagamento multi-canal (boleto + Pix + cartão)</strong> — o PRD atual prevê boleto + Pix. Adicionar <strong>cartão de crédito</strong> (parcelável) aumenta adimplência mesmo em famílias apertadas. Isaac já comprovou essa tese no K-12.</p>
+<p><span class="priority p0">P0</span> <strong>Negociação self-service pelo app da família</strong> — família vê boleto em atraso, aperta "renegociar", escolhe parcelamento dentro de regras pré-configuradas pelo orientador. Libera a auxiliar de ficar negociando por WA.</p>
+
+<h3>P1 · Ideias novas que ainda não estão no PRD</h3>
+<div class="card-grid">
+<div class="card"><p class="card-eyebrow">P1 · NOVA</p><h4>Score de crédito do responsável</h4><p>Isaac consulta histórico de crédito do responsável financeiro antes de aprovar matrícula. No Kumon pode virar um <strong>fator adicional no Farol de Risco</strong> — não pra barrar matrícula, mas pra sinalizar famílias de maior risco de inadimplência já na entrada.</p></div>
+<div class="card"><p class="card-eyebrow">P1 · NOVA</p><h4>Gatilho contrato assinado → libera app</h4><p>No Isaac, contrato Docusign assinado → app da família é liberado automaticamente. No nosso fluxo (Autentique), o gatilho não está explícito. Amarrar <code>contract.status = assinado</code> ao <code>family_portal_access = true</code>.</p></div>
+<div class="card"><p class="card-eyebrow">P1 · NOVA</p><h4>Ticket system interno</h4><p>Família abre chamado no portal → orientador vê no dashboard → resolve na plataforma → família é notificada. Resolve o ping-pong do Isaac. Se orientador não resolve, escala pra Impact X via WA pessoal (B2B).</p></div>
+<div class="card"><p class="card-eyebrow">P1 · NOVA</p><h4>Venda integrada no app da família</h4><p>Isaac vende material didático dentro do <code>meu isaac</code>. No Kumon: livros extras, convites de evento, bolsa — usando o <code>type='outros'</code> que já existe na tabela <code>charges</code>. Família compra com 1 clique.</p></div>
+</div>
+
+<h3>P2 · Nice-to-have, fora do MVP</h3>
+<p><span class="priority p2">P2</span> <strong>Módulo analytics com benchmark de mercado</strong> — Isaac compara inadimplência/precificação da escola com escolas similares. Improvável replicar (precisa de dados agregados de muitas unidades), mas anotar para quando a Impact X tiver 10+ unidades no SaaS.</p>
+<p><span class="priority p2">P2</span> <strong>Seguro Familiar via parceria</strong> — Isaac tem parceria com Porto Seguro para garantir mensalidades em caso de óbito do responsável. Parceria futura boa para Impact X, mas fora do MVP.</p>
+<p><span class="priority p2">P2</span> <strong>Integração com apps pedagógicos</strong> — Isaac integra com ClassApp. Não se aplica direto ao Kumon porque o módulo pedagógico é nativo do nosso sistema.</p>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="dores" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Dores do mercado</h2>
+<p>Reclame Aqui da Isaac: <strong>nota 8.3/10, 928 reclamações</strong>. Nota boa, mas o padrão das queixas mostra a fragilidade do modelo.</p>
+
+<table>
+<thead><tr><th>DOR</th><th>DESCRIÇÃO</th><th>IMPACTO</th></tr></thead>
+<tbody>
+<tr><td>Cobrança indevida</td><td>Família matriculada em escola A recebe cobrança duplicada de ciclos anteriores</td><td><span class="badge alto">Alto</span></td></tr>
+<tr><td>Divergência de valor</td><td>Escola combina X, Isaac emite Y</td><td><span class="badge alto">Alto</span></td></tr>
+<tr><td>Ping-pong família ↔ escola ↔ Isaac</td><td>Família reclama na escola, escola passa pro Isaac, Isaac volta pra escola</td><td><span class="badge alto">Alto</span></td></tr>
+<tr><td>Suporte lento via Zendesk</td><td>Resposta genérica, não conhece o contexto da unidade</td><td><span class="badge medio">Médio</span></td></tr>
+<tr><td>App com login difícil no primeiro acesso</td><td>Famílias sem CPF no cadastro ficam fora</td><td><span class="badge medio">Médio</span></td></tr>
+</tbody>
+</table>
+
+<div class="callout warning"><strong>Oportunidade:</strong> o ping-pong é a dor mais citada — e totalmente evitável no nosso modelo. A Impact X é <strong>fornecedora do sistema</strong>, não operadora da cobrança. O orientador é dono do atendimento; o sistema só precisa dar ferramentas pra ele resolver sem sair da plataforma.</div>
+
+<h3>Nosso modelo de suporte (3 níveis)</h3>
+<table>
+<thead><tr><th>NÍVEL</th><th>QUEM</th><th>QUANDO</th><th>COMO</th></tr></thead>
+<tbody>
+<tr><td><strong>L1</strong></td><td>Família</td><td>Qualquer dúvida/problema</td><td>Abre ticket no portal familiar + mensagem WA</td></tr>
+<tr><td><strong>L2</strong></td><td>Orientador da unidade</td><td>Todo ticket da família</td><td>Vê no dashboard, resolve na plataforma (cobrança, contrato, acesso), responde pelo sistema + WA</td></tr>
+<tr><td><strong>L3</strong></td><td>Impact X</td><td>Só quando L2 escala</td><td>WhatsApp pessoal do orientador pra equipe Impact X. Nunca contato direto com família</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="modelo" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Modelo comercial</h2>
+
+<div class="callout info"><strong>Referência — não replicar.</strong> Isaac cobra <strong>comissão sobre mensalidades antecipadas</strong> (% não divulgado publicamente). Modelo casa com escolas K-12 de ticket médio alto e fluxo previsível. Não cabe no Kumon: volume menor, mensalidades menores, ticket médio inadequado pra fintech de recebíveis.</div>
+
+<p><strong>Nosso modelo (Impact X):</strong> SaaS B2B com assinatura por unidade — licença mensal ou anual paga pelo orientador. Camargos é o <strong>piloto</strong> (tração inicial). Ao validar, expandir para outras unidades Kumon e depois para outras franquias de reforço (Wizard, CCAA, Fisk).</p>
+</div>
+</div>
+
+<div class="tab-panel" data-tab="roadmap" role="tabpanel" aria-hidden="true">
+<div class="content">
+<h2>Recomendações de roadmap</h2>
+<p>Amarradas às 3 fases do MVP definidas no PRD do Sistema Kumon.</p>
+
+<table>
+<thead><tr><th>AÇÃO</th><th>FASE MVP</th><th>PRIORIDADE</th><th>OBSERVAÇÃO</th></tr></thead>
+<tbody>
+<tr><td>Dashboard Familiar mobile-first (clareza estilo <code>meu isaac</code>)</td><td>Fase 1 · Core</td><td><span class="priority p0">P0</span></td><td>Já previsto, elevar qualidade visual</td></tr>
+<tr><td>Gatilho contrato assinado → libera portal da família</td><td>Fase 2 · Gestão</td><td><span class="priority p1">P1</span></td><td>Amarrar <code>contract.status</code> ao <code>family_portal_access</code></td></tr>
+<tr><td>Pagamento via cartão de crédito (além de boleto/Pix)</td><td>Fase 3 · Financeiro</td><td><span class="priority p0">P0</span></td><td>Elevar adimplência; parceria com adquirente</td></tr>
+<tr><td>Negociação self-service pela família</td><td>Fase 3 · Financeiro</td><td><span class="priority p0">P0</span></td><td>Regras pré-configuráveis pelo orientador</td></tr>
+<tr><td>Ticket system interno (família → orientador → Impact X)</td><td>Fase 2 · Gestão</td><td><span class="priority p1">P1</span></td><td>Feature nova, não estava no PRD</td></tr>
+<tr><td>Score de crédito como fator do Farol de Risco</td><td>Fase 3 · Financeiro</td><td><span class="priority p1">P1</span></td><td>Consulta ao responsável na matrícula</td></tr>
+<tr><td>Venda de material/eventos dentro do portal familiar</td><td>Fase 3 · Financeiro</td><td><span class="priority p1">P1</span></td><td>Reaproveita <code>type='outros'</code> de <code>charges</code></td></tr>
+<tr><td>Analytics com benchmark entre unidades</td><td>Pós-MVP</td><td><span class="priority p2">P2</span></td><td>Só faz sentido com 10+ unidades no SaaS</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<footer>
+<div class="brand">IMPACT <span class="x">X</span></div>
+Feito por Impact X — Rafael Camillo · rafael@impactxlab.com
+</footer>
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

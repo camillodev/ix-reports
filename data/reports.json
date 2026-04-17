@@ -1,5 +1,22 @@
 [
   {
+    "title": "Benchmark Isaac — Ideias para o Sistema Kumon",
+    "slug": "benchmark-isaac",
+    "file": "ImpactX_BenchmarkIsaac_202604.html",
+    "date": "2026-04-16",
+    "meta": "Mineração de UX/features do maior player de gestão financeira escolar do Brasil",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "benchmark",
+      "produto",
+      "kumon"
+    ],
+    "icon": "search",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
     "title": "PRD Sistema Kumon Camargos",
     "slug": "prd-sistema-kumon",
     "file": "ImpactX_PRDSistemaKumon_202604.html",
