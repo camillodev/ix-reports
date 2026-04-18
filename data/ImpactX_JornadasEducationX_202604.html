@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Jornadas Education X</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+  /* Journey Map visual — timeline horizontal por persona */
+  .journey-map {
+    margin: 24px 0 40px;
+    padding: 20px;
+    background: var(--ix-surface, #FFFFFF);
+    border: 1px solid var(--ix-border, #E8ECF1);
+    border-radius: 16px;
+    box-shadow: var(--ix-shadow-sm, 0 1px 2px rgba(0,0,0,0.04));
+  }
+  .journey-map h3 { margin: 0 0 16px; font-size: 18px; color: var(--ix-ink, #1A1D21); }
+  .journey-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .journey-step {
+    background: var(--ix-green-tint, #ECFDF5);
+    border: 1px solid var(--ix-green-light, #34D399);
+    border-radius: 12px;
+    padding: 14px;
+    position: relative;
+  }
+  .journey-step::after {
+    content: "→";
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ix-green, #11C76F);
+    font-size: 20px;
+    font-weight: 700;
+    z-index: 2;
+  }
+  .journey-step:last-child::after { display: none; }
+  .journey-step .step-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ix-green-dark, #059669);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 6px;
+  }
+  .journey-step .step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ix-ink, #1A1D21);
+    line-height: 1.3;
+  }
+  .journey-step .step-detail {
+    font-size: 12px;
+    color: var(--ix-muted, #6B7280);
+    margin-top: 6px;
+    line-height: 1.45;
+  }
+  .emotions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .emotion {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .emotion.pain { background: #FEE2E2; color: #B91C1C; }
+  .emotion.win { background: #D1FAE5; color: #065F46; }
+  .emotion.neutral { background: #E5E7EB; color: #374151; }
+
+  /* Sidebar mock visual */
+  .sidebar-mock {
+    display: inline-grid;
+    grid-template-columns: 240px;
+    gap: 2px;
+    background: #F4F6F9;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--ix-border);
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .sidebar-mock .sb-item {
+    padding: 10px 14px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    color: var(--ix-ink);
+  }
+  .sidebar-mock .sb-item.active {
+    background: #D1FAE5;
+    color: var(--ix-green-dark);
+    font-weight: 600;
+  }
+  .sidebar-mock .sb-label {
+    font-size: 10px;
+    color: var(--ix-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    padding: 0 14px;
+  }
+
+  /* Grade horária visual */
+  .schedule-demo {
+    display: grid;
+    grid-template-columns: 60px repeat(5, 1fr);
+    gap: 1px;
+    background: var(--ix-border);
+    border: 1px solid var(--ix-border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+  .schedule-demo > div { background: #FFFFFF; padding: 6px 8px; min-height: 32px; }
+  .schedule-demo .hdr { background: var(--ix-green-tint); font-weight: 700; color: var(--ix-green-dark); text-align: center; }
+  .schedule-demo .time { color: var(--ix-muted); font-weight: 500; }
+  .schedule-demo .slot-mat { background: #DBEAFE; color: #1E40AF; }
+  .schedule-demo .slot-port { background: #D1FAE5; color: #065F46; }
+  .schedule-demo .slot-ing { background: #FEF3C7; color: #92400E; }
+  .schedule-demo .slot-combo {
+    background: linear-gradient(135deg, #DBEAFE 50%, #D1FAE5 50%);
+    color: #1E40AF;
+  }
+
+  /* Persona header */
+  .persona-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: var(--ix-green-tint, #ECFDF5);
+    border-radius: 16px;
+    margin: 20px 0 24px;
+  }
+  .persona-avatar {
+    width: 64px;
+    height: 64px;
+    background: var(--ix-green);
+    color: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .persona-info h2 { margin: 0; font-size: 22px; color: var(--ix-ink); }
+  .persona-info .role { font-size: 13px; color: var(--ix-muted); font-weight: 500; }
+  .persona-info .device { font-size: 12px; color: var(--ix-green-dark); margin-top: 4px; font-weight: 600; }
+
+  /* Objetivos / anti-objetivos */
+  .goal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .goal-card {
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--ix-border);
+    background: #FFFFFF;
+  }
+  .goal-card h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .goal-card.primary h4 { color: var(--ix-green-dark); }
+  .goal-card.secondary h4 { color: var(--ix-muted); }
+  .goal-card.dont h4 { color: #B91C1C; }
+  .goal-card ul { margin: 0; padding-left: 20px; }
+  .goal-card li { margin-bottom: 6px; font-size: 14px; line-height: 1.5; }
+
+  /* Key moment */
+  .key-moment {
+    padding: 16px 20px;
+    background: #FEF3C7;
+    border-left: 4px solid var(--ix-yellow, #FBBF24);
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .key-moment strong { color: #92400E; }
+
+  /* Duration rules */
+  .duration-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .duration-table th {
+    background: var(--ix-green-tint);
+    color: var(--ix-green-dark);
+    font-weight: 700;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid var(--ix-green-light);
+  }
+  .duration-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--ix-border);
+  }
+  .duration-table tr:last-child td { border-bottom: none; }
+
+  /* Pill tags */
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--ix-green-tint);
+    color: var(--ix-green-dark);
+  }
+  .pill.alt { background: #DBEAFE; color: #1E40AF; }
+  .pill.warn { background: #FEF3C7; color: #92400E; }
+
+  /* Executive summary numbers */
+  .kpi-hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .kpi-hero .kpi {
+    padding: 16px;
+    background: #FFFFFF;
+    border: 1px solid var(--ix-border);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .kpi-hero .num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ix-green-dark);
+    font-family: 'Roboto Mono', monospace;
+    line-height: 1;
+  }
+  .kpi-hero .lbl {
+    font-size: 11px;
+    color: var(--ix-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* Section divider */
+  h1.section-title {
+    margin-top: 48px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--ix-green);
+    color: var(--ix-ink);
+    font-size: 28px;
+  }
+  h2.subsection {
+    margin-top: 32px;
+    color: var(--ix-green-dark);
+    font-size: 20px;
+  }
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">← Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Jornadas Education X</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="overview">Visão geral</button>
+  <button type="button" class="tab-btn" data-tab="orientador">Orientador</button>
+  <button type="button" class="tab-btn" data-tab="responsavel">Responsável</button>
+  <button type="button" class="tab-btn" data-tab="atendente">Atendente</button>
+  <button type="button" class="tab-btn" data-tab="regras">Regras de negócio</button>
+  <button type="button" class="tab-btn" data-tab="proximos">Próximos passos</button>
+</nav>
+
+<!-- ============ TAB 1 · VISÃO GERAL ============ -->
+<div class="tab-panel active" data-tab="overview" role="tabpanel" aria-hidden="false">
+  <div class="content">
+
+  <div class="report-header" data-ix-watermark="X">
+    <div class="hdr-brand">IMPACT X</div>
+    <div class="hdr-title">Jornadas <em>Education X</em></div>
+    <div class="hdr-sub">3 personas, 1 plataforma. Como Orientador, Responsável e Atendente usam o sistema no dia a dia.</div>
+    <div class="hdr-meta">17 de abril de 2026 · Rafael Camillo · Confidencial</div>
+  </div>
+
+  <h1 class="section-title">Por que este relatório</h1>
+  <p>
+    Protótipo anterior (v1) da plataforma Education X foi desenhado por módulos (matrícula, cobrança, financeiro, configurações). Ao validar com Pimenta/Nicole percebemos o problema: muita informação por tela, sem hierarquia clara, e não estava claro o que cada persona precisava fazer a cada momento. Este relatório reescreve o protótipo orientado a <strong>jornadas</strong>.
+  </p>
+
+  <div class="kpi-hero">
+    <div class="kpi"><div class="num">3</div><div class="lbl">Personas</div></div>
+    <div class="kpi"><div class="num">68</div><div class="lbl">Alunos ativos</div></div>
+    <div class="kpi"><div class="num">41%</div><div class="lbl">Saem em &lt;3m</div></div>
+    <div class="kpi"><div class="num">6+</div><div class="lbl">Ferramentas hoje</div></div>
+    <div class="kpi"><div class="num">1</div><div class="lbl">Plataforma alvo</div></div>
+  </div>
+
+  <div class="callout info">
+    <strong>Escopo.</strong> Este relatório documenta as 3 jornadas principais do Education X v1 (Orientador, Responsável, Atendente) + regras de negócio transversais. <strong>Admin Impact X ficou fora</strong> porque virou site separado (SaaS multi-unidade).
+  </div>
+
+  <h2 class="subsection">As 3 personas em um slide</h2>
+
+  <div class="persona-header" style="margin-bottom:12px">
+    <div class="persona-avatar">RC</div>
+    <div class="persona-info">
+      <h2>Rafael Camargos · Orientador</h2>
+      <div class="role">Franqueado · Dono da unidade Kumon Camargos</div>
+      <div class="device">Desktop-first · 8h de trabalho, atende pais, revisa auxiliares</div>
+    </div>
+  </div>
+
+  <div class="persona-header" style="margin-bottom:12px">
+    <div class="persona-avatar">JR</div>
+    <div class="persona-info">
+      <h2>Juliana Ribeiro · Responsável</h2>
+      <div class="role">Mãe de Lucas (5º ano) e Helena (3º ano)</div>
+      <div class="device">Mobile-first · Abre link WhatsApp, checa filho, paga boleto</div>
+    </div>
+  </div>
+
+  <div class="persona-header" style="margin-bottom:12px">
+    <div class="persona-avatar">BM</div>
+    <div class="persona-info">
+      <h2>Bianca Moraes · Atendente</h2>
+      <div class="role">Auxiliar · Atendimento</div>
+      <div class="device">Responsivo · Vive no chão de aula (Ter/Qui), feedback semanal (Sexta)</div>
+    </div>
+  </div>
+
+  <div class="persona-header">
+    <div class="persona-avatar">PT</div>
+    <div class="persona-info">
+      <h2>Priscila Tavares · Atendente + Admin</h2>
+      <div class="role">Auxiliar · Atendimento + Administrativo (acumula ambos)</div>
+      <div class="device">Responsivo · Faz tudo que Bianca faz + cadastros + relatório 2 mensal</div>
+    </div>
+  </div>
+
+  <h2 class="subsection">O que mudou vs a versão anterior</h2>
+
+  <table>
+    <thead><tr><th>Problema v1</th><th>Correção jornadas</th></tr></thead>
+    <tbody>
+      <tr><td>Dashboards com 10 KPIs + 3 tabelas</td><td>Home "Hoje" com agenda cronológica (Inbox Zero)</td></tr>
+      <tr><td>Admin Impact X misturado com unidade</td><td>Removido do protótipo (vira site SaaS separado)</td></tr>
+      <tr><td>Financeiro na home do orientador</td><td>Financeiro fica em /cobrança e /financeiro (baixa frequência)</td></tr>
+      <tr><td>Família recebia N boletos (1 por contrato)</td><td>1 boleto consolidado por família por mês (MonthlyBill)</td></tr>
+      <tr><td>Cancelamento desconectado do financeiro</td><td>Simulador dentro do perfil da família, gera charges automaticamente</td></tr>
+      <tr><td>Portal familiar read-only sem pagamento</td><td>Web responsivo mobile-first com link Cora</td></tr>
+      <tr><td>Auxiliar sem organização clara</td><td>Roles array, sidebar dinâmica, Inbox Zero próprio</td></tr>
+      <tr><td>Onboarding de 25 itens (inclui docs/residência)</td><td>Kumon reduzido pra 5 itens (curso livre, sem docs)</td></tr>
+      <tr><td>Wizard com 6 passos longos</td><td>Wizard com 4 passos (passo 4 conclui + starta onboarding)</td></tr>
+    </tbody>
+  </table>
+
+  </div>
+</div>
+
+<!-- ============ TAB 2 · ORIENTADOR ============ -->
+<div class="tab-panel" data-tab="orientador" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+  <div class="persona-header">
+    <div class="persona-avatar">RC</div>
+    <div class="persona-info">
+      <h2>Rafael Camargos · Orientador</h2>
+      <div class="role">Franqueado · Dono da unidade Kumon Camargos</div>
+      <div class="device">Desktop-first</div>
+    </div>
+  </div>
+
+  <h1 class="section-title">Objetivos e contexto</h1>
+
+  <div class="goal-grid">
+    <div class="goal-card primary">
+      <h4>Principais</h4>
+      <ul>
+        <li>Gerenciar relacionamento com famílias (atender pais, reter)</li>
+        <li>Revisar trabalho das auxiliares (relatório 2, feedbacks, metas)</li>
+        <li>Administração financeira pontual (matrículas, boletos, royalty)</li>
+      </ul>
+    </div>
+    <div class="goal-card secondary">
+      <h4>Secundários</h4>
+      <ul>
+        <li>Aprovar matrículas novas</li>
+        <li>Assinar contratos Autentique</li>
+        <li>Conferir reuniões agendadas</li>
+      </ul>
+    </div>
+    <div class="goal-card dont">
+      <h4>Que NÃO faz</h4>
+      <ul>
+        <li>Não registra presença diária (aux faz)</li>
+        <li>Não escreve feedbacks semanais (aux faz)</li>
+        <li>Não acompanha financeiro todo dia (1–2×/mês)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h1 class="section-title">Journey Map — Dia típico</h1>
+
+  <div class="journey-map">
+    <h3>Segunda, 8h → fim do expediente · Filosofia Inbox Zero</h3>
+
+    <div class="journey-timeline">
+      <div class="journey-step">
+        <div class="step-label">08h · Chegada</div>
+        <div class="step-title">Abre "Hoje"</div>
+        <div class="step-detail">Vê agenda cronológica do dia: reuniões, aprovações, alertas farol, lembretes.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">09h · Reunião</div>
+        <div class="step-title">1º mês · Família Silva</div>
+        <div class="step-detail">Clica "Entrar" → link Meet/Zoom. Template de notas já aberto.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">10:30 · Alerta</div>
+        <div class="step-title">Família Mendes vermelho</div>
+        <div class="step-detail">Minimodal: [Ofertar desconto] [Marcar call] [Adiar].</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">11h · Aprova</div>
+        <div class="step-title">Matrícula nova</div>
+        <div class="step-detail">Aluno Carla · 3 disciplinas. Revisa e aprova em 30s.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">14h · Revisão</div>
+        <div class="step-title">Relatório 2 de abril</div>
+        <div class="step-detail">Priscila submeteu. Orientador revisa em batch (7 alunos).</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">17h · Msg</div>
+        <div class="step-title">Pedro aguarda há 4h</div>
+        <div class="step-detail">"Posso pagar dia 25?" → responde inline, thread mantém histórico.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Fim</div>
+        <div class="step-title">✓ Dia fechado</div>
+        <div class="step-detail">"Hoje" vazia = dia acabou. Sem tela-resumo.</div>
+      </div>
+    </div>
+
+    <div class="emotions">
+      <span class="emotion pain">Dor: hoje usa 6+ ferramentas</span>
+      <span class="emotion pain">Dor: 41% saem &lt;3m</span>
+      <span class="emotion win">Ganho: Inbox Zero</span>
+      <span class="emotion win">Ganho: retenção proativa</span>
+      <span class="emotion neutral">Frequência: diário</span>
+    </div>
+  </div>
+
+  <h1 class="section-title">Nova IA do Orientador</h1>
+
+  <div class="sidebar-mock">
+    <div class="sb-label">Orientador</div>
+    <div class="sb-item active">Hoje</div>
+    <div class="sb-item">Alunos</div>
+    <div class="sb-item">Famílias</div>
+    <div class="sb-item">Cobrança</div>
+    <div class="sb-item">Financeiro</div>
+    <div class="sb-item">Configurações</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Seção</th><th>Conteúdo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Hoje</strong></td><td>Agenda cronológica do dia · 4 tipos de item: reuniões, aprovações, alertas farol, lembretes financeiros</td></tr>
+      <tr><td><strong>Alunos</strong></td><td>Lista ordenada por "precisa atenção" (farol vermelho primeiro) · FAB "+ Nova matrícula" fixo · perfil com tabs existentes</td></tr>
+      <tr><td><strong>Famílias</strong></td><td><strong>NOVA</strong> · CRM do orientador · perfil 3 colunas (identidade+filhos / inbox mensagens / ações rápidas)</td></tr>
+      <tr><td><strong>Cobrança</strong></td><td>Lista de <code>MonthlyBill</code> por mês · simulador de rescisão vive dentro do perfil da família</td></tr>
+      <tr><td><strong>Financeiro</strong></td><td>KPIs · Receber · Pagar priorizado (5 níveis) · Royalty · Reajuste IPCA</td></tr>
+      <tr><td><strong>Configurações</strong></td><td>Catálogo matérias · descontos · cobrança (offsets, dia venc) · modelo royalty · usuários e papéis</td></tr>
+    </tbody>
+  </table>
+
+  <h1 class="section-title">Home "Hoje" · detalhe</h1>
+
+  <div class="callout success">
+    <strong>Decisões congeladas:</strong>
+    <ul>
+      <li>4 tipos de item: reuniões · aprovações · alertas farol · lembretes financeiros</li>
+      <li>Minimodal de ação para famílias em risco (não navega)</li>
+      <li>Financeiro só aparece contextualmente (baixa frequência)</li>
+      <li>Ordenação por prioridade: reuniões → vermelho → aprovações → financeiro → amarelo/mensagens</li>
+      <li>Empty state: "Nada pendente hoje. Você atualizou tudo. Descansa."</li>
+    </ul>
+  </div>
+
+  <div class="key-moment">
+    <strong>Minimodal de ação (família em risco):</strong>
+    <ul>
+      <li>🎁 Oferecer % desconto</li>
+      <li>📅 Marcar reunião de retenção</li>
+      <li>⏰ Adiar pra amanhã</li>
+      <li>→ Ver perfil completo (leva pra /familias/[id])</li>
+    </ul>
+  </div>
+
+  <h1 class="section-title">Seção Famílias (nova)</h1>
+  <p>
+    Rota <code>/orientador/familias</code>. Esta é a seção que faltava na v1 — o <strong>CRM do orientador</strong>. Centraliza:
+  </p>
+
+  <div class="goal-grid">
+    <div class="goal-card primary">
+      <h4>Perfil 3 colunas</h4>
+      <ul>
+        <li><strong>Esquerda (40%)</strong>: identidade + filhos + contratos</li>
+        <li><strong>Centro (40%)</strong>: inbox conversas (WA + e-mail + portal) + tickets</li>
+        <li><strong>Direita (20%)</strong>: MonthlyBill atual + ações rápidas (simular rescisão, oferecer desconto, marcar reunião)</li>
+      </ul>
+    </div>
+    <div class="goal-card secondary">
+      <h4>Lista</h4>
+      <ul>
+        <li>Ordenada por "precisa atenção"</li>
+        <li>Badge "em risco" quando qualquer filho está amarelo/vermelho</li>
+        <li>Contador de escalonamento (ex: "atraso 8d — firme")</li>
+        <li>Filtros: busca, status boleto, banda risco, tem ticket aberto</li>
+      </ul>
+    </div>
+  </div>
+
+  <h1 class="section-title">Atendimento a pais · unificado</h1>
+  <p>
+    Inbox de mensagens <strong>não é rota separada</strong>. Vive em dois lugares:
+  </p>
+  <ul>
+    <li>Como <strong>item da Hoje</strong> quando há mensagem aguardando &gt;2h.</li>
+    <li>Como <strong>coluna central</strong> no perfil da família.</li>
+  </ul>
+  <p>
+    <strong>Ticket system (Benchmark Isaac P1):</strong> família abre ticket no portal → orientador resolve → escala pra Impact X via WhatsApp pessoal (L3) apenas se L2 não consegue. Família nunca fala com fornecedor do sistema.
+  </p>
+
+  </div>
+</div>
+
+<!-- ============ TAB 3 · RESPONSÁVEL ============ -->
+<div class="tab-panel" data-tab="responsavel" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+  <div class="persona-header">
+    <div class="persona-avatar">JR</div>
+    <div class="persona-info">
+      <h2>Juliana Ribeiro · Responsável</h2>
+      <div class="role">Mãe de Lucas (5º ano EF · Mat+Port) e Helena (3º ano EF · Mat)</div>
+      <div class="device">Mobile-first · Web responsiva, abre link WhatsApp</div>
+    </div>
+  </div>
+
+  <h1 class="section-title">Objetivos e contexto</h1>
+
+  <div class="goal-grid">
+    <div class="goal-card primary">
+      <h4>Principais</h4>
+      <ul>
+        <li>Acompanhar o filho (progresso, feedbacks, metas, medalhas)</li>
+        <li>Garantir que o pagamento está em dia (ver boleto atual + histórico)</li>
+      </ul>
+    </div>
+    <div class="goal-card secondary">
+      <h4>Secundários</h4>
+      <ul>
+        <li>Marcar call com o orientador (via Calendly configurado)</li>
+        <li>Ver comunicações que o orientador/aux mandaram (read-only)</li>
+      </ul>
+    </div>
+    <div class="goal-card dont">
+      <h4>NÃO faz</h4>
+      <ul>
+        <li>Não vê risco de cancelamento nem simulador rescisão</li>
+        <li>Não renegocia boletos self-service (fica no backlog)</li>
+        <li>Não abre ticket formal (MVP = Calendly)</li>
+        <li>Não edita nada do filho</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>Gatilho de acesso ao portal:</strong> quando <code>contract.status = "assinado"</code>, sistema liga <code>guardian.familyPortalAccess = true</code> automaticamente (Benchmark Isaac P1). Orientador pode desligar manualmente.
+  </div>
+
+  <h1 class="section-title">Journey Map — Dia típico</h1>
+
+  <div class="journey-map">
+    <h3>Manhã qualquer · Abre link WhatsApp recebido do orientador</h3>
+
+    <div class="journey-timeline">
+      <div class="journey-step">
+        <div class="step-label">07h · Gatilho</div>
+        <div class="step-title">Lembrete WA</div>
+        <div class="step-detail">"Feedback novo do Lucas" · clica no link · abre já logado (magic link).</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">10s · Dashboard</div>
+        <div class="step-title">Cards dos filhos no topo</div>
+        <div class="step-detail">Lucas: ✨ Feedback novo · 🎯 Meta 80% Abr · 🏅 Bronze · Helena: sem novidade</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Clique</div>
+        <div class="step-title">Abre Lucas</div>
+        <div class="step-detail">Perfil read-only com abas Progresso/Presença/Feedbacks/Metas/Medalhas/Reuniões.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Check</div>
+        <div class="step-title">Lê feedback</div>
+        <div class="step-detail">Texto da aux: resumo semana + plano próxima. Marca como visto.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Volta</div>
+        <div class="step-title">Card boleto embaixo</div>
+        <div class="step-detail">R$ 1.280 vence 10/05 · clica "Pagar no Cora" · abre link externo.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Opcional</div>
+        <div class="step-title">Marca call</div>
+        <div class="step-detail">Se orientador configurou Calendly, link "Falar com orientador" no sidebar.</div>
+      </div>
+    </div>
+
+    <div class="emotions">
+      <span class="emotion win">Ganho: 1 boleto consolidado (não 6)</span>
+      <span class="emotion win">Ganho: vê progresso do filho</span>
+      <span class="emotion win">Ganho: mobile-first, sem app</span>
+      <span class="emotion pain">Dor antiga: ping-pong escola/Isaac</span>
+      <span class="emotion neutral">Frequência: ~3×/semana</span>
+    </div>
+  </div>
+
+  <h1 class="section-title">Sidebar condicional</h1>
+
+  <div class="sidebar-mock">
+    <div class="sb-label">Responsável</div>
+    <div class="sb-item active">Dashboard</div>
+    <div class="sb-item">Filhos</div>
+    <div class="sb-item">Boletos</div>
+    <div class="sb-item">📅 Suporte</div>
+  </div>
+
+  <div class="callout warning">
+    <strong>Suporte é condicional:</strong> só aparece se o orientador configurou <code>unit.billingConfig.calendlyUrl</code>. Se não, nem link nem rota existem. Regra crítica fechada com Rafael.
+  </div>
+
+  <h1 class="section-title">Dashboard · cards filhos em cima</h1>
+  <p>
+    <strong>Confirmado com Rafael:</strong> acompanhamento pedagógico é protagonista; pagamento é info secundária.
+  </p>
+
+  <table>
+    <thead><tr><th>Bloco</th><th>Conteúdo</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Cards de filhos (topo)</strong></td>
+        <td>
+          1 card por filho · nome + série · chips coloridos de disciplinas (Mat azul, Port verde, Inglês amarelo) · até 3 badges de destaque (<code>✨ Feedback novo</code> · <code>🎯 Meta</code> · <code>🏅 Medalha</code> · <code>📅 Próx reunião</code> · <code>🔴 Faltou</code>) · botão "Ver perfil"
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Card próximo boleto (abaixo)</strong></td>
+        <td>
+          "Próximo boleto · Vence 10/05 · R$ 1.280" · status colorido · botão <strong>"Pagar no Cora"</strong> (link externo) · se há mais de 1 boleto aberto, empilham mas só o próximo destaca
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Suporte (se ativado)</strong></td>
+        <td>Link "Marcar call com orientador" → abre Calendly configurado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1 class="section-title">Tela Boletos · timeline</h1>
+
+  <div class="callout info">
+    <strong>Próximo em destaque, histórico compacto.</strong> Detalhamento do próximo mostra breakdown do <code>MonthlyBill</code> (1 boleto consolidado da família): soma das matérias de Lucas + Helena. Pai vê que R$ 1.280 é a conta toda.
+  </div>
+
+  <h1 class="section-title">O que NÃO tem no MVP (fica no backlog)</h1>
+  <ul>
+    <li>Renegociação self-service (Isaac P0)</li>
+    <li>Ticket system interno (Isaac P1)</li>
+    <li>Pagamento embarcado (boleto/PIX/cartão dentro do app)</li>
+    <li>App mobile nativo (só web responsiva)</li>
+    <li>Mensageria in-app (só Calendly)</li>
+    <li>Surveys PostHog pós-reunião</li>
+    <li>Notificações push</li>
+    <li>Score de crédito do responsável (Isaac P1)</li>
+  </ul>
+
+  </div>
+</div>
+
+<!-- ============ TAB 4 · ATENDENTE ============ -->
+<div class="tab-panel" data-tab="atendente" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+  <div class="persona-header">
+    <div class="persona-avatar">BM</div>
+    <div class="persona-info">
+      <h2>Atendente · 2 subtipos acumuláveis</h2>
+      <div class="role">Bianca Moraes (só Atendimento) · Priscila Tavares (Atendimento + Administrativo)</div>
+      <div class="device">Responsivo · usa celular no chão de aula</div>
+    </div>
+  </div>
+
+  <h1 class="section-title">Objetivos e contexto</h1>
+
+  <div class="goal-grid">
+    <div class="goal-card primary">
+      <h4>Atendimento (Bianca)</h4>
+      <ul>
+        <li>Atender alunos na aula, corrigir material</li>
+        <li>Registrar presença (Ter/Qui)</li>
+        <li>Escrever feedbacks semanais (Sexta)</li>
+        <li>Definir/acompanhar metas (início + virada do mês)</li>
+        <li>Programar material da aula/casa</li>
+      </ul>
+    </div>
+    <div class="goal-card primary">
+      <h4>Administrativo (Priscila) +</h4>
+      <ul>
+        <li>Cadastros completos de alunos</li>
+        <li>Wizard de matrícula</li>
+        <li>Relatório 2 mensal (consolida + submete pro orientador)</li>
+      </ul>
+    </div>
+    <div class="goal-card dont">
+      <h4>Aux Admin NÃO faz (difere do PRD 1.1)</h4>
+      <ul>
+        <li>Emissão/edição de boletos (orientador only)</li>
+        <li>Configuração do catálogo/royalty/cobrança (orientador only)</li>
+        <li>Inbox de famílias (orientador only)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>Roles como array.</strong> <code>User.roles: ["atendimento", "administrativo"]</code> pode ter ambos. Sidebar dinâmica: 4 itens pra Atendimento puro, 6 pra Administrativa. Decisão supersede PRD v1 que usava <code>role</code> único + flags.
+  </div>
+
+  <h1 class="section-title">Journey Map — Semana canônica</h1>
+
+  <div class="journey-map">
+    <h3>Rotina PRD 3.3 · de segunda a sexta</h3>
+    <div class="journey-timeline">
+      <div class="journey-step">
+        <div class="step-label">Ter/Qui · 14h</div>
+        <div class="step-title">Dia de aula</div>
+        <div class="step-detail">Home "Hoje" lista aulas do dia cronológicas · toggle presente/ausente/justificada.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Entre aulas</div>
+        <div class="step-title">Corrigir material</div>
+        <div class="step-detail">3–5 min livres · aba Presença + anotações rápidas · programa material próxima semana.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Sexta</div>
+        <div class="step-title">12 feedbacks pendentes</div>
+        <div class="step-detail">Fluxo guiado 1 a 1 · resumo + plano · botão "Salvar e enviar WA →" + "Próximo aluno".</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Dia 1–5</div>
+        <div class="step-title">Definir metas</div>
+        <div class="step-detail">"Hoje" mostra badge "4 alunos sem meta de maio" · aux navega aluno por aluno.</div>
+      </div>
+      <div class="journey-step">
+        <div class="step-label">Virada</div>
+        <div class="step-title">Dia da Meta</div>
+        <div class="step-detail">"Verificar quem bateu (7 alunos)" · marca <code>achieved</code> · registra brinde entregue.</div>
+      </div>
+    </div>
+
+    <div class="emotions">
+      <span class="emotion pain">Dor antiga: papel + Excel + WhatsApp</span>
+      <span class="emotion win">Ganho: Inbox Zero diário</span>
+      <span class="emotion win">Ganho: feedback guiado 1 a 1</span>
+      <span class="emotion neutral">Frequência: diário (aula) + semanal (feedback)</span>
+    </div>
+  </div>
+
+  <h1 class="section-title">Sidebar dinâmica por roles</h1>
+
+  <div class="pills">
+    <span class="pill">Atendimento → 4 itens</span>
+    <span class="pill alt">Administrativo → +2 itens (6 total)</span>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:16px;">
+    <div>
+      <h4 style="color:var(--ix-green-dark)">Bianca · Atendimento</h4>
+      <div class="sidebar-mock" style="margin-top:0">
+        <div class="sb-label">Auxiliar</div>
+        <div class="sb-item active">Hoje</div>
+        <div class="sb-item">Alunos</div>
+        <div class="sb-item">Feedbacks</div>
+        <div class="sb-item">Grade</div>
+      </div>
+    </div>
+    <div>
+      <h4 style="color:var(--ix-green-dark)">Priscila · Atendimento + Admin</h4>
+      <div class="sidebar-mock" style="margin-top:0">
+        <div class="sb-label">Auxiliar</div>
+        <div class="sb-item active">Hoje</div>
+        <div class="sb-item">Alunos</div>
+        <div class="sb-item">Feedbacks</div>
+        <div class="sb-item">Grade</div>
+        <div class="sb-item">Cadastros</div>
+        <div class="sb-item">Relatório 2</div>
+      </div>
+    </div>
+  </div>
+
+  <h1 class="section-title">Regras importantes</h1>
+
+  <div class="callout success">
+    <strong>Toggle "Meus / Todos" no topo da lista de alunos e da grade.</strong> Default = meus. Aux pode ver e registrar presença/feedback em alunos de outras auxiliares (coberturas de turno) — PRD 1.2.
+  </div>
+
+  <div class="callout success">
+    <strong>Feedback semanal = fluxo guiado 1 a 1.</strong> Lista "Pendentes" abre wizard: aluno 1 → resumo + plano → "Salvar e enviar WA →" → aluno 2. Marca <code>feedback.sentViaWhatsapp = true</code> automático.
+  </div>
+
+  <div class="callout success">
+    <strong>Metas dentro do perfil do aluno.</strong> Sem seção global <code>/metas</code>. Aux navega aluno por aluno quando for definir/verificar. Home "Hoje" alerta quando tem backlog.
+  </div>
+
+  <div class="callout warning">
+    <strong>Aux administrativa NÃO faz boletos no MVP.</strong> Diferente do PRD v1.1 original. Boletos ficam só com orientador. Administrativa adiciona cadastros + Relatório 2.
+  </div>
+
+  <h1 class="section-title">Relatório 2 mensal (Aux Adm)</h1>
+  <p>
+    Por aluno: estágio atual + folhas corrigidas + ST1/ST2 realizados. Sistema consolida → submete pro orientador → "Hoje" do orientador mostra "Revisar relatório 2 de [mês] (X alunos)" → orientador aprova → snapshot finalizado (pode exportar pro Ksis).
+  </p>
+
+  </div>
+</div>
+
+<!-- ============ TAB 5 · REGRAS DE NEGÓCIO ============ -->
+<div class="tab-panel" data-tab="regras" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+  <div class="report-header">
+    <div class="hdr-brand">REGRAS DE NEGÓCIO</div>
+    <div class="hdr-title">Operação transversal das 3 <em>jornadas</em></div>
+    <div class="hdr-sub">Grade horária, duração de aula, wizard de matrícula, onboarding e personalização por unidade.</div>
+  </div>
+
+  <h1 class="section-title">1 · Personalização por unidade/tipo de escola</h1>
+
+  <div class="callout success">
+    <strong>Decisão fechada:</strong> MVP = só Kumon. Arquitetura como <strong>strategy pattern</strong> pra abrir caminho de outras escolas sem refactor grande. Kumon é "curso livre" (sem documentos, onboarding leve). Escola formal será outro template no futuro (placeholder no código).
+  </div>
+
+  <div class="pills">
+    <span class="pill">kumon = curso livre</span>
+    <span class="pill alt">escola_formal = placeholder</span>
+  </div>
+
+  <p>
+    <code>Unit.templateType</code> define qual template carregar. Componentes de onboarding, wizard e grade consultam o template ativo e ajustam campos, validações e itens da UI.
+  </p>
+
+  <h1 class="section-title">2 · Duração de aula · tabela Kumon</h1>
+
+  <p>Configurável por unidade. Default Kumon:</p>
+
+  <table class="duration-table">
+    <thead><tr><th>Categoria</th><th>Duração</th><th>Uso na grade</th></tr></thead>
+    <tbody>
+      <tr><td>Pré-escolar</td><td>até <strong>30 min</strong></td><td>1 slot de 30 min</td></tr>
+      <tr><td>1 disciplina (não pré-escolar)</td><td><strong>1 h</strong></td><td>2 slots consecutivos</td></tr>
+      <tr><td>2 disciplinas</td><td><strong>1 h 30 min a 2 h</strong></td><td>3 a 4 slots consecutivos</td></tr>
+      <tr><td>3 disciplinas</td><td><strong>2 h a 2 h 30 min</strong></td><td>4 a 5 slots consecutivos</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Detecção de "pré-escolar": série começa com <code>PRE</code>/<code>F1</code> OU idade &lt; 6 anos. Flag <code>student.isPreEscolar</code> cacheada.
+  </p>
+
+  <div class="callout info">
+    <strong>Aplicação:</strong> wizard de matrícula sugere duração ao escolher série+disciplinas; grade semanal ocupa slots contíguos; validação emite warning (não bloqueio) se fora do range.
+  </div>
+
+  <h1 class="section-title">3 · Quadro de horários (grade semanal)</h1>
+
+  <p>Rota <code>/orientador/grade</code> + widget "Hoje" com aulas do dia.</p>
+
+  <h3>Exemplo visual · terça-feira</h3>
+
+  <div class="schedule-demo">
+    <div class="hdr"></div>
+    <div class="hdr">Seg</div>
+    <div class="hdr">Ter</div>
+    <div class="hdr">Qua</div>
+    <div class="hdr">Qui</div>
+    <div class="hdr">Sex</div>
+
+    <div class="time">14:00</div>
+    <div></div>
+    <div class="slot-combo">Lucas R.<br><small>Mat+Port · Bianca</small></div>
+    <div></div>
+    <div class="slot-combo">Lucas R.<br><small>Mat+Port · Bianca</small></div>
+    <div></div>
+
+    <div class="time">14:30</div>
+    <div></div>
+    <div class="slot-combo">Lucas R.<br><small>Mat+Port</small></div>
+    <div></div>
+    <div class="slot-combo">Lucas R.<br><small>Mat+Port</small></div>
+    <div></div>
+
+    <div class="time">15:00</div>
+    <div></div>
+    <div class="slot-mat">Maria Lima<br><small>Mat · Priscila</small></div>
+    <div></div>
+    <div class="slot-mat">Maria Lima<br><small>Mat · Priscila</small></div>
+    <div></div>
+
+    <div class="time">15:30</div>
+    <div></div>
+    <div class="slot-port">Pedro Mendes<br><small>Port</small></div>
+    <div></div>
+    <div class="slot-port">Pedro Mendes<br><small>Port</small></div>
+    <div></div>
+
+    <div class="time">16:00</div>
+    <div></div>
+    <div class="slot-ing">Caio Alves<br><small>Inglês</small></div>
+    <div></div>
+    <div class="slot-ing">Caio Alves<br><small>Inglês</small></div>
+    <div></div>
+  </div>
+
+  <p>
+    <strong>Cores por disciplina:</strong>
+    <span class="pill alt">Matemática · azul</span>
+    <span class="pill">Português · verde</span>
+    <span class="pill warn">Inglês · amarelo</span>
+    · Multi-disciplina = gradiente split.
+  </p>
+
+  <p>
+    <strong>Filtros da grade:</strong> escopo (meus/todos), auxiliar, disciplina. Toggle entre visão diária e semanal.
+  </p>
+
+  <h1 class="section-title">4 · Matrícula · wizard refinado</h1>
+
+  <p>Ajustes fechados com Rafael pós-brainstorm Orientador:</p>
+
+  <table>
+    <thead><tr><th>Campo</th><th>Antes</th><th>Agora</th></tr></thead>
+    <tbody>
+      <tr><td>Série</td><td>Input livre</td><td><strong>Dropdown</strong> com PRE, F1, F2, 1EF..9EF, 1EM..3EM</td></tr>
+      <tr><td>Dias de estudo</td><td>Input texto ("Ter/Qui")</td><td><strong>Checkboxes</strong> de Seg a Sáb</td></tr>
+      <tr><td>Disciplina</td><td>Lista fechada do catálogo</td><td>Lista + <strong>"+ Adicionar disciplina"</strong> ad-hoc (dialog compacto)</td></tr>
+      <tr><td>Etapas</td><td>6 passos</td><td><strong>4 passos</strong>: Aluno → Responsável → Disciplinas → Revisão/Conclusão</td></tr>
+      <tr><td>Passo 4</td><td>Revisão apenas</td><td>Revisão + <strong>conclui matrícula</strong> + <strong>starta onboarding</strong> automático</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <strong>Passo 4 é o suficiente para concluir.</strong> Ao clicar "Concluir matrícula e iniciar onboarding": cria Contract (rascunho), Enrollment (pendente), OnboardingChecklist (template Kumon, 5 itens) e navega direto pro perfil do aluno, aba Onboarding.
+  </div>
+
+  <h1 class="section-title">5 · Onboarding Kumon · checklist reduzido</h1>
+
+  <div class="callout warning">
+    <strong>Removidos do checklist Kumon</strong> (entra em outros templates futuros):
+    <ul>
+      <li>Conferência de documento do aluno (Rafael: "a gente não confere, mas faz sentido. Podemos colocar opção no processo, avaliar" → fora MVP)</li>
+      <li>Comprovante de residência (Rafael: "também não pedimos")</li>
+      <li>Data, hora e link de reunião de avaliação (Rafael: "não vejo necessidade")</li>
+    </ul>
+  </div>
+
+  <h3>Checklist Kumon MVP — 5 itens</h3>
+  <ol>
+    <li>Teste diagnóstico realizado</li>
+    <li>Ponto de partida definido (texto — ex: "4A Mat", "PP Port")</li>
+    <li>Check de rotina em casa com família (após 1ª semana)</li>
+    <li>Check de rotina em casa com aluno (após 1ª semana)</li>
+    <li>Agendamento da reunião do 1º mês (só marca que foi agendada — data/link vivem em <code>Meeting</code> separado)</li>
+  </ol>
+
+  <p>
+    <strong>Local do checklist:</strong> aba "Onboarding" no perfil do aluno. Orientador e auxiliar podem marcar. Aluno fica com badge "Em onboarding" na lista enquanto não completa.
+  </p>
+
+  <h1 class="section-title">6 · Multi-tenant · preparação</h1>
+
+  <p>
+    Mesmo com MVP só Kumon, a arquitetura do <code>UnitTemplate</code> deixa pronto pra plugar outros tipos de escola:
+  </p>
+
+  <div class="goal-grid">
+    <div class="goal-card primary">
+      <h4>Template define</h4>
+      <ul>
+        <li>Checklist de onboarding (itens fixos)</li>
+        <li>Regras de duração de aula</li>
+        <li>Overrides do wizard</li>
+        <li>Catálogo default de matérias</li>
+      </ul>
+    </div>
+    <div class="goal-card secondary">
+      <h4>Escola formal (dead code)</h4>
+      <ul>
+        <li>RG, CPF, comprovante residência</li>
+        <li>Histórico escolar, declaração de matrícula</li>
+        <li>Prontuário médico</li>
+        <li>Boletim por bimestre</li>
+        <li>Não entra no MVP — placeholder no código</li>
+      </ul>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- ============ TAB 6 · PRÓXIMOS PASSOS ============ -->
+<div class="tab-panel" data-tab="proximos" role="tabpanel" aria-hidden="true">
+  <div class="content">
+
+  <h1 class="section-title">Roadmap de PRs</h1>
+
+  <p>Cada jornada virou uma sequência de PRs pequenos, priorizados pela dor que resolvem. Estimativa total: <strong>12–18 dias úteis</strong>.</p>
+
+  <h2 class="subsection">Jornada Orientador (5 PRs · ~6 dias)</h2>
+  <table>
+    <thead><tr><th>PR</th><th>Escopo</th><th>Tempo</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>Home "Hoje" (Inbox Zero, 4 tipos de item, minimodal de ação)</td><td>1 dia</td></tr>
+      <tr><td>B</td><td>Sidebar v2 + Alunos ordenado por atenção (farol primeiro)</td><td>1 dia</td></tr>
+      <tr><td>C</td><td>Seção Famílias (nova) + perfil 3 colunas + inbox conversa</td><td>2 dias</td></tr>
+      <tr><td>D</td><td>Cobrança aponta pra /familias (consolida MonthlyBill)</td><td>½ dia</td></tr>
+      <tr><td>E</td><td>Financeiro 4 tabs (KPIs · Receber · Pagar priorizado · Royalty/IPCA)</td><td>1½ dia</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="subsection">Jornada Responsável (4 PRs · ~3 dias)</h2>
+  <table>
+    <thead><tr><th>PR</th><th>Escopo</th><th>Tempo</th></tr></thead>
+    <tbody>
+      <tr><td>F</td><td>Dashboard familiar (cards filhos em cima, boleto embaixo)</td><td>1 dia</td></tr>
+      <tr><td>G</td><td>Tela Boletos timeline (próximo em destaque + histórico compacto)</td><td>½ dia</td></tr>
+      <tr><td>H</td><td>Suporte + Calendly condicional</td><td>½ dia</td></tr>
+      <tr><td>I</td><td>Bottom nav mobile (breakpoints &lt; 768px)</td><td>½ dia</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="subsection">Jornada Atendente (5 PRs · ~6 dias)</h2>
+  <table>
+    <thead><tr><th>PR</th><th>Escopo</th><th>Tempo</th></tr></thead>
+    <tbody>
+      <tr><td>J</td><td>Home "Hoje" do Atendente (reuso agenda + builder próprio)</td><td>1 dia</td></tr>
+      <tr><td>K</td><td>Lista alunos com toggle Meus/Todos</td><td>½ dia</td></tr>
+      <tr><td>L</td><td>Fluxo Feedbacks guiado (wizard 1 a 1)</td><td>1 dia</td></tr>
+      <tr><td>M</td><td>Grade semanal compartilhada (orientador + atendente via scope)</td><td>1½ dia</td></tr>
+      <tr><td>N</td><td>Cadastros + Relatório 2 (Aux Adm only, sidebar dinâmica)</td><td>2 dias</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="subsection">Regras de Negócio (4 PRs · ~3½ dias)</h2>
+  <table>
+    <thead><tr><th>PR</th><th>Escopo</th><th>Tempo</th></tr></thead>
+    <tbody>
+      <tr><td>O</td><td>Class duration + validação no wizard</td><td>½ dia</td></tr>
+      <tr><td>P</td><td>Wizard refinado (série dropdown, dias checkbox, passo 4 conclui)</td><td>1 dia</td></tr>
+      <tr><td>Q</td><td>Grade semanal (rota + widget Hoje)</td><td>1½ dia</td></tr>
+      <tr><td>R</td><td>Onboarding template Kumon + aba no perfil</td><td>1 dia</td></tr>
+    </tbody>
+  </table>
+
+  <h1 class="section-title">Fora do escopo (backlog)</h1>
+  <ul>
+    <li>Admin Impact X → vira site SaaS separado (<code>impact-x-admin</code> futuro)</li>
+    <li>Pagamento embarcado (boleto/PIX/cartão dentro do app)</li>
+    <li>Renegociação self-service pela família (Isaac P0)</li>
+    <li>Ticket system interno (Isaac P1)</li>
+    <li>Score de crédito do responsável (Isaac P1)</li>
+    <li>App mobile nativo (só web responsiva)</li>
+    <li>Surveys PostHog pós-reunião / NPS orientador</li>
+    <li>Integrações reais (Cora API, WhatsApp Business, Autentique API)</li>
+    <li>Template "escola_formal" ativo (placeholder no código)</li>
+    <li>UI de edição do template pela unidade</li>
+    <li>Alunos adiantados (update v1.1 Pimenta)</li>
+    <li>Custos operacionais fixos no financeiro (aluguel, salários)</li>
+  </ul>
+
+  <h1 class="section-title">Decisões congeladas nesta rodada</h1>
+
+  <div class="callout success">
+    <strong>Arquitetura / UX</strong>
+    <ul>
+      <li>Admin Impact X removido — vira site separado</li>
+      <li>Home "Hoje" Inbox Zero (3 personas)</li>
+      <li>Sidebar Orientador: Hoje / Alunos / Famílias / Cobrança / Financeiro / Configurações</li>
+      <li>Sidebar Responsável: 3 ou 4 itens (Suporte condicional ao Calendly)</li>
+      <li>Sidebar Auxiliar: dinâmica por roles[] — 4 ou 6 itens</li>
+      <li>Famílias é seção nova do orientador (CRM) — perfil 3 colunas</li>
+      <li>Mobile-first pra família, desktop-first pra orientador/auxiliar</li>
+    </ul>
+  </div>
+
+  <div class="callout success">
+    <strong>Modelo / regras</strong>
+    <ul>
+      <li>MonthlyBill consolidado por responsável + mês (1 boleto/família)</li>
+      <li>Multi-tenant preparado via strategy (Kumon only no MVP)</li>
+      <li>Duração de aula configurável por unidade (tabela Kumon default)</li>
+      <li>Onboarding Kumon reduzido pra 5 itens</li>
+      <li>Wizard em 4 passos (passo 4 conclui + starta onboarding)</li>
+      <li>Série = dropdown, dias = checkboxes, disciplina ad-hoc permitida</li>
+      <li>Roles como array em User</li>
+      <li>Aux Admin NÃO faz boletos (diferente do PRD v1 original)</li>
+      <li>Grade horária com cores por disciplina (Mat azul, Port verde, Inglês amarelo)</li>
+      <li>Gatilho <code>contract.status = "assinado"</code> → <code>familyPortalAccess = true</code></li>
+    </ul>
+  </div>
+
+  <h1 class="section-title">Como navegar este documento</h1>
+
+  <div class="callout info">
+    <strong>Sources on GitHub</strong> — os specs completos (incluindo código, tipos TS e PRs detalhados) vivem em <code>docs/superpowers/specs/</code> do repo <code>kumon-app</code>:
+    <ul>
+      <li><code>2026-04-17-journey-orientador-design.md</code></li>
+      <li><code>2026-04-17-journey-responsavel-design.md</code></li>
+      <li><code>2026-04-17-journey-atendente-design.md</code></li>
+      <li><code>2026-04-17-regras-negocio-design.md</code></li>
+      <li><code>2026-04-17-education-x-v2-design.md</code> (spec-mãe v2)</li>
+    </ul>
+  </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  Feito por Impact X — Rafael Camillo
+</footer>
+
+<script src="../assets/js/report.js"></script>
+</body>
+</html>

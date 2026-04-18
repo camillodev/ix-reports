@@ -1,5 +1,41 @@
 [
   {
+    "title": "Jornadas Education X — Orientador, Responsável, Atendente",
+    "slug": "education-x-jornadas-202604",
+    "file": "ImpactX_JornadasEducationX_202604.html",
+    "date": "2026-04-17",
+    "meta": "3 user journeys + regras de negócio + próximos passos do protótipo Education X v1 (Kumon Camargos piloto)",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "produto",
+      "ux",
+      "jornada",
+      "kumon"
+    ],
+    "icon": "diagram-3",
+    "type": "html",
+    "access": "empresa"
+  },
+  {
+    "title": "Jornadas Education X — PDF",
+    "slug": "education-x-jornadas-202604-pdf",
+    "file": "downloads/ImpactX_JornadasEducationX_202604.pdf",
+    "date": "2026-04-17",
+    "meta": "Mesma fonte do relatório HTML, em PDF para compartilhar offline",
+    "client": "kumon",
+    "project": null,
+    "tags": [
+      "produto",
+      "ux",
+      "jornada",
+      "kumon"
+    ],
+    "icon": "file-earmark-pdf",
+    "type": "pdf",
+    "access": "empresa"
+  },
+  {
     "title": "Kumon-app — Cobrança Sem Barreira Bancária",
     "slug": "kumon-sem-barreira-bancaria",
     "file": "downloads/ImpactX_KumonSemBarreiraBancaria_202604.pdf",
