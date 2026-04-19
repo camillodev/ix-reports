@@ -1012,6 +1012,87 @@ h1.title { string-set: doctitle content(); }
   margin: 1.5rem 0;
 }
 
+/* ------------------------------------------------------- Checklists (HTML) */
+
+.checklist {
+  margin: 12px 0;
+  padding: 0;
+}
+
+.checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ix-ink);
+  cursor: default;
+  border-bottom: 1px solid var(--ix-border);
+}
+
+.checklist label:last-child {
+  border-bottom: none;
+}
+
+.checklist input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid var(--ix-green);
+  border-radius: 4px;
+  background: #FFFFFF;
+  margin-top: 2px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checklist input[type="checkbox"]:checked {
+  background: var(--ix-green);
+}
+
+.checklist input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: -1px;
+  left: 2px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Markdown checklists fallback (task lists) */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ix-green);
+  border-radius: 3px;
+  background: #FFFFFF;
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--ix-green);
+}
+
+/* ------------------------------------------------------- Table header green */
+
+thead {
+  background: var(--ix-green-dark) !important;
+  color: #FFFFFF !important;
+}
+
+th {
+  color: #FFFFFF !important;
+  font-weight: 700;
+}
+
 /* Life: ainda mais generoso — ajuste para a nova base */
 body.life p, body.life li { font-size: 16px; line-height: 1.9; }
 body.life h1 { font-size: 34px; }
