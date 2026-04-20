@@ -1,5 +1,25 @@
 [
   {
+    "title": "Reunião de Estratégia — Pimenta × Camillo",
+    "slug": "reuniao-estrategia-board-abril-2026",
+    "file": "empresa/reuniao-estrategia-board-abril-2026.html",
+    "date": "2026-04-20",
+    "meta": "Board interativo para reunião de estratégia de 90 dias da Impact X",
+    "client": "impact-x",
+    "project": null,
+    "tags": [
+      "estratégia",
+      "board",
+      "reunião",
+      "pimenta",
+      "90-dias"
+    ],
+    "icon": "easel",
+    "type": "html",
+    "pinned": false,
+    "access": "empresa"
+  },
+  {
     "title": "Jornadas Education X — Orientador, Responsável, Atendente",
     "slug": "education-x-jornadas-202604",
     "file": "ImpactX_JornadasEducationX_202604.html",

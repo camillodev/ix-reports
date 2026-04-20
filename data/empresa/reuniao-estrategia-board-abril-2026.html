@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunião de Estratégia — Pimenta × Camillo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://reports.impactxlab.com/assets/css/report.css">
+<style>
+  :root {
+    --ink: #1A1D21;
+    --muted: #6B7280;
+    --green: #11C76F;
+    --green-hover: #0EB863;
+    --green-dark: #059669;
+    --green-light: #34D399;
+    --green-bg: #D1FAE5;
+    --green-tint: #ECFDF5;
+    --bg: #F4F6F9;
+    --surface: #FFFFFF;
+    --border: #E8ECF1;
+    --yellow: #FBBF24;
+    --yellow-bg: #FEF3C7;
+    --yellow-light: #FFFBEB;
+    --pink: #F472B6;
+    --pink-bg: #FCE7F3;
+    --pink-light: #FDF2F8;
+    --blue: #60A5FA;
+    --blue-bg: #DBEAFE;
+    --blue-light: #EFF6FF;
+    --purple: #A78BFA;
+    --purple-bg: #EDE9FE;
+    --purple-light: #F5F3FF;
+    --orange: #FB923C;
+    --orange-bg: #FED7AA;
+    --orange-light: #FFF7ED;
+    --danger: #EF4444;
+    --danger-bg: #FEE2E2;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.5; }
+  .topbar .timer-area { display: flex; align-items: center; gap: 12px; }
+  .timer-display { font-family: 'Roboto Mono', monospace; font-size: 22px; font-weight: 500; color: var(--green); min-width: 80px; text-align: center; }
+  .timer-btn { background: none; border: 1.5px solid rgba(255,255,255,.3); color: #fff; padding: 6px 14px; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; transition: .2s; }
+  .timer-btn:hover { border-color: var(--green); color: var(--green); }
+  .timer-btn.active { background: var(--green); border-color: var(--green); color: #fff; }
+  .tab-nav { position: sticky; top: 56px; z-index: 90; display: flex; gap: 0; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .tab-btn { flex: 1; padding: 14px 20px; background: none; border: none; border-bottom: 3px solid transparent; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; transition: .2s; white-space: nowrap; text-align: center; }
+  .tab-btn:hover { color: var(--ink); background: var(--green-tint); }
+  .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+  .tab-btn .time { display: block; font-size: 11px; font-weight: 400; margin-top: 2px; opacity: .7; }
+  .tab-panel { display: none; padding: 28px; max-width: 1400px; margin: 0 auto; }
+  .tab-panel.active { display: block; }
+  .panel-header { margin-bottom: 24px; padding: 20px 24px; background: var(--green-tint); border-radius: var(--radius); border-left: 4px solid var(--green); }
+  .panel-header h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .panel-header p { color: var(--muted); font-size: 14px; }
+  .board-section { margin-bottom: 32px; }
+  .board-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .board-section h2 .badge { background: var(--green); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+  .postit-grid { display: flex; flex-wrap: wrap; gap: 12px; min-height: 120px; padding: 16px; background: rgba(0,0,0,.02); border: 2px dashed var(--border); border-radius: var(--radius); }
+  .postit { width: 200px; min-height: 100px; padding: 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; box-shadow: var(--shadow-sm); position: relative; cursor: default; transition: transform .15s, box-shadow .15s; line-height: 1.4; }
+  .postit:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .postit.yellow { background: var(--yellow-light); border: 1px solid var(--yellow); }
+  .postit.green { background: var(--green-tint); border: 1px solid var(--green-light); }
+  .postit.pink { background: var(--pink-light); border: 1px solid var(--pink); }
+  .postit.blue { background: var(--blue-light); border: 1px solid var(--blue); }
+  .postit.purple { background: var(--purple-light); border: 1px solid var(--purple); }
+  .postit.orange { background: var(--orange-light); border: 1px solid var(--orange); }
+  .postit .author { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: .5; margin-bottom: 6px; }
+  .postit .content-editable { min-height: 50px; outline: none; font-family: inherit; font-size: 13px; }
+  .add-postit { width: 200px; min-height: 100px; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--border); border-radius: var(--radius-sm); color: var(--muted); font-size: 28px; font-weight: 300; cursor: pointer; transition: .2s; }
+  .add-postit:hover { border-color: var(--green); color: var(--green); background: var(--green-tint); }
+  .scenarios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .scenario-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px; box-shadow: var(--shadow-sm); transition: .2s; }
+  .scenario-card:hover { box-shadow: var(--shadow-md); }
+  .scenario-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .scenario-card .tag { font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; letter-spacing: .5px; }
+  .scenario-card .desc { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .scenario-card .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .metric-mini { background: var(--bg); padding: 10px; border-radius: 8px; text-align: center; }
+  .metric-mini .label { font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .metric-mini .value { font-family: 'Roboto Mono', monospace; font-size: 16px; font-weight: 700; color: var(--green-dark); }
+  .matrix-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .matrix-table th { background: var(--ink); color: #fff; padding: 12px 16px; font-size: 13px; font-weight: 700; text-align: center; }
+  .matrix-table th:first-child { text-align: left; }
+  .matrix-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; text-align: center; }
+  .matrix-table td:first-child { text-align: left; font-weight: 600; }
+  .matrix-table .weight { color: var(--muted); font-size: 11px; font-weight: 400; }
+  .matrix-table input[type="number"] { width: 50px; text-align: center; border: 1.5px solid var(--border); border-radius: 6px; padding: 6px; font-family: 'Roboto Mono', monospace; font-size: 14px; font-weight: 600; transition: .2s; }
+  .matrix-table input[type="number"]:focus { border-color: var(--green); outline: none; box-shadow: 0 0 0 3px var(--green-bg); }
+  .matrix-table .total-row { background: var(--green-tint); font-weight: 800; }
+  .matrix-table .total-row td { font-family: 'Roboto Mono', monospace; font-size: 16px; border: none; }
+  .matrix-table .winner { color: var(--green); }
+  .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .action-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px; box-shadow: var(--shadow-sm); }
+  .action-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .action-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .action-item:last-child { border-bottom: none; }
+  .action-item input[type="checkbox"] { margin-top: 3px; accent-color: var(--green); width: 16px; height: 16px; cursor: pointer; }
+  .action-item .text-input { flex: 1; border: none; font-family: inherit; font-size: 13px; background: transparent; outline: none; color: var(--ink); }
+  .action-item .owner-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+  .owner-camillo { background: var(--green-bg); color: var(--green-dark); }
+  .owner-pimenta { background: var(--purple-bg); color: #7C3AED; }
+  .owner-nicole { background: var(--pink-bg); color: #DB2777; }
+  .add-action { display: flex; align-items: center; gap: 8px; padding: 8px 0; color: var(--muted); cursor: pointer; font-size: 13px; transition: .2s; }
+  .add-action:hover { color: var(--green); }
+  .notes-area { width: 100%; min-height: 120px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-family: inherit; font-size: 14px; resize: vertical; background: var(--surface); transition: .2s; }
+  .notes-area:focus { border-color: var(--green); outline: none; box-shadow: 0 0 0 3px var(--green-bg); }
+  .callout { padding: 16px 20px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 14px; display: flex; gap: 10px; }
+  .callout.warning { background: var(--yellow-bg); border: 1px solid var(--yellow); }
+  .callout.info { background: var(--green-bg); border: 1px solid var(--green-light); }
+  .callout.danger { background: var(--danger-bg); border: 1px solid var(--danger); }
+  .callout .icon { font-size: 18px; flex-shrink: 0; }
+  @media (max-width: 768px) { .tab-panel { padding: 16px; } .postit { width: 100%; } .scenarios-grid { grid-template-columns: 1fr; } .tab-btn { font-size: 12px; padding: 10px 12px; } }
+  @media print { .topbar, .tab-nav, .add-postit, .add-action, .timer-area { display: none !important; } .tab-panel { display: block !important; page-break-inside: avoid; } body { background: #fff; } }
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <a href="/reports" class="back-btn">&#8592; Reports</a>
+  <span class="brand">IMPACT X</span>
+  <span class="topbar-title">Reunião de Estratégia — Pimenta × Camillo</span>
+  <div class="timer-area">
+    <button class="timer-btn" onclick="resetTimer(30)">30 min</button>
+    <button class="timer-btn" onclick="resetTimer(20)">20 min</button>
+    <button class="timer-btn" onclick="resetTimer(5)">5 min</button>
+    <div class="timer-display" id="timer">00:00</div>
+    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">&#9654; Start</button>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-panel="alinhamento">
+    🎯 Bloco 1 — Alinhamento
+    <span class="time">30 min</span>
+  </button>
+  <button class="tab-btn" data-panel="cenarios">
+    📌 Bloco 2 — Cenários
+    <span class="time">90 min</span>
+  </button>
+  <button class="tab-btn" data-panel="decisao">
+    ⚖️ Bloco 3 — Decisão
+    <span class="time">30 min</span>
+  </button>
+  <button class="tab-btn" data-panel="plano">
+    🏁 Bloco 4 — Plano 90 Dias
+    <span class="time">30 min</span>
+  </button>
+</nav>
+
+<div class="tab-panel active" id="alinhamento">
+  <div class="report-header">
+    <div class="hdr-brand">IMPACT X</div>
+    <h1 class="hdr-title">Reunião de Estratégia — Pimenta × Camillo</h1>
+    <p class="hdr-sub">Board interativo para reunião de estratégia de 90 dias da Impact X</p>
+    <div class="hdr-meta">Abril 2026</div>
+  </div>
+  <div class="panel-header">
+    <h1>🎯 Alinhamento Inicial</h1>
+    <p>Cada pessoa fala 5 min: "O que eu sei que funciona, o que eu sei que NÃO funciona, e o que me preocupa."</p>
+  </div>
+  <div class="callout warning">
+    <span class="icon">⚡</span>
+    <div><strong>Pergunta central da reunião:</strong> "Como geramos receita recorrente nos próximos 90 dias com o que temos?"</div>
+  </div>
+  <div class="board-section">
+    <h2>🟣 Pimenta</h2>
+    <div class="postit-grid" id="board-pimenta">
+      <div class="postit purple"><div class="author">Funciona ✅</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="postit purple"><div class="author">Não funciona ❌</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="postit purple"><div class="author">Me preocupa ⚠️</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="add-postit" onclick="addPostit('board-pimenta','purple')">+</div>
+    </div>
+  </div>
+  <div class="board-section">
+    <h2>🟢 Camillo</h2>
+    <div class="postit-grid" id="board-camillo">
+      <div class="postit green"><div class="author">Funciona ✅</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="postit green"><div class="author">Não funciona ❌</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="postit green"><div class="author">Me preocupa ⚠️</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="add-postit" onclick="addPostit('board-camillo','green')">+</div>
+    </div>
+  </div>
+  <div class="board-section">
+    <h2>🩷 Nicole <span style="font-weight:400;font-size:13px;color:var(--muted)">(se presente)</span></h2>
+    <div class="postit-grid" id="board-nicole">
+      <div class="postit pink"><div class="author">Funciona ✅</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="postit pink"><div class="author">Não funciona ❌</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="postit pink"><div class="author">Me preocupa ⚠️</div><div class="content-editable" contenteditable="true"></div></div>
+      <div class="add-postit" onclick="addPostit('board-nicole','pink')">+</div>
+    </div>
+  </div>
+  <div class="board-section">
+    <h2>🔗 Temas Comuns <span class="badge">Pimenta agrupa</span></h2>
+    <div class="postit-grid" id="board-temas">
+      <div class="add-postit" onclick="addPostit('board-temas','yellow')">+</div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="cenarios">
+  <div class="panel-header">
+    <h1>📌 Análise de Cenários</h1>
+    <p>20 min cada cenário: Proposta → Custos → Receita esperada → Riscos → Perguntas abertas. Vote com dots ao final de cada um.</p>
+  </div>
+  <div class="scenarios-grid">
+    <div class="scenario-card">
+      <h3>C1 — SaaS Kumon <span class="tag" style="background:var(--green-bg);color:var(--green-dark)">PRODUTO</span></h3>
+      <div class="desc">Sistema Kumon → vender para outras unidades e franquias educacionais</div>
+      <div class="metrics">
+        <div class="metric-mini"><div class="label">MRR 3 meses</div><div class="value">R$ 2,5k</div></div>
+        <div class="metric-mini"><div class="label">Custo/mês</div><div class="value">R$ 5k</div></div>
+        <div class="metric-mini"><div class="label">Ticket médio</div><div class="value">R$ 297</div></div>
+        <div class="metric-mini"><div class="label">Break-even</div><div class="value">~17 un.</div></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <h3>C2 — Fábrica SW <span class="tag" style="background:var(--blue-bg);color:#2563EB">SERVIÇO</span></h3>
+      <div class="desc">Pimenta = PM/Discovery · Camillo = Dev · Case Kumon como portfólio</div>
+      <div class="metrics">
+        <div class="metric-mini"><div class="label">Receita M3</div><div class="value">R$ 20k</div></div>
+        <div class="metric-mini"><div class="label">Custo/mês</div><div class="value">R$ 5k</div></div>
+        <div class="metric-mini"><div class="label">Ticket MVP</div><div class="value">R$ 25k</div></div>
+        <div class="metric-mini"><div class="label">Throughput</div><div class="value">1-2 proj</div></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <h3>C3 — Augmentation <span class="tag" style="background:var(--purple-bg);color:#7C3AED">ESCALA</span></h3>
+      <div class="desc">Devs BR seniores → empresas EUA/Europa · Maior margem, mais complexo</div>
+      <div class="metrics">
+        <div class="metric-mini"><div class="label">Margem/dev</div><div class="value">R$ 15k</div></div>
+        <div class="metric-mini"><div class="label">Custo/mês</div><div class="value">R$ 4k</div></div>
+        <div class="metric-mini"><div class="label">Ciclo venda</div><div class="value">60-90d</div></div>
+        <div class="metric-mini"><div class="label">Blocker</div><div class="value">Inglês P.</div></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <h3>C4+ — Híbrido <span class="tag" style="background:var(--orange-bg);color:#C2410C">COMBO</span></h3>
+      <div class="desc">Combinações: Consultoria+Dev · Kumon+Aug · Fractional CTO · Automações</div>
+      <div class="metrics">
+        <div class="metric-mini"><div class="label">Opções</div><div class="value">5</div></div>
+        <div class="metric-mini"><div class="label">Risco</div><div class="value">Dispersão</div></div>
+        <div class="metric-mini"><div class="label">Vantagem</div><div class="value">Diversif.</div></div>
+        <div class="metric-mini"><div class="label">Regra</div><div class="value">Max 2</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="board-section">
+    <h2>💡 Notas por Cenário</h2>
+    <h3 style="font-size:14px;margin:16px 0 8px;color:var(--green-dark)">C1 — SaaS Kumon</h3>
+    <div class="postit-grid" id="board-c1">
+      <div class="postit yellow"><div class="author">Prós</div><div class="content-editable" contenteditable="true">Laboratório real, sem custo de acesso ao problema</div></div>
+      <div class="postit yellow"><div class="author">Contras</div><div class="content-editable" contenteditable="true">MRR baixo por unidade, risco de bloqueio corporativo</div></div>
+      <div class="postit yellow"><div class="author">Pergunta kill-or-go</div><div class="content-editable" contenteditable="true">Kumon corporativo permite SW de terceiros?</div></div>
+      <div class="add-postit" onclick="addPostit('board-c1','yellow')">+</div>
+    </div>
+    <h3 style="font-size:14px;margin:16px 0 8px;color:#2563EB">C2 — Fábrica SW</h3>
+    <div class="postit-grid" id="board-c2">
+      <div class="postit blue"><div class="author">Prós</div><div class="content-editable" contenteditable="true">Ticket maior, case pronto, Pimenta como PM é fit natural</div></div>
+      <div class="postit blue"><div class="author">Contras</div><div class="content-editable" contenteditable="true">Camillo = gargalo, risco de virar agência</div></div>
+      <div class="postit blue"><div class="author">Pergunta kill-or-go</div><div class="content-editable" contenteditable="true">Pimenta tem rede PME ou precisa construir do zero?</div></div>
+      <div class="add-postit" onclick="addPostit('board-c2','blue')">+</div>
+    </div>
+    <h3 style="font-size:14px;margin:16px 0 8px;color:#7C3AED">C3 — Augmentation</h3>
+    <div class="postit-grid" id="board-c3">
+      <div class="postit purple"><div class="author">Prós</div><div class="content-editable" contenteditable="true">Maior margem, mercado validado, Camillo tem perfil</div></div>
+      <div class="postit purple"><div class="author">Contras</div><div class="content-editable" contenteditable="true">Inglês do Pimenta, onboarding inexistente, ciclo longo</div></div>
+      <div class="postit purple"><div class="author">Pergunta kill-or-go</div><div class="content-editable" contenteditable="true">Qual o papel do Pimenta se ele não fala com cliente?</div></div>
+      <div class="add-postit" onclick="addPostit('board-c3','purple')">+</div>
+    </div>
+    <h3 style="font-size:14px;margin:16px 0 8px;color:#C2410C">C4+ — Híbridos</h3>
+    <div class="postit-grid" id="board-c4">
+      <div class="postit orange"><div class="author">Ideias</div><div class="content-editable" contenteditable="true">Fractional CTO + PM · Consultoria produto · Automações como serviço</div></div>
+      <div class="add-postit" onclick="addPostit('board-c4','orange')">+</div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="decisao">
+  <div class="panel-header">
+    <h1>⚖️ Matriz de Decisão</h1>
+    <p>Dê nota de 1 (ruim) a 5 (ótimo) para cada cenário em cada critério. O sistema calcula automaticamente.</p>
+  </div>
+  <div class="callout danger">
+    <span class="icon">🚨</span>
+    <div><strong>Regra:</strong> Sair deste bloco com UMA decisão. Não vale "vamos pensar mais".</div>
+  </div>
+  <table class="matrix-table" id="decisionMatrix">
+    <thead>
+      <tr>
+        <th style="width:30%">Critério <span class="weight">(peso)</span></th>
+        <th>C1: SaaS Kumon</th>
+        <th>C2: Fábrica SW</th>
+        <th>C3: Augmentation</th>
+        <th>C4+: Híbrido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Velocidade até 1º R$ <span class="weight">(×5)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="5" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="5" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="5" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="5" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+      <tr>
+        <td>MRR potencial 6 meses <span class="weight">(×4)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+      <tr>
+        <td>Fit com skills Pimenta <span class="weight">(×4)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+      <tr>
+        <td>Fit com skills Camillo <span class="weight">(×4)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="4" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+      <tr>
+        <td>Escalabilidade <span class="weight">(×3)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+      <tr>
+        <td>Risco de execução <span class="weight">(×3)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+      <tr>
+        <td>Usa o que já foi construído <span class="weight">(×3)</span></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="0" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="1" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="2" oninput="calcMatrix()"></td>
+        <td><input type="number" min="1" max="5" data-weight="3" data-col="3" oninput="calcMatrix()"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row">
+        <td>TOTAL</td>
+        <td id="total-0">—</td>
+        <td id="total-1">—</td>
+        <td id="total-2">—</td>
+        <td id="total-3">—</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div style="margin-top:24px">
+    <h2 style="font-size:16px;margin-bottom:12px">📝 Decisão Final</h2>
+    <textarea class="notes-area" placeholder="Registrar a decisão tomada aqui...&#10;&#10;Cenário escolhido: &#10;Justificativa: &#10;Trade-offs aceitos: "></textarea>
+  </div>
+</div>
+
+<div class="tab-panel" id="plano">
+  <div class="panel-header">
+    <h1>🏁 Plano 90 Dias</h1>
+    <p>Definir milestones, responsáveis e a primeira ação de segunda-feira.</p>
+  </div>
+  <div class="callout info">
+    <span class="icon">✅</span>
+    <div><strong>Regra #1:</strong> Se não definirmos o que acontece na segunda-feira, a reunião falhou.</div>
+  </div>
+  <div class="action-grid">
+    <div class="action-card">
+      <h3>📅 Semanas 1–4</h3>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..." value=""><span class="owner-tag owner-camillo">Camillo</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-pimenta">Pimenta</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-nicole">Nicole</span></div>
+      <div class="add-action" onclick="addAction(this.parentElement)">+ Adicionar ação</div>
+    </div>
+    <div class="action-card">
+      <h3>📅 Semanas 5–8</h3>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-camillo">Camillo</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-pimenta">Pimenta</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-nicole">Nicole</span></div>
+      <div class="add-action" onclick="addAction(this.parentElement)">+ Adicionar ação</div>
+    </div>
+    <div class="action-card">
+      <h3>📅 Semanas 9–12</h3>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-camillo">Camillo</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-pimenta">Pimenta</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Ação..."><span class="owner-tag owner-nicole">Nicole</span></div>
+      <div class="add-action" onclick="addAction(this.parentElement)">+ Adicionar ação</div>
+    </div>
+  </div>
+  <div style="margin-top:32px">
+    <h2 style="font-size:16px;margin-bottom:12px">🚧 Perguntas Bloqueantes</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Perguntas que PRECISAM de resposta antes de executar. Defina responsável e deadline.</p>
+    <div class="action-card">
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Pergunta bloqueante..." value="Kumon corporativo permite SW de terceiros?"><span class="owner-tag owner-pimenta">Pimenta</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Pergunta bloqueante..." value="Quanto de runway a IX tem sem receita nova?"><span class="owner-tag owner-camillo">Camillo</span></div>
+      <div class="action-item"><input type="checkbox"><input class="text-input" placeholder="Pergunta bloqueante..." value="Qual o commitment do Pimenta? Full/part-time?"><span class="owner-tag owner-pimenta">Pimenta</span></div>
+      <div class="add-action" onclick="addAction(this)">+ Adicionar pergunta</div>
+    </div>
+  </div>
+  <div style="margin-top:32px">
+    <h2 style="font-size:16px;margin-bottom:12px">💰 Primeiro Milestone de Receita</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:500px">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">DATA</label>
+        <input type="date" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">VALOR ESPERADO</label>
+        <input type="text" placeholder="R$ ..." style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px">
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:32px">
+    <h2 style="font-size:16px;margin-bottom:12px">🔄 Primeiro Check-in de Progresso</h2>
+    <div style="max-width:250px">
+      <input type="date" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px">
+    </div>
+  </div>
+  <div style="margin-top:32px">
+    <h2 style="font-size:16px;margin-bottom:12px">🗓️ O que acontece segunda-feira?</h2>
+    <textarea class="notes-area" placeholder="Ações concretas para segunda-feira...&#10;&#10;Camillo faz: &#10;Pimenta faz: &#10;Nicole faz: "></textarea>
+  </div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT X</div>
+  Reunião de Estratégia · Abril 2026
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+  });
+});
+
+var timerInterval = null;
+var timerSeconds = 0;
+var timerRunning = false;
+
+function resetTimer(minutes) {
+  clearInterval(timerInterval);
+  timerSeconds = minutes * 60;
+  timerRunning = false;
+  updateTimerDisplay();
+  document.getElementById('timerToggle').textContent = '\u25B6 Start';
+  document.getElementById('timerToggle').classList.remove('active');
+}
+
+function toggleTimer() {
+  var btn = document.getElementById('timerToggle');
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    btn.textContent = '\u25B6 Start';
+    btn.classList.remove('active');
+  } else {
+    if (timerSeconds <= 0) timerSeconds = 30 * 60;
+    timerRunning = true;
+    btn.textContent = '\u23F8 Pause';
+    btn.classList.add('active');
+    timerInterval = setInterval(function() {
+      timerSeconds--;
+      updateTimerDisplay();
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        btn.textContent = '\u25B6 Start';
+        btn.classList.remove('active');
+        document.getElementById('timer').style.color = '#EF4444';
+        alert('\u23F0 Tempo esgotado!');
+        document.getElementById('timer').style.color = '#11C76F';
+      }
+    }, 1000);
+  }
+}
+
+function updateTimerDisplay() {
+  var m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+  var s = (timerSeconds % 60).toString().padStart(2, '0');
+  document.getElementById('timer').textContent = m + ':' + s;
+}
+
+function addPostit(boardId, color) {
+  var board = document.getElementById(boardId);
+  var addBtn = board.querySelector('.add-postit');
+  var postit = document.createElement('div');
+  postit.className = 'postit ' + color;
+  var authorDiv = document.createElement('div');
+  authorDiv.className = 'author';
+  authorDiv.setAttribute('contenteditable', 'true');
+  authorDiv.style.cursor = 'text';
+  authorDiv.textContent = 'NOTA';
+  var contentDiv = document.createElement('div');
+  contentDiv.className = 'content-editable';
+  contentDiv.setAttribute('contenteditable', 'true');
+  postit.appendChild(authorDiv);
+  postit.appendChild(contentDiv);
+  board.insertBefore(postit, addBtn);
+  contentDiv.focus();
+}
+
+function addAction(parent) {
+  var addBtn = parent.querySelector('.add-action');
+  var item = document.createElement('div');
+  item.className = 'action-item';
+  var checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  var textInput = document.createElement('input');
+  textInput.className = 'text-input';
+  textInput.placeholder = 'Nova ação...';
+  var select = document.createElement('select');
+  select.style.cssText = 'font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;border:1px solid var(--border);font-family:inherit;cursor:pointer';
+  select.addEventListener('change', function() { this.className = 'owner-tag ' + this.value; });
+  var options = [['owner-camillo','Camillo'],['owner-pimenta','Pimenta'],['owner-nicole','Nicole']];
+  options.forEach(function(o) {
+    var opt = document.createElement('option');
+    opt.value = o[0];
+    opt.textContent = o[1];
+    select.appendChild(opt);
+  });
+  item.appendChild(checkbox);
+  item.appendChild(textInput);
+  item.appendChild(select);
+  parent.insertBefore(item, addBtn);
+  textInput.focus();
+}
+
+function calcMatrix() {
+  var totals = [0, 0, 0, 0];
+  var inputs = document.querySelectorAll('#decisionMatrix input[type="number"]');
+  inputs.forEach(function(input) {
+    var val = parseInt(input.value) || 0;
+    var weight = parseInt(input.dataset.weight);
+    var col = parseInt(input.dataset.col);
+    totals[col] += val * weight;
+  });
+  var maxVal = Math.max.apply(null, totals);
+  for (var i = 0; i < 4; i++) {
+    var cell = document.getElementById('total-' + i);
+    cell.textContent = totals[i] || '\u2014';
+    cell.classList.toggle('winner', totals[i] === maxVal && maxVal > 0);
+  }
+}
+</script>
+<script src="../assets/js/report.js"></script>
+</body>
+</html>
