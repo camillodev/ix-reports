@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact X — Organização Notion Q2 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://reports.impactxlab.com/assets/css/report.css" rel="stylesheet">
+<link href="../assets/css/report.css" rel="stylesheet">
+<style>
+/* ── Componentes extras não cobertos pelo report.css ────────────────── */
+
+/* Heading de seção numerado */
+.section-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ix-ink);
+  margin: 40px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ix-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-heading .num {
+  font-family: var(--ix-font-mono);
+  font-size: 0.95rem;
+  color: var(--ix-green);
+  font-weight: 700;
+}
+
+/* Linha de métricas (metric-row do markdown) */
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.metric-row .metric {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-top: 3px solid var(--ix-green);
+  border-radius: var(--ix-radius-md);
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: var(--ix-shadow-sm);
+}
+.metric-row .metric .value {
+  font-family: var(--ix-font-mono);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--ix-green);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.metric-row .metric .label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ix-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Card grid (reutiliza .card do report.css, mas garante grid) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.card-grid .card {
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-radius: var(--ix-radius-md);
+  padding: 22px;
+  box-shadow: var(--ix-shadow-sm);
+}
+.card-grid .card h4 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ix-green-dark);
+  margin-bottom: 10px;
+}
+.card-grid .card p {
+  font-size: 0.9rem;
+  color: var(--ix-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Callouts semânticos do markdown */
+.box-insight,
+.box-dica,
+.box-atencao {
+  border-radius: var(--ix-radius-sm);
+  padding: 18px 22px;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  border-left: 4px solid;
+}
+.box-insight {
+  background: var(--ix-green-tint);
+  border-color: var(--ix-green);
+}
+.box-dica {
+  background: #fffbeb;
+  border-color: var(--ix-yellow);
+}
+.box-atencao {
+  background: #fff1f0;
+  border-color: var(--ix-danger);
+}
+.box-insight .box-title,
+.box-dica .box-title,
+.box-atencao .box-title {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.box-insight .box-title { color: var(--ix-green-dark); }
+.box-dica .box-title { color: var(--ix-yellow-dark); }
+.box-atencao .box-title { color: var(--ix-danger); }
+
+/* Timeline */
+.timeline {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--ix-surface);
+  border: 1px solid var(--ix-border);
+  border-bottom: none;
+  font-size: 0.93rem;
+}
+.timeline-item:first-child {
+  border-radius: var(--ix-radius-sm) var(--ix-radius-sm) 0 0;
+}
+.timeline-item:last-child {
+  border-bottom: 1px solid var(--ix-border);
+  border-radius: 0 0 var(--ix-radius-sm) var(--ix-radius-sm);
+}
+.timeline-item.orange {
+  background: #fff7ed;
+}
+.tl-label {
+  font-family: var(--ix-font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ix-green-dark);
+  white-space: nowrap;
+  min-width: 50px;
+  padding-top: 2px;
+}
+.timeline-item.orange .tl-label {
+  color: #c2410c;
+}
+.tl-desc {
+  color: var(--ix-ink);
+  line-height: 1.5;
+}
+
+/* Priority badges */
+.priority {
+  display: inline-block;
+  font-family: var(--ix-font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.priority.p0 {
+  background: #fdecea;
+  color: var(--ix-danger);
+}
+.priority.p1 {
+  background: #fef3e2;
+  color: #c2410c;
+}
+.priority.p2 {
+  background: var(--ix-green-bg);
+  color: var(--ix-green-dark);
+}
+
+/* Owner badges */
+.owner-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+}
+.owner-badge.rafa {
+  background: var(--ix-green-bg);
+  color: var(--ix-green-dark);
+}
+.owner-badge.nicole {
+  background: #fce7f3;
+  color: #be185d;
+}
+.owner-badge.pimenta {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+/* Tags inline */
+.tag {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.tag.blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* Energy dots (status) */
+.energy-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.energy-dot.yellow { background: #fbbf24; }
+.energy-dot.red    { background: #ef4444; }
+.energy-dot.green  { background: var(--ix-green); }
+
+/* Checklist */
+.checklist {
+  margin: 8px 0;
+}
+.checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.95rem;
+  cursor: default;
+  line-height: 1.5;
+}
+.checklist input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--ix-green);
+  width: 15px;
+  height: 15px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .metric-row { grid-template-columns: repeat(2, 1fr); }
+  .card-grid  { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ix-report">
+
+<header class="topbar">
+  <button type="button" class="back-btn" aria-label="Voltar">&#8592; Voltar</button>
+  <a href="/" class="brand">IMPACT <span class="x">X</span></a>
+  <span class="topbar-title">Organização Notion Q2 2026</span>
+</header>
+
+<nav class="tab-nav" role="tablist">
+  <button type="button" class="tab-btn active" data-tab="resumo">Resumo</button>
+  <button type="button" class="tab-btn" data-tab="financeiro">Financeiro</button>
+  <button type="button" class="tab-btn" data-tab="protocolo">Protocolo Nicole</button>
+  <button type="button" class="tab-btn" data-tab="ecossistema">Ecossistema</button>
+</nav>
+
+<!-- ====================== TAB 1: RESUMO ====================== -->
+<div class="tab-panel active" data-tab="resumo" role="tabpanel" aria-hidden="false">
+<div class="content">
+
+<div class="report-header" data-ix-watermark="NOTION">
+  <div class="hdr-brand">IMPACT <span class="x">X</span> · Organização Interna</div>
+  <h1 class="hdr-title">Organização Notion <em>Q2 2026</em></h1>
+  <p class="hdr-sub">Databases criados, regras de manutenção e visão do ecossistema IX.</p>
+  <div class="hdr-meta">
+    <span>21 de Abril de 2026</span>
+    <span>Rafael Camillo</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<div class="section-heading"><span class="num">01.</span> Estado Atual do Workspace</div>
+
+<p>O workspace Notion da Impact X cresceu organicamente ao longo de 2025, acumulando <strong>duplicidades, páginas órfãs e falta de donos claros</strong>. Antes da reorganização de 21/04/2026, o raiz continha 15+ páginas sem hierarquia.</p>
+
+<div class="metric-row">
+  <div class="metric">
+    <div class="value">15+</div>
+    <div class="label">Páginas no raiz (antes)</div>
+  </div>
+  <div class="metric">
+    <div class="value">5</div>
+    <div class="label">Seções organizadas (depois)</div>
+  </div>
+  <div class="metric">
+    <div class="value">4</div>
+    <div class="label">Databases criados</div>
+  </div>
+  <div class="metric">
+    <div class="value">4</div>
+    <div class="label">Pessoas no time</div>
+  </div>
+</div>
+
+<h2>Problemas resolvidos</h2>
+
+<div class="checklist">
+  <label><input type="checkbox" disabled> <span><strong>Duplicidade Kumon:</strong> versões antigas arquivadas, "Kumon App P0" como seção única.</span></label>
+  <label><input type="checkbox" disabled> <span><strong>Páginas órfãs:</strong> Pipeline ICP Outbound, HubSpot CRM Setup, Career Mapping movidos para Arquivo.</span></label>
+  <label><input type="checkbox" disabled> <span><strong>Sem espaço para Pimenta:</strong> seção Comercial &amp; Growth criada com ICPs e pipeline.</span></label>
+  <label><input type="checkbox" disabled> <span><strong>Sem espaço para Will:</strong> Operações Camargos dentro de Kumon App com FAQ Kora.</span></label>
+  <label><input type="checkbox" disabled> <span><strong>Sem governança:</strong> protocolo de manutenção proposto (pendente aprovação Nicole).</span></label>
+</div>
+
+<div class="section-heading"><span class="num">02.</span> O Que Foi Feito Hoje</div>
+
+<p>Toda a reorganização foi executada em 21/04/2026. <strong>Nenhuma página existente foi sobrescrita</strong> — tudo novo foi criado em paralelo.</p>
+
+<h2>Estrutura final</h2>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>Kumon App — P0</h4>
+    <p><span class="owner-badge rafa">Rafa</span> Visão, Roadmap 90 Dias, MVP, Kora, Operações Camargos (Will), Pipeline de Franqueados.</p>
+  </div>
+  <div class="card">
+    <h4>Comercial &amp; Growth</h4>
+    <p><span class="owner-badge pimenta">Pimenta</span> Pipeline Kumon App, Staff Aug, Agentes DOE, ICP Franqueado Kumon, ICP Staff Aug.</p>
+  </div>
+  <div class="card">
+    <h4>Estratégia Q2</h4>
+    <p><span class="owner-badge nicole">Nicole</span> North Star R$35k, OKRs, Decisões, Financeiro, Atas &amp; Reuniões, Time Impact X.</p>
+  </div>
+  <div class="card">
+    <h4>Wiki + Arquivo</h4>
+    <p><span class="tag blue">Todos</span> Wiki: Contexto Central, Stack, Concorrentes. Arquivo: legado em somente leitura.</p>
+  </div>
+</div>
+
+<h2>Databases criados (prontos para uso)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Database</th>
+      <th>Localização</th>
+      <th>Dono</th>
+      <th>Registros</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pipeline de Franqueados</td>
+      <td>Kumon App → Pipeline</td>
+      <td><span class="owner-badge pimenta">Pimenta</span></td>
+      <td>0 (pronto para preencher)</td>
+    </tr>
+    <tr>
+      <td>Registro de Decisões &amp; Reuniões</td>
+      <td>Estratégia Q2 → Atas</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>1 (reunião 21/04 já cadastrada)</td>
+    </tr>
+    <tr>
+      <td>Financeiro — Contas a Pagar &amp; Receber</td>
+      <td>Estratégia Q2</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>5 (custos fixos de abril populados)</td>
+    </tr>
+    <tr>
+      <td>Time Impact X</td>
+      <td>Estratégia Q2</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>4 (Rafael, Pimenta, Nicole, Will)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Integrações (referência, nunca duplicação)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ferramenta</th>
+      <th>No Notion</th>
+      <th>Onde mora de verdade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Plane</strong></td>
+      <td>Link embed no Roadmap</td>
+      <td>Tasks e sprints vivem no Plane</td>
+    </tr>
+    <tr>
+      <td><strong>HubSpot</strong></td>
+      <td>Link fixado no Comercial</td>
+      <td>CRM e pipeline de vendas</td>
+    </tr>
+    <tr>
+      <td><strong>Fathom</strong></td>
+      <td>Link por reunião no database de Atas</td>
+      <td>Gravação e transcrição</td>
+    </tr>
+    <tr>
+      <td><strong>Google Calendar</strong></td>
+      <td>Link backup no database de Atas</td>
+      <td>Agenda e eventos</td>
+    </tr>
+    <tr>
+      <td><strong>Slack</strong></td>
+      <td>Canal mencionado em cada seção</td>
+      <td>Comunicação do time</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ====================== TAB 2: FINANCEIRO ====================== -->
+<div class="tab-panel" data-tab="financeiro" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<div class="section-heading"><span class="num">03.</span> Financeiro — Contas a Pagar e Receber</div>
+
+<p>O database <strong>Financeiro</strong> foi criado dentro de Estratégia Q2 com foco em <strong>visibilidade rápida</strong>, não contabilidade completa.</p>
+
+<div class="box-insight">
+  <span class="box-title">Insight</span>
+  O objetivo é abrir o Notion e saber: "paguei tudo esse mês? quanto estou gastando? quanto está entrando?" — sem planilha complexa.
+</div>
+
+<h2>Campos disponíveis</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Para que serve</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Descrição</td>
+      <td>Nome do pagamento (ex: "Salário Will — Kumon Camargos")</td>
+    </tr>
+    <tr>
+      <td>Tipo</td>
+      <td>A Pagar (vermelho) ou A Receber (verde)</td>
+    </tr>
+    <tr>
+      <td>Categoria</td>
+      <td>Salário, Ferramenta, Infra, Serviço, Receita Kumon, Receita Staff Aug</td>
+    </tr>
+    <tr>
+      <td>Valor</td>
+      <td>Valor em R$</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>Pendente / Pago / Atrasado / Cancelado</td>
+    </tr>
+    <tr>
+      <td>Data Vencimento</td>
+      <td>Quando vence</td>
+    </tr>
+    <tr>
+      <td>Data Pagamento</td>
+      <td>Quando foi efetivamente pago</td>
+    </tr>
+    <tr>
+      <td>Recorrência</td>
+      <td>Mensal, Avulso, Trimestral, Anual</td>
+    </tr>
+    <tr>
+      <td>Beneficiário</td>
+      <td>Quem recebe ou de quem vem</td>
+    </tr>
+    <tr>
+      <td><strong>PIX Beneficiário</strong></td>
+      <td><strong>Chave PIX para pagamento</strong></td>
+    </tr>
+    <tr>
+      <td>Mês Referência</td>
+      <td>Jan a Dez — facilita filtrar por mês</td>
+    </tr>
+    <tr>
+      <td>Comprovante</td>
+      <td>Link do comprovante ou NF</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Registros já populados (abril 2026)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descrição</th>
+      <th>Tipo</th>
+      <th>Valor</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Salário Will — Kumon Camargos</td>
+      <td>A Pagar</td>
+      <td>R$ 5.000</td>
+      <td>Pendente (mai)</td>
+    </tr>
+    <tr>
+      <td>Anthropic — Claude API</td>
+      <td>A Pagar</td>
+      <td>R$ 100</td>
+      <td>Pago</td>
+    </tr>
+    <tr>
+      <td>Vercel — Hosting</td>
+      <td>A Pagar</td>
+      <td>R$ 20</td>
+      <td>Pago</td>
+    </tr>
+    <tr>
+      <td>Supabase — Database</td>
+      <td>A Pagar</td>
+      <td>R$ 25</td>
+      <td>Pago</td>
+    </tr>
+    <tr>
+      <td>Plane — Project Management</td>
+      <td>A Pagar</td>
+      <td>R$ 0</td>
+      <td>Pago (free)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box-dica">
+  <span class="box-title">Dica</span>
+  Nicole deve preencher o PIX de cada beneficiário e adicionar os demais custos fixos (Slack, domínios, Oracle VPS, etc.). Use a view de calendário do Notion para ver vencimentos no mês.
+</div>
+
+<div class="section-heading"><span class="num">03b.</span> Diretório do Time</div>
+
+<p>O database <strong>Time Impact X</strong> também foi criado em Estratégia Q2 com os 4 membros cadastrados:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cargo</th>
+      <th>Status</th>
+      <th>Contrato</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rafael Camillo</td>
+      <td>CTO</td>
+      <td>Ativo</td>
+      <td>PJ</td>
+    </tr>
+    <tr>
+      <td>Rafael Pimenta</td>
+      <td>CEO</td>
+      <td>Ativo</td>
+      <td>Participação Societária</td>
+    </tr>
+    <tr>
+      <td>Nicole</td>
+      <td>EA / Operações</td>
+      <td>Ativo</td>
+      <td>PJ</td>
+    </tr>
+    <tr>
+      <td>Will</td>
+      <td>Gestor Franquia</td>
+      <td>Onboarding</td>
+      <td>Informal</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Campos incluem: PIX, banco/dados bancários, remuneração, responsabilidades Q2.</p>
+
+<div class="section-heading"><span class="num">04.</span> Reuniões, Decisões e Fathom</div>
+
+<p>O Notion <strong>não substitui</strong> o Fathom (gravação e transcrição) nem o Google Calendar (agenda). O database de Atas serve para três coisas:</p>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>1. Registro de Decisões</h4>
+    <p>O que foi decidido, por quem, com que ações de follow-up. Fonte de verdade quando alguém perguntar "por que fizemos X?".</p>
+  </div>
+  <div class="card">
+    <h4>2. Links de Backup</h4>
+    <p>Se o Fathom sair do ar ou o Calendar sumir eventos (já aconteceu), o link fica registrado aqui.</p>
+  </div>
+  <div class="card">
+    <h4>3. Status de Follow-up</h4>
+    <p>Nicole acompanha: as ações da última reunião foram executadas? Status: Pendente, Em andamento, Concluída.</p>
+  </div>
+</div>
+
+<h2>Campos do database Registro de Decisões &amp; Reuniões</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Tipo</th>
+      <th>Obrigatório</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Reunião</td>
+      <td>Título descritivo</td>
+      <td>Sim</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data da reunião</td>
+      <td>Sim</td>
+    </tr>
+    <tr>
+      <td>Tipo</td>
+      <td>Estratégica / Produto / Comercial / Check-in / Operação</td>
+      <td>Sim</td>
+    </tr>
+    <tr>
+      <td>Participantes</td>
+      <td>Multi-select (Rafael, Pimenta, Nicole, Will)</td>
+      <td>Sim</td>
+    </tr>
+    <tr>
+      <td>Decisões</td>
+      <td>Texto com as decisões tomadas</td>
+      <td>Sim</td>
+    </tr>
+    <tr>
+      <td>Ações</td>
+      <td>Texto com responsável e prazo de cada ação</td>
+      <td>Sim</td>
+    </tr>
+    <tr>
+      <td><strong>Link Fathom</strong></td>
+      <td>URL da gravação/transcrição no Fathom</td>
+      <td>Quando houver</td>
+    </tr>
+    <tr>
+      <td><strong>Link Calendar</strong></td>
+      <td>URL do evento no Google Calendar (backup)</td>
+      <td>Quando houver</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>Pendente / Ações em andamento / Concluída</td>
+      <td>Sim</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box-atencao">
+  <span class="box-title">Atenção</span>
+  A reunião de 21/04/2026 (Decisão Estratégica Q2) já está cadastrada no database com todas as 5 decisões e 5 ações de follow-up. Nicole deve adicionar o link do Fathom quando disponível.
+</div>
+
+</div>
+</div>
+
+<!-- ====================== TAB 3: PROTOCOLO NICOLE ====================== -->
+<div class="tab-panel" data-tab="protocolo" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<div class="section-heading"><span class="num">05.</span> Protocolo de Manutenção — Nicole</div>
+
+<p>Regras propostas para manter o workspace organizado. <strong>Não serão executadas sem aprovação da Nicole.</strong></p>
+
+<h2>Regra 1: Donos de Seção</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seção</th>
+      <th>Dono</th>
+      <th>Responsabilidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Kumon App</td>
+      <td><span class="owner-badge rafa">Rafa</span></td>
+      <td>Conteúdo técnico e de produto</td>
+    </tr>
+    <tr>
+      <td>Comercial &amp; Growth</td>
+      <td><span class="owner-badge pimenta">Pimenta</span></td>
+      <td>Pipeline, leads, agentes DOE</td>
+    </tr>
+    <tr>
+      <td>Estratégia Q2</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>OKRs, atas, custos, financeiro, time</td>
+    </tr>
+    <tr>
+      <td>Wiki Impact X</td>
+      <td><span class="tag blue">Todos</span></td>
+      <td>Cada um contribui na sua área</td>
+    </tr>
+    <tr>
+      <td>Arquivo</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>Mover páginas inativas para cá</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Regra 2: Criação de Páginas</h2>
+
+<div class="checklist">
+  <label><input type="checkbox" disabled> <span>Toda página nova deve estar dentro de uma seção existente, nunca no raiz.</span></label>
+  <label><input type="checkbox" disabled> <span>Nomenclatura: <code>[Seção] Nome Descritivo</code> (ex: "Kumon App — Roadmap Sprint 2").</span></label>
+  <label><input type="checkbox" disabled> <span>Página temporária: criar dentro de Rascunhos (subpágina do dono). Mover ou arquivar em até 7 dias.</span></label>
+</div>
+
+<h2>Regra 3: Revisão Quinzenal</h2>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <span class="tl-label">Dia 1</span>
+    <span class="tl-desc">Checar raiz do workspace — nenhuma página solta deve estar ali</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-label">Dia 1</span>
+    <span class="tl-desc">Verificar páginas sem atualização há mais de 30 dias — candidatas a Arquivo</span>
+  </div>
+  <div class="timeline-item orange">
+    <span class="tl-label">Dia 2</span>
+    <span class="tl-desc">Confirmar com donos antes de arquivar: "Ainda precisa desta página?"</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-label">Dia 2</span>
+    <span class="tl-desc">Atualizar Financeiro com novos pagamentos do mês</span>
+  </div>
+</div>
+
+<h2>Regra 4: Financeiro</h2>
+
+<div class="checklist">
+  <label><input type="checkbox" disabled> <span>Todo pagamento recorrente deve estar cadastrado com status Pendente no início do mês.</span></label>
+  <label><input type="checkbox" disabled> <span>Ao pagar, atualizar Status para "Pago" e preencher Data Pagamento.</span></label>
+  <label><input type="checkbox" disabled> <span>No final do mês: todos os itens devem estar "Pago" ou "Cancelado".</span></label>
+</div>
+
+<h2>Regra 5: Arquivo</h2>
+
+<div class="checklist">
+  <label><input type="checkbox" disabled> <span>Páginas inativas vão para Arquivo em somente leitura.</span></label>
+  <label><input type="checkbox" disabled> <span>Nunca deletar — o histórico é valioso.</span></label>
+  <label><input type="checkbox" disabled> <span>Organizar por trimestre quando o volume crescer.</span></label>
+</div>
+
+</div>
+</div>
+
+<!-- ====================== TAB 4: ECOSSISTEMA ====================== -->
+<div class="tab-panel" data-tab="ecossistema" role="tabpanel" aria-hidden="true">
+<div class="content">
+
+<div class="section-heading"><span class="num">06.</span> Visão Futura — Ecossistema IX</div>
+
+<p>Rafael mencionou a possibilidade de criar o próprio ecossistema da Impact X — métricas, documentações, relatórios, gestão de projetos, tudo com a metodologia DOE. O que já existe foi analisado junto ao gap real.</p>
+
+<h2>O que já existe</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Componente</th>
+      <th>Status</th>
+      <th>Onde vive</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Publicação de relatórios</td>
+      <td>Operacional</td>
+      <td>ix-reports (reports.impactxlab.com)</td>
+    </tr>
+    <tr>
+      <td>Gestão de projetos</td>
+      <td>Operacional</td>
+      <td>Plane (cloud, free tier)</td>
+    </tr>
+    <tr>
+      <td>Monitoramento de agentes</td>
+      <td>Operacional</td>
+      <td>Paperclip Dashboard</td>
+    </tr>
+    <tr>
+      <td>Automações determinísticas</td>
+      <td>Operacional</td>
+      <td>~/agent-workspace/scripts/ (30+ scripts)</td>
+    </tr>
+    <tr>
+      <td>Integrações Slack/Notion/HubSpot</td>
+      <td>Operacional</td>
+      <td>MCPs oficiais</td>
+    </tr>
+    <tr>
+      <td>CI/CD de agentes</td>
+      <td>Parcial</td>
+      <td>dispatch.sh + run.sh</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>O gap real</h2>
+
+<div class="box-insight">
+  <span class="box-title">Insight</span>
+  Não há uma camada unificada de métricas de negócio. Plane tem tasks, HubSpot tem pipeline, Paperclip tem custos de AI, ix-reports tem documentos. <strong>Nenhum consolida.</strong> O gap estrutural é um relatório de KPIs consolidado — MRR, pipeline, custos, tarefas abertas — não um sistema novo.
+</div>
+
+<h2>Plane Self-Hosted na VPS Oracle</h2>
+
+<p>O Plane é open-source e o deploy é via Docker Compose. A VPS Oracle (ARM, 4 OCPU, 24GB RAM) aguenta sem problema. <strong>Mas o custo oculto é operacional:</strong> updates, backups, SSL, monitoramento de uptime. Sem pipeline de manutenção automatizada, se a instância cair o PM do time cai junto.</p>
+
+<p><span class="priority p1">P1</span> <strong>Recomendação:</strong> manter Plane cloud por enquanto. Self-host quando houver pipeline de manutenção na VPS (requer ~1 sprint separado).</p>
+
+<h2>Arquitetura proposta do ecossistema (3 componentes)</h2>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>ix-metrics (novo)</h4>
+    <p>Script semanal que puxa Plane + HubSpot + Paperclip e gera um relatório HTML no formato ix-reports. Não é dashboard complexo — é relatório vivo.</p>
+  </div>
+  <div class="card">
+    <h4>VPS como plataforma de agentes</h4>
+    <p>Mover agentes pesados (cron) para a VPS, liberar o Mac do Rafael. Falta pipeline de deploy + monitoramento de uptime com alerta no Slack.</p>
+  </div>
+  <div class="card">
+    <h4>Plane como registro único</h4>
+    <p>Padronizar: Plane = fonte de verdade de tasks. Paperclip = apenas custo/métricas de AI. Execuções markdown = arquivo histórico.</p>
+  </div>
+</div>
+
+<h2>Trade-off: construir vs. compor</h2>
+
+<div class="box-atencao">
+  <span class="box-title">Atenção</span>
+  A tentação é construir um painel bonito. O risco é criar infraestrutura que precisa de manutenção quando o objetivo é <strong>menos tempo gerenciando ferramentas</strong>. Se uma ferramenta existente resolve 80% com composição (MCP + script + ix-reports), não construir. Só construir quando o gap é estrutural e recorrente.
+</div>
+
+<h2>Próxima fase (quando houver sprint disponível)</h2>
+
+<p><span class="priority p0">P0</span> <strong>ix-metrics:</strong> script semanal de KPIs consolidados (impacto imediato, baixo risco)</p>
+<p><span class="priority p1">P1</span> <strong>Pipeline de deploy na VPS:</strong> automatizar updates e monitoramento</p>
+<p><span class="priority p2">P2</span> <strong>Plane self-hosted:</strong> só após pipeline de manutenção da VPS</p>
+<p><span class="priority p2">P2</span> <strong>Dashboard interativo (Grafana/Metabase):</strong> overhead supera benefício para time de 4 pessoas</p>
+
+<div class="section-heading"><span class="num">07.</span> Próximos Passos</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ação</th>
+      <th>Responsável</th>
+      <th>Prazo</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Validar estrutura com Pimenta (Comercial &amp; Growth)</td>
+      <td><span class="owner-badge rafa">Rafa</span></td>
+      <td>23/04</td>
+      <td><span class="energy-dot yellow"></span> Pendente</td>
+    </tr>
+    <tr>
+      <td>Apresentar protocolo para Nicole e ajustar</td>
+      <td><span class="owner-badge rafa">Rafa</span></td>
+      <td>25/04</td>
+      <td><span class="energy-dot yellow"></span> Pendente</td>
+    </tr>
+    <tr>
+      <td>Nicole preenche PIX e custos fixos no Financeiro</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>30/04</td>
+      <td><span class="energy-dot red"></span> Aguardando</td>
+    </tr>
+    <tr>
+      <td>Nicole faz primeira revisão quinzenal</td>
+      <td><span class="owner-badge nicole">Nicole</span></td>
+      <td>05/05</td>
+      <td><span class="energy-dot red"></span> Aguardando</td>
+    </tr>
+    <tr>
+      <td>Will testa edição da FAQ Kora no Notion</td>
+      <td><span class="owner-badge rafa">Rafa</span></td>
+      <td>25/04</td>
+      <td><span class="energy-dot yellow"></span> Pendente</td>
+    </tr>
+    <tr>
+      <td>Criar script ix-metrics (KPIs semanais)</td>
+      <td><span class="owner-badge rafa">Rafa</span></td>
+      <td>Mai</td>
+      <td><span class="energy-dot red"></span> Backlog</td>
+    </tr>
+    <tr>
+      <td>Avaliar Plane self-hosted vs cloud</td>
+      <td><span class="owner-badge rafa">Rafa</span></td>
+      <td>Jun</td>
+      <td><span class="energy-dot red"></span> Backlog</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box-dica">
+  <span class="box-title">Dica</span>
+  Este relatório é uma sugestão. O protocolo de Nicole não será executado sem aprovação dela. O ecossistema IX é uma visão de médio prazo — o foco Q2 é 100% Kumon App.
+</div>
+
+</div>
+</div>
+
+<footer>
+  <div class="brand">IMPACT <span class="x">X</span></div>
+  <p>Organização Notion Q2 2026 · Rafael Camillo · 21 de Abril de 2026 · Confidencial</p>
+</footer>
+
+<script src="https://reports.impactxlab.com/assets/js/report.js"></script>
+<script src="../assets/js/report.js" onerror="void 0"></script>
+</body>
+</html>
