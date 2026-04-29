@@ -842,18 +842,21 @@ body.life { page: life; }
 .ix-cover {
   background: #11C76F;
   color: #FFFFFF;
-  width: 210mm;
-  height: 297mm;
+  /* Chromium print: width: 210mm limita a div e cria área branca à direita.
+     Usar width/min-width 100% garante que ocupa a página inteira. */
+  width: 100%;
+  min-width: 100%;
+  /* min-height: 100vh = altura da página no Chromium print context.
+     Se conteúdo for maior que 1 página, quebra normalmente sem cortar.
+     297mm hardcoded era frágil — 100vh é mais robusto. */
+  min-height: 100vh;
   margin: 0;
-  padding: 30mm 22mm;
+  padding: 110mm 22mm 30mm 22mm;
   page-break-after: always;
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  display: block;
 }
 .ix-cover .ix-cover-logo {
   position: absolute;
@@ -1114,8 +1117,12 @@ body.life h2 { font-size: 24px; }
 
 /* ---- TOC (Tabela de Conteúdo com links) — pandoc gera nav#TOC ---- */
 nav#TOC, .toc, #toc {
+  /* page-break-after garante que o conteúdo após o TOC começa numa nova página.
+     O bloco cinza vazio abaixo do índice era causado pelo primeiro section-heading
+     sendo incluído na mesma página antes da quebra. Resolvido com break-after. */
+  break-after: page;
   page-break-after: always;
-  padding: 20mm 10mm;
+  padding: 20mm 10mm 0 10mm;
   background: #FFFFFF;
 }
 nav#TOC::before, .toc::before, #toc::before {
